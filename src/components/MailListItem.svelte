@@ -1,12 +1,11 @@
 <script lang="ts">
     import {getMemberName, getMemberColor} from "../pages/door/_constants";
     import Tag from './Tag.svelte';
-    import TimeStampTag from './TimeStampTag.svelte';
     import FavoriteHeart from './FavoriteHeart.svelte';
 
     export let pm;
     export let onMailSelected;
-    export let getTags: (pm)=>string[];
+    export let getTags: (pm)=>{value:string, color:string}[];
 </script>
 
 <li
@@ -15,17 +14,17 @@ class="border-b-2 rounded p-2">
     {#if pm.member}
         <FavoriteHeart pm={pm}/>
         <Tag
-            tag={getMemberName(pm)}
-            bgColor={getMemberColor(pm)}/>
-        <TimeStampTag time={pm.time} />
+            tag={{value: getMemberName(pm),
+                 color: getMemberColor(pm)}}/>
+        <Tag tag={{value: pm.time, color: "pink"}}/>
 
         <span class="text-base m-1 ">{pm.subject}</span>
         
         <br/>
         
         <p class="mt-1 text-sm truncate">
-            {#each getTags(pm) as tag_item}
-            <Tag tag={tag_item}/>
+            {#each getTags(pm) as tag}
+            <Tag tag={tag}/>
             {/each}
             {pm.preview}
         <p/>

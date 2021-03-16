@@ -2,23 +2,36 @@
 import { page } from "@roxi/routify";
 
 import pm_list from "./_pm_list.json";
-import { member_dict, member_name_dict, getMemberName} from "./_constants";
+import { member_dict, member_name_dict, getMemberName, member_color_dict} from "./_constants";
 import MailDetailSection from "../../components/MailDetailSection.svelte";
 import MailListSection from "../../components/MailListSection.svelte";
 
-import {tag_to_mail_dict } from "../../stores/tag";
+import { tag_to_mail_dict } from "../../stores/tag";
 
 const profile_list = ["one-the-story", "latest"];
 
-Object.keys(member_dict).forEach(member_n=>{
-    const member_name = member_name_dict[member_dict[member_n]];
-    $tag_to_mail_dict.set(member_name, new Set());
+const member_tag_dict = new Map();
+
+Object.keys(member_dict).forEach((member_custom_name,i)=>{
+    const member_n = member_dict[member_custom_name];
+    const member_name: string = member_name_dict[member_n];
+    const member_color: string = member_color_dict[member_n];
+    const member_tag = {
+        value: member_name,
+        color: member_color
+    };
+    $tag_to_mail_dict.set(member_tag, new Set());
+
+    member_tag_dict.set(member_name, member_tag)
 })
 
-pm_list.forEach(pm=>{
+pm_list.forEach((pm,i)=>{
     const member_name = getMemberName(pm);
-    $tag_to_mail_dict.has(member_name) && $tag_to_mail_dict.get(member_name).add(pm.id);
+    const member_tag = member_tag_dict.get(member_name);
+
+    $tag_to_mail_dict.has(member_tag) && $tag_to_mail_dict.get(member_tag).add(pm.id);
 })
+console.log($tag_to_mail_dict.get(member_tag_dict.get("조유리")))
 </script>
 
 <style>

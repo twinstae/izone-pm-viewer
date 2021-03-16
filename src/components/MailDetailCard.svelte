@@ -2,7 +2,6 @@
     import {getMemberName, getMemberColor} from "../pages/door/_constants";
     import Tag from './Tag.svelte';
     import TagInput from './TagInput.svelte';
-    import TimeStampTag from './TimeStampTag.svelte';
     import FavoriteHeart from './FavoriteHeart.svelte';
     import { now_pm } from '../stores/now';
     import { mail_to_tag_dict } from "../stores/tag";
@@ -10,7 +9,7 @@ import { profile } from "../stores/preferences";
 
     $: getTags = pm => ($mail_to_tag_dict.has(pm.id) ? Array.from($mail_to_tag_dict.get(pm.id)): []);
 
-    $: now_tags = getTags(now_pm);
+    $: now_tags = getTags($now_pm);
 
     let frame;
     function translate(){
@@ -47,12 +46,13 @@ flex flex-col">
         <br/>
         <div class="flex flex-wrap">
             <Tag
-                tag={getMemberName($now_pm)}
-                bgColor={getMemberColor($now_pm)}
-                canDelete={true}/>
-            <TimeStampTag time={$now_pm.time} />
-            {#each now_tags as tag_item}
-                <Tag tag={tag_item}/>
+                tag={{value:getMemberName($now_pm)
+                    , color:getMemberColor($now_pm)}}
+                size="sm"/>
+            <Tag tag={{value: $now_pm.time
+                     , color: "pink"}} size="sm"/>
+            {#each now_tags as tag}
+                <Tag tag={tag} canDelete={true} size="sm"/>
             {/each}
             <TagInput/>
         </div>                

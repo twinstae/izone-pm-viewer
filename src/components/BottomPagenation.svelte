@@ -5,7 +5,7 @@ import { selected_tag } from "../stores/tag";
 export let maxPage: number;
 
 function toYesterday(){
-    if ($selected_tag){
+    if ($selected_tag.value){
         if($now_page<maxPage)$now_page+=1;
         return null;
     }
@@ -17,7 +17,7 @@ function toYesterday(){
 };
 
 function toTomorrow(){
-    if ($selected_tag){
+    if ($selected_tag.value){
         if($now_page>1)$now_page-=1;
         return null;
     }
@@ -42,12 +42,12 @@ function toTomorrow(){
     
     <span
     class="bg-white border-2 border-white w-24"
-    class:bg-red-300={maxPage==$now_page}
-    class:border-red-300={maxPage==$now_page}>
+    class:bg-red-300={maxPage<=$now_page}
+    class:border-red-300={maxPage<=$now_page}>
         <input
         type="number"
         class="w-9"
-        class:bg-red-300={maxPage==$now_page}
+        class:bg-red-300={maxPage<=$now_page}
         bind:value={$now_page}
         min=1 max={maxPage}>
         <span>/ {maxPage}</span>
@@ -63,7 +63,7 @@ function toTomorrow(){
         다음 페이지
     </button>
     
-    {#if maxPage==$now_page}
+    {#if maxPage <= $now_page}
         <span>마지막입니다.</span>
     {/if}
     

@@ -33,11 +33,11 @@ overflow-y-auto">
     
     <div class="flex flex-wrap">
         <Tag
-            tag={getMemberName(pm)}
-            bgColor={getMemberColor(pm)}/>
+            tag={{value:getMemberName(pm)
+                , color:getMemberColor(pm)}}/>
         <TimeStampTag time={pm.time} />
         {#each getTags(pm) as tag_item}
-            <Tag tag={tag_item}/>
+            <Tag tag={tag_item} />
         {/each}
     </div>
     <p class="m-1">{pm.preview} ...</p>

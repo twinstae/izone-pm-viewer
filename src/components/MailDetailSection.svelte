@@ -2,7 +2,13 @@
 import Tag from './Tag.svelte';
 import MailDetailCard from './MailDetailCard.svelte';
 import AllTagList from './AllTagList.svelte';
-import {selected_tag, remove_selected_tag, tag_input} from "../stores/tag";
+import {selected_tag} from "../stores/tag";
+import { now_page } from '../stores/now';
+
+const remove_selected_tag = ()=>{
+    selected_tag.set({color:null, value:null});
+    now_page.set(1);
+};
 
 </script>
 
@@ -12,9 +18,9 @@ import {selected_tag, remove_selected_tag, tag_input} from "../stores/tag";
     ml-10 mt-2 p-2
     bg-white shadow-2xl rounded-md
     overflow-y-auto">
-        {#if $selected_tag}
+        {#if $selected_tag.value}
         <span class="text-xs">현재 선택된 태그 : 
-            <Tag tag={$selected_tag} bgColor="pink"/>
+            <Tag tag={$selected_tag}/>
         </span>
         <button
         class="text-xs shadow rounded bg-red-400 p-1"
