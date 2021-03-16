@@ -1,0 +1,13 @@
+**/node_modules/
+/dist/
+.DS_Store
+**/.history
+src/tmp/
+.routify
+.netlify
+assets/build
+assets/img
+assets/mail
+.vercel
+assets/m2330.html
+src/pages/example
