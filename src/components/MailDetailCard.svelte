@@ -1,11 +1,13 @@
 <script lang="ts">
-    import {getMemberName, getMemberColor} from "../pages/door/_constants";
+    import {getMemberName} from "../pages/door/_constants";
     import Tag from './Tag.svelte';
+    import TimeStampTag from './TimeStampTag.svelte';
     import TagInput from './TagInput.svelte';
     import FavoriteHeart from './FavoriteHeart.svelte';
+    import MemberTag from './MemberTag.svelte';
     import { now_pm } from '../stores/now';
     import { mail_to_tag_dict } from "../stores/tag";
-import { profile } from "../stores/preferences";
+    import { profile } from "../stores/preferences";
 
     $: getTags = pm => ($mail_to_tag_dict.has(pm.id) ? Array.from($mail_to_tag_dict.get(pm.id)): []);
 
@@ -45,12 +47,8 @@ flex flex-col">
         </div>
         <br/>
         <div class="flex flex-wrap">
-            <Tag
-                tag={{value:getMemberName($now_pm)
-                    , color:getMemberColor($now_pm)}}
-                size="sm"/>
-            <Tag tag={{value: $now_pm.time
-                     , color: "pink"}} size="sm"/>
+            <MemberTag pm={$now_pm}  size="sm"/>
+            <TimeStampTag time={$now_pm.time} size="sm"/>
             {#each now_tags as tag}
                 <Tag tag={tag} canDelete={true} size="sm"/>
             {/each}

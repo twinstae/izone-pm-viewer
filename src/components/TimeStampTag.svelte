@@ -1,10 +1,7 @@
 <script lang="ts">
+    import Tag from "./Tag.svelte";
     export let time: string;
+    export let size="xs";
 </script>
 
-<span class="
-text-xs text-gray-400
-rounded bg-red-100
-m-1 p-1">
-    {time}
-</span>
+<Tag tag={{value: time, color: "pink"}} size={size}/>

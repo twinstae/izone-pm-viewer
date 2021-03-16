@@ -3,9 +3,9 @@
     import Tag from './Tag.svelte';
     import TimeStampTag from './TimeStampTag.svelte';
     import FavoriteHeart from './FavoriteHeart.svelte';
-import { mail_to_tag_dict } from "../stores/tag";
-import { profile } from "../stores/preferences";
-
+    import { mail_to_tag_dict } from "../stores/tag";
+    import { profile } from "../stores/preferences";
+    import MemberTag from './MemberTag.svelte';
     export let pm;
     export let onMailSelected;
 
@@ -32,9 +32,7 @@ overflow-y-auto">
     </div>
     
     <div class="flex flex-wrap">
-        <Tag
-            tag={{value:getMemberName(pm)
-                , color:getMemberColor(pm)}}/>
+        <MemberTag pm={pm}/>
         <TimeStampTag time={pm.time} />
         {#each getTags(pm) as tag_item}
             <Tag tag={tag_item} />

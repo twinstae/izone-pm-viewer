@@ -1,8 +1,8 @@
 <script lang="ts">
-    import {getMemberName, getMemberColor} from "../pages/door/_constants";
     import Tag from './Tag.svelte';
+    import TimeStampTag from './TimeStampTag.svelte';
     import FavoriteHeart from './FavoriteHeart.svelte';
-
+    import MemberTag from './MemberTag.svelte';
     export let pm;
     export let onMailSelected;
     export let getTags: (pm)=>{value:string, color:string}[];
@@ -13,10 +13,8 @@ on:dblclick={onMailSelected(pm)}
 class="border-b-2 rounded p-2">
     {#if pm.member}
         <FavoriteHeart pm={pm}/>
-        <Tag
-            tag={{value: getMemberName(pm),
-                 color: getMemberColor(pm)}}/>
-        <Tag tag={{value: pm.time, color: "pink"}}/>
+        <MemberTag pm={pm}/>
+        <TimeStampTag time={pm.time}/>
 
         <span class="text-base m-1 ">{pm.subject}</span>
         

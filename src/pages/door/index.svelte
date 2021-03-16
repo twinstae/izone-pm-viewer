@@ -31,7 +31,6 @@ pm_list.forEach((pm,i)=>{
 
     $tag_to_mail_dict.has(member_tag) && $tag_to_mail_dict.get(member_tag).add(pm.id);
 })
-console.log($tag_to_mail_dict.get(member_tag_dict.get("조유리")))
 </script>
 
 <style>
