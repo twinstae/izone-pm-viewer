@@ -1,3 +1,6 @@
+import { writable } from 'svelte/store';
+
+export let dateString = writable(date_to_str(new Date()));
 
 export function date_to_str(date){
     let month = '' + (date.getMonth() + 1);
@@ -9,7 +12,6 @@ export function date_to_str(date){
     
     return [year, month, day].join("-");
 }
-
 
 export function str_to_date(str){
     const [year, month, day] = str.split("-").map(s=>parseInt(s))

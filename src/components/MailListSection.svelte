@@ -1,0 +1,123 @@
+<script lang="ts">
+    import BottomPagenation from './BottomPagenation.svelte';
+    import ListItem from "./MailListItem.svelte";
+    import MailCardItem from './MailCardItem.svelte';
+    import { afterUpdate } from "svelte";
+    import { dateString, date_to_str, str_to_date, time_to_dateStr } from "../stores/date";
+    import {selected_tag, tag_to_mail_dict} from "../stores/tag";
+    import pm_list from "../pages/door/_pm_list.json";
+    import { now_pm, now_page } from '../stores/now';
+
+    const onMailSelected = (pm)=> ()=>{
+        if(pm){$now_pm=pm}
+    }
+
+    let lastDateString;
+    $: now_date = str_to_date($dateString);
+        
+    afterUpdate(() => {
+        if (now_date > new Date()){
+            $dateString = date_to_str(new Date());
+            alert("미래로 갈 수는 없습니다.")
+            return null;
+        }
+
+        if (!$selected_tag) {
+            return null
+        }
+        if (lastDateString == $dateString){
+            const first_date_str = time_to_dateStr(mail_list[0].time);
+            $dateString = first_date_str
+            lastDateString = first_date_str;
+            return null;
+        } 
+
+        let result = false;
+        filtered_list.forEach((mail, i)=>{
+            if (result){
+                return null;
+            }
+            const mail_date_str = time_to_dateStr(mail.time);
+            const mail_date = str_to_date(mail_date_str);
+            if (mail_date <= now_date){
+                $now_page = Math.ceil((i+1) / mail_per_page);
+                $dateString = mail_date_str;
+                result = true;
+            }
+        })
+
+        if (result==false){
+            $now_page = maxPage;
+            const last_mail = filtered_list[filtered_list.length-1];
+            $dateString = time_to_dateStr(last_mail.time);
+        }
+        lastDateString = $dateString;
+    });
+
+    $: selected_tag_mail_set = $tag_to_mail_dict.get($selected_tag);
+
+    $: filterByTag = (mail)=> selected_tag_mail_set.has(mail.id);
+
+
+    const filterByDate = mail => mail.time.split(" ")[0].replaceAll("/", "-") == $dateString;
+
+    const no_filter = (mail)=>true;
+
+    $: filter_by = 
+        ($selected_tag && filterByTag) ||
+        ($dateString && filterByDate) || 
+        no_filter;
+    $: filtered_list = pm_list.filter(filter_by);
+
+    let mail_list_width;
+    let mail_list_height;
+    $: mail_per_width =  Math.floor((mail_list_width) / 280)
+    $: mail_per_height = Math.floor(mail_list_height * 5/6 / 200);
+    $: mail_per_page = isListView ? 10 : mail_per_width * mail_per_height || 6;
+
+    $: maxPage = Math.ceil(filtered_list.length/mail_per_page)
+    
+    $: pagination = ($now_page-1) * mail_per_page;
+    $: getPage = ()=>{
+        const page = filtered_list.slice(pagination, pagination + mail_per_page)
+        if(page.length < mail_per_page){
+            return page.concat(Array(mail_per_page-page.length).fill({"id": "", "member": "", "time": "", "subject": "", "preview": ""}))
+        }
+        return page;
+    }
+    $: mail_list = filtered_list && getPage();
+
+    let isListView = false;
+
+</script>
+
+<section
+bind:clientWidth={mail_list_width}
+bind:clientHeight={mail_list_height}
+class="h-5/6 relative m-5">
+    <label class="ml-10" for="isListView">리스트뷰 {isListView ? "on": "off"}</label>
+    <input id="isListView" type=checkbox bind:checked={isListView}>
+    {#if !isListView}
+        <div
+        class="
+        h-9/12
+        flex flex-wrap">
+            {#each mail_list as pm}
+            <MailCardItem 
+            pm={pm}
+            onMailSelected={onMailSelected}/>
+            {/each}            
+        </div>
+    {:else}
+        <ul class="bg-white rounded w-3/4">
+            {#each mail_list as pm}
+                <ListItem
+                pm={pm}
+                onMailSelected={onMailSelected}/>
+            {/each}
+        </ul>
+    {/if}
+    
+    <BottomPagenation
+    maxPage={maxPage}/>
+</section>

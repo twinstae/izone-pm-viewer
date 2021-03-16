@@ -2,12 +2,10 @@
     import {getMemberName, getMemberColor} from "../pages/door/_constants";
     import Tag from './Tag.svelte';
     import TimeStampTag from './TimeStampTag.svelte';
+    import FavoriteHeart from './FavoriteHeart.svelte';
 
     export let pm;
     export let onMailSelected;
-    export let onFavorite;
-    export let favorited;
-    export let onSelectTag;
     export let getTags: (pm)=>string[];
 </script>
 
@@ -15,20 +13,10 @@
 on:dblclick={onMailSelected(pm)}
 class="border-b-2 rounded p-2">
     {#if pm.member}
-        <label
-        class="text-base"
-        on:click={onFavorite(pm)}
-        for="favorite-{pm.id}">
-            {#if favorited(pm)}💖{:else}🤍{/if}
-        </label>
-        <input type="checkbox"
-        class="hidden"
-        id="favorite-{pm.id}"/>
-
+        <FavoriteHeart pm={pm}/>
         <Tag
             tag={getMemberName(pm)}
-            bgColor={getMemberColor(pm)}
-            onSelectTag={onSelectTag}/>
+            bgColor={getMemberColor(pm)}/>
         <TimeStampTag time={pm.time} />
 
         <span class="text-base m-1 ">{pm.subject}</span>
@@ -37,7 +25,7 @@ class="border-b-2 rounded p-2">
         
         <p class="mt-1 text-sm truncate">
             {#each getTags(pm) as tag_item}
-            <Tag tag={tag_item} onSelectTag={onSelectTag} />
+            <Tag tag={tag_item}/>
             {/each}
             {pm.preview}
         <p/>

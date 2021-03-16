@@ -2,14 +2,15 @@
     import {getMemberName, getMemberColor} from "../pages/door/_constants";
     import Tag from './Tag.svelte';
     import TimeStampTag from './TimeStampTag.svelte';
+    import FavoriteHeart from './FavoriteHeart.svelte';
+import { mail_to_tag_dict } from "../stores/tag";
+import { profile } from "../stores/preferences";
 
     export let pm;
     export let onMailSelected;
-    export let onFavorite;
-    export let favorited;
-    export let onSelectTag;
-    export let preferences;
-    export let getTags: (pm)=>string[];
+
+    $: getTags = pm => ($mail_to_tag_dict.has(pm.id) ? Array.from($mail_to_tag_dict.get(pm.id)): []);
+
 </script>
 
 <div
@@ -21,33 +22,22 @@ shadow-md rounded-md
 overflow-y-auto">
     {#if pm.member}
     <div class="relative overflow-hidden">
-        <img src="/img/profile/{preferences.profile}/{getMemberName(pm)}.jpg"
+        <img src="/img/profile/{$profile}/{getMemberName(pm)}.jpg"
         class="w-10 h-10 ml-1 mr-2 rounded-full float-left"
         alt=""/>
         <h4 class="text-lg m-1 w-11/12 h-12">{pm.subject}</h4>
     </div>
-    <div
-    class="
-    absolute
-    inset-y-0 right-1 m-1">
-        <label
-        class="text-xl"
-        on:click={onFavorite(pm)}
-        for="favorite-{pm.id}">
-            {#if favorited(pm)}💖{:else}🤍{/if}
-        </label>
-        <input type="checkbox"
-        class="hidden"
-        id="favorite-{pm.id}"/>
+    <div class="absolute inset-y-0 right-0 m-1">
+        <FavoriteHeart pm={pm}/>
     </div>
+    
     <div class="flex flex-wrap">
         <Tag
             tag={getMemberName(pm)}
-            bgColor={getMemberColor(pm)}
-            onSelectTag={onSelectTag}/>
+            bgColor={getMemberColor(pm)}/>
         <TimeStampTag time={pm.time} />
         {#each getTags(pm) as tag_item}
-            <Tag tag={tag_item} onSelectTag={onSelectTag} />
+            <Tag tag={tag_item}/>
         {/each}
     </div>
     <p class="m-1">{pm.preview} ...</p>

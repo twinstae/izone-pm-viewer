@@ -1,0 +1,29 @@
+<script lang="ts">
+import Tag from './Tag.svelte';
+import MailDetailCard from './MailDetailCard.svelte';
+import AllTagList from './AllTagList.svelte';
+import {selected_tag, remove_selected_tag, tag_input} from "../stores/tag";
+
+</script>
+
+<section class="h-full">
+    <div class="
+    h-36 w-80
+    ml-10 mt-2 p-2
+    bg-white shadow-2xl rounded-md
+    overflow-y-auto">
+        {#if $selected_tag}
+        <span class="text-xs">현재 선택된 태그 : 
+            <Tag tag={$selected_tag} bgColor="pink"/>
+        </span>
+        <button
+        class="text-xs shadow rounded bg-red-400 p-1"
+        on:click={remove_selected_tag}>
+            돌아가기
+        </button>
+        <br/>
+        {/if}
+        <AllTagList/>
+    </div>
+    <MailDetailCard/>
+</section>

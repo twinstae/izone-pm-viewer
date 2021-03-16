@@ -3,17 +3,14 @@
     import Tag from './Tag.svelte';
     import TagInput from './TagInput.svelte';
     import TimeStampTag from './TimeStampTag.svelte';
+    import FavoriteHeart from './FavoriteHeart.svelte';
+    import { now_pm } from '../stores/now';
+    import { mail_to_tag_dict } from "../stores/tag";
+import { profile } from "../stores/preferences";
 
-    export let now_pm;
-    export let now_mail;
-    export let now_tags: string[];
-    export let onFavorite;
-    export let favorited;
-    export let onSelectTag;
-    export let onDeleteTag;
-    export let onAddTag;
-    export let tag_input;
-    export let preferences;
+    $: getTags = pm => ($mail_to_tag_dict.has(pm.id) ? Array.from($mail_to_tag_dict.get(pm.id)): []);
+
+    $: now_tags = getTags(now_pm);
 
     let frame;
     function translate(){
@@ -39,39 +36,25 @@ flex-none
 flex flex-col">
     <div class="relative w-full">
         <div class="relative">
-            <img src="/img/profile/{preferences.profile}/{getMemberName(now_pm)}.jpg"
+            <img src="/img/profile/{$profile}/{getMemberName($now_pm)}.jpg"
             class="w-10 h-10 ml-1 mr-2 rounded-full float-left"
             alt=""/>
-            <h4 class="text-xl m-1 w-4/5"> {now_pm.subject}</h4>
+            <h4 class="text-xl m-1 w-4/5"> {$now_pm.subject}</h4>
         </div>
-        <div
-        class="
-        absolute
-        inset-y-0 right-0 m-1">
-            <label
-            class="text-xl"
-            on:click={onFavorite(now_pm)}
-            for="favorite">
-                {#if favorited(now_pm)}💖{:else}🤍{/if}
-            </label>
-            <input type="checkbox"
-            class="hidden"
-            id="favorite"/>
+        <div class="absolute inset-y-0 right-0 m-1">
+            <FavoriteHeart pm={$now_pm}/>
         </div>
         <br/>
         <div class="flex flex-wrap">
             <Tag
-                tag={getMemberName(now_pm)}
-                bgColor={getMemberColor(now_pm)}
-                onSelectTag={onSelectTag}/>
-            <TimeStampTag time={now_pm.time} />
+                tag={getMemberName($now_pm)}
+                bgColor={getMemberColor($now_pm)}
+                canDelete={true}/>
+            <TimeStampTag time={$now_pm.time} />
             {#each now_tags as tag_item}
-                <Tag
-                    tag={tag_item}
-                    onSelectTag={onSelectTag}
-                    onDeleteTag={onDeleteTag}/>
+                <Tag tag={tag_item}/>
             {/each}
-            <TagInput bind:tagInput={tag_input} onAddTag={onAddTag}/>
+            <TagInput/>
         </div>                
     </div>
 
@@ -80,5 +63,5 @@ flex flex-col">
     id="mail-detail"
     class="h-5/6 mt-3"
     title="mail-body"
-    src="./mail/{now_mail}.html"></iframe>
+    src="./mail/{$now_pm.id}.html"></iframe>
 </div>

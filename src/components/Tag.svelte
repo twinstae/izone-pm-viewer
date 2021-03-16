@@ -1,9 +1,9 @@
 <script lang="ts">
+    import {onSelectTag, onDeleteTag} from "../stores/tag";
+
     export let tag: string;
-    export let onSelectTag: null | ((tag_item: string)=>()=>void);
-    export let onDeleteTag: null | ((tag_item: string)=>()=>void) = null;
-    $: canDelete = onDeleteTag != null;
     export let bgColor = "LightYellow";
+    export let canDelete = false;
 </script>
 
 <span
