@@ -1,67 +1,12 @@
-# routify-starter
+[백업 툴](https://github.com/mdsnins/IZPM-Backup)과 호환되는 뷰어입니다.
 
-Starter template for [Routify](https://github.com/sveltech/routify).
+## 사용방법
+![](https://raw.githubusercontent.com/twinstae/izone-pm-viewer/main/%EA%B2%80%EC%83%89.png)
 
-### Get started
+1. [IZ-PM-Viewer-배포.zip 다운 받기](https://github.com/twinstae/izone-pm-viewer/raw/main/IZ-PM-Viewer-%EB%B0%B0%ED%8F%AC.zip)
+압축 파일을 받아서 img와 mail이 있는 output 폴더에 풀어줍니다.
+2. pm_list.js 파일을 열어서, let pm_list = 을 지워버리고 pm_list.json 으로 이름을 바꿔서 저장합니다.
+3. 이제 서버 시작하기를 누르면 뷰어가 열릴 겁니다. 아마도...
 
-#### Starter templates
-| Template                                  | Description                                                 |
-|-------------------------------------------|-------------------------------------------------------------|
-| [master](https://example.routify.dev/)    | Default template, includes examples folder                  |
-| [blog](https://blog-example.routify.dev/) | Generates a blog from local markdown posts. Includes mdsvex |
-| [auth](https://auth-example.routify.dev/) | Embedded login on protected pages. Includes Auth0           |
-
-To use a template, run:
-
-`npx @sveltech/routify init`
-
-or
-
-`npx @sveltech/routify init --branch <branch-name>`
-
-The above commands will populate the current directory, they don't create a new one.
-
-### npm scripts
-
-| Syntax           | Description                                                                       |
-|------------------|-----------------------------------------------------------------------------------|
-| `dev`            | Development (port 5000)                                                           |
-| `dev:nollup`     | Development with crazy fast rebuilds (port 5000)                                  |
-| `dev-dynamic`    | Development with dynamic imports                                                  |
-| `build`          | Build a bundled app with SSR + prerendering and dynamic imports                   |
-| `serve`          | Run after a build to preview. Serves SPA on 5000 and SSR on 5005                  |
-| `deploy:*`       | Deploy to netlify or now                                                          |
-| `export`         | Create static pages from content in dist folder (used by `npm run build`)         |
-
-### SSR and pre-rendering
-
-SSR and pre-rendering are included in the default build process.
-
-`npm run deploy:(now|netlify)` will deploy the app with SSR and prerendering included.
-
-To render async data, call the `$ready()` helper whenever your data is ready.
-
-If $ready() is present, rendering will be delayed till the function has been called.
-
-Otherwise it will be rendered instantly.
-
-See [src/pages/example/api/[showId].svelte](https://github.com/sveltech/routify-starter/blob/master/src/pages/example/api/%5BshowId%5D.svelte) for an example.
-
-### Production
-
-* For SPA or SSR apps please make sure that url rewrite is enabled on the server.
-* For SPA redirect to `__app.html`.
-* For SSR redirect to the lambda function or express server.
-
-### Typescript
-
-For Typescript, we recommend [@lamualfa](https://github.com/lamualfa) excellent [routify-ts](https://github.com/lamualfa/routify-ts/)
-
-New project: `npx routify-ts init <project-name> [routify-init-args]`
-
-Existing project: `npx routify-ts convert [project-directory]`
-
-
-### Issues?
-
-File on Github! See https://github.com/sveltech/routify/issues .
+>> 아직 테스트 중 입니다. 아직 다른 컴퓨터에서 돌려본 적은 없어서 잘 될지 모릅니다.
+>> 에러 나면 알려주세요.
