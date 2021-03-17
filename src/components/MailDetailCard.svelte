@@ -14,18 +14,23 @@
     $: now_tags = getTags($now_pm);
 
     let now_content = "";
-    let textContent = "";
     let translate_url = "";
 
-    const removeTags = s=>s.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "").replaceAll("&nbsp;","")
-    const get_translate_url = (content)=>"https://papago.naver.com/?sk=ja&tk=ko&hn=1&st="+content;
+    const removeTags = s=>s.replaceAll("&nbsp;</div>","\n")
+        .replaceAll("</div>", "\n")
+        .replaceAll('&nbsp;','')
+        .replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "")
+        .replaceAll("\n\n","\n")
+        .replaceAll("\n","%0A");
+    const get_translate_url = (content)=>`https://papago.naver.com/?sk=ja&tk=ko&hn=1&st=${content}`;
 
     $: loadContent = ()=>{
         const cache = localStorage.getItem($now_pm.id);
         if (cache){
             now_content = cache;
-            textContent = removeTags(now_content);            
+            const textContent = removeTags(now_content);            
             translate_url = get_translate_url(textContent);
+            console.log(translate_url)
             return null;
         }
 
@@ -37,7 +42,7 @@
                 const start = raw_html.search(`<div class="main-contents" id="mail-detail"><html><head></head><body>`)+69;
                 const end = raw_html.search(`</body></html></div>`);
                 now_content = raw_html.slice(start, end);
-                textContent = removeTags(now_content);
+                const textContent = removeTags(now_content);
                 translate_url = get_translate_url(textContent);
                 localStorage.setItem($now_pm.id, now_content);
             })
@@ -51,7 +56,8 @@
     text-sm
     shadow rounded bg-red-100
     ml-10 mt-5 p-1"
-    href={translate_url}>
+    href={translate_url}
+    target="_blank">
         파파고로 번역하기
     </a>
 {/if}
