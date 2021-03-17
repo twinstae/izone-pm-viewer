@@ -1,16 +1,17 @@
 <script>
-    import {tag_to_mail_dict} from "../stores/tag";
+    import { tag_to_mail_dict, all_tag_dict } from "../stores/tag";
 
     export let pm;    
     
-    $: favorite_set = $tag_to_mail_dict.get("💖");
-    $: favorited = pm => favorite_set && favorite_set.has(pm.id);
+    const favorite_tag = $all_tag_dict.get("💖");
+    $: favorited = pm => $tag_to_mail_dict.get(favorite_tag).has(pm.id);
 
     $: onFavorite = (pm)=>()=>{
-        if ($tag_to_mail_dict.get("💖").has(pm.id)){
-            $tag_to_mail_dict.get("💖").delete(pm.id);
+        const favorite_set = $tag_to_mail_dict.get(favorite_tag);
+        if (favorite_set.has(pm.id)){
+            $tag_to_mail_dict.get(favorite_tag).delete(pm.id);
         } else {
-            $tag_to_mail_dict.get("💖").add(pm.id);
+            favorite_set.add(pm.id);
         }
         $tag_to_mail_dict = $tag_to_mail_dict;
 }

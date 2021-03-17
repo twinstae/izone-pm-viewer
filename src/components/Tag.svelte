@@ -9,10 +9,15 @@
     export let canDelete = false;
     export let size = "xs";
 
+    $: if (!tag){
+        tag={value:"", color:"white"}
+    }
+
     $: text_brightness = ( // 어두운 색의 멤버는 검정, 밝은 색은 회색
         tag.value == "강혜원" ||
         tag.value=="장원영" ||
-        tag.value=="안유진")
+        tag.value=="안유진" ||
+        tag.value=="운영팀")
             ? "black"
             : "gray-700";
 

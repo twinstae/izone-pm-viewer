@@ -4,8 +4,6 @@
 </script>
 
 <style global lang="postcss">
-  @import "../assets/global.css";
-
   /* only apply purgecss on utilities, per Tailwind docs */
   /* purgecss start ignore */
   @tailwind base;

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {image_root, member_dict, member_name_dict} from "../stores/constants";
+    import {image_root} from "../stores/constants";
     import Tag from './Tag.svelte';
     import TimeStampTag from './TimeStampTag.svelte';
     import TagInput from './TagInput.svelte';
@@ -8,8 +8,6 @@
     import { now_pm } from '../stores/now';
     import { mail_to_tag_dict } from "../stores/tag";
     import { profile } from "../stores/preferences";
-
-    $: getMemberName =(pm) => member_name_dict[$member_dict[pm.member]]
 
     $: getTags = pm => ($mail_to_tag_dict.has(pm.id) ? Array.from($mail_to_tag_dict.get(pm.id)): []);
 
@@ -61,7 +59,7 @@ flex-none
 flex flex-col">
     <div class="relative w-full">
         <div class="relative">
-            <img src="{image_root}profile/{$profile}/{getMemberName($now_pm)}.jpg"
+            <img src="{image_root}profile/{$profile}/{$now_pm.member}.jpg"
             class="w-10 h-10 ml-1 mr-2 rounded-full float-left"
             alt=""/>
             <h4 class="text-xl m-1 w-4/5"> {$now_pm.subject}</h4>
