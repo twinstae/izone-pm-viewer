@@ -1,4 +1,4 @@
-[백업 툴](https://github.com/mdsnins/IZPM-Backup)과 호환되는 뷰어입니다.
+[IZPM-Backup 백업 툴](https://github.com/mdsnins/IZPM-Backup)과 호환되는 뷰어입니다.
 
 ## 사용방법
 ![](https://raw.githubusercontent.com/twinstae/izone-pm-viewer/main/%EA%B2%80%EC%83%89.png)
