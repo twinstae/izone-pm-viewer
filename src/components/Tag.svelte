@@ -9,6 +9,13 @@
     export let canDelete = false;
     export let size = "xs";
 
+    $: text_brightness = ( // 어두운 색의 멤버는 검정, 밝은 색은 회색
+        tag.value == "강혜원" ||
+        tag.value=="장원영" ||
+        tag.value=="안유진")
+            ? "black"
+            : "gray-700";
+
     export const onDeleteTag = ()=>{
         const the_tag = $all_tag_dict.get(tag.value);
         const tag_set = $tag_to_mail_dict.get(the_tag);
@@ -35,7 +42,7 @@ class="
 {canDelete
     ? "border-1 mt-1 ml-1 mb-1 p-1 rounded-l "
     : "border-1 m-1 p-1 rounded"}
-text-{size} text-gray-500">
+text-{size} text-{text_brightness}">
     {tag.value}
 </span>
 
