@@ -7,7 +7,7 @@
 
 ![](https://github.com/twinstae/izone-pm-viewer/raw/main/%EC%98%88%EC%8B%9C.png)
 
-2. pm_list.js 파일을 열어서, let pm_list = 을 지워버리고 pm_list.json 으로 이름을 바꿔서 저장합니다. (-> 자동화 예정)
+2. pm_list.js (최신 버전에서는 pm.js) 파일을 열어서, let pm_list = 을 지워버리고 pm_list.json 으로 이름을 바꿔서 저장합니다. (-> 자동화 예정)
 
 예시
 ```[{"id": "m21279", "member": "미야와키 사쿠라", "time": "2021/03/14 22:38", "subject": "。", "preview": "이런저런 프메 내용"},{"id": "m21280", "member": "월클토미", "time": "2021/03/14 22:35", "subject": "😌", "preview": "이런저런 프메 내용"},{"id": "m21278", "member": "권은비", "time": "2021/03/14 22:20", "subject": "🥲", "preview": "이런저런 프메 내용"}, ... (이런 식으로 계속 되야 함), ...(정말 딱 이것들만 있어야 한다.) ]```
