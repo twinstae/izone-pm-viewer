@@ -38,7 +38,7 @@ flex-none
 flex flex-col">
     <div class="relative w-full">
         <div class="relative">
-            <img src="{image_root}{$profile}/{getMemberName($now_pm)}.jpg"
+            <img src="{image_root}profile/{$profile}/{getMemberName($now_pm)}.jpg"
             class="w-10 h-10 ml-1 mr-2 rounded-full float-left"
             alt=""/>
             <h4 class="text-xl m-1 w-4/5"> {$now_pm.subject}</h4>
@@ -57,10 +57,7 @@ flex flex-col">
         </div>                
     </div>
 
-    <iframe
-    bind:this={frame} 
-    id="mail-detail"
-    class="h-5/6 mt-3"
-    title="mail-body"
-    src="{mail_root}{$now_pm.id}.html"></iframe>
+    <iframe bind:this={frame} id="mail-detail" title="mail-body"
+    src="{mail_root}{$now_pm.id}.html"
+    class="h-5/6 mt-3"></iframe>
 </div>

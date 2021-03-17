@@ -7,9 +7,7 @@
     
     import MailDetailSection from "../components/MailDetailSection.svelte";
     import MailListSection from "../components/MailListSection.svelte";
-    import { tag_to_mail_dict } from "../stores/tag";
-    
-    const profile_list = ["one-the-story", "latest"];
+    import { all_tag_dict, tag_to_mail_dict } from "../stores/tag";
     
     const member_tag_dict = new Map();
     
@@ -21,9 +19,12 @@
             value: member_name,
             color: member_color
         };
-        $tag_to_mail_dict.set(member_tag, new Set());
+
+        if (!$all_tag_dict.has(member_name)){
+            $tag_to_mail_dict.set(member_tag, new Set());
     
-        member_tag_dict.set(member_name, member_tag)
+            member_tag_dict.set(member_name, member_tag)
+        }
     })
     
     pm_list.forEach((pm,i)=>{

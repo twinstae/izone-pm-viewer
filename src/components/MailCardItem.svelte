@@ -28,7 +28,7 @@ shadow-md rounded-md
 overflow-y-auto">
     {#if pm.member}
     <div class="relative overflow-hidden">
-        <img src="{image_root}{$profile}/{getMemberName(pm)}.jpg"
+        <img src="{image_root}profile/{$profile}/{getMemberName(pm)}.jpg"
         class="w-10 h-10 ml-1 mr-2 rounded-full float-left"
         alt=""/>
         <h4 class="text-lg m-1 w-11/12 h-12">{pm.subject}</h4>
@@ -46,6 +46,6 @@ overflow-y-auto">
     </div>
     <p class="m-1">{pm.preview} ...</p>
     {:else}
-        <img class="object-center p-10 pt-12" alt="no mail" src="/img/izone-logo.png"/>
+        <img class="object-center p-10 pt-12" alt="no mail" src="{image_root}izone-logo.png"/>
     {/if}
 </div>

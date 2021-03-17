@@ -7,6 +7,9 @@ export let mail_to_tag_dict = writable(new Map([["m0", new Set([favorite_tag])]]
 export let tag_to_mail_dict = writable(new Map(
     [[favorite_tag, new Set()]]
 ));
+
+export let all_tag_dict = writable(new Map([["💖", favorite_tag]]));
+
 export let tag_input = writable("");
 export let selected_tag = writable({color:null, value:null});
 

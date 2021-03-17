@@ -1,5 +1,5 @@
 <script lang="ts">
-import { tag_input, tag_to_mail_dict, mail_to_tag_dict, color_n } from "../stores/tag";
+import { tag_input, tag_to_mail_dict, mail_to_tag_dict, color_n, all_tag_dict } from "../stores/tag";
 import { now_pm } from "../stores/now";
 import { member_color_dict } from "../pages/door/_constants";
 
@@ -10,12 +10,15 @@ $: new_tag = {
 
 const onAddTag = e=>{
     if(e.code==="Enter"){
-        if ($tag_to_mail_dict.has(new_tag)){
-            $tag_to_mail_dict.get(new_tag).add($now_pm.id);
+        if ($all_tag_dict.has($tag_input)){
+            const the_tag = $all_tag_dict.get($tag_input);
+            $tag_to_mail_dict.get(the_tag).add($now_pm.id);
         } else {
             $tag_to_mail_dict.set(new_tag, new Set([$now_pm.id]));
+            $all_tag_dict.set($tag_input, new_tag)
         }
         $tag_to_mail_dict=$tag_to_mail_dict;
+        $all_tag_dict=$all_tag_dict;
 
         if ($mail_to_tag_dict.has($now_pm.id)){
             $mail_to_tag_dict.get($now_pm.id).add(new_tag)

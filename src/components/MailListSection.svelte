@@ -5,9 +5,11 @@ import MailCardItem from './MailCardItem.svelte';
 import { afterUpdate } from "svelte";
 import { dateString, date_to_str, str_to_date, time_to_dateStr } from "../stores/date";
 import {selected_tag, tag_to_mail_dict} from "../stores/tag";
-import pm_list from "../pages/_pm_list.json";
 import { now_page } from '../stores/now';
+
+import pm_list from "../pages/_pm_list.json";
 import Fuse from 'fuse.js'
+
 const options = {
     useExtendedSearch: true,
     keys: [

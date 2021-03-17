@@ -46,5 +46,5 @@ export const getMemberName  = (pm) => member_name_dict[member_dict[pm.member]]
 
 export const getMemberColor = (pm) => member_color_dict[member_dict[pm.member]]
 
-export const image_root = "./img/profile/";
+export const image_root = "./img/";
 export const mail_root = "./mail/";
