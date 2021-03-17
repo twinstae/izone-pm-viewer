@@ -44,7 +44,12 @@ afterUpdate(() => {
     }
 
     const first_mail = mail_list[0];
-    if (lastNowPage != $now_page && first_mail){
+    if (
+        lastNowPage != $now_page
+        || lastDateString != $dateString
+        && first_mail
+    ){
+        console.log("갱신", first_mail)
         anchor_mail = first_mail;
         lastNowPage = $now_page;
     }
