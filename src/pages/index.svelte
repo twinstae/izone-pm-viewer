@@ -8,8 +8,7 @@
     import MailDetailSection from "../components/MailDetailSection.svelte";
     import MailListSection from "../components/MailListSection.svelte";
     import { all_tag_dict, tag_to_mail_dict } from "../stores/tag";
-    
-    const member_tag_dict = new Map();
+    import { now_pm } from '../stores/now';
     
     Object.keys(member_dict).forEach((member_custom_name,i)=>{
         const member_n = member_dict[member_custom_name];
@@ -22,14 +21,15 @@
 
         if (!$all_tag_dict.has(member_name)){
             $tag_to_mail_dict.set(member_tag, new Set());
-    
-            member_tag_dict.set(member_name, member_tag)
+            $all_tag_dict.set(member_name, member_tag)
         }
     })
     
     pm_list.forEach((pm,i)=>{
+        if (pm.id=="m20731"){$now_pm = pm;} // 메일 초기화
+
         const member_name = getMemberName(pm);
-        const member_tag = member_tag_dict.get(member_name);
+        const member_tag = $all_tag_dict.get(member_name);
     
         $tag_to_mail_dict.has(member_tag) && $tag_to_mail_dict.get(member_tag).add(pm.id);
     })

@@ -10,8 +10,9 @@ $: new_tag = {
 
 const onAddTag = e=>{
     if(e.code==="Enter"){
+        let the_tag = new_tag;
         if ($all_tag_dict.has($tag_input)){
-            const the_tag = $all_tag_dict.get($tag_input);
+            the_tag = $all_tag_dict.get($tag_input)
             $tag_to_mail_dict.get(the_tag).add($now_pm.id);
         } else {
             $tag_to_mail_dict.set(new_tag, new Set([$now_pm.id]));
@@ -21,9 +22,9 @@ const onAddTag = e=>{
         $all_tag_dict=$all_tag_dict;
 
         if ($mail_to_tag_dict.has($now_pm.id)){
-            $mail_to_tag_dict.get($now_pm.id).add(new_tag)
+            $mail_to_tag_dict.get($now_pm.id).add(the_tag)
         } else {
-            $mail_to_tag_dict.set($now_pm.id, new Set([new_tag]));
+            $mail_to_tag_dict.set($now_pm.id, new Set([the_tag]));
         }       
         $mail_to_tag_dict=$mail_to_tag_dict;
 

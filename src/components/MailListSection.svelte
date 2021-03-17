@@ -24,7 +24,6 @@ let fuzzy = false;
 $: prefix = fuzzy ? "" : "'"; // fuzzy or include
 $: searchBy = prefix + search_input
 $: search_result = fuse.search(searchBy);
-$: console.log(search_result)
 $: pm_list_after_search = search_input
     ? search_result.map(result=>result.item) 
     : pm_list;

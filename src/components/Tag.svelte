@@ -1,6 +1,6 @@
 <script lang="ts">
     import { now_pm } from "../stores/now";
-    import {mail_to_tag_dict, onSelectTag, selected_tag, tag_to_mail_dict} from "../stores/tag";
+    import {all_tag_dict, mail_to_tag_dict, onSelectTag, selected_tag, tag_to_mail_dict} from "../stores/tag";
 
     export let tag: {
         value: string,
@@ -10,20 +10,22 @@
     export let size = "xs";
 
     export const onDeleteTag = ()=>{
-    const tag_set = $tag_to_mail_dict.get(tag);
-    tag_set.delete($now_pm.id);
-    if (tag_set.size==0){
-        $tag_to_mail_dict.delete(tag);
-        if(tag == $selected_tag){
-            $selected_tag = null;
-        }
-    }
-    
-    $tag_to_mail_dict=$tag_to_mail_dict;
+        const the_tag = $all_tag_dict.get(tag.value);
+        const tag_set = $tag_to_mail_dict.get(the_tag);
+        tag_set.delete($now_pm.id);
 
-    $mail_to_tag_dict.get($now_pm.id).delete(tag)
-    $mail_to_tag_dict=$mail_to_tag_dict;
-}
+        if (tag_set.size==0){
+            $tag_to_mail_dict.delete(the_tag);
+            if(tag == $selected_tag){
+                $selected_tag = null;
+            }
+        }
+        
+        $tag_to_mail_dict=$tag_to_mail_dict;
+
+        $mail_to_tag_dict.get($now_pm.id).delete(the_tag)
+        $mail_to_tag_dict=$mail_to_tag_dict;
+    }
 </script>
 
 <span

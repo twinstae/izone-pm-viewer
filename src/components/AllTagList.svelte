@@ -1,8 +1,8 @@
 <script lang="ts">
-import { tag_to_mail_dict } from "../stores/tag";
+import { all_tag_dict } from "../stores/tag";
 import Tag from './Tag.svelte';
 
-$: all_tags = Array.from($tag_to_mail_dict.keys());
+$: all_tags = Array.from($all_tag_dict.values());
 
 </script>
 
