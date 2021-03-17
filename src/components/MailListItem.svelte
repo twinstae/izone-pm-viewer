@@ -1,6 +1,4 @@
 <script lang="ts">
-    import {slide}from 'svelte/transition';
-
     import Tag from './Tag.svelte';
     import TimeStampTag from './TimeStampTag.svelte';
     import FavoriteHeart from './FavoriteHeart.svelte';
@@ -17,7 +15,6 @@
 </script>
 
 <li
-transition:slide={{duration:500}}
 on:dblclick={onMailSelected(pm)}
 class="border-b-2 rounded p-2">
     {#if pm.member}
