@@ -14,42 +14,46 @@
     $: now_tags = getTags($now_pm);
 
     let now_content = "";
-    $: loadContent = async ()=>{
+    let textContent = "";
+    let translate_url = "";
+
+    const removeTags = s=>s.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "").replaceAll("&nbsp;","")
+    const get_translate_url = (content)=>"https://papago.naver.com/?sk=ja&tk=ko&hn=1&st="+content;
+
+    $: loadContent = ()=>{
         const cache = localStorage.getItem($now_pm.id);
         if (cache){
             now_content = cache;
+            textContent = removeTags(now_content);            
+            translate_url = get_translate_url(textContent);
+            return null;
         }
 
         now_content = "<h3>로딩 중</h3>"
 
         fetch(`./mail/${$now_pm.id}.html`)
-        .then(result =>result.text())
-        .then(text=>{
-            const start = text.search(`<div class="main-contents" id="mail-detail"><html><head></head><body>`)+69;
-            const end = text.search(`</body></html></div>`);
-            const content = text.slice(start, end);
-            localStorage.setItem($now_pm.id, content);
-            now_content = content;
-        })
+            .then(result =>result.text())
+            .then(raw_html=>{
+                const start = raw_html.search(`<div class="main-contents" id="mail-detail"><html><head></head><body>`)+69;
+                const end = raw_html.search(`</body></html></div>`);
+                now_content = raw_html.slice(start, end);
+                textContent = removeTags(now_content);
+                translate_url = get_translate_url(textContent);
+                localStorage.setItem($now_pm.id, now_content);
+            })
     }
 
     $: loadContent();
 
-    $: translate = ()=>{
-        const url = "https://papago.naver.com/?sk=ja&tk=ko&hn=1&st=" + now_content.replaceAll("\n\n","")
-        let win = window.open(url, '_blank');
-        win.focus();
-    };
 </script>
 {#if now_content}
-<button
-class="
-text-sm
-shadow rounded bg-red-100
-ml-10 mt-5 p-1"
-on:click={translate}>
-    파파고로 번역하기
-</button>
+    <a class="
+    text-sm
+    shadow rounded bg-red-100
+    ml-10 mt-5 p-1"
+    href={translate_url}>
+        파파고로 번역하기
+    </a>
 {/if}
 <div class="
 bg-white
@@ -81,12 +85,4 @@ flex flex-col">
     contenteditable=false
     bind:innerHTML={now_content}>
     </div>
-    <!--
-        <iframe
-        on:load={()=>{"loaded"}}
-        bind:this={frame} id="mail-detail" title="mail-body"
-        src="{mail_root}{$now_pm.id}.html"
-        class="h-5/6 mt-3">
-        </iframe>
-    -->
 </div>
