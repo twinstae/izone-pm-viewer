@@ -1,3 +1,5 @@
+import { writable } from "svelte/store";
+
 export const member_color_dict = {
     0:"#d9598c",
     1:"#f1d2e7",
@@ -13,20 +15,8 @@ export const member_color_dict = {
     11:"#a7e0e1",
 }
 
-export const member_dict = {
-    "장원영": 0,
-    "미야와키 사쿠라": 1,
-    "조유리": 2,
-    "오리예나": 3,
-    "안유진": 4,
-    "야부키 나코": 5,
-    "권은비": 6,
-    "광배": 7,
-    "월클토미": 8,
-    "쌈무": 9,
-    "김민주 앤젤": 10,
-    "깃털채연": 11,
-}
+export let member_dict = writable({1201:""});
+
 export const member_name_dict = {
     0:"장원영",
     1:"미야와키 사쿠라",
@@ -41,10 +31,6 @@ export const member_name_dict = {
     10:"김민주",
     11:"이채연",
 }
-
-export const getMemberName  = (pm) => member_name_dict[member_dict[pm.member]]
-
-export const getMemberColor = (pm) => member_color_dict[member_dict[pm.member]]
 
 export const image_root = "./img/";
 export const mail_root = "./mail/";

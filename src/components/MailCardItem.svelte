@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {getMemberName, image_root} from "../pages/_constants";
+    import {image_root, member_dict, member_name_dict} from "../stores/constants";
     import Tag from './Tag.svelte';
     import TimeStampTag from './TimeStampTag.svelte';
     import FavoriteHeart from './FavoriteHeart.svelte';
@@ -9,6 +9,8 @@
     import { now_pm } from '../stores/now';
 
     export let pm;
+
+    $: getMemberName =(pm) => member_name_dict[$member_dict[pm.member]]
 
     const onMailSelected = (pm)=> ()=>{
         if(pm){$now_pm=pm}

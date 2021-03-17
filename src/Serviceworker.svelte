@@ -12,7 +12,6 @@
       // Reload the page if the PWA has been updated. Change strategy if needed.
       wb.addEventListener("redundant", () => {
         location.reload();
-        console.log("updated app");
       });
     });
   }
