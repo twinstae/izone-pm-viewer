@@ -4,7 +4,9 @@
 
 1. [IZ-PM-Viewer-배포.zip 다운 받기](https://github.com/twinstae/izone-pm-viewer/raw/main/IZ-PM-Viewer-%EB%B0%B0%ED%8F%AC.zip)
 압축 파일을 받아서 img와 mail이 있는 output 폴더에 풀어줍니다.
+
 ![](https://github.com/twinstae/izone-pm-viewer/raw/main/%EC%98%88%EC%8B%9C.png)
+
 2. pm_list.js 파일을 열어서, let pm_list = 을 지워버리고 pm_list.json 으로 이름을 바꿔서 저장합니다. (-> 자동화 예정)
 
 예시
