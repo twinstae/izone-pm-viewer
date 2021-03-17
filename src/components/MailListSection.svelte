@@ -9,7 +9,7 @@ import pm_list from "../pages/_pm_list.json";
 import { now_page } from '../stores/now';
 import Fuse from 'fuse.js'
 const options = {
-    includeMatches: true,
+    useExtendedSearch: true,
     keys: [
         "subject",
         "preview",
@@ -18,8 +18,11 @@ const options = {
 
 const fuse = new Fuse(pm_list, options);
 let search_input ="";
-
-$: search_result = fuse.search(search_input);
+let fuzzy = false;
+$: prefix = fuzzy ? "" : "'"; // fuzzy or include
+$: searchBy = prefix + search_input
+$: search_result = fuse.search(searchBy);
+$: console.log(search_result)
 $: pm_list_after_search = search_input
     ? search_result.map(result=>result.item) 
     : pm_list;
@@ -159,7 +162,11 @@ class="h-5/6 relative m-5">
         </ul>
     {/if}
     <BottomPagenation maxPage={maxPage}/>
-    <input class="m-2"
+    <span class="bg-red-100 rounded w-content">
+        <label for="fuzzy">부분 일치</label>
+        <input id="fuzzy" type="checkbox" bind:checked={fuzzy}/>
+    </span>
+    <input class="m-2 border-2 border-gray-400 rounded"
     type="text" bind:value={search_input} placeholder="검색"/>
     {#if search_input}
         <span class="bg-red-100 rounded pl-1 pr-1">
