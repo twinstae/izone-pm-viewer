@@ -4,4 +4,9 @@
     export let size="xs";
 </script>
 
-<Tag tag={{value: time, color: "pink"}} size={size}/>
+<span
+style="background-color: pink;"
+class="border-1 m-1 p-1 rounded
+text-{size}">
+    {time}
+</span>

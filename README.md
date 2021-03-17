@@ -4,6 +4,9 @@
 
 1. [IZ-PM-Viewer-배포.zip 다운 받기](https://github.com/twinstae/izone-pm-viewer/raw/main/IZ-PM-Viewer-%EB%B0%B0%ED%8F%AC.zip)
 압축 파일을 받아서 img와 mail이 있는 output 폴더에 풀어줍니다.
+
+![](https://github.com/twinstae/izone-pm-viewer/raw/main/%EC%98%88%EC%8B%9C.png)
+
 2. pm_list.js 파일을 열어서, let pm_list = 을 지워버리고 pm_list.json 으로 이름을 바꿔서 저장합니다. (-> 자동화 예정)
 
 예시
@@ -14,5 +17,8 @@
 
 > 아직 테스트 중 입니다. 아직 다른 컴퓨터에서 돌려본 적은 없어서 잘 될지 모릅니다.
 > 에러 나면 알려주세요.
+
+### 발견된 에러 목록
+-[x] 날짜 시간 태그를 선택하면 멈추는 증상. -> (클릭 안 되게 함)
 
 ![](https://raw.githubusercontent.com/twinstae/izone-pm-viewer/main/%EA%B2%80%EC%83%89.png)
