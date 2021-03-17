@@ -1,8 +1,8 @@
 <script lang="ts">
 import { page } from "@roxi/routify";
 
-import pm_list from "./_pm_list.json";
-import { member_dict, member_name_dict, getMemberName, member_color_dict} from "./_constants";
+import pm_list from "../_pm_list.json";
+import { member_dict, member_name_dict, getMemberName, member_color_dict} from "../_constants";
 import MailDetailSection from "../../components/MailDetailSection.svelte";
 import MailListSection from "../../components/MailListSection.svelte";
 

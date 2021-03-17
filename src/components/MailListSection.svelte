@@ -5,11 +5,11 @@ import MailCardItem from './MailCardItem.svelte';
 import { afterUpdate } from "svelte";
 import { dateString, date_to_str, str_to_date, time_to_dateStr } from "../stores/date";
 import {selected_tag, tag_to_mail_dict} from "../stores/tag";
-import pm_list from "../pages/door/_pm_list.json";
-import { now_pm, now_page } from '../stores/now';
-
+import pm_list from "../pages/_pm_list.json";
+import { now_page } from '../stores/now';
 import Fuse from 'fuse.js'
 const options = {
+    includeMatches: true,
     keys: [
         "subject",
         "preview",
@@ -19,13 +19,10 @@ const options = {
 const fuse = new Fuse(pm_list, options);
 let search_input ="";
 
+$: search_result = fuse.search(search_input);
 $: pm_list_after_search = search_input
-    ? fuse.search(search_input).map(result=>result.item) 
+    ? search_result.map(result=>result.item) 
     : pm_list;
-
-const onMailSelected = (pm)=> ()=>{
-    if(pm){$now_pm=pm}
-}
 
 let lastDateString;
 $: now_date = str_to_date($dateString);
@@ -151,21 +148,22 @@ class="h-5/6 relative m-5">
         h-9/12
         flex flex-wrap">
             {#each mail_list as pm}
-            <MailCardItem 
-            pm={pm}
-            onMailSelected={onMailSelected}/>
+            <MailCardItem pm={pm}/>
             {/each}            
         </div>
     {:else}
-        <ul class="bg-white rounded w-3/4">
+        <ul class="bg-white rounded w-3/4 shadow m-3">
             {#each mail_list as pm}
-                <ListItem
-                pm={pm}
-                onMailSelected={onMailSelected}/>
+                <ListItem pm={pm}/>
             {/each}
         </ul>
     {/if}
     <BottomPagenation maxPage={maxPage}/>
     <input class="m-2"
     type="text" bind:value={search_input} placeholder="검색"/>
+    {#if search_input}
+        <span class="bg-red-100 rounded pl-1 pr-1">
+            총 {pm_list_after_search.length} 장
+        </span>
+    {/if}
 </section>

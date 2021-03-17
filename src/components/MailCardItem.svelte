@@ -1,13 +1,18 @@
 <script lang="ts">
-    import {getMemberName, getMemberColor} from "../pages/door/_constants";
+    import {getMemberName} from "../pages/door/_constants";
     import Tag from './Tag.svelte';
     import TimeStampTag from './TimeStampTag.svelte';
     import FavoriteHeart from './FavoriteHeart.svelte';
     import { mail_to_tag_dict } from "../stores/tag";
     import { profile } from "../stores/preferences";
     import MemberTag from './MemberTag.svelte';
+    import { now_pm } from '../stores/now';
+
     export let pm;
-    export let onMailSelected;
+
+    const onMailSelected = (pm)=> ()=>{
+        if(pm){$now_pm=pm}
+    }
 
     $: getTags = pm => ($mail_to_tag_dict.has(pm.id) ? Array.from($mail_to_tag_dict.get(pm.id)): []);
 
