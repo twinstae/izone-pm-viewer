@@ -5,9 +5,7 @@ import MailCardItem from './MailCardItem.svelte';
 import { afterUpdate } from "svelte";
 import { dateString, date_to_str, str_to_date, time_to_dateStr } from "../stores/date";
 import {selected_tag, tag_to_mail_dict} from "../stores/tag";
-import { now_page } from '../stores/now';
-
-import pm_list from "../pages/_pm_list.json";
+import { now_page, pm_list } from '../stores/now';
 import Fuse from 'fuse.js'
 
 const options = {
@@ -18,7 +16,7 @@ const options = {
     ]
 };
 
-const fuse = new Fuse(pm_list, options);
+const fuse = new Fuse($pm_list, options);
 let search_input ="";
 let fuzzy = false;
 $: prefix = fuzzy ? "" : "'"; // fuzzy or include
@@ -26,7 +24,7 @@ $: searchBy = prefix + search_input
 $: search_result = fuse.search(searchBy);
 $: pm_list_after_search = search_input
     ? search_result.map(result=>result.item) 
-    : pm_list;
+    : $pm_list;
 
 let lastDateString;
 $: now_date = str_to_date($dateString);

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {getMemberName, getMemberColor} from "../pages/door/_constants";
+    import {getMemberName, getMemberColor} from "../pages/_constants";
     import Tag from "./Tag.svelte";
     
     export let pm;

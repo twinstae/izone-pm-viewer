@@ -1,7 +1,7 @@
 <script lang="ts">
 import { tag_input, tag_to_mail_dict, mail_to_tag_dict, color_n, all_tag_dict } from "../stores/tag";
 import { now_pm } from "../stores/now";
-import { member_color_dict } from "../pages/door/_constants";
+import { member_color_dict } from "../pages/_constants";
 
 $: new_tag = {
     value: $tag_input,

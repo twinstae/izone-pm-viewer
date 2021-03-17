@@ -6,8 +6,8 @@ import {selected_tag} from "../stores/tag";
 import { now_page } from '../stores/now';
 
 const remove_selected_tag = ()=>{
-    selected_tag.set({color:null, value:null});
-    now_page.set(1);
+    $selected_tag = {color:null, value:null};
+    $now_page = 1;
 };
 
 </script>

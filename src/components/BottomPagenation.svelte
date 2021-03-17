@@ -12,7 +12,7 @@ function toYesterday(){
     const [year, month, day] = $dateString.split("-").map(s=>parseInt(s))
     const yesterday = new Date(year, month -1, day-1); 
     
-    dateString.set(date_to_str(yesterday));
+    $dateString = date_to_str(yesterday);
     $now_page = 1;
 };
 
@@ -24,7 +24,7 @@ function toTomorrow(){
     const [year, month, day] = $dateString.split("-").map(s=>parseInt(s))
     const tomorrow = new Date(year, month -1, day+1); 
     
-    dateString.set(date_to_str(tomorrow));
+    $dateString = date_to_str(tomorrow);
     $now_page = 1;
 }
 </script>

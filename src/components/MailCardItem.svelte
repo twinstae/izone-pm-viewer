@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {getMemberName} from "../pages/door/_constants";
+    import {getMemberName, image_root} from "../pages/_constants";
     import Tag from './Tag.svelte';
     import TimeStampTag from './TimeStampTag.svelte';
     import FavoriteHeart from './FavoriteHeart.svelte';
@@ -7,7 +7,6 @@
     import { profile } from "../stores/preferences";
     import MemberTag from './MemberTag.svelte';
     import { now_pm } from '../stores/now';
-import { image_root } from "../pages/_constants";
 
     export let pm;
 
@@ -46,6 +45,6 @@ overflow-y-auto">
     </div>
     <p class="m-1">{pm.preview} ...</p>
     {:else}
-        <img class="object-center p-10 pt-12" alt="no mail" src="{image_root}izone-logo.png"/>
+        <img class="h-full pl-6" alt="no mail" src="{image_root}izone-logo.png"/>
     {/if}
 </div>
