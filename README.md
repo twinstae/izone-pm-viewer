@@ -20,5 +20,6 @@
 
 ### 발견된 에러 목록
 -[x] 날짜 시간 태그를 선택하면 멈추는 증상. -> (클릭 안 되게 함)
+-[x] 파파고에 html 태그가 뜨는 에러. -> (태그 지워버림)
 
 ![](https://raw.githubusercontent.com/twinstae/izone-pm-viewer/main/%EA%B2%80%EC%83%89.png)
