@@ -8,6 +8,7 @@
     import { now_pm } from '../stores/now';
     import { mail_to_tag_dict } from "../stores/tag";
     import { profile } from "../stores/preferences";
+import { image_root, mail_root } from "../pages/_constants";
 
     $: getTags = pm => ($mail_to_tag_dict.has(pm.id) ? Array.from($mail_to_tag_dict.get(pm.id)): []);
 
@@ -37,7 +38,7 @@ flex-none
 flex flex-col">
     <div class="relative w-full">
         <div class="relative">
-            <img src="/img/profile/{$profile}/{getMemberName($now_pm)}.jpg"
+            <img src="{image_root}{$profile}/{getMemberName($now_pm)}.jpg"
             class="w-10 h-10 ml-1 mr-2 rounded-full float-left"
             alt=""/>
             <h4 class="text-xl m-1 w-4/5"> {$now_pm.subject}</h4>
@@ -61,5 +62,5 @@ flex flex-col">
     id="mail-detail"
     class="h-5/6 mt-3"
     title="mail-body"
-    src="./mail/{$now_pm.id}.html"></iframe>
+    src="{mail_root}{$now_pm.id}.html"></iframe>
 </div>

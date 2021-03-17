@@ -7,6 +7,7 @@
     import { profile } from "../stores/preferences";
     import MemberTag from './MemberTag.svelte';
     import { now_pm } from '../stores/now';
+import { image_root } from "../pages/_constants";
 
     export let pm;
 
@@ -27,7 +28,7 @@ shadow-md rounded-md
 overflow-y-auto">
     {#if pm.member}
     <div class="relative overflow-hidden">
-        <img src="/img/profile/{$profile}/{getMemberName(pm)}.jpg"
+        <img src="{image_root}{$profile}/{getMemberName(pm)}.jpg"
         class="w-10 h-10 ml-1 mr-2 rounded-full float-left"
         alt=""/>
         <h4 class="text-lg m-1 w-11/12 h-12">{pm.subject}</h4>
