@@ -182,14 +182,7 @@ relative m-5">
         <label class="ml-3" for="isListView">태그 목록 보기</label>
         <input id="isListView" type=checkbox bind:checked={show}>
         {#if $selected_tag.value}
-        <span class="text-xs">현재 선택된 태그 : 
-            <Tag tag={$selected_tag}/>
-        </span>
-        <button
-        class="text-xs shadow rounded bg-red-400 p-1"
-        on:click={remove_selected_tag}>
-            돌아가기
-        </button>
+            <span>현재 :</span><Tag tag={$selected_tag} onRemove={remove_selected_tag}/>
         {/if}
     {:else}
         <label class="ml-5" for="isListView">리스트뷰 {isListView ? "on": "off"}</label>

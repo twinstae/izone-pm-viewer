@@ -32,22 +32,14 @@ bind:clientHeight={height}>
     bg-white shadow-2xl rounded-md
     overflow-y-auto">
         {#if $selected_tag.value}
-        <span class="text-xs">현재 선택된 태그 : 
-            <Tag tag={$selected_tag}/>
-        </span>
-        <button
-        class="text-xs shadow rounded bg-red-400 p-1"
-        on:click={remove_selected_tag}>
-            돌아가기
-        </button>
-        <br/>
+            <Tag tag={$selected_tag} onRemove={remove_selected_tag}/>
         {/if}
         <AllTagList/>
     </div>
     {/if}
     {#if !$isDesktop}
     <button
-    class="text-base shadow rounded bg-red-200 p-1 mt-5"
+    class="shadow rounded bg-red-200 p-1 mt-5"
     on:click={()=>{$show_list=true}}>
         돌아가기 🗃️
     </button>

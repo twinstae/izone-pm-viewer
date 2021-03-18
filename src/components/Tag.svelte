@@ -11,6 +11,7 @@
     };
     export let canDelete = false;
     export let size = "xs";
+    export let onRemove;
 
     $: text_brightness = ( // 어두운 색의 멤버는 검정, 밝은 색은 회색
         tag.value == "강혜원" ||
@@ -45,7 +46,7 @@ text-{size} text-{text_brightness}">
 
 {#if canDelete && tag.value!="생일"}
 <span
-on:click={onDeleteTag}
+on:click={onRemove ? onRemove: onDeleteTag}
 style="background-color: {tag.color};"
 class="
 rounded-r
