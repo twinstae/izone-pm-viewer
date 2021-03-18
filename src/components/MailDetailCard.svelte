@@ -4,7 +4,7 @@ import TimeStampTag from './TimeStampTag.svelte';
 import TagInput from './TagInput.svelte';
 import FavoriteHeart from './FavoriteHeart.svelte';
 import MemberTag from './MemberTag.svelte';
-import { get_translate_url, loadContent, now_pm } from '../stores/now';
+import { get_translate_url, loadContent, now_pm, isDesktop } from '../stores/now';
 import { mail_to_tag_dict } from "../stores/mail_to_tag_dict";
 import MemberProfileImg from './MemberProfileImg.svelte';
 import { fade } from 'svelte/transition';
@@ -30,23 +30,19 @@ import { fade } from 'svelte/transition';
     let height;
     $: over = height < 40;
 </script>
-{#if now_content}
-    <div class="mt-10">
-        <a class="
-        text-sm
-        ml-10
-        shadow rounded bg-red-100
-        p-1"
-        href={translate_url}
-        target="_blank">
-            파파고로 번역하기
-        </a>
-    </div>
-{/if}
-<div class="
+<a class="
+p-1 {$isDesktop ? "m-10" : "m-2"}
+shadow rounded bg-red-100"
+href={translate_url}
+target="_blank">
+    파파고로 번역하기
+</a>
+<div
+class="
 bg-white
 shadow-2xl rounded-md
-ml-10 mt-2 p-2 h-4/6 w-80
+ml-10 mt-2 p-2
+{$isDesktop ? "w-80 h-2/3" : "mr-10 h-3/4 w-10/12"}
 flex-none
 flex flex-col">
     <div class="relative w-full">

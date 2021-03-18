@@ -4,7 +4,7 @@
     import TimeStampTag from './TimeStampTag.svelte';
     import FavoriteHeart from './FavoriteHeart.svelte';
     import MemberTag from './MemberTag.svelte';
-    import { now_pm } from '../stores/now';
+    import { now_pm, show_list } from '../stores/now';
     import { mail_to_tag_dict } from "../stores/mail_to_tag_dict";
     import MemberProfileImg from "./MemberProfileImg.svelte";
 
@@ -12,7 +12,12 @@
 
     $: getTags = pm => ($mail_to_tag_dict.has(pm.id) ? Array.from($mail_to_tag_dict.get(pm.id)): []);
 
-    $: selectMail = ()=>{if(pm){$now_pm=pm}}
+    $: selectMail = ()=>{
+        if(pm){
+            $now_pm=pm;
+            $show_list = false;
+        }
+    }
 
 </script>
 

@@ -2,13 +2,15 @@
 import BottomPagenation from './BottomPagenation.svelte';
 import ListItem from "./MailListItem.svelte";
 import MailCardItem from './MailCardItem.svelte';
+import Tag from './Tag.svelte';
+import AllTagList from './AllTagList.svelte';
 import { afterUpdate } from "svelte";
 import { dateString, date_to_str, str_to_date, time_to_dateStr } from "../stores/date";
 import {selected_tag} from "../stores/tag";
-import { now_page, pm_list } from '../stores/now';
+import { now_page, pm_list, isDesktop } from '../stores/now';
 import Fuse from 'fuse.js'
 import { tag_to_mail_dict } from '../stores/tag_to_mail_dict';
-
+import { fly } from 'svelte/transition';
 const options = {
     useExtendedSearch: true,
     keys: [
@@ -137,7 +139,9 @@ let mail_list_width;
 let mail_list_height;
 $: mail_per_width =  Math.floor((mail_list_width) / 280)
 $: mail_per_height = Math.floor(mail_list_height * 5/6 / 200);
-$: mail_per_page = isListView ? 10 : mail_per_width * mail_per_height || 6;
+$: mail_per_page = isListView
+    ? Math.floor((mail_list_height * 3/4 - 80) / 200 * 3) - (!$isDesktop && show ? 2 : 0)
+    : mail_per_width * mail_per_height || 6;
 
 $: maxPage = Math.ceil(filtered_list.length/mail_per_page);
 
@@ -152,16 +156,50 @@ $: getPage = ()=>{
 $: mail_list = filtered_list && getPage();
 
 let isListView = false;
+let show = false;
+
+const remove_selected_tag = ()=>{
+    $selected_tag = {color:null, value:null};
+    $now_page = 1;
+};
 
 </script>
 
 <section
+transition:fly={{x:200, duration:200}}
 bind:clientWidth={mail_list_width}
 bind:clientHeight={mail_list_height}
-class="h-5/6 relative m-5">
-    <label class="ml-10" for="isListView">리스트뷰 {isListView ? "on": "off"}</label>
+class="h-5/6 relative m-5 w-11/12 md:w-1/2 lg:w-4/6 xl:w-7/12">
+
+    {#if !$isDesktop}
+    <label class="ml-3" for="isListView">태그 목록 보기</label>
+    <input id="isListView" type=checkbox bind:checked={show}>
+    {:else}
+    <label class="ml-5" for="isListView">리스트뷰 {isListView ? "on": "off"}</label>
     <input id="isListView" type=checkbox bind:checked={isListView}>
-    {#if !isListView}
+    {/if}
+    {#if !$isDesktop && show }
+    <div class="
+    h-36 
+    m-3 p-2
+    bg-white shadow-2xl rounded-md
+    overflow-y-auto">
+        {#if $selected_tag.value}
+        <span class="text-xs">현재 선택된 태그 : 
+            <Tag tag={$selected_tag}/>
+        </span>
+        <button
+        class="text-xs shadow rounded bg-red-400 p-1"
+        on:click={remove_selected_tag}>
+            돌아가기
+        </button>
+        <br/>
+        {/if}
+        <AllTagList/>
+    </div>
+    {/if}
+
+    {#if !isListView && $isDesktop}
         <div
         class="
         h-9/12
@@ -171,7 +209,7 @@ class="h-5/6 relative m-5">
             {/each}            
         </div>
     {:else}
-        <ul class="bg-white rounded w-3/4 shadow m-3">
+        <ul class="bg-white rounded shadow m-3">
             {#each mail_list as pm}
                 <ListItem pm={pm}/>
             {/each}

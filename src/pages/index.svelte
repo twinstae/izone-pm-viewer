@@ -5,7 +5,7 @@ metatags.title = 'IZ*ONE Private Mail Viewer'
 import MailDetailSection from "../components/MailDetailSection.svelte";
 import MailListSection from "../components/MailListSection.svelte";
 import { member_dict, member_name_dict } from "../stores/constants";
-import { now_pm, pm_list } from '../stores/now';
+import { isDesktop, now_pm, pm_list, show_list } from '../stores/now';
 import { all_tag_dict } from '../stores/all_tag_dict';
 import { tag_to_mail_dict } from '../stores/tag_to_mail_dict';
 import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
@@ -63,6 +63,10 @@ import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
     }
 
     init().then(()=>{haveInitiated=true});
+
+    let width;
+    $: isDesktop.set(width > 768);
+    
 </script>
 
 <style>
@@ -78,9 +82,14 @@ import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
 
 <div id="coloriz-bg" class="absolute w-full h-full"></div>
 <div
-class="flex h-screen w-screen relative">
+bind:clientWidth={width}
+class="flex w-screen h-screen relative">
     {#if haveInitiated}
+        {#if $isDesktop || !$show_list}
         <MailDetailSection />
-        <MailListSection />
+        {/if}
+        {#if $isDesktop || $show_list}
+        <MailListSection/>
+        {/if}
     {/if}
 </div>

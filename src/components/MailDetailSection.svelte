@@ -3,16 +3,29 @@ import Tag from './Tag.svelte';
 import MailDetailCard from './MailDetailCard.svelte';
 import AllTagList from './AllTagList.svelte';
 import {selected_tag} from "../stores/tag";
-import { now_page } from '../stores/now';
+import { now_page, isDesktop, show_list } from '../stores/now';
+import { fly } from 'svelte/transition';
 
 const remove_selected_tag = ()=>{
     $selected_tag = {color:null, value:null};
     $now_page = 1;
 };
 
+let height;
+let show;
+
 </script>
 
-<section class="h-full">
+<section 
+transition:fly={{x:-400, duration:400}}
+class="max-h-3/4 {$isDesktop ? "" :"w-full"}"
+bind:clientHeight={height}>
+    {#if 650 >= height && $isDesktop}
+    <label class="ml-10" for="isListView">태그 목록 보기</label>
+    <input id="isListView" type=checkbox bind:checked={show}>
+    {/if}
+
+    {#if 650 < height && $isDesktop || show }
     <div class="
     h-36 w-80
     ml-10 mt-2 p-2
@@ -31,5 +44,13 @@ const remove_selected_tag = ()=>{
         {/if}
         <AllTagList/>
     </div>
+    {/if}
+    {#if !$isDesktop}
+    <button
+    class="text-base shadow rounded bg-red-200 p-1 mt-5 ml-10"
+    on:click={()=>{$show_list=true}}>
+        목록으로 돌아가기 🗃️
+    </button>
+    {/if}
     <MailDetailCard/>
 </section>
