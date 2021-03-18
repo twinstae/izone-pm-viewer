@@ -8,7 +8,6 @@ import typescript from '@rollup/plugin-typescript';
 import { copySync, removeSync } from 'fs-extra'
 import { spassr } from 'spassr'
 import getConfig from '@roxi/routify/lib/utils/config'
-import postcssImport from 'postcss-import'
 import { injectManifest } from 'rollup-plugin-workbox'
 import sveltePreprocess from "svelte-preprocess";
 import json from '@rollup/plugin-json'

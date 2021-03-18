@@ -33,18 +33,18 @@
 </script>
 
 <span
-on:click={onSelectTag(tag)}
+on:click={onRemove ? onRemove : onSelectTag(tag)}
 style="background-color: {tag.color};"
 class="
 {tag.color=="#fff" ? "border-2 p-0.5" : "p-1"}
 {canDelete
-    ? "mt-1 ml-1 mb-1 rounded-l border-r-0 pr-1"
+    ? "mt-1 ml-1 mb-1 rounded-l border-r-0 pr-2"
     : "m-1 rounded"}
 text-{size} text-{text_brightness}">
     {tag.value}
 </span>
 
-{#if canDelete && tag.value!="생일"}
+{#if onRemove || canDelete && tag.value!="생일"}
 <span
 on:click={onRemove ? onRemove : onDeleteTag}
 style="background-color: {tag.color};"
