@@ -22,12 +22,13 @@ import { fade } from 'svelte/transition';
             setTimeout(()=>{    
                 now_content = result;
                 translate_url = get_translate_url(result);
-            }, 300);
+            }, 100);
         });
     }
     $: sync()
 
-
+    let height;
+    $: over = height < 40;
 </script>
 {#if now_content}
     <div class="mt-10">
@@ -49,14 +50,14 @@ ml-10 mt-2 p-2 h-4/6 w-80
 flex-none
 flex flex-col">
     <div class="relative w-full">
-        <div class="relative">
+        <div class="relative" bind:clientHeight={height}>
             <MemberProfileImg pm={$now_pm}/>
             <h4 class="text-xl m-1 w-4/5"> {$now_pm.subject}</h4>
         </div>
+        {#if over}<br/>{/if}
         <div class="absolute inset-y-0 right-0 m-1 h-8">
             <FavoriteHeart pm={$now_pm}/>
         </div>
-        <br/>
         <div class="flex flex-wrap">
             <MemberTag pm={$now_pm}  size="sm"/>
             <TimeStampTag time={$now_pm.time} size="sm"/>
