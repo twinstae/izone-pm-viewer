@@ -7,7 +7,7 @@
     import { now_pm } from '../stores/now';
     export let pm;
 
-    const onMailSelected = (pm)=> ()=>{
+    $: onMailSelected = ()=>{
         if(pm){$now_pm=pm}
     }
     
@@ -15,7 +15,6 @@
 </script>
 
 <li
-on:dblclick={onMailSelected(pm)}
 class="border-b-2 rounded p-2">
     {#if pm.member}
         <p class="w-full truncate">
@@ -24,7 +23,7 @@ class="border-b-2 rounded p-2">
             <TimeStampTag time={pm.time}/>
             {pm.subject}
         </p>        
-        <p class="mt-2 text-sm truncate">
+        <p on:click={onMailSelected} class="mt-2 text-sm truncate">
             {#each getTags(pm) as tag}
             <Tag tag={tag}/>
             {/each}

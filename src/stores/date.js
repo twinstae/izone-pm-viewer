@@ -18,4 +18,4 @@ export function str_to_date(str){
     return new Date(year, month -1, day);
 }
 
-export const time_to_dateStr = time => time.split(" ")[0].replaceAll("/", "-");
+export const time_to_dateStr = time => time.split(" ")[0].replace(/\//g, "-");

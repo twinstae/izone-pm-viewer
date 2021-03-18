@@ -16,12 +16,12 @@
     let now_content = "";
     let translate_url = "";
 
-    const removeTags = s=>s.replaceAll("&nbsp;</div>","\n")
-        .replaceAll("</div>", "\n")
-        .replaceAll('&nbsp;','')
+    const removeTags = s=>s.replace(/\&nbsp;<\/div>/g,"\n")
+        .replace(/<\/div>/g, "\n")
+        .replace(/&nbsp;/g,'')
         .replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "")
-        .replaceAll("\n\n","\n")
-        .replaceAll("\n","%0A");
+        .replace(/\n\n/g,"\n")
+        .replace(/\n/g,"%0A");
     const get_translate_url = (content)=>`https://papago.naver.com/?sk=ja&tk=ko&hn=1&st=${content}`;
 
     $: loadContent = ()=>{
@@ -30,7 +30,6 @@
             now_content = cache;
             const textContent = removeTags(now_content);            
             translate_url = get_translate_url(textContent);
-            console.log(translate_url)
             return null;
         }
 

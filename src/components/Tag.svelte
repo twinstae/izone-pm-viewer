@@ -1,6 +1,6 @@
 <script lang="ts">
     import { now_pm } from "../stores/now";
-    import {all_tag_dict, mail_to_tag_dict, onSelectTag, selected_tag, tag_to_mail_dict} from "../stores/tag";
+    import {all_tag_dict, mail_to_tag_dict, mail_to_tag_dict_to_json, onSelectTag, selected_tag, tag_to_mail_dict, tag_to_mail_dict_to_json} from "../stores/tag";
 
     export let tag: {
         value: string,
@@ -34,9 +34,12 @@
         }
         
         $tag_to_mail_dict=$tag_to_mail_dict;
+        localStorage.setItem("tag_to_mail_dict", tag_to_mail_dict_to_json($tag_to_mail_dict));
 
         $mail_to_tag_dict.get($now_pm.id).delete(the_tag)
         $mail_to_tag_dict=$mail_to_tag_dict;
+        localStorage.setItem("mail_to_tag_dict", mail_to_tag_dict_to_json($mail_to_tag_dict));
+
     }
 </script>
 

@@ -49,7 +49,6 @@ afterUpdate(() => {
         || lastDateString != $dateString
         && first_mail
     ){
-        console.log("갱신", first_mail)
         anchor_mail = first_mail;
         lastNowPage = $now_page;
     }
@@ -110,7 +109,19 @@ $: selected_tag_mail_set = $tag_to_mail_dict.get($selected_tag);
 
 $: filterByTag = (mail)=> selected_tag_mail_set.has(mail.id);
 
-const filterByDate = mail => mail.time.split(" ")[0].replaceAll("/", "-") == $dateString;
+const filterByDate = mail => {
+    const date_str = mail.time.split(" ")[0]
+    if(typeof(date_str)!=typeof("")) console.log(date_str);
+    
+    try{
+        return date_str.replace(/\//g, "-") == $dateString;
+    } catch (e) {
+        console.error(e);
+        console.log(date_str)
+    }
+    
+    return true;
+};
 
 const no_filter = (mail)=>true;
 

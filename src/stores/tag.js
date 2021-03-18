@@ -31,3 +31,23 @@ export const onSelectTag = (tag)=>
         selected_tag.set(tag);
         now_page.set(1);
     }
+
+export const tag_to_mail_dict_to_json = (dict)=> {
+    const entries = Array.from(dict).map(entry=>{
+        const tag = entry[0].value;
+        const mail_list = Array.from(entry[1]);
+        return [tag, mail_list];
+    })
+    return JSON.stringify(entries);
+}
+
+export const mail_to_tag_dict_to_json = dict => {
+    const data = Array.from(dict).map(entry=>{
+        const mail_id = entry[0];
+        const tags = Array.from(tag_set).map(tag=>tag.value);
+        return [mail_id, tags];
+    });
+    return JSON.stringify(data);
+}
+
+export const dict_to_json = dict => JSON.stringify(Array.from(dict)); 

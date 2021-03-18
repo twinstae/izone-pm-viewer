@@ -12,19 +12,20 @@
 
     $: getTags = pm => ($mail_to_tag_dict.has(pm.id) ? Array.from($mail_to_tag_dict.get(pm.id)): []);
 
+    $: selectMail = ()=>{if(pm){$now_pm=pm}}
+
 </script>
 
 <div
-on:dblclick={()=>{
-    if(pm){$now_pm=pm}
-}}
 class="w-64 h-52 m-3 p-2
 relative
 bg-white
 shadow-md rounded-md
 overflow-y-auto">
     {#if pm.member}
-    <div class="relative overflow-hidden">
+    <div
+    on:click={selectMail}
+    class="relative overflow-hidden">
         <img src="{image_root}profile/{$profile}/{pm.member}.jpg"
         class="w-10 h-10 ml-1 mr-2 rounded-full float-left"
         alt=""/>
@@ -41,7 +42,7 @@ overflow-y-auto">
             <Tag tag={tag_item} />
         {/each}
     </div>
-    <p class="m-1">{pm.preview} ...</p>
+    <p on:click={selectMail} class="m-1">{pm.preview} ...</p>
     {:else}
         <img class="h-full pl-6" alt="no mail" src="{image_root}izone-logo.png"/>
     {/if}

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { tag_input, tag_to_mail_dict, mail_to_tag_dict, color_n, all_tag_dict } from "../stores/tag";
+import { tag_input, tag_to_mail_dict, mail_to_tag_dict, color_n, all_tag_dict, tag_to_mail_dict_to_json, dict_to_json, mail_to_tag_dict_to_json } from "../stores/tag";
 import { now_pm } from "../stores/now";
 import { member_color_dict } from "../stores/constants";
 
@@ -20,6 +20,8 @@ const onAddTag = e=>{
         }
         $tag_to_mail_dict=$tag_to_mail_dict;
         $all_tag_dict=$all_tag_dict;
+        localStorage.setItem("tag_to_mail_dict", tag_to_mail_dict_to_json($tag_to_mail_dict));
+        localStorage.setItem("all_tag_dict", dict_to_json($all_tag_dict));
 
         if ($mail_to_tag_dict.has($now_pm.id)){
             $mail_to_tag_dict.get($now_pm.id).add(the_tag)
@@ -27,6 +29,7 @@ const onAddTag = e=>{
             $mail_to_tag_dict.set($now_pm.id, new Set([the_tag]));
         }       
         $mail_to_tag_dict=$mail_to_tag_dict;
+        localStorage.setItem("mail_to_tag_dict", mail_to_tag_dict_to_json($mail_to_tag_dict));
 
         $tag_input ="";
         $color_n = ($color_n+1) % 12;

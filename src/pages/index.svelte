@@ -2,40 +2,77 @@
 <script lang="ts">
     import { metatags } from '@roxi/routify'
     metatags.title = 'IZ*ONE Private Mail Viewer'
-    
-    import { member_dict, member_name_dict } from "../stores/constants";
-    
     import MailDetailSection from "../components/MailDetailSection.svelte";
     import MailListSection from "../components/MailListSection.svelte";
-    import { all_tag_dict, tag_to_mail_dict } from "../stores/tag";
+    import { member_dict, member_name_dict } from "../stores/constants";
+    import { all_tag_dict, mail_to_tag_dict, tag_to_mail_dict, tag_to_mail_dict_to_json } from "../stores/tag";
     import { now_pm, pm_list } from '../stores/now';
 
     let haveInitiated = false;
+ 
+    const json_to_tag_to_mail_dict = (json)=> {
+        const data = JSON.parse(json);
+        const entries = data.map((entry_data)=>{
+            const tag = $all_tag_dict.get(entry_data[0]);
+            const mail_set = new Set(entry_data[1])
+            return [tag, mail_set]
+        })
+        return new Map(entries);
+    }
+
+    const json_to_mail_to_tag_dict = (json) => {
+        const data = JSON.parse(json);
+        const entries = data.map(entry=>{
+            const mail_id = entry[0];
+            const tag_set = new Set(entry[1].map(value=>$all_tag_dict.get(value)));
+            return [mail_id, tag_set];
+        })
+        const result: Map<string, Set<{
+                value:string, color: string
+            }>> = new Map(entries);
+        return result;
+    }
 
     async function init(){
         const mail_list_res = await fetch('./pm_list.json');
         const mail_list_data = await mail_list_res.json();
-
         const name_dict_res = await fetch("./member_name.json");
         $member_dict = await name_dict_res.json();
 
-        $pm_list = mail_list_data.map((pm,i)=>{
+        $pm_list = mail_list_data.map((pm)=>{
             if (pm.id=="m20731"){$now_pm = pm;} // 메일 초기화
-
             const member_n = $member_dict[pm.member];
             pm.member = member_name_dict[member_n];
-            const member_tag = $all_tag_dict.get(pm.member);
-
-            $tag_to_mail_dict.get(member_tag).add(pm.id);
-
             return pm;
         })
 
-        $tag_to_mail_dict = $tag_to_mail_dict;
+        const all_tag_json = localStorage.getItem("all_tag_dict");
+        if(all_tag_json){
+            $all_tag_dict = new Map(JSON.parse(all_tag_json));
+            console.log("all tag backup loaded");
+        }
+
+        const tag_to_mail_json = localStorage.getItem("tag_to_mail_dict");
+        if(tag_to_mail_json){
+            $tag_to_mail_dict = json_to_tag_to_mail_dict(tag_to_mail_json);
+            console.log("tag_to_mail_dict backup loaded");
+        } else {
+            $pm_list.map(pm=>{
+                const member_tag = $all_tag_dict.get(pm.member);
+                $tag_to_mail_dict.get(member_tag).add(pm.id);
+            })
+            $tag_to_mail_dict = $tag_to_mail_dict;
+            localStorage.setItem("tag_to_mail_dict", tag_to_mail_dict_to_json($tag_to_mail_dict));
+        }
+        
+        const mail_to_tag_json = localStorage.getItem("mail_to_tag_dict");
+        if(mail_to_tag_json){
+            $mail_to_tag_dict = json_to_mail_to_tag_dict(mail_to_tag_json)
+            console.log("mail_to_tag_dict backup loaded");
+        }
     }
 
     init().then(()=>{haveInitiated=true});
-
 </script>
 
 <style>

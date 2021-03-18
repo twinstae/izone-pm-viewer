@@ -14,7 +14,8 @@
             favorite_set.add(pm.id);
         }
         $tag_to_mail_dict = $tag_to_mail_dict;
-}
+        localStorage.setItem("tag_to_mail_dict", tag_to_mail_dict_to_json($tag_to_mail_dict));
+    }
 </script>
 <label
 class="text-xl"
