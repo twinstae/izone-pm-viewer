@@ -9,7 +9,7 @@ $: all_tags = Array.from($all_tag_dict.values());
 $: check()
 function check(){
     if($all_tag_dict.has($selected_tag.value)){
-        $selected_tag = null;
+        $selected_tag = {color:null, value:null};
     }
 }
 </script>

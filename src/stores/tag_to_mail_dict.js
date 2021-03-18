@@ -1,7 +1,7 @@
 
 import { writable } from 'svelte/store';
 import { all_tag_dict, favorite_tag, member_tags } from "./all_tag_dict";
-
+import { selected_tag } from "./tag";
 let json_to_tag_to_mail_dict;
 all_tag_dict.subscribe(dict=>{
     json_to_tag_to_mail_dict = (json) => {
@@ -39,13 +39,23 @@ tag_to_mail_dict.subscribe(value=>{
     [...value].forEach(([tag, mail_set])=>{
         if (mail_set.size==0
             && tag.value!="💖" && ! member_tags.includes(tag)){ // 💖는 0 개여도 유지
+            const value = tag.value;
             tag_to_mail_dict.update(dict=>{
                 dict.delete(tag);
                 return dict;
             });
+            
+
             all_tag_dict.update(dict=>{
-                dict.delete(tag.value);
+                dict.delete(value);
                 return dict;
+            })
+
+            selected_tag.update(selected=>{
+                if(selected == tag){
+                    return {color:null, value:null};
+                }
+                return selected;
             })
         }
     })

@@ -1,12 +1,13 @@
 <script lang="ts">
-    import Tag from './Tag.svelte';
-    import TimeStampTag from './TimeStampTag.svelte';
-    import TagInput from './TagInput.svelte';
-    import FavoriteHeart from './FavoriteHeart.svelte';
-    import MemberTag from './MemberTag.svelte';
-    import { get_translate_url, loadContent, now_pm } from '../stores/now';
-    import { mail_to_tag_dict } from "../stores/mail_to_tag_dict";
+import Tag from './Tag.svelte';
+import TimeStampTag from './TimeStampTag.svelte';
+import TagInput from './TagInput.svelte';
+import FavoriteHeart from './FavoriteHeart.svelte';
+import MemberTag from './MemberTag.svelte';
+import { get_translate_url, loadContent, now_pm } from '../stores/now';
+import { mail_to_tag_dict } from "../stores/mail_to_tag_dict";
 import MemberProfileImg from './MemberProfileImg.svelte';
+import { fade } from 'svelte/transition';
 
     $: now_tags = $mail_to_tag_dict.has($now_pm.id)
         ? Array.from($mail_to_tag_dict.get($now_pm.id))
@@ -15,23 +16,31 @@ import MemberProfileImg from './MemberProfileImg.svelte';
     let translate_url = "";
     
     $: sync= ()=>{
+        now_content="";
+
         loadContent($now_pm.id).then(result=>{
-            now_content = result;
-            translate_url = get_translate_url(result);
+            setTimeout(()=>{    
+                now_content = result;
+                translate_url = get_translate_url(result);
+            }, 300);
         });
     }
     $: sync()
 
+
 </script>
 {#if now_content}
-    <a class="
-    text-sm
-    shadow rounded bg-red-100
-    ml-10 mt-5 p-1"
-    href={translate_url}
-    target="_blank">
-        파파고로 번역하기
-    </a>
+    <div class="mt-10">
+        <a class="
+        text-sm
+        ml-10
+        shadow rounded bg-red-100
+        p-1"
+        href={translate_url}
+        target="_blank">
+            파파고로 번역하기
+        </a>
+    </div>
 {/if}
 <div class="
 bg-white
@@ -57,8 +66,11 @@ flex flex-col">
             <TagInput/>
         </div>                
     </div>
-    <div class="h-5/6 mt-3 overflow-scroll p-2"
-    contenteditable=false
-    bind:innerHTML={now_content}>
-    </div>
+    {#if now_content}
+        <div class="h-5/6 mt-3 overflow-scroll p-2"
+        transition:fade="{{ duration: 200 }}"
+        contenteditable=false
+        bind:innerHTML={now_content}>
+        </div>
+    {/if}
 </div>

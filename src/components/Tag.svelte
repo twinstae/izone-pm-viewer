@@ -31,7 +31,7 @@
         $tag_to_mail_dict=$tag_to_mail_dict;
 
         $mail_to_tag_dict.get($now_pm.id).delete(the_tag)
-        $mail_to_tag_dict=$mail_to_tag_dict; 
+        $mail_to_tag_dict=$mail_to_tag_dict;
     }
 </script>
 
