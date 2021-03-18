@@ -47,7 +47,7 @@ text-{size} text-{text_brightness}">
     {tag.value}
 </span>
 
-{#if canDelete}
+{#if canDelete && tag.value!="생일"}
 <span
 on:click={onDeleteTag}
 style="background-color: {tag.color};"
