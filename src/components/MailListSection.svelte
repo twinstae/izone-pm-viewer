@@ -163,8 +163,6 @@ $: mail_list = filtered_list && getPage();
 let isListView = false;
 let show = false;
 
-$: show ? null : remove_selected_tag();
-
 const remove_selected_tag = ()=>{
     $selected_tag = {color:null, value:null};
     $now_page = 1;
@@ -181,18 +179,8 @@ class="
 relative m-5">
 
     {#if !$isDesktop}
-    <label class="ml-3" for="isListView">태그 목록 보기</label>
-    <input id="isListView" type=checkbox bind:checked={show}>
-    {:else}
-    <label class="ml-5" for="isListView">리스트뷰 {isListView ? "on": "off"}</label>
-    <input id="isListView" type=checkbox bind:checked={isListView}>
-    {/if}
-    {#if !$isDesktop && show }
-    <div class="
-    h-36 
-    m-3 p-2
-    bg-white shadow-2xl rounded-md
-    overflow-y-auto">
+        <label class="ml-3" for="isListView">태그 목록 보기</label>
+        <input id="isListView" type=checkbox bind:checked={show}>
         {#if $selected_tag.value}
         <span class="text-xs">현재 선택된 태그 : 
             <Tag tag={$selected_tag}/>
@@ -202,10 +190,19 @@ relative m-5">
         on:click={remove_selected_tag}>
             돌아가기
         </button>
-        <br/>
         {/if}
-        <AllTagList/>
-    </div>
+    {:else}
+        <label class="ml-5" for="isListView">리스트뷰 {isListView ? "on": "off"}</label>
+        <input id="isListView" type=checkbox bind:checked={isListView}>
+    {/if}
+    {#if !$isDesktop && show }
+        <div class="
+        h-36 
+        m-3 p-2
+        bg-white shadow-2xl rounded-md
+        overflow-y-auto">
+            <AllTagList/>
+        </div>
     {/if}
 
     {#if !isListView && $isDesktop}

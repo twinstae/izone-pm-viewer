@@ -34,7 +34,7 @@ import { fade } from 'svelte/transition';
 p-1 shadow rounded bg-red-100"
 href={translate_url}
 target="_blank">
-    파파고 번역
+    파파고 번역 🇯🇵
 </a>
 <div
 class="

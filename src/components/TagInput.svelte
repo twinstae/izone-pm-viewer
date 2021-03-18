@@ -1,6 +1,6 @@
 <script lang="ts">
 import { tag_input, color_n } from "../stores/tag";
-import { now_pm } from "../stores/now";
+import { isDesktop, now_pm } from "../stores/now";
 import { member_color_dict } from "../stores/constants";
 import { all_tag_dict } from "../stores/all_tag_dict";
 import { tag_to_mail_dict } from "../stores/tag_to_mail_dict";
@@ -11,9 +11,8 @@ $: new_tag = {
     color: member_color_dict[$color_n]
 }
 
-const onAddTag = e=>{
-    if(e.code==="Enter"){
-        let the_tag = new_tag;
+const addTag = ()=>{
+    let the_tag = new_tag;
         if ($all_tag_dict.has($tag_input)){
             the_tag = $all_tag_dict.get($tag_input)
             $tag_to_mail_dict.get(the_tag).add($now_pm.id);
@@ -33,6 +32,11 @@ const onAddTag = e=>{
 
         $tag_input ="";
         $color_n = ($color_n+1) % 12;
+}
+
+const onAddTag = e=>{
+    if(e.code==="Enter"){
+        addTag();
     }
 }
 </script>
@@ -46,3 +50,10 @@ text-xs"
 placeholder="새 태그"
 bind:value={$tag_input}
 on:keypress={onAddTag}>
+{#if !$isDesktop}
+<button 
+class="text-xs shadow rounded bg-red-400 p-1 m-1"
+on:click={addTag}>
+    추가
+</button>
+{/if}
