@@ -38,7 +38,7 @@ style="background-color: {tag.color};"
 class="
 {tag.color=="#fff" ? "border-2 p-0.5" : "p-1"}
 {canDelete
-    ? "rounded-l border-r-0 pr-1"
+    ? "mt-1 ml-1 mb-1 rounded-l border-r-0 pr-1"
     : "m-1 rounded"}
 text-{size} text-{text_brightness}">
     {tag.value}
@@ -51,7 +51,7 @@ style="background-color: {tag.color};"
 class="
 {tag.color=="#fff" ? "border-2 border-l-0 p-0.5 pl-1" : "p-1"}
 rounded-r
--ml-2 p-1
+-ml-2 mt-1 mb-1 p-1
 text-{size}">X</span>
 {/if}
 
