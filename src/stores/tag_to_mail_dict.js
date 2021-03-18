@@ -41,13 +41,10 @@ tag_to_mail_dict.subscribe(value=>{
             && tag.value!="💖" && ! member_tags.includes(tag)){ // 💖는 0 개여도 유지
             tag_to_mail_dict.update(dict=>{
                 dict.delete(tag);
-                console.log(dict);
                 return dict;
             });
             all_tag_dict.update(dict=>{
                 dict.delete(tag.value);
-                
-                console.log(dict);
                 return dict;
             })
         }

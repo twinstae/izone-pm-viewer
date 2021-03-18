@@ -48,7 +48,7 @@ import { tag_to_mail_dict } from '../stores/tag_to_mail_dict';
     }
 </style>
 
-<div id="coloriz-bg" class="absolute w-screen h-screen"></div>
+<div id="coloriz-bg" class="absolute w-full h-full"></div>
 <div
 class="flex h-screen w-screen relative">
     {#if haveInitiated}

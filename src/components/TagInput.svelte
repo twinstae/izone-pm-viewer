@@ -20,9 +20,9 @@ const onAddTag = e=>{
         } else {
             $tag_to_mail_dict.set(new_tag, new Set([$now_pm.id]));
             $all_tag_dict.set($tag_input, new_tag)
+            $all_tag_dict=$all_tag_dict;
         }
         $tag_to_mail_dict=$tag_to_mail_dict;
-        $all_tag_dict=$all_tag_dict;
 
         if ($mail_to_tag_dict.has($now_pm.id)){
             $mail_to_tag_dict.get($now_pm.id).add(the_tag)
