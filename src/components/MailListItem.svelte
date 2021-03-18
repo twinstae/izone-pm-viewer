@@ -3,8 +3,9 @@
     import TimeStampTag from './TimeStampTag.svelte';
     import FavoriteHeart from './FavoriteHeart.svelte';
     import MemberTag from './MemberTag.svelte';
-    import { mail_to_tag_dict } from '../stores/tag';
     import { now_pm } from '../stores/now';
+import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
+import MemberProfileImg from './MemberProfileImg.svelte';
     export let pm;
 
     $: onMailSelected = ()=>{
@@ -17,7 +18,8 @@
 <li
 class="border-b-2 rounded p-2">
     {#if pm.member}
-        <p class="w-full truncate">
+        <MemberProfileImg pm={pm} />
+        <p class="w-10/12 truncate">
             <FavoriteHeart pm={pm}/>
             <MemberTag pm={pm}/>
             <TimeStampTag time={pm.time}/>
@@ -28,7 +30,7 @@ class="border-b-2 rounded p-2">
             <Tag tag={tag}/>
             {/each}
             {pm.preview || "..."}
-        <p/>
+        </p>
     {:else}
         <span
         class="

@@ -3,10 +3,10 @@
     import Tag from './Tag.svelte';
     import TimeStampTag from './TimeStampTag.svelte';
     import FavoriteHeart from './FavoriteHeart.svelte';
-    import { mail_to_tag_dict } from "../stores/tag";
-    import { profile } from "../stores/preferences";
     import MemberTag from './MemberTag.svelte';
     import { now_pm } from '../stores/now';
+    import { mail_to_tag_dict } from "../stores/mail_to_tag_dict";
+    import MemberProfileImg from "./MemberProfileImg.svelte";
 
     export let pm;
 
@@ -26,9 +26,7 @@ overflow-y-auto">
     <div
     on:click={selectMail}
     class="relative overflow-hidden">
-        <img src="{image_root}profile/{$profile}/{pm.member}.jpg"
-        class="w-10 h-10 ml-1 mr-2 rounded-full float-left"
-        alt=""/>
+        <MemberProfileImg pm={pm}/>
         <h4 class="text-lg m-1 w-11/12 h-12">{pm.subject}</h4>
     </div>
     <div class="absolute inset-y-0 right-0 m-1">

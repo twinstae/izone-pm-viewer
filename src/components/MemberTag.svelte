@@ -1,6 +1,5 @@
 <script lang="ts">
-import { all_tag_dict } from "../stores/tag";
-
+    import { all_tag_dict } from "../stores/all_tag_dict";
     import Tag from "./Tag.svelte";
     
     export let pm;

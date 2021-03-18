@@ -4,9 +4,10 @@ import ListItem from "./MailListItem.svelte";
 import MailCardItem from './MailCardItem.svelte';
 import { afterUpdate } from "svelte";
 import { dateString, date_to_str, str_to_date, time_to_dateStr } from "../stores/date";
-import {selected_tag, tag_to_mail_dict} from "../stores/tag";
+import {selected_tag} from "../stores/tag";
 import { now_page, pm_list } from '../stores/now';
 import Fuse from 'fuse.js'
+import { tag_to_mail_dict } from '../stores/tag_to_mail_dict';
 
 const options = {
     useExtendedSearch: true,
@@ -181,7 +182,7 @@ class="h-5/6 relative m-5">
         <label for="fuzzy">부분 일치</label>
         <input id="fuzzy" type="checkbox" bind:checked={fuzzy}/>
     </span>
-    <input class="m-2 border-2 border-gray-400 rounded"
+    <input class="m-2 border-1 border-gray-400 rounded"
     type="text" bind:value={search_input} placeholder="검색"/>
     {#if search_input}
         <span class="bg-red-100 rounded pl-1 pr-1">

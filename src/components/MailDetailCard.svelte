@@ -1,53 +1,26 @@
 <script lang="ts">
-    import {image_root} from "../stores/constants";
     import Tag from './Tag.svelte';
     import TimeStampTag from './TimeStampTag.svelte';
     import TagInput from './TagInput.svelte';
     import FavoriteHeart from './FavoriteHeart.svelte';
     import MemberTag from './MemberTag.svelte';
-    import { now_pm } from '../stores/now';
-    import { mail_to_tag_dict } from "../stores/tag";
-    import { profile } from "../stores/preferences";
+    import { get_translate_url, loadContent, now_pm } from '../stores/now';
+    import { mail_to_tag_dict } from "../stores/mail_to_tag_dict";
+import MemberProfileImg from './MemberProfileImg.svelte';
 
-    $: getTags = pm => ($mail_to_tag_dict.has(pm.id) ? Array.from($mail_to_tag_dict.get(pm.id)): []);
-
-    $: now_tags = getTags($now_pm);
-
+    $: now_tags = $mail_to_tag_dict.has($now_pm.id)
+        ? Array.from($mail_to_tag_dict.get($now_pm.id))
+        : [];
     let now_content = "";
     let translate_url = "";
-
-    const removeTags = s=>s.replace(/\&nbsp;<\/div>/g,"\n")
-        .replace(/<\/div>/g, "\n")
-        .replace(/&nbsp;/g,'')
-        .replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "")
-        .replace(/\n\n/g,"\n")
-        .replace(/\n/g,"%0A");
-    const get_translate_url = (content)=>`https://papago.naver.com/?sk=ja&tk=ko&hn=1&st=${content}`;
-
-    $: loadContent = ()=>{
-        const cache = localStorage.getItem($now_pm.id);
-        if (cache){
-            now_content = cache;
-            const textContent = removeTags(now_content);            
-            translate_url = get_translate_url(textContent);
-            return null;
-        }
-
-        now_content = "<h3>로딩 중</h3>"
-
-        fetch(`./mail/${$now_pm.id}.html`)
-            .then(result =>result.text())
-            .then(raw_html=>{
-                const start = raw_html.search(`<div class="main-contents" id="mail-detail"><html><head></head><body>`)+69;
-                const end = raw_html.search(`</body></html></div>`);
-                now_content = raw_html.slice(start, end);
-                const textContent = removeTags(now_content);
-                translate_url = get_translate_url(textContent);
-                localStorage.setItem($now_pm.id, now_content);
-            })
+    
+    $: sync= ()=>{
+        loadContent($now_pm.id).then(result=>{
+            now_content = result;
+            translate_url = get_translate_url(result);
+        });
     }
-
-    $: loadContent();
+    $: sync()
 
 </script>
 {#if now_content}
@@ -68,12 +41,10 @@ flex-none
 flex flex-col">
     <div class="relative w-full">
         <div class="relative">
-            <img src="{image_root}profile/{$profile}/{$now_pm.member}.jpg"
-            class="w-10 h-10 ml-1 mr-2 rounded-full float-left"
-            alt=""/>
+            <MemberProfileImg pm={$now_pm}/>
             <h4 class="text-xl m-1 w-4/5"> {$now_pm.subject}</h4>
         </div>
-        <div class="absolute inset-y-0 right-0 m-1">
+        <div class="absolute inset-y-0 right-0 m-1 h-8">
             <FavoriteHeart pm={$now_pm}/>
         </div>
         <br/>

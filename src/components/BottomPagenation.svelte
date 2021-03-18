@@ -41,7 +41,7 @@ function toTomorrow(){
     이전 페이지</button>
     
     <span
-    class="bg-white border-2 border-gray-400 rounded w-24"
+    class="bg-white border-1 border-gray-400 rounded w-24"
     class:bg-red-300={maxPage<=$now_page}
     class:border-red-300={maxPage<=$now_page}>
         <input
@@ -74,7 +74,7 @@ function toTomorrow(){
     on:click={toYesterday}>
     어제로</button>
 
-    <input type=date class="border-2 border-gray-400 rounded" bind:value={$dateString}>
+    <input type=date class="border-1 border-gray-400 rounded" bind:value={$dateString}>
 
     <button
     class="rounded bg-red-100 m-2 pl-1 pr-1"

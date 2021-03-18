@@ -56,5 +56,7 @@ export const member_name_dict = {
     12:"운영팀"
 }
 
+export const member_name_list = ["장원영", "미야와키 사쿠라", "조유리", "최예나", "안유진", "야부키 나코", "권은비", "강혜원", "혼다 히토미", "김채원", "김민주", "이채연", "운영팀"];
+
 export const image_root = "./img/";
 export const mail_root = "./mail/";

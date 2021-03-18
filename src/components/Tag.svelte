@@ -1,6 +1,9 @@
 <script lang="ts">
+    import { all_tag_dict } from "../stores/all_tag_dict";
+    import { mail_to_tag_dict } from "../stores/mail_to_tag_dict";
+    import { tag_to_mail_dict } from "../stores/tag_to_mail_dict";
     import { now_pm } from "../stores/now";
-    import {all_tag_dict, mail_to_tag_dict, mail_to_tag_dict_to_json, onSelectTag, selected_tag, tag_to_mail_dict, tag_to_mail_dict_to_json} from "../stores/tag";
+    import { onSelectTag } from "../stores/tag";
 
     export let tag: {
         value: string,
@@ -21,25 +24,14 @@
             ? "black"
             : "gray-700";
 
-    export const onDeleteTag = ()=>{
+    $: onDeleteTag = ()=>{
         const the_tag = $all_tag_dict.get(tag.value);
-        const tag_set = $tag_to_mail_dict.get(the_tag);
-        tag_set.delete($now_pm.id);
-
-        if (tag_set.size==0){
-            $tag_to_mail_dict.delete(the_tag);
-            if(tag == $selected_tag){
-                $selected_tag = null;
-            }
-        }
         
+        $tag_to_mail_dict.get(the_tag).delete($now_pm.id);        
         $tag_to_mail_dict=$tag_to_mail_dict;
-        localStorage.setItem("tag_to_mail_dict", tag_to_mail_dict_to_json($tag_to_mail_dict));
 
         $mail_to_tag_dict.get($now_pm.id).delete(the_tag)
-        $mail_to_tag_dict=$mail_to_tag_dict;
-        localStorage.setItem("mail_to_tag_dict", mail_to_tag_dict_to_json($mail_to_tag_dict));
-
+        $mail_to_tag_dict=$mail_to_tag_dict; 
     }
 </script>
 
@@ -47,9 +39,10 @@
 on:click={onSelectTag(tag)}
 style="background-color: {tag.color};"
 class="
+{tag.value=="김민주" ? "border-2 p-0.5" : "p-1"}
 {canDelete
-    ? "border-1 mt-1 ml-1 mb-1 p-1 rounded-l "
-    : "border-1 m-1 p-1 rounded"}
+    ? "mt-1 ml-1 mb-1 rounded-l "
+    : "m-1 rounded"}
 text-{size} text-{text_brightness}">
     {tag.value}
 </span>
