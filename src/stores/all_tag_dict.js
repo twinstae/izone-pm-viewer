@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 
-export const favorite_tag = {value: "💖", color: "white"};
+export const favorite_tag = {value: "💖", color: "#fff"};
 
 export const member_tags = [
     {"value":"권은비","color":"#bbb0dc"},

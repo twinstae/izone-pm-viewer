@@ -26,14 +26,15 @@ bind:clientHeight={height}>
     {/if}
 
     {#if 650 < height && $isDesktop || show }
+        {#if $selected_tag.value}
+            <span>현재 :</span>
+            <Tag tag={$selected_tag} canDelete={true} onRemove={remove_selected_tag}/>
+        {/if}
     <div class="
-    h-36 w-80
+    h-36 w-80 mt-3 mb-3
     p-2
     bg-white shadow-2xl rounded-md
     overflow-y-auto">
-        {#if $selected_tag.value}
-            <Tag tag={$selected_tag} onRemove={remove_selected_tag}/>
-        {/if}
         <AllTagList/>
     </div>
     {/if}

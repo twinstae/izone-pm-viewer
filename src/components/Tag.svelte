@@ -36,9 +36,9 @@
 on:click={onSelectTag(tag)}
 style="background-color: {tag.color};"
 class="
-{tag.value=="김민주" ? "border-2 p-0.5" : "p-1"}
+{tag.color=="#fff" ? "border-2 p-0.5" : "p-1"}
 {canDelete
-    ? "mt-1 ml-1 mb-1 rounded-l "
+    ? "rounded-l border-r-0 pr-1"
     : "m-1 rounded"}
 text-{size} text-{text_brightness}">
     {tag.value}
@@ -46,11 +46,12 @@ text-{size} text-{text_brightness}">
 
 {#if canDelete && tag.value!="생일"}
 <span
-on:click={onRemove ? onRemove: onDeleteTag}
+on:click={onRemove ? onRemove : onDeleteTag}
 style="background-color: {tag.color};"
 class="
+{tag.color=="#fff" ? "border-2 border-l-0 p-0.5 pl-1" : "p-1"}
 rounded-r
-mt-1 mb-1 p-1
-text-{size}"> X</span>
+-ml-2 p-1
+text-{size}">X</span>
 {/if}
 
