@@ -31,18 +31,17 @@ import { fade } from 'svelte/transition';
     $: over = height < 40;
 </script>
 <a class="
-p-1 {$isDesktop ? "m-10" : "m-2"}
-shadow rounded bg-red-100"
+p-1 shadow rounded bg-red-100"
 href={translate_url}
 target="_blank">
-    파파고로 번역하기
+    파파고 번역
 </a>
 <div
 class="
 bg-white
 shadow-2xl rounded-md
-ml-10 mt-2 p-2
-{$isDesktop ? "w-80 h-2/3" : "mr-10 h-3/4 w-10/12"}
+mt-2 p-2
+{$isDesktop ? "w-80 h-2/3" : "mr-10 h-3/4 w-full"}
 flex-none
 flex flex-col">
     <div class="relative w-full">

@@ -18,17 +18,17 @@ let show;
 
 <section 
 transition:fly={{x:-400, duration:400}}
-class="max-h-3/4 {$isDesktop ? "" :"w-full"}"
+class="max-h-3/4 m-5 {$isDesktop ? "" :"w-full"}"
 bind:clientHeight={height}>
     {#if 650 >= height && $isDesktop}
-    <label class="ml-10" for="isListView">태그 목록 보기</label>
+    <label for="isListView">태그 목록 보기</label>
     <input id="isListView" type=checkbox bind:checked={show}>
     {/if}
 
     {#if 650 < height && $isDesktop || show }
     <div class="
     h-36 w-80
-    ml-10 mt-2 p-2
+    p-2
     bg-white shadow-2xl rounded-md
     overflow-y-auto">
         {#if $selected_tag.value}
@@ -47,9 +47,9 @@ bind:clientHeight={height}>
     {/if}
     {#if !$isDesktop}
     <button
-    class="text-base shadow rounded bg-red-200 p-1 mt-5 ml-10"
+    class="text-base shadow rounded bg-red-200 p-1 mt-5"
     on:click={()=>{$show_list=true}}>
-        목록으로 돌아가기 🗃️
+        돌아가기 🗃️
     </button>
     {/if}
     <MailDetailCard/>

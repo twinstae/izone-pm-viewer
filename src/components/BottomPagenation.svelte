@@ -38,10 +38,10 @@ function toTomorrow(){
     } else {
         alert("시작 페이지입니다.")  
     }}}>
-    이전 페이지</button>
+    이전</button>
     
     <span
-    class="bg-white border-1 border-gray-400 rounded w-24"
+    class="bg-white border-2 border-gray-400 rounded w-24 p-0.5"
     class:bg-red-300={maxPage<=$now_page}
     class:border-red-300={maxPage<=$now_page}>
         <input
@@ -60,25 +60,21 @@ function toTomorrow(){
     } else {
         alert("마지막 페이지입니다.");
     }}}>
-        다음 페이지
+        다음
     </button>
-    
-    {#if maxPage <= $now_page}
-        <span>마지막입니다.</span>
-    {/if}
     
     <br/>
     
     <button
     class="rounded bg-red-100 m-2 pl-1 pr-1"
     on:click={toYesterday}>
-    어제로</button>
+    어제</button>
 
-    <input type=date class="border-1 border-gray-400 rounded" bind:value={$dateString}>
+    <input type=date class="border-1 w-36 border-gray-400 rounded" bind:value={$dateString}>
 
     <button
     class="rounded bg-red-100 m-2 pl-1 pr-1"
     on:click={toTomorrow}>
-        내일로
+        내일
     </button>
 </div>

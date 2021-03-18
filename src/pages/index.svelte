@@ -65,7 +65,7 @@ import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
     init().then(()=>{haveInitiated=true});
 
     let width;
-    $: isDesktop.set(width > 768);
+    $: isDesktop.set(width > 800);
     
 </script>
 

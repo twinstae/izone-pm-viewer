@@ -139,9 +139,14 @@ let mail_list_width;
 let mail_list_height;
 $: mail_per_width =  Math.floor((mail_list_width) / 280)
 $: mail_per_height = Math.floor(mail_list_height * 5/6 / 200);
-$: mail_per_page = isListView
-    ? Math.floor((mail_list_height * 3/4 - 80) / 200 * 3) - (!$isDesktop && show ? 2 : 0)
-    : mail_per_width * mail_per_height || 6;
+
+$: list_length = Math.floor((mail_list_height - 280) / 88)
+        - (show ? 2 : 0);
+$: mail_per_page = !$isDesktop
+    ? Math.min(list_length, 7)
+    : isListView ?
+        Math.floor((mail_list_height - 200) / 56)
+        : mail_per_width * mail_per_height;
 
 $: maxPage = Math.ceil(filtered_list.length/mail_per_page);
 
@@ -158,6 +163,8 @@ $: mail_list = filtered_list && getPage();
 let isListView = false;
 let show = false;
 
+$: show ? null : remove_selected_tag();
+
 const remove_selected_tag = ()=>{
     $selected_tag = {color:null, value:null};
     $now_page = 1;
@@ -169,7 +176,9 @@ const remove_selected_tag = ()=>{
 transition:fly={{x:200, duration:200}}
 bind:clientWidth={mail_list_width}
 bind:clientHeight={mail_list_height}
-class="h-5/6 relative m-5 w-11/12 md:w-1/2 lg:w-4/6 xl:w-7/12">
+class="
+{$isDesktop ? "h-5/6 w-1/2 lg:w-7/12": "h-full w-11/12"}
+relative m-5">
 
     {#if !$isDesktop}
     <label class="ml-3" for="isListView">태그 목록 보기</label>
@@ -216,11 +225,11 @@ class="h-5/6 relative m-5 w-11/12 md:w-1/2 lg:w-4/6 xl:w-7/12">
         </ul>
     {/if}
     <BottomPagenation maxPage={maxPage}/>
-    <span class="bg-red-100 rounded w-content">
+    <span class="bg-red-100 rounded w-content p-0.5 ml-2">
         <label for="fuzzy">부분 일치</label>
         <input id="fuzzy" type="checkbox" bind:checked={fuzzy}/>
     </span>
-    <input class="m-2 border-1 border-gray-400 rounded"
+    <input class="m-2 border-1 border-gray-400 rounded w-32"
     type="text" bind:value={search_input} placeholder="검색"/>
     {#if search_input}
         <span class="bg-red-100 rounded pl-1 pr-1">

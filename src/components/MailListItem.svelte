@@ -3,9 +3,9 @@
     import TimeStampTag from './TimeStampTag.svelte';
     import FavoriteHeart from './FavoriteHeart.svelte';
     import MemberTag from './MemberTag.svelte';
-    import { now_pm, show_list } from '../stores/now';
-import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
-import MemberProfileImg from './MemberProfileImg.svelte';
+    import { isDesktop, now_pm, show_list } from '../stores/now';
+    import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
+    import MemberProfileImg from './MemberProfileImg.svelte';
     export let pm;
 
     $: onMailSelected = ()=>{
@@ -17,14 +17,16 @@ import MemberProfileImg from './MemberProfileImg.svelte';
 </script>
 
 <li
+style="height: {$isDesktop ? '74px' : '102px'}"
 class="border-b-2 rounded p-2">
     {#if pm.member}
-        <MemberProfileImg pm={pm} />
-        <p class="w-10/12 truncate">
+        <!-- <MemberProfileImg pm={pm}/> -->
+        <p class="w-9/12 truncate">
             <FavoriteHeart pm={pm}/>
             <MemberTag pm={pm}/>
             <TimeStampTag time={pm.time}/>
-            <span class="lg:hidden xl:hidden 2xl:hidden"><br/></span>{pm.subject}
+            {#if !$isDesktop }<br/>{/if}
+            {pm.subject}
         </p>        
         <p on:click={onMailSelected} class="mt-2 text-sm truncate">
             {#each getTags(pm) as tag}
@@ -37,7 +39,6 @@ class="border-b-2 rounded p-2">
         class="
         border-1 text-lg
         rounded bg-white text-white">
-            ...<br/>...
         </span>
     {/if}
 </li>
