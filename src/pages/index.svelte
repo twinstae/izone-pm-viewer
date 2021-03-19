@@ -85,11 +85,7 @@ import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
 bind:clientWidth={width}
 class="flex w-screen h-screen relative">
     {#if haveInitiated}
-        {#if $isDesktop || !$show_list}
         <MailDetailSection />
-        {/if}
-        {#if $isDesktop || $show_list}
         <MailListSection/>
-        {/if}
     {/if}
 </div>

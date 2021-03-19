@@ -7,7 +7,7 @@ import AllTagList from './AllTagList.svelte';
 import { afterUpdate } from "svelte";
 import { dateString, date_to_str, str_to_date, time_to_dateStr } from "../stores/date";
 import {selected_tag} from "../stores/tag";
-import { now_page, isDesktop } from '../stores/now';
+import { now_page, isDesktop, show_list } from '../stores/now';
 import { pm_list_after_search, search_input } from '../stores/search';
 import { tag_to_mail_dict } from '../stores/tag_to_mail_dict';
 import { fly } from 'svelte/transition';
@@ -151,16 +151,16 @@ const remove_selected_tag = ()=>{
     $selected_tag = {color:null, value:null};
     $now_page = 1;
 };
-
 </script>
 
 <section
+class:hidden={!$isDesktop && !$show_list}
 transition:fly={{x:200, duration:200}}
 bind:clientWidth={mail_list_width}
 bind:clientHeight={mail_list_height}
-style="min-height: {isListView
-    ? (show ? 480:320)
-    : 450}px;"
+style="min-height: {isListView || !$isDesktop
+    ? (show ? 520:360)
+    : 490}px;"
 class="
 {$isDesktop ? "h-full w-1/2 lg:w-7/12": "h-full w-full"}
 relative p-5">
@@ -175,15 +175,14 @@ relative p-5">
             <label class="p-1" for="isListView">리스트뷰 {isListView ? "on": "off"} <input id="isListView" type=checkbox bind:checked={isListView}></label>
         {/if}
     </div>
-    {#if !$isDesktop && show }
-        <div class="
+        <div
+        class:hidden={!(!$isDesktop && show)}
+        class="
         h-36 p-2 mb-3
         bg-white shadow-2xl rounded-md
         overflow-y-auto">
             <AllTagList/>
         </div>
-    {/if}
-
     {#if !isListView && $isDesktop}
         <div
         class="

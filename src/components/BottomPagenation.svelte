@@ -49,12 +49,12 @@ function goToBackPage(){
     <PinkButton onClick={goToBackPage}> 이전 </PinkButton>
     
     <span
-    class="bg-white border-2 border-gray-400 rounded w-24 p-0.5"
+    class="bg-white border-2 border-gray-400 rounded w-24 p-1"
     class:bg-red-300={maxPage<=$now_page}
     class:border-red-300={maxPage<=$now_page}>
         <input
         type="number"
-        class="w-9 "
+        class="w-9"
         class:bg-red-300={maxPage<=$now_page}
         bind:value={$now_page}
         min=1 max={maxPage}>

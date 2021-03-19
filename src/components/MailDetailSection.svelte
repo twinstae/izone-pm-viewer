@@ -15,7 +15,8 @@ let height;
 let show;
 </script>
 
-<section 
+<section
+class:hidden={!$isDesktop && $show_list}
 transition:fly={{x:-400, duration:400}}
 class="h-full p-5 {$isDesktop ? "" :"w-full"} flex flex-col"
 bind:clientHeight={height}>
@@ -43,8 +44,8 @@ bind:clientHeight={height}>
             <Tag tag={$selected_tag} canDelete={true} onRemove={remove_selected_tag}/>
         {/if}
     </div>
-    {#if (650 < height || show) && $isDesktop }
         <div
+        class:hidden={!(!(650 < height || show) && $isDesktop)}
         style="min-height:43px;"
         class="
         h-36 w-80 mt-3 mb-3 p-2
@@ -52,6 +53,5 @@ bind:clientHeight={height}>
         overflow-y-auto">
             <AllTagList/>
         </div>
-    {/if}
     <MailDetailCard show={650 < height || show}/>
 </section>
