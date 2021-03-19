@@ -204,5 +204,5 @@ relative p-5">
     {/if}
     <BottomPagenation maxPage={maxPage}/>
     <br/>
-    <Search />
+    <Search search_length={filtered_list.length}/>
 </section>
