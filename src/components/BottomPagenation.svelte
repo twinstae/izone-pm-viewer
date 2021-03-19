@@ -46,13 +46,15 @@ function goToBackPage(){
 }
 </script>
 
-    <PinkButton onClick={goToBackPage}> 이전 </PinkButton>
+    <PinkButton id="BackPageButton" onClick={goToBackPage}> 이전 </PinkButton>
     
     <span
+    id="NowPageSpan"
     class="bg-white border-2 border-gray-400 rounded w-24 p-1"
     class:bg-red-300={maxPage<=$now_page}
     class:border-red-300={maxPage<=$now_page}>
         <input
+        id="NowPageInput"
         type="number"
         class="w-9"
         class:bg-red-300={maxPage<=$now_page}
@@ -61,7 +63,7 @@ function goToBackPage(){
         <span>/ {maxPage}</span>
     </span>
     
-    <PinkButton onClick={goToNextPage}> 다음 </PinkButton>
+    <PinkButton id="NextPageButton" onClick={goToNextPage}> 다음 </PinkButton>
     
     <br/>
     

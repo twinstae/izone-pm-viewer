@@ -8,6 +8,7 @@
     import MemberProfileImg from './MemberProfileImg.svelte';
     export let pm;
     export let hidden;
+    export let index;
 
     $: onMailSelected = ()=>{
         if(pm){$now_pm=pm}
@@ -18,8 +19,10 @@
 </script>
 
 <li
+id="MailItem-{index}"
 class:hidden={hidden}
-style="height: {$isDesktop ? '62px' : '84px'}"
+style="
+height: {$isDesktop ? '62px' : '84px'};"
 class="border-b-2 rounded p-1 w-full">
     <div>
     {#if pm.member}

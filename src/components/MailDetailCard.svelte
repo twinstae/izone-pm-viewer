@@ -30,11 +30,8 @@ import { fade } from 'svelte/transition';
 <div
 style="max-height: {$isDesktop && show ? "70%" : "90%"}"
 class="
-bg-white
-shadow-2xl rounded-md
-mt-2 p-2
-flex-initial
-{$isDesktop ? "w-80" : "w-full"}
+shadow-2xl rounded-md bg-white 
+w-full mt-2 p-2
 flex flex-col">
     <div class="relative w-full">
         <div class="relative" bind:clientHeight={height}>

@@ -19,7 +19,7 @@ let show;
 <section
 class:hidden={$isMobile && $show_list}
 transition:fly={{x:-400, duration:400}}
-class="h-full p-3 {$isDesktop ? "" :"w-full"} flex flex-col"
+class="h-full p-3 {$isDesktop ? "w-4/12" :"w-full"} flex flex-col"
 bind:clientHeight={height}>
     <div class="flex flex-row">
         {#if $isMobile}
@@ -49,7 +49,7 @@ bind:clientHeight={height}>
     class:hidden={!((650 < height || show) && $isDesktop)}
     style="min-height:43px;"
     class="
-    h-36 w-80 mt-3 mb-3 p-2
+    h-36 mt-3 mb-3 p-2
     bg-white shadow-2xl rounded-md
     overflow-y-auto">
         <AllTagList/>

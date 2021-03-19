@@ -112,12 +112,12 @@ $: filtered_list = $pm_list_after_search.filter(filter_by);
 
 let section_width;
 let section_height;
-$: mail_per_width =  Math.floor((section_width) / 280)
-$: mail_per_height = Math.floor((section_height - 220) / 208);
+$: mail_per_width =  Math.floor((section_width - 33) / 280)
+$: mail_per_height = Math.floor((section_height - 220) / 164);
 $: mail_per_page = $isMobile
     ? 5
-    : isListView ?
-        Math.floor((section_height - 200) / 62)
+    : isListView
+        ? Math.floor((section_height - 200) / 62)
         : mail_per_width * mail_per_height;
 
 $: maxPage = Math.ceil(filtered_list.length/mail_per_page);
@@ -142,6 +142,7 @@ const remove_selected_tag = ()=>{
 </script>
 
 <section
+id="MailListSection"
 class:hidden={$isMobile && !$show_list}
 transition:fly={{x:200, duration:200}}
 bind:clientWidth={section_width}
@@ -149,9 +150,10 @@ bind:clientHeight={section_height}
 style="
 min-height: {isListView || $isMobile
     ? (show ? 520:360)
-    : 490}px;"
-class="
-{$isDesktop ? "h-full w-1/2 lg:w-7/12": "h-full w-full"}
+    : 490}px;
+"
+class="h-full
+{$isDesktop ? "w-8/12": "h-full w-full"}
 relative pl-4 pr-4 pt-2">
     <div class="mb-1 flex flex-row">
         {#if $isMobile}
@@ -174,18 +176,19 @@ relative pl-4 pr-4 pt-2">
         </div>
     {#if !isListView && $isDesktop}
         <div
+        id="MailCardView"
         class="
-        h-9/12 mb-3
-        flex flex-wrap">
-            {#each mail_list as pm}
-            <MailCardItem pm={pm}/>
+        mb-3 flex flex-wrap">
+            {#each mail_list as pm, i}
+            <MailCardItem pm={pm} index={i}/>
             {/each}            
         </div>
     {:else}
-        <ul
-        class="bg-white rounded shadow mb-3">
+        <ul id="MailItemList"
+        style="max-width: 728px;"
+        class="bg-white rounded shadow-xl mb-3">
             {#each mail_list as pm, i}
-                <ListItem pm={pm} hidden={$isMobile  && (section_height < 400 || show) && i>0}/>
+                <ListItem index={i} pm={pm} hidden={$isMobile  && (section_height < 400 || show) && i>0}/>
             {/each}
         </ul>
     {/if}
