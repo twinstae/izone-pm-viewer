@@ -19,26 +19,27 @@ let show;
 transition:fly={{x:-400, duration:400}}
 class="h-full p-5 {$isDesktop ? "" :"w-full"} flex flex-col"
 bind:clientHeight={height}>
-    <div>
-        {#if 650 >= height && $isDesktop}
-        <label for="isListView">태그 목록 보기</label>
-        <input id="isListView" type=checkbox bind:checked={show}>
-        {/if}
-        <a class="
-        p-1 shadow rounded bg-red-100"
-        href={$translate_url}
-        target="_blank">
-            파파고 번역 🇯🇵🇰🇷
-        </a>
+    <div class="flex flex-row">
         {#if !$isDesktop}
         <button
-        class="shadow rounded bg-red-200 p-1"
+        class="shadow rounded bg-red-200 p-1 mr-1"
         on:click={()=>{$show_list=true}}>
-            돌아가기 🗃️
+            목록🗃️
         </button>
         {/if}
+        <div class="w-16 p-1 shadow rounded bg-red-100 mr-1">
+            <a
+            href={$translate_url}
+            target="_blank">
+                번역<img class="w-5 h-5 float-right" src="./papago.png" alt="파파고 번역하기"/>
+            </a>
+        </div>
+        {#if 650 >= height && $isDesktop}
+        <label class="p-1" for="isListView">태그 목록 <input id="isListView" type=checkbox bind:checked={show}></label>
+        
+        {/if}
         {#if $selected_tag.value}
-            <span>현재 :</span>
+            <span class="ml-1 mt-1">현재 :</span>
             <Tag tag={$selected_tag} canDelete={true} onRemove={remove_selected_tag}/>
         {/if}
     </div>

@@ -80,7 +80,7 @@ import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
     }
 </style>
 
-<div id="coloriz-bg" class="absolute w-full h-full"></div>
+<div id="coloriz-bg" class="absolute w-screen h-screen"></div>
 <div
 bind:clientWidth={width}
 class="flex w-screen h-screen relative">

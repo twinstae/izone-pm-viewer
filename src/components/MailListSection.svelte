@@ -21,12 +21,13 @@ let lastMailPerPage=3;
 let anchor_mail;
     
 afterUpdate(() => {
-    if (maxPage < $now_page){
-        $now_page=maxPage;
-        return null;
-    }
     if (0 >= $now_page || $now_page == null){
         $now_page=1;
+        return null;
+    }
+
+    if (maxPage < $now_page){
+        $now_page=maxPage;
         return null;
     }
 
@@ -41,7 +42,7 @@ afterUpdate(() => {
     }
 
     if (lastMailPerPage != mail_per_page && anchor_mail){
-        let first_mail_index;
+        let first_mail_index = 0;
         filtered_list.forEach((mail,i)=>{
             if (first_mail_index==null && mail==anchor_mail){
                 first_mail_index = i;
@@ -124,8 +125,7 @@ let mail_list_height;
 $: mail_per_width =  Math.floor((mail_list_width) / 280)
 $: mail_per_height = Math.floor((mail_list_height - 220) / 208);
 
-$: list_length = Math.floor((mail_list_height - 200) / 102)
-        - (show ? 2 : 0);
+$: list_length = Math.floor((mail_list_height - 200 - (show ? 150 : 0)) / 102);
 $: mail_per_page = !$isDesktop
     ? Math.min(list_length, 7)
     : isListView ?
@@ -158,24 +158,28 @@ const remove_selected_tag = ()=>{
 transition:fly={{x:200, duration:200}}
 bind:clientWidth={mail_list_width}
 bind:clientHeight={mail_list_height}
+style="min-height: {isListView
+    ? (show ? 480:320)
+    : 450}px;"
 class="
 {$isDesktop ? "h-full w-1/2 lg:w-7/12": "h-full w-full"}
 relative p-5">
-
-    {#if !$isDesktop}
-        <label for="isListView">태그 목록 보기</label>
-        <input id="isListView" type=checkbox bind:checked={show}>
-        {#if $selected_tag.value}
-            <span>현재 :</span>
-            <Tag tag={$selected_tag} canDelete={true} onRemove={remove_selected_tag}/>    
+    <div class="mb-3">
+        {#if !$isDesktop}
+            <label for="isListView">태그 목록</label>
+            <input id="isListView" type=checkbox bind:checked={show}>
+            {#if $selected_tag.value}
+                <span>현재 :</span>
+                <Tag tag={$selected_tag} canDelete={true} onRemove={remove_selected_tag}/>    
+            {/if}
+        {:else}
+            <label class="m-3" for="isListView">리스트뷰 {isListView ? "on": "off"}</label>
+            <input id="isListView" type=checkbox bind:checked={isListView}>
         {/if}
-    {:else}
-        <label class="m-3" for="isListView">리스트뷰 {isListView ? "on": "off"}</label>
-        <input id="isListView" type=checkbox bind:checked={isListView}>
-    {/if}
+    </div>
     {#if !$isDesktop && show }
         <div class="
-        h-36 p-2 mb-5
+        h-36 p-2 mb-3
         bg-white shadow-2xl rounded-md
         overflow-y-auto">
             <AllTagList/>
@@ -185,14 +189,14 @@ relative p-5">
     {#if !isListView && $isDesktop}
         <div
         class="
-        h-9/12 mb-5
+        h-9/12 mb-3
         flex flex-wrap">
             {#each mail_list as pm}
             <MailCardItem pm={pm}/>
             {/each}            
         </div>
     {:else}
-        <ul class="bg-white rounded shadow  mb-5">
+        <ul class="bg-white rounded shadow mb-3">
             {#each mail_list as pm}
                 <ListItem pm={pm}/>
             {/each}

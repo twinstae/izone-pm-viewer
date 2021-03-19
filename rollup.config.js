@@ -19,8 +19,8 @@ const isNollup = !!process.env.NOLLUP
 const production = !process.env.ROLLUP_WATCH;
 
 // clear previous builds
-removeSync(distDir)
 removeSync(buildDir)
+removeSync(distDir)
 
 
 const serve = () => ({
