@@ -10,5 +10,5 @@ $: src = pm.member == "운영팀" ? "izone-logo.png"
 </script>
 
 <img src="{image_root}{src}"
-class="w-12 h-12 ml-1 mr-2 rounded-full float-left border-gray-200 border-1"
+class="w-10 h-10 ml-1 mr-2 rounded-full float-left border-gray-200 border-1"
 alt=""/>

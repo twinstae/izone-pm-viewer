@@ -30,3 +30,7 @@ export let now_page = writable(1);
 
 export let show_list = writable(true);
 export let isDesktop = writable(true);
+export let isMobile = derived(
+    isDesktop,
+    $isDesktop=> !$isDesktop
+);

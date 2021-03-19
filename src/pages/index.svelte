@@ -69,18 +69,6 @@ import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
     
 </script>
 
-<style>
-    #coloriz-bg {
-        background-image: linear-gradient(to bottom right,
-        #f1d2e7,#f1c3aa,#d9598c, #db706c,
-        #f3aa51, #fcf695, #fff,#cee5d5,
-        #a7e0e1, #b7d3e9, #bbb0dc, #567ace);
-        opacity: 0.6;
-        z-index:-1;
-    }
-</style>
-
-<div id="coloriz-bg" class="absolute w-screen h-screen"></div>
 <div
 bind:clientWidth={width}
 class="flex w-screen h-screen relative">

@@ -1,4 +1,5 @@
 <script lang="ts">
+import { now_page } from "../stores/now";
 import { search_input, fuzzy } from "../stores/search";
 export let search_length;
 </script>
@@ -8,7 +9,11 @@ export let search_length;
     <input id="fuzzy" type="checkbox" bind:checked={$fuzzy}/>
 </span>
 
-<input class="m-1 border-1 border-gray-400 rounded w-32"
+<input
+on:change={()=>{
+    $now_page=1;
+}}
+class="m-1 border-1 border-gray-400 rounded w-28"
 type="text" bind:value={$search_input} placeholder="검색"/>
 
 {#if $search_input}

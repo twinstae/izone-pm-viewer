@@ -7,7 +7,7 @@ import AllTagList from './AllTagList.svelte';
 import { afterUpdate } from "svelte";
 import { dateString, date_to_str, str_to_date, time_to_dateStr } from "../stores/date";
 import {selected_tag} from "../stores/tag";
-import { now_page, isDesktop, show_list } from '../stores/now';
+import { now_page, isDesktop, show_list, isMobile } from '../stores/now';
 import { pm_list_after_search, search_input } from '../stores/search';
 import { tag_to_mail_dict } from '../stores/tag_to_mail_dict';
 import { fly } from 'svelte/transition';
@@ -21,16 +21,6 @@ let lastMailPerPage=3;
 let anchor_mail;
     
 afterUpdate(() => {
-    if (0 >= $now_page || $now_page == null){
-        $now_page=1;
-        return null;
-    }
-
-    if (maxPage < $now_page){
-        $now_page=maxPage;
-        return null;
-    }
-
     const first_mail = mail_list[0];
     if (
         lastNowPage != $now_page
@@ -120,16 +110,14 @@ $: filter_by =
     no_filter;
 $: filtered_list = $pm_list_after_search.filter(filter_by);
 
-let mail_list_width;
-let mail_list_height;
-$: mail_per_width =  Math.floor((mail_list_width) / 280)
-$: mail_per_height = Math.floor((mail_list_height - 220) / 208);
-
-$: list_length = Math.floor((mail_list_height - 200 - (show ? 150 : 0)) / 102);
-$: mail_per_page = !$isDesktop
-    ? Math.min(list_length, 7)
+let section_width;
+let section_height;
+$: mail_per_width =  Math.floor((section_width) / 280)
+$: mail_per_height = Math.floor((section_height - 220) / 208);
+$: mail_per_page = $isMobile
+    ? 4
     : isListView ?
-        Math.floor((mail_list_height - 200) / 74)
+        Math.floor((section_height - 200) / 74)
         : mail_per_width * mail_per_height;
 
 $: maxPage = Math.ceil(filtered_list.length/mail_per_page);
@@ -154,18 +142,19 @@ const remove_selected_tag = ()=>{
 </script>
 
 <section
-class:hidden={!$isDesktop && !$show_list}
+class:hidden={$isMobile && !$show_list}
 transition:fly={{x:200, duration:200}}
-bind:clientWidth={mail_list_width}
-bind:clientHeight={mail_list_height}
-style="min-height: {isListView || !$isDesktop
+bind:clientWidth={section_width}
+bind:clientHeight={section_height}
+style="
+min-height: {isListView || $isMobile
     ? (show ? 520:360)
     : 490}px;"
 class="
 {$isDesktop ? "h-full w-1/2 lg:w-7/12": "h-full w-full"}
-relative p-5">
+relative p-4">
     <div class="mb-3 flex flex-row">
-        {#if !$isDesktop}
+        {#if $isMobile}
             <label class="p-1" for="isListView">태그 목록 <input id="isListView" type=checkbox bind:checked={show}></label>
             {#if $selected_tag.value}
                 <span class="ml-1 mt-1">현재 :</span>
@@ -176,7 +165,7 @@ relative p-5">
         {/if}
     </div>
         <div
-        class:hidden={!(!$isDesktop && show)}
+        class:hidden={!($isMobile && show)}
         class="
         h-36 p-2 mb-3
         bg-white shadow-2xl rounded-md
@@ -193,9 +182,10 @@ relative p-5">
             {/each}            
         </div>
     {:else}
-        <ul class="bg-white rounded shadow mb-3">
-            {#each mail_list as pm}
-                <ListItem pm={pm}/>
+        <ul
+        class="bg-white rounded shadow mb-3">
+            {#each mail_list as pm, i}
+                <ListItem pm={pm} hidden={$isMobile && section_height < 400 && i>0}/>
             {/each}
         </ul>
     {/if}

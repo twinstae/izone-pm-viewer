@@ -1,6 +1,6 @@
 <script lang="ts">
 import { tag_input, color_n } from "../stores/tag";
-import { isDesktop, now_pm } from "../stores/now";
+import { isDesktop, isMobile, now_pm } from "../stores/now";
 import { member_color_dict } from "../stores/constants";
 import { all_tag_dict } from "../stores/all_tag_dict";
 import { tag_to_mail_dict } from "../stores/tag_to_mail_dict";
@@ -50,7 +50,7 @@ text-xs"
 placeholder="새 태그"
 bind:value={$tag_input}
 on:keypress={onAddTag}>
-{#if !$isDesktop}
+{#if $isMobile}
 <button 
 class="text-xs shadow rounded bg-red-400 p-1 m-1"
 on:click={addTag}>

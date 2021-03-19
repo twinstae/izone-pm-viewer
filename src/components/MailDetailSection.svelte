@@ -3,7 +3,7 @@ import Tag from './Tag.svelte';
 import MailDetailCard from './MailDetailCard.svelte';
 import AllTagList from './AllTagList.svelte';
 import {selected_tag} from "../stores/tag";
-import { now_page, isDesktop, translate_url, show_list } from '../stores/now';
+import { now_page, isDesktop, translate_url, show_list, isMobile } from '../stores/now';
 import { fly } from 'svelte/transition';
 
 const remove_selected_tag = ()=>{
@@ -13,15 +13,16 @@ const remove_selected_tag = ()=>{
 
 let height;
 let show;
+
 </script>
 
 <section
-class:hidden={!$isDesktop && $show_list}
+class:hidden={$isMobile && $show_list}
 transition:fly={{x:-400, duration:400}}
 class="h-full p-5 {$isDesktop ? "" :"w-full"} flex flex-col"
 bind:clientHeight={height}>
     <div class="flex flex-row">
-        {#if !$isDesktop}
+        {#if $isMobile}
         <button
         class="shadow rounded bg-red-200 p-1 mr-1"
         on:click={()=>{$show_list=true}}>
