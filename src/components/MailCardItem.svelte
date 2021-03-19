@@ -28,8 +28,8 @@ style="height:152px"
 class="
 w-64 m-3 p-1
 relative
-bg-white
-shadow-md rounded-md">
+overflow-y-scroll
+bg-white shadow-md rounded-md">
     {#if pm.member}
         <div on:click={selectMail}>
             <MemberProfileImg pm={pm}/>
