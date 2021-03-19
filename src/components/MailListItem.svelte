@@ -19,8 +19,8 @@
 
 <li
 class:hidden={hidden}
-style="height: {$isDesktop ? '74px' : '102px'}"
-class="border-b-2 rounded p-2 w-full">
+style="height: {$isDesktop ? '62px' : '84px'}"
+class="border-b-2 rounded p-1 w-full">
     <div>
     {#if pm.member}
         <MemberProfileImg pm={pm}/>
@@ -31,7 +31,7 @@ class="border-b-2 rounded p-2 w-full">
             {#if $isMobile }<br/>{/if}
             {pm.subject}
         </p>        
-        <p on:click={onMailSelected} class="mt-2 text-sm truncate">
+        <p on:click={onMailSelected} class="ml-1 mt-1 text-sm truncate">
             {#each getTags(pm) as tag}
             <Tag tag={tag}/>
             {/each}
@@ -46,3 +46,12 @@ class="border-b-2 rounded p-2 w-full">
     {/if}
     </div>
 </li>
+{#if hidden}
+<li class="border-b-2 rounded w-full text-gray-500 truncate" style="font-size:10px; height: 20px;">
+    {#if pm.member}
+    <MemberTag pm={pm} size=""/>
+    <TimeStampTag time={pm.time} size=""/>
+    <strong>{pm.subject}</strong>{" "+pm.preview}
+    {/if}
+</li>
+{/if}

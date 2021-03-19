@@ -34,7 +34,7 @@ bg-white
 shadow-2xl rounded-md
 mt-2 p-2
 flex-initial
-{$isDesktop ? "w-80" : "mr-10 w-full"}
+{$isDesktop ? "w-80" : "w-full"}
 flex flex-col">
     <div class="relative w-full">
         <div class="relative" bind:clientHeight={height}>
@@ -55,7 +55,7 @@ flex flex-col">
         </div>                
     </div>
     {#if $now_content}
-        <div class="h-5/6 overflow-scroll p-2"
+        <div class="h-5/6 overflow-scroll p-1"
         transition:fade="{{ duration: 200 }}"
         contenteditable=false
         bind:innerHTML={$now_content}>

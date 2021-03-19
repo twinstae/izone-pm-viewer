@@ -115,9 +115,9 @@ let section_height;
 $: mail_per_width =  Math.floor((section_width) / 280)
 $: mail_per_height = Math.floor((section_height - 220) / 208);
 $: mail_per_page = $isMobile
-    ? 4
+    ? 5
     : isListView ?
-        Math.floor((section_height - 200) / 74)
+        Math.floor((section_height - 200) / 62)
         : mail_per_width * mail_per_height;
 
 $: maxPage = Math.ceil(filtered_list.length/mail_per_page);
@@ -152,8 +152,8 @@ min-height: {isListView || $isMobile
     : 490}px;"
 class="
 {$isDesktop ? "h-full w-1/2 lg:w-7/12": "h-full w-full"}
-relative p-4">
-    <div class="mb-3 flex flex-row">
+relative pl-4 pr-4 pt-2">
+    <div class="mb-1 flex flex-row">
         {#if $isMobile}
             <label class="p-1" for="isListView">태그 목록 <input id="isListView" type=checkbox bind:checked={show}></label>
             {#if $selected_tag.value}
@@ -185,7 +185,7 @@ relative p-4">
         <ul
         class="bg-white rounded shadow mb-3">
             {#each mail_list as pm, i}
-                <ListItem pm={pm} hidden={$isMobile && section_height < 400 && i>0}/>
+                <ListItem pm={pm} hidden={$isMobile  && (section_height < 400 || show) && i>0}/>
             {/each}
         </ul>
     {/if}

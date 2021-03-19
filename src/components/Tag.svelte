@@ -36,7 +36,9 @@
 on:click={onRemove ? onRemove : onSelectTag(tag)}
 style="background-color: {tag.color};"
 class="
-{tag.color=="#fff" ? "border-2 p-0.5" : "p-1"}
+{size==""
+    ? "p-0.5"
+    : tag.color=="#fff" ? "border-2 p-0.5" : "p-1"}
 {canDelete
     ? "mt-1 ml-1 mb-1 rounded-l border-r-0 pr-2"
     : "m-1 rounded"}
