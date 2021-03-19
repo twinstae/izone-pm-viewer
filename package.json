@@ -22,7 +22,8 @@
       "rollup": "rollup -cw",
       "nollup": "nollup -c",
       "routify": "routify",
-      "validate": "svelte-check"
+      "validate": "svelte-check",
+      "cypress:open": "npx cypress open"
    },
    "devDependencies": {
       "@rollup/plugin-commonjs": "^15.0.0",
@@ -33,6 +34,7 @@
       "@tsconfig/svelte": "^1.0.0",
       "autoprefixer": "^10.2.4",
       "cross-env": "^7.0.2",
+      "cypress": "^6.8.0",
       "fs-extra": "^9.0.1",
       "nollup": "^0.13.13",
       "npm-run-all": "^4.1.5",
