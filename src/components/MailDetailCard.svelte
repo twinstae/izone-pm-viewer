@@ -4,7 +4,7 @@ import TimeStampTag from './TimeStampTag.svelte';
 import TagInput from './TagInput.svelte';
 import FavoriteHeart from './FavoriteHeart.svelte';
 import MemberTag from './MemberTag.svelte';
-import { loadContent, now_pm, isDesktop, now_content } from '../stores/now';
+import { loadContent, now_pm, isDesktop, now_content, show_list, isMobile } from '../stores/now';
 import { mail_to_tag_dict } from "../stores/mail_to_tag_dict";
 import MemberProfileImg from './MemberProfileImg.svelte';
 import { fade } from 'svelte/transition';
@@ -55,10 +55,20 @@ flex flex-col">
         </div>                
     </div>
     {#if $now_content}
-        <div class="h-5/6 overflow-scroll p-1"
-        transition:fade="{{ duration: 200 }}"
-        contenteditable=false
-        bind:innerHTML={$now_content}>
+        <div class="h-5/6 overflow-scroll p-1">
+            <div
+            transition:fade="{{ duration: 200 }}"
+            contenteditable=false
+            bind:innerHTML={$now_content}>
+                
+            </div>
+            {#if $isMobile}
+            <button
+            class="shadow rounded bg-red-200 p-1 mt-2"
+            on:click={()=>{$show_list=true}}>
+                목록으로 돌아가기🗃️
+            </button>
+            {/if}
         </div>
     {/if}
 </div>
