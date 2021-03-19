@@ -1,10 +1,5 @@
 [IZPM-Backup 백업 툴](https://github.com/mdsnins/IZPM-Backup)과 호환되는 뷰어입니다.
 
-
-> 주의 : 태그 및 좋아요 저장 기능은 아직 없다.
-> 주의 : 데이터가 저장되지 않습니다.
-> 주의 : 서버를 껏다 켜면 모든 데이터가 초기화 됩니다.
-
 ## 사용방법
 
 1. [IZ-PM-Viewer-배포.zip 다운 받기](https://github.com/twinstae/izone-pm-viewer/raw/main/IZ-PM-Viewer-%EB%B0%B0%ED%8F%AC.zip)
