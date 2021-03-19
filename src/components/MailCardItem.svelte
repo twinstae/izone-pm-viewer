@@ -24,11 +24,10 @@
 
 <div
 id="MailCard-{index}"
-style="height:152px"
+style="height:156px"
 class="
 w-64 m-3 p-1
-relative
-overflow-y-scroll
+relative overflow-y-scroll
 bg-white shadow-md rounded-md">
     {#if pm.member}
         <div on:click={selectMail}>
