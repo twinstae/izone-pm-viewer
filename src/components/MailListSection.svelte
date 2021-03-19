@@ -7,27 +7,11 @@ import AllTagList from './AllTagList.svelte';
 import { afterUpdate } from "svelte";
 import { dateString, date_to_str, str_to_date, time_to_dateStr } from "../stores/date";
 import {selected_tag} from "../stores/tag";
-import { now_page, pm_list, isDesktop } from '../stores/now';
-import Fuse from 'fuse.js'
+import { now_page, isDesktop } from '../stores/now';
+import { pm_list_after_search, search_input } from '../stores/search';
 import { tag_to_mail_dict } from '../stores/tag_to_mail_dict';
 import { fly } from 'svelte/transition';
-const options = {
-    useExtendedSearch: true,
-    keys: [
-        "subject",
-        "preview",
-    ]
-};
-
-const fuse = new Fuse($pm_list, options);
-let search_input ="";
-let fuzzy = false;
-$: prefix = fuzzy ? "" : "'"; // fuzzy or include
-$: searchBy = prefix + search_input
-$: search_result = fuse.search(searchBy);
-$: pm_list_after_search = search_input
-    ? search_result.map(result=>result.item) 
-    : $pm_list;
+import Search from './Search.svelte';
 
 let lastDateString;
 $: now_date = str_to_date($dateString);
@@ -130,22 +114,22 @@ const no_filter = (mail)=>true;
 
 $: filter_by = 
     ($selected_tag.value && filterByTag) ||
-    (search_input && no_filter)||
+    ($search_input && no_filter)||
     ($dateString && filterByDate) || 
     no_filter;
-$: filtered_list = pm_list_after_search.filter(filter_by);
+$: filtered_list = $pm_list_after_search.filter(filter_by);
 
 let mail_list_width;
 let mail_list_height;
 $: mail_per_width =  Math.floor((mail_list_width) / 280)
-$: mail_per_height = Math.floor(mail_list_height * 5/6 / 200);
+$: mail_per_height = Math.floor((mail_list_height - 220) / 208);
 
-$: list_length = Math.floor((mail_list_height - 280) / 88)
+$: list_length = Math.floor((mail_list_height - 200) / 102)
         - (show ? 2 : 0);
 $: mail_per_page = !$isDesktop
     ? Math.min(list_length, 7)
     : isListView ?
-        Math.floor((mail_list_height - 200) / 56)
+        Math.floor((mail_list_height - 200) / 74)
         : mail_per_width * mail_per_height;
 
 $: maxPage = Math.ceil(filtered_list.length/mail_per_page);
@@ -175,24 +159,23 @@ transition:fly={{x:200, duration:200}}
 bind:clientWidth={mail_list_width}
 bind:clientHeight={mail_list_height}
 class="
-{$isDesktop ? "h-5/6 w-1/2 lg:w-7/12": "h-full w-11/12"}
-relative m-5">
+{$isDesktop ? "h-full w-1/2 lg:w-7/12": "h-full w-full"}
+relative p-5">
 
     {#if !$isDesktop}
-        <label class="ml-3" for="isListView">태그 목록 보기</label>
+        <label for="isListView">태그 목록 보기</label>
         <input id="isListView" type=checkbox bind:checked={show}>
         {#if $selected_tag.value}
             <span>현재 :</span>
             <Tag tag={$selected_tag} canDelete={true} onRemove={remove_selected_tag}/>    
         {/if}
     {:else}
-        <label class="ml-5" for="isListView">리스트뷰 {isListView ? "on": "off"}</label>
+        <label class="m-3" for="isListView">리스트뷰 {isListView ? "on": "off"}</label>
         <input id="isListView" type=checkbox bind:checked={isListView}>
     {/if}
     {#if !$isDesktop && show }
         <div class="
-        h-36 
-        m-3 p-2
+        h-36 p-2 mb-5
         bg-white shadow-2xl rounded-md
         overflow-y-auto">
             <AllTagList/>
@@ -202,29 +185,20 @@ relative m-5">
     {#if !isListView && $isDesktop}
         <div
         class="
-        h-9/12
+        h-9/12 mb-5
         flex flex-wrap">
             {#each mail_list as pm}
             <MailCardItem pm={pm}/>
             {/each}            
         </div>
     {:else}
-        <ul class="bg-white rounded shadow m-3">
+        <ul class="bg-white rounded shadow  mb-5">
             {#each mail_list as pm}
                 <ListItem pm={pm}/>
             {/each}
         </ul>
     {/if}
     <BottomPagenation maxPage={maxPage}/>
-    <span class="bg-red-100 rounded w-content p-0.5 ml-2">
-        <label for="fuzzy">부분 일치</label>
-        <input id="fuzzy" type="checkbox" bind:checked={fuzzy}/>
-    </span>
-    <input class="m-2 border-1 border-gray-400 rounded w-32"
-    type="text" bind:value={search_input} placeholder="검색"/>
-    {#if search_input}
-        <span class="bg-red-100 rounded pl-1 pr-1">
-            총 {pm_list_after_search.length} 장
-        </span>
-    {/if}
+    <br/>
+    <Search />
 </section>
