@@ -31,7 +31,7 @@ bind:clientHeight={height}>
             <a
             href={$translate_url}
             target="_blank">
-                번역<img class="w-5 h-5 float-right" src="./papago.png" alt="파파고 번역하기"/>
+                번역<img class="w-5 h-5 float-right" src="./img/papago.png" alt="파파고 번역하기"/>
             </a>
         </div>
         {#if 650 >= height && $isDesktop}

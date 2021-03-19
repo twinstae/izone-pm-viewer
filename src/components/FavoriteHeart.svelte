@@ -20,7 +20,11 @@
 class="text-xl"
 on:click={onFavorite(pm)}
 for="favorite">
-    {#if favorited(pm)}💖{:else}🤍{/if}
+    {#if favorited(pm)}
+        <img class="w-6 h-6 float-none" src="./img/yellow-star.png" alt="파파고 번역하기"/>
+    {:else}
+        <img class="w-6 h-6 float-none" src="./img/empty-star.png" alt="파파고 번역하기"/>
+    {/if}
 </label>
 <input type="checkbox"
 class="hidden"

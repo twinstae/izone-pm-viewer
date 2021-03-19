@@ -41,7 +41,11 @@ class="
     ? "mt-1 ml-1 mb-1 rounded-l border-r-0 pr-2"
     : "m-1 rounded"}
 text-{size} text-{text_brightness}">
+    {#if tag.value=="💖"}
+    <img class="w-6 h-6 float-none" src="./img/yellow-star.png" alt="파파고 번역하기"/>
+    {:else}
     {tag.value}
+    {/if}
 </span>
 
 {#if onRemove || canDelete && tag.value!="생일"}
