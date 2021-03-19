@@ -2,6 +2,7 @@
 import { dateString, date_to_str } from "../stores/date";
 import { now_page } from "../stores/now";
 import { selected_tag } from "../stores/tag";
+import PinkButton from "./PinkButton.svelte";
 export let maxPage: number;
 
 function toYesterday(){
@@ -27,18 +28,25 @@ function toTomorrow(){
     $dateString = date_to_str(tomorrow);
     $now_page = 1;
 }
-</script>
 
+function goToNextPage(){
+    if($now_page<maxPage){
+        $now_page+=1
+    } else {
+        alert("마지막 페이지입니다.");
+    }
+}
 
-<div class="static bottom-0">
-    <button
-    class="rounded bg-red-100 m-2 pl-1 pr-1"
-    on:click={()=>{if($now_page>1) {
+function goToBackPage(){
+    if($now_page>1) {
         $now_page-=1
     } else {
         alert("시작 페이지입니다.")  
-    }}}>
-    이전</button>
+    }
+}
+</script>
+
+    <PinkButton onClick={goToBackPage}> 이전 </PinkButton>
     
     <span
     class="bg-white border-2 border-gray-400 rounded w-24 p-0.5"
@@ -53,28 +61,12 @@ function toTomorrow(){
         <span>/ {maxPage}</span>
     </span>
     
-    <button
-    class="rounded bg-red-100 m-2 pl-1 pr-1"
-    on:click={()=>{if($now_page<maxPage){
-        $now_page+=1
-    } else {
-        alert("마지막 페이지입니다.");
-    }}}>
-        다음
-    </button>
+    <PinkButton onClick={goToNextPage}> 다음 </PinkButton>
     
     <br/>
     
-    <button
-    class="rounded bg-red-100 m-2 pl-1 pr-1"
-    on:click={toYesterday}>
-    어제</button>
+    <PinkButton onClick={toYesterday}> 어제 </PinkButton>
 
     <input type=date class="border-1 w-36 border-gray-400 rounded" bind:value={$dateString}>
 
-    <button
-    class="rounded bg-red-100 m-2 pl-1 pr-1"
-    on:click={toTomorrow}>
-        내일
-    </button>
-</div>
+    <PinkButton onClick={toTomorrow}> 내일 </PinkButton>
