@@ -4,25 +4,21 @@ import TimeStampTag from './TimeStampTag.svelte';
 import TagInput from './TagInput.svelte';
 import FavoriteHeart from './FavoriteHeart.svelte';
 import MemberTag from './MemberTag.svelte';
-import { get_translate_url, loadContent, now_pm, isDesktop } from '../stores/now';
+import { loadContent, now_pm, isDesktop, now_content } from '../stores/now';
 import { mail_to_tag_dict } from "../stores/mail_to_tag_dict";
 import MemberProfileImg from './MemberProfileImg.svelte';
 import { fade } from 'svelte/transition';
+    export let show;
 
     $: now_tags = $mail_to_tag_dict.has($now_pm.id)
         ? Array.from($mail_to_tag_dict.get($now_pm.id))
         : [];
-    let now_content = "";
-    let translate_url = "";
     
     $: sync= ()=>{
-        now_content="";
+        $now_content="";
 
         loadContent($now_pm.id).then(result=>{
-            setTimeout(()=>{    
-                now_content = result;
-                translate_url = get_translate_url(result);
-            }, 100);
+            setTimeout(()=>{ $now_content = result;}, 100);
         });
     }
     $: sync()
@@ -30,19 +26,15 @@ import { fade } from 'svelte/transition';
     let height;
     $: over = height < 40;
 </script>
-<a class="
-p-1 shadow rounded bg-red-100"
-href={translate_url}
-target="_blank">
-    파파고 번역 🇯🇵🇰🇷
-</a>
+
 <div
+style="max-height: {$isDesktop && show ? "70%" : "90%"}"
 class="
 bg-white
 shadow-2xl rounded-md
 mt-2 p-2
-{$isDesktop ? "w-80 h-2/3" : "mr-10 h-3/4 w-full"}
-flex-none
+flex-initial
+{$isDesktop ? "w-80" : "mr-10 w-full"}
 flex flex-col">
     <div class="relative w-full">
         <div class="relative" bind:clientHeight={height}>
@@ -62,11 +54,11 @@ flex flex-col">
             <TagInput/>
         </div>                
     </div>
-    {#if now_content}
-        <div class="h-5/6 mt-3 overflow-scroll p-2"
+    {#if $now_content}
+        <div class="h-5/6 overflow-scroll p-2"
         transition:fade="{{ duration: 200 }}"
         contenteditable=false
-        bind:innerHTML={now_content}>
+        bind:innerHTML={$now_content}>
         </div>
     {/if}
 </div>

@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { all_tag_dict, favorite_tag, member_tags } from "./all_tag_dict";
+import { all_tag_dict, favorite_tag } from "./all_tag_dict";
 
 let json_to_mail_to_tag_dict;
 all_tag_dict.subscribe(all_tag_dict=>{

@@ -45,7 +45,7 @@ overflow-y-auto">
             <Tag tag={tag_item} />
         {/each}
     </div>
-    <p on:click={selectMail} class="m-1">{pm.preview} ...</p>
+    <p on:click={selectMail} class="m-1">{pm.preview}</p>
     {:else}
         <img class="h-full pl-6" alt="no mail" src="{image_root}izone-logo.png"/>
     {/if}

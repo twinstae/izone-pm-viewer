@@ -18,10 +18,10 @@
 
 <li
 style="height: {$isDesktop ? '74px' : '102px'}"
-class="border-b-2 rounded p-2">
+class="border-b-2 rounded p-2 w-full">
     {#if pm.member}
         <!-- <MemberProfileImg pm={pm}/> -->
-        <p class="w-9/12 truncate">
+        <p class="truncate">
             <FavoriteHeart pm={pm}/>
             <MemberTag pm={pm}/>
             <TimeStampTag time={pm.time}/>
