@@ -21,9 +21,9 @@ class="text-xl"
 on:click={onFavorite(pm)}
 for="favorite">
     {#if favorited(pm)}
-        <img class="w-6 h-6 float-none" src="./img/yellow-star.png" alt="파파고 번역하기"/>
+        <img class="w-6 h-6 float-left" src="./img/yellow-star.png" alt="좋아요 했어요"/>
     {:else}
-        <img class="w-6 h-6 float-none" src="./img/empty-star.png" alt="파파고 번역하기"/>
+        <img class="w-6 h-6 float-left" src="./img/empty-star.png" alt="좋아요 하실래요?"/>
     {/if}
 </label>
 <input type="checkbox"

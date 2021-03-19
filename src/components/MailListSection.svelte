@@ -164,17 +164,15 @@ style="min-height: {isListView
 class="
 {$isDesktop ? "h-full w-1/2 lg:w-7/12": "h-full w-full"}
 relative p-5">
-    <div class="mb-3">
+    <div class="mb-3 flex flex-row">
         {#if !$isDesktop}
-            <label for="isListView">태그 목록</label>
-            <input id="isListView" type=checkbox bind:checked={show}>
+            <label class="p-1" for="isListView">태그 목록 <input id="isListView" type=checkbox bind:checked={show}></label>
             {#if $selected_tag.value}
-                <span>현재 :</span>
+                <span class="ml-1 mt-1">현재 :</span>
                 <Tag tag={$selected_tag} canDelete={true} onRemove={remove_selected_tag}/>    
             {/if}
         {:else}
-            <label class="m-3" for="isListView">리스트뷰 {isListView ? "on": "off"}</label>
-            <input id="isListView" type=checkbox bind:checked={isListView}>
+            <label class="p-1" for="isListView">리스트뷰 {isListView ? "on": "off"} <input id="isListView" type=checkbox bind:checked={isListView}></label>
         {/if}
     </div>
     {#if !$isDesktop && show }

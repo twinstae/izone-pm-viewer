@@ -4,7 +4,7 @@
     import { tag_to_mail_dict } from "../stores/tag_to_mail_dict";
     import { now_pm } from "../stores/now";
     import { onSelectTag } from "../stores/tag";
-
+    
     export let tag: {
         value: string,
         color: string
@@ -42,7 +42,7 @@ class="
     : "m-1 rounded"}
 text-{size} text-{text_brightness}">
     {#if tag.value=="💖"}
-    <img class="w-6 h-6 float-none" src="./img/yellow-star.png" alt="파파고 번역하기"/>
+    <img class="{size=="xs" ? "w-4 h-4" : "w-5 h-5"} float-none" src="./img/yellow-star.png" alt="파파고 번역하기"/>
     {:else}
     {tag.value}
     {/if}
