@@ -35,6 +35,7 @@ mail_to_tag_dict.subscribe(dict=>{
             })
         }
     })
+    
     const data = mail_to_tag_dict_to_json(dict);
     localStorage.setItem("mail_to_tag_dict", data);
 })

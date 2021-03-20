@@ -38,7 +38,18 @@ import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
         if($tag_to_mail_dict.has(hitomi_tag)){
             $pm_list.map(pm=>{
                 const member_tag = $all_tag_dict.get(pm.member);
-                $tag_to_mail_dict.get(member_tag).add(pm.id);
+                if($tag_to_mail_dict.has(member_tag)){
+                    const mail_set = $tag_to_mail_dict.get(member_tag);
+                    if (mail_set){
+                        mail_set.add(pm.id)
+                    } else {
+                        $tag_to_mail_dict.set(member_tag, new Set([pm.id]))
+                        console.log(member_tag)
+                        console.log(member_tag.value, "에 mail_set이 없어요!")
+                    }
+                } else {
+                    $tag_to_mail_dict.set(member_tag, new Set([pm.id]))
+                }
             })
             $tag_to_mail_dict = $tag_to_mail_dict;
         }
