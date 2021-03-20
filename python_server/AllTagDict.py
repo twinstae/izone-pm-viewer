@@ -2,6 +2,7 @@ import json
 from typing import Dict, List
 from fastapi import APIRouter
 from pydantic import BaseModel
+from constants import OUTPUT_DIR
 
 ROOT_URL = "/all-tag-dict"
 
@@ -25,8 +26,8 @@ is_test: bool = False
 
 def get_file_name() -> str:
     if is_test:
-        return "test_" + FILE_NAME
-    return FILE_NAME
+        return OUTPUT_DIR + "test_" + FILE_NAME
+    return OUTPUT_DIR + FILE_NAME
 
 
 def get_backup() -> Dict[str, Tag]:
@@ -40,6 +41,10 @@ def get_backup() -> Dict[str, Tag]:
 
 
 all_tag_dict: Dict[str, Tag] = get_backup()
+
+
+def has(tag_value: str):
+    return tag_value in all_tag_dict
 
 
 def save():

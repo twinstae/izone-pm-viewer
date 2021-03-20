@@ -3,6 +3,7 @@ from unittest import TestCase
 import AllTagDict
 from TestingUtil import client, 최예나, 히토미, status_code_는_200_ok, 예나만_있는_TAG_LIST_JSON, 예나_토미_TAG_LIST, 히토미_태그, \
     예나만_있는_TAG_LIST
+from constants import OUTPUT_DIR
 
 BASE_URL = AllTagDict.ROOT_URL+"/"
 
@@ -13,13 +14,17 @@ class TestAllTagDict(TestCase):
         response = client.post(BASE_URL, json=예나만_있는_TAG_LIST_JSON)
         status_code_는_200_ok(response)
 
+    def tearDown(self) -> None:
+        response = client.post(BASE_URL, json=예나만_있는_TAG_LIST_JSON)
+        status_code_는_200_ok(response)
+
     def test_init(self):
         assert len(AllTagDict.all_tag_dict) == 1
         예나_태그 = AllTagDict.all_tag_dict.get("최예나")
         assert 예나_태그.value == 최예나, 예나_태그.dict()
 
     def test_file_name(self):
-        assert AllTagDict.get_file_name() == "test_all_tag_list.json"
+        assert AllTagDict.get_file_name() == OUTPUT_DIR + "test_all_tag_list.json"
 
     def test_get_backup(self):
         backup = AllTagDict.get_backup()

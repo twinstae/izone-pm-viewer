@@ -1,6 +1,7 @@
 import json
 from typing import Dict, List, Tuple, Set
 
+from constants import OUTPUT_DIR
 
 FILE_NAME = "mail_to_tag_dict.json"
 is_test = False
@@ -14,8 +15,8 @@ class MailToTagDict:
     @staticmethod
     def get_file_name():
         if is_test:
-            return "test_" + FILE_NAME
-        return FILE_NAME
+            return OUTPUT_DIR + "test_" + FILE_NAME
+        return OUTPUT_DIR + FILE_NAME
 
     def get_backup(self) -> Dict[str, Set[str]]:
         try:

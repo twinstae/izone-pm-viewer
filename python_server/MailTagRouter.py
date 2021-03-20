@@ -2,7 +2,7 @@ from typing import List, Tuple
 from fastapi import APIRouter
 from pydantic import BaseModel
 
-from AllTagDict import all_tag_dict
+import AllTagDict
 from TagToMailDict import tag_to_mail_dict
 from MailToTagDict import mail_to_tag_dict
 
@@ -35,13 +35,13 @@ def save_mail_tag_dict(req_body: MailTagDictEntries):
 
 @router.post("/mail/{mail_id}/tag/{tag_value}")
 def add_tag_to_mail(mail_id: str, tag_value: str):
-    assert tag_value in all_tag_dict
+    assert AllTagDict.has(tag_value)
     mail_to_tag_dict.add_tag(mail_id=mail_id, tag_value=tag_value)
     tag_to_mail_dict.add_mail(mail_id=mail_id, tag_value=tag_value)
 
 
 @router.delete("/mail/{mail_id}/tag/{tag_value}")
 def delete_tag_from_mail(mail_id: str, tag_value: str):
-    assert tag_value in all_tag_dict
+    assert AllTagDict.has(tag_value)
     mail_to_tag_dict.remove_tag(mail_id=mail_id, tag_value=tag_value)
     tag_to_mail_dict.remove_mail(mail_id=mail_id, tag_value=tag_value)
