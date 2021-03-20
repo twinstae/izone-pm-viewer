@@ -5,7 +5,7 @@ metatags.title = 'IZ*ONE Private Mail Viewer'
 import MailDetailSection from "../components/MailDetailSection.svelte";
 import MailListSection from "../components/MailListSection.svelte";
 import { member_dict, member_name_dict } from "../stores/constants";
-import { isDesktop, now_pm, pm_list, show_list } from '../stores/now';
+import { isDesktop, now_pm, pm_list } from '../stores/now';
 import { all_tag_dict } from '../stores/all_tag_dict';
 import { tag_to_mail_dict } from '../stores/tag_to_mail_dict';
 import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
@@ -21,12 +21,37 @@ import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
         }
     }
 
-    async function init(){
-        const mail_list_res = await fetch('./pm_list.json');
-        const mail_list_data = await mail_list_res.json();
-        const name_dict_res = await fetch("./member_name.json");
-        $member_dict = await name_dict_res.json();
+    const process = text=>{
+        try {
+            const arr = [];
+            for(let i = 0; i < text.length; i+=2){
+                arr.push(text[i]) 
+            }
+            return JSON.parse(arr.join(""));
+        } catch (e) {
+            text = text.slice(2);
+            return process(text);
+        }
+    };
 
+    const get_list_data = async (res: Response) => {
+        try {
+            return await res.json();
+        } catch {
+            return await res.text().then(process);
+        }
+    }
+
+    async function init(){
+        console.log("메일 리스트 로딩 시작")
+        const mail_list_res = await fetch('./pm_list.json');
+        const mail_list_data = await get_list_data(mail_list_res);
+        console.log("메일 리스트 로딩 완료")
+        const name_dict_res = await fetch("./member_name.json");
+        console.log("이름 dict 로딩 시작")
+        $member_dict = await name_dict_res.json();
+        console.log("이름 dict 로딩 끝")
+        
         $pm_list = mail_list_data.map((pm)=>{
             if (pm.id=="m20731"){$now_pm = pm;} // 메일 초기화
             const member_n = $member_dict[pm.member];
@@ -36,16 +61,21 @@ import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
 
         const hitomi_tag = $all_tag_dict.get("혼다 히토미");
         if($tag_to_mail_dict.has(hitomi_tag)){
-            $pm_list.map(pm=>{
+            $pm_list.forEach(pm=>{
                 const member_tag = $all_tag_dict.get(pm.member);
+                if(!member_tag){
+                    console.error("멤버 태그가 없습니다!")
+                    console.log(pm.member);
+                    console.log($all_tag_dict)
+                    console.error("이 에러를 개발자에게 스크린샷으로 보여주세요.");
+                    return null;
+                }
                 if($tag_to_mail_dict.has(member_tag)){
                     const mail_set = $tag_to_mail_dict.get(member_tag);
                     if (mail_set){
                         mail_set.add(pm.id)
                     } else {
                         $tag_to_mail_dict.set(member_tag, new Set([pm.id]))
-                        console.log(member_tag)
-                        console.log(member_tag.value, "에 mail_set이 없어요!")
                     }
                 } else {
                     $tag_to_mail_dict.set(member_tag, new Set([pm.id]))

@@ -11,7 +11,7 @@
     };
     export let canDelete = false;
     export let size = "xs";
-    export let onRemove;
+    export let onRemove = ()=>{};
 
     $: text_brightness = ( // 어두운 색의 멤버는 검정, 밝은 색은 회색
         tag.value == "강혜원" ||
