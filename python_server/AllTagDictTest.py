@@ -2,7 +2,6 @@ import json
 from unittest import TestCase
 from fastapi.testclient import TestClient
 import AllTagDict
-from AllTagDict import get_backup_all_tag_dict, all_tag_dict, save, get_file_name
 from fastApiServer import app
 from TestingUtil import status_code_는_200_ok
 
@@ -22,15 +21,15 @@ class TestAllTagDict(TestCase):
         status_code_는_200_ok(response)
 
     def test_init(self):
-        assert len(all_tag_dict) == 1
-        예나_태그 = all_tag_dict.get("최예나")
+        assert len(AllTagDict.all_tag_dict) == 1
+        예나_태그 = AllTagDict.all_tag_dict.get("최예나")
         assert 예나_태그.value == "최예나", 예나_태그.dict()
 
     def test_file_name(self):
-        assert get_file_name() == "test_all_tag_list.json"
+        assert AllTagDict.get_file_name() == "test_all_tag_list.json"
 
     def test_get_backup_all_tags_dict(self):
-        backup = get_backup_all_tag_dict()
+        backup = AllTagDict.get_backup()
         예나_태그 = backup["최예나"]
         assert 예나_태그.value == "최예나", 예나_태그.dict()
 
@@ -40,7 +39,7 @@ class TestAllTagDict(TestCase):
         assert response.json() == 예나만_있는_TAG_LIST_JSON, response.json()
 
     def test_save(self):
-        save()
+        AllTagDict.save()
         self.파일에_오직_예나태그만_저장되어있다()
 
     def test_save_all_tag_dict(self):
@@ -51,7 +50,7 @@ class TestAllTagDict(TestCase):
     def test_add_tag(self):
         response = client.post("/all-tag-dict/tag", json=히토미_태그)
         status_code_는_200_ok(response)
-        self.파일에_저장되어있는_TAG_LIST는(예나만_있는_TAG_LIST + [히토미_태그])
+        self.파일에_저장되어있는_TAG_LIST_는(예나만_있는_TAG_LIST + [히토미_태그])
 
     def test_delete_tag(self):
         self.test_add_tag()
@@ -59,10 +58,10 @@ class TestAllTagDict(TestCase):
         self.파일에_오직_예나태그만_저장되어있다()
 
     @staticmethod
-    def 파일에_저장되어있는_TAG_LIST는(expected):
-        with open(get_file_name(), "r") as f:
+    def 파일에_저장되어있는_TAG_LIST_는(expected):
+        with open(AllTagDict.get_file_name(), "r") as f:
             json_str = f.read()
             assert json.loads(json_str) == expected
 
     def 파일에_오직_예나태그만_저장되어있다(self):
-        self.파일에_저장되어있는_TAG_LIST는(예나만_있는_TAG_LIST)
+        self.파일에_저장되어있는_TAG_LIST_는(예나만_있는_TAG_LIST)
