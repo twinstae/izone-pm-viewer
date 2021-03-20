@@ -12,6 +12,6 @@
 3. 이제 서버 시작하기.bat 파일을 실행하면 뷰어가 열릴 겁니다. 아마도...
 
 > 아직 테스트 중 입니다.
-> 에러 나면 알려주세요.
+> 에러 나면 알려주세요. F12 누르면 뜨는 개발자 창에서 Console 부분과, 검은 서버 cmd 창 스크린샷 찍어서 보여주시면 됩니다.
 
 ![](https://raw.githubusercontent.com/twinstae/izone-pm-viewer/main/%EA%B2%80%EC%83%89.png)
