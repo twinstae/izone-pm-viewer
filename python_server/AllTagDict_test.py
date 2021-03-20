@@ -14,10 +14,6 @@ class TestAllTagDict(TestCase):
         response = client.post(BASE_URL, json=예나만_있는_TAG_LIST_JSON)
         status_code_는_200_ok(response)
 
-    def tearDown(self) -> None:
-        response = client.post(BASE_URL, json=예나만_있는_TAG_LIST_JSON)
-        status_code_는_200_ok(response)
-
     def test_init(self):
         assert len(AllTagDict.all_tag_dict) == 1
         예나_태그 = AllTagDict.all_tag_dict.get("최예나")
