@@ -4,7 +4,7 @@ from typing import Dict, List, Tuple
 from fastapi import APIRouter
 from pydantic import BaseModel
 
-from all_tag_dict import Tag
+from AllTagDict import Tag
 
 
 class MailToTagDictEntries(BaseModel):

@@ -1,6 +1,5 @@
 import json
 from typing import Dict, List
-
 from fastapi import APIRouter
 from pydantic import BaseModel
 
@@ -18,11 +17,19 @@ router = APIRouter(
     prefix="/all-tag-dict",
     tags=["all-tag-dict"]
 )
+FILE_NAME = "all_tag_list.json"
+is_test = False
+
+
+def get_file_name():
+    if is_test:
+        return "test_" + FILE_NAME
+    return FILE_NAME
 
 
 def get_backup_all_tag_dict():
     try:
-        with open("all_tag_list.json", "r") as f:
+        with open(get_file_name(), "r") as f:
             json_str = f.read()
             raw_tag_list = json.loads(json_str)
             return {tag["value"]: Tag(**tag) for tag in raw_tag_list}
@@ -36,7 +43,7 @@ all_tag_dict: Dict[str, Tag] = get_backup_all_tag_dict()
 def save():
     tag_list = [tag.dict() for tag in all_tag_dict.values()]
     json_str = json.dumps(tag_list)
-    with open("all_tag_list.json", "w") as f:
+    with open(get_file_name(), "w") as f:
         f.write(json_str)
 
 
@@ -59,6 +66,7 @@ def add_tag(tag: Tag):
     save()
 
 
+@router.delete("/tag/{tag_value}")
 def delete_tag(tag_value: str):
     del all_tag_dict[tag_value]
     save()
