@@ -1,15 +1,12 @@
 import json
-from typing import Dict, List, TypedDict
+from typing import Dict, List
 from fastapi import APIRouter
 from pydantic import BaseModel
 
+ROOT_URL = "/all-tag-dict"
+
 
 class Tag(BaseModel):
-    value: str
-    color: str
-
-
-class TagDict(TypedDict):
     value: str
     color: str
 
@@ -19,7 +16,7 @@ class AllTagList(BaseModel):
 
 
 router = APIRouter(
-    prefix="/all-tag-dict",
+    prefix=ROOT_URL,
     tags=["all-tag-dict"]
 )
 FILE_NAME: str = "all_tag_list.json"
@@ -36,7 +33,7 @@ def get_backup() -> Dict[str, Tag]:
     try:
         with open(get_file_name(), "r") as f:
             json_str = f.read()
-            raw_tag_list: List[TagDict] = json.loads(json_str)
+            raw_tag_list: List[Dict[str, str]] = json.loads(json_str)
             return {tag["value"]: Tag(**tag) for tag in raw_tag_list}
     except FileNotFoundError:
         return {}
@@ -46,7 +43,7 @@ all_tag_dict: Dict[str, Tag] = get_backup()
 
 
 def save():
-    tag_list: List[TagDict] = [tag.dict() for tag in all_tag_dict.values()]
+    tag_list: List[Dict[str, str]] = [tag.dict() for tag in all_tag_dict.values()]
     json_str = json.dumps(tag_list)
     with open(get_file_name(), "w") as f:
         f.write(json_str)
