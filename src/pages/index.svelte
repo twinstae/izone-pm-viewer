@@ -34,55 +34,60 @@ import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
         }
     };
 
-    const get_list_data = async (res: Response) => {
+    const get_data = async (path) => {
         try {
+            const res = await fetch(path);
             return await res.json();
         } catch {
+            const res = await fetch(path);
             return await res.text().then(process);
         }
     }
 
     async function init(){
-        console.log("메일 리스트 로딩 시작")
-        const mail_list_res = await fetch('./pm_list.json');
-        const mail_list_data = await get_list_data(mail_list_res);
-        console.log("메일 리스트 로딩 완료")
-        const name_dict_res = await fetch("./member_name.json");
-        console.log("이름 dict 로딩 시작")
-        $member_dict = await name_dict_res.json();
-        console.log("이름 dict 로딩 끝")
+        console.log("메일 리스트 로딩 시작");
+        const mail_list_data = await get_data('./pm_list.json');
+        console.log("메일 리스트 로딩 완료");
         
-        $pm_list = mail_list_data.map((pm)=>{
+        console.log("이름 dict 로딩 시작");
+        $member_dict = await get_data("./member_name.json");
+        console.log("이름 dict 로딩 끝");
+        console.log($member_dict);
+        
+        const mail_to_num_dict_res = await fetch("./mail_to_num_dict.json");
+        const mail_to_num_dict = await mail_to_num_dict_res.json();
+
+        $pm_list = mail_list_data.map((pm, i)=>{
             if (pm.id=="m20731"){$now_pm = pm;} // 메일 초기화
+            pm.nick = pm.member;
             const member_n = $member_dict[pm.member];
             pm.member = member_name_dict[member_n];
+            if (!pm.member && i <5700){                
+                const member_n = mail_to_num_dict[pm.id];
+                $member_dict[pm.nick] = member_n;
+                pm.member = member_name_dict[member_n];
+                console.log(pm.nick, pm.member);
+            }
             return pm;
         })
 
+        console.log("all_tag_dict", $all_tag_dict);
+        let missing = 0;
         const hitomi_tag = $all_tag_dict.get("혼다 히토미");
         if($tag_to_mail_dict.has(hitomi_tag)){
-            $pm_list.forEach(pm=>{
+            $pm_list.forEach((pm)=>{
                 const member_tag = $all_tag_dict.get(pm.member);
-                if(!member_tag){
-                    console.error("멤버 태그가 없습니다!")
-                    console.log(pm.member);
-                    console.log($all_tag_dict)
-                    console.error("이 에러를 개발자에게 스크린샷으로 보여주세요.");
-                    return null;
-                }
-                if($tag_to_mail_dict.has(member_tag)){
-                    const mail_set = $tag_to_mail_dict.get(member_tag);
-                    if (mail_set){
-                        mail_set.add(pm.id)
-                    } else {
-                        $tag_to_mail_dict.set(member_tag, new Set([pm.id]))
-                    }
+                const mail_set = $tag_to_mail_dict.get(member_tag);
+                if (mail_set){
+                    mail_set.add(pm.id)
                 } else {
-                    $tag_to_mail_dict.set(member_tag, new Set([pm.id]))
+                    console.log(pm.id, pm.nick);
+                    missing += 1;
                 }
             })
             $tag_to_mail_dict = $tag_to_mail_dict;
         }
+        console.log("누락", missing)
         
         if(!$all_tag_dict.has("생일")){
             const birthday_tag = {
