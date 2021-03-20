@@ -4,82 +4,104 @@ from fastapi import APIRouter
 from pydantic import BaseModel
 
 from AllTagDict import all_tag_dict
+from TagToMailDict import tag_to_mail_dict
 
 
-class MailToTagDictEntries(BaseModel):
-    entries: List[Tuple[str, List[str]]]
+class MailTagDictEntries(BaseModel):
+    mail_to_tag_dict: List[Tuple[str, List[str]]]
+    tag_to_mail_dict: List[Tuple[str, List[str]]]
 
 
-ROOT_URL = "/mail-to-tag-dict"
+ROOT_URL = "/mail-tag-dict"
 router = APIRouter(
     prefix=ROOT_URL,
-    tags=["mail-to-tag-dict"]
+    tags=["mail-tag-dict"]
 )
 FILE_NAME = "mail_to_tag_dict.json"
 is_test = False
 
 
-def get_file_name():
-    if is_test:
-        return "test_" + FILE_NAME
-    return FILE_NAME
+class MailToTagDict:
+    def __init__(self):
+        """{ mail_id : Set[tag_value] }"""
+        self.mail_to_tag_dict: Dict[str, Set[str]] = self.get_backup()
+
+    @staticmethod
+    def get_file_name():
+        if is_test:
+            return "test_" + FILE_NAME
+        return FILE_NAME
+
+    def get_backup(self) -> Dict[str, Set[str]]:
+        try:
+            with open(self.get_file_name(), "r") as f:
+                json_str: str = f.read()
+                raw_dict: Dict[str, List[str]] = json.loads(json_str)
+                return {
+                    mail_id: set(tag_list)
+                    for mail_id, tag_list in raw_dict.items()
+                }
+        except FileNotFoundError:
+            return {}
+
+    def save(self):
+        raw_dict: Dict[str, List[str]] = {
+            mail_id: list(tag_set)
+            for mail_id, tag_set in self.mail_to_tag_dict.items()
+        }
+        json_str: str = json.dumps(raw_dict)
+        with open(self.get_file_name(), "w") as f:
+            f.write(json_str)
+
+    def get(self, mail_id):
+        return self.mail_to_tag_dict[mail_id]
+
+    def add_tag(self, mail_id, tag_value):
+        if mail_id not in self.mail_to_tag_dict:
+            self.mail_to_tag_dict[mail_id] = set()
+        tag_set: Set[str] = self.mail_to_tag_dict[mail_id]
+        tag_set.add(tag_value)
+        self.save()
+
+    def remove_tag(self, mail_id, tag_value):
+        tag_set: Set[str] = self.mail_to_tag_dict[mail_id]
+        tag_set.remove(tag_value)
+        if len(tag_set) == 0:
+            del self.mail_to_tag_dict[mail_id]
+        self.save()
+
+    def to_list(self):
+        return [(mail_id, list(tag_set))
+                for mail_id, tag_set in self.mail_to_tag_dict.items()]
+
+    def save_from_entries(self, entries: List[Tuple[str, List[str]]]):
+        self.mail_to_tag_dict = {entry[0]: set(entry[1]) for entry in entries}
+        self.save()
 
 
-def get_backup() -> Dict[str, Set[str]]:
-    try:
-        with open(get_file_name(), "r") as f:
-            json_str: str = f.read()
-            raw_dict: Dict[str, List[str]] = json.loads(json_str)
-            return {
-                mail_id: set(tag_list)
-                for mail_id, tag_list in raw_dict.items()
-            }
-    except FileNotFoundError:
-        return {}
-
-
-"{ mail_id : Set[tag_value] }"
-mail_to_tag_dict: Dict[str, Set[str]] = get_backup()
-
-
-def save():
-    tag_list: Dict[str, List[str]] = {
-        mail_id: list(tag_set)
-        for mail_id, tag_set in mail_to_tag_dict.items()
-    }
-    json_str: str = json.dumps(tag_list)
-    with open(get_file_name(), "w") as f:
-        f.write(json_str)
+mail_to_tag_dict = MailToTagDict()
 
 
 @router.get("/")
 def get_mail_to_tag_dict() -> List[Tuple[str, List[str]]]:
-    return [(mail_id, list(tag_set))
-            for mail_id, tag_set in mail_to_tag_dict.items()]
+    return mail_to_tag_dict.to_list()
 
 
 @router.post("/")
-def save_mail_to_tag_dict(req_body: MailToTagDictEntries):
-    global mail_to_tag_dict
-    mail_to_tag_dict = {entry[0]: set(entry[1]) for entry in req_body.entries}
-    save()
+def save_mail_tag_dict(req_body: MailTagDictEntries):
+    mail_to_tag_dict.save_from_entries(req_body.mail_to_tag_dict)
+    tag_to_mail_dict.save_from_entries(req_body.tag_to_mail_dict)
 
 
 @router.post("/mail/{mail_id}/tag/{tag_value}")
 def add_tag_to_mail(mail_id: str, tag_value: str):
-    if mail_id not in mail_to_tag_dict:
-        mail_to_tag_dict[mail_id] = set()
-    tag_set: Set[str] = mail_to_tag_dict[mail_id]
     assert tag_value in all_tag_dict
-    tag_set.add(tag_value)
-    save()
+    mail_to_tag_dict.add_tag(mail_id=mail_id, tag_value=tag_value)
+    tag_to_mail_dict.add_mail(mail_id=mail_id, tag_value=tag_value)
 
 
 @router.delete("/mail/{mail_id}/tag/{tag_value}")
 def delete_tag_from_mail(mail_id: str, tag_value: str):
-    tag_set: Set[str] = mail_to_tag_dict[mail_id]
     assert tag_value in all_tag_dict
-    tag_set.remove(tag_value)
-    if len(tag_set) == 0:
-        del mail_to_tag_dict[mail_id]
-    save()
+    mail_to_tag_dict.remove_tag(mail_id=mail_id, tag_value=tag_value)
+    tag_to_mail_dict.remove_mail(mail_id=mail_id, tag_value=tag_value)
