@@ -41,7 +41,7 @@ class TestTagToMailDict(TestCase):
     def test_get_tag_to_mail_dict(self):
         response = client.get(BASE_URL)
         status_code_는_200_ok(response)
-        assert response.json() == [[MAIL_ID, [최예나]]]
+        assert response.json()["tag_to_mail_dict"] == [[최예나, [MAIL_ID]]]
 
     def test_save_mail_tag_dict(self):
         self.파일에는_저장되어있다(예나_메일_하나인_TAG_TO_MAIL_DICT)  # given

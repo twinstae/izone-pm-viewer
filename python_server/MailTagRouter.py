@@ -19,9 +19,12 @@ router = APIRouter(
 )
 
 
-@router.get("/")
-def get_mail_to_tag_dict() -> List[Tuple[str, List[str]]]:
-    return mail_to_tag_dict.to_list()
+@router.get("/", response_model=MailTagDictEntries)
+def get_mail_tag_dict() -> MailTagDictEntries:
+    return MailTagDictEntries(
+        mail_to_tag_dict=mail_to_tag_dict.to_list(),
+        tag_to_mail_dict=tag_to_mail_dict.to_list()
+    )
 
 
 @router.post("/")
