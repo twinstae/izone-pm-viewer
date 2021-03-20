@@ -2,6 +2,7 @@ import json
 from unittest import TestCase
 from typing import Set, List, Dict
 import AllTagDict
+import MailTagRouter
 import MailToTagDict
 from MailToTagDict import mail_to_tag_dict
 from TestingUtil import client, status_code_는_200_ok, 최예나, 히토미, 히토미_태그, MAIL_ID, 예나만_있는_ENTRIES, 예나_토미_ENTRIES
@@ -12,7 +13,7 @@ from TestingUtil import client, status_code_는_200_ok, 최예나, 히토미, �
 예나_토미_MAIL_TO_TAG_DICT = {
     MAIL_ID: {최예나, 히토미}
 }
-BASE_URL = MailToTagDict.ROOT_URL+"/"
+BASE_URL = MailTagRouter.ROOT_URL+"/"
 
 
 class TestMailToTagDict(TestCase):
