@@ -21,16 +21,21 @@ import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
         }
     }
 
-    const process = text=>{
+    const process = (text, i)=>{
         try {
+            console.log(`${i}차 시도`)
+            console.log(text.slice(0,10));
             const arr = [];
             for(let i = 0; i < text.length; i+=2){
                 arr.push(text[i]) 
             }
             return JSON.parse(arr.join(""));
         } catch (e) {
-            text = text.slice(2);
-            return process(text);
+            if (i < 4){
+                text = text.slice(1);
+                return process(text, i+1);
+            }
+            throw e;
         }
     };
 
@@ -38,9 +43,11 @@ import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
         try {
             const res = await fetch(path);
             return await res.json();
-        } catch {
+        } catch (e) {
+            console.log("json 로드 실패");
             const res = await fetch(path);
-            return await res.text().then(process);
+            const text = await res.text();
+            return process(text, 0);
         }
     }
 
