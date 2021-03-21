@@ -214,7 +214,7 @@ relative pl-4 pr-4 pt-2">
             <label class="p-1" for="isListView">리스트뷰 {isListView ? "on": "off"} <input id="isListView" type=checkbox bind:checked={isListView}></label>
         {/if}
     </div>
-    {#if $isMobile}
+    {#if false}
     <div class="mb-1 flex flex-row">
         <PinkButton id="backup" onClick={download_tags}>태그 불러오기⬇️</PinkButton>
         <PinkButton id="backup" onClick={upload_tags}>태그 올리기⬆️</PinkButton>

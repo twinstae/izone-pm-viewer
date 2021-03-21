@@ -67,7 +67,7 @@ import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
         $pm_list = mail_list_data.map((pm, i)=>{
             if (pm.id=="m20731"){$now_pm = pm;} // 메일 초기화
             pm.nick = pm.member;
-            const member_n = $member_dict[pm.member];
+            const member_n = $member_dict[pm.nick];
             pm.member = member_name_dict[member_n];
             if (!pm.member && i <5700){                
                 const member_n = mail_to_num_dict[pm.id];
