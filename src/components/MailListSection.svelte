@@ -9,9 +9,12 @@ import { dateString, date_to_str, str_to_date, time_to_dateStr } from "../stores
 import {selected_tag} from "../stores/tag";
 import { now_page, isDesktop, show_list, isMobile } from '../stores/now';
 import { pm_list_after_search, search_input } from '../stores/search';
-import { tag_to_mail_dict } from '../stores/tag_to_mail_dict';
+import { entries_to_tag_to_mail_dict, tag_to_mail_dict, tag_to_mail_dict_to_entries } from '../stores/tag_to_mail_dict';
 import { fly } from 'svelte/transition';
 import Search from './Search.svelte';
+import PinkButton from './PinkButton.svelte';
+import { all_tag_dict, EMPTY_TAG, favorite_tag } from '../stores/all_tag_dict';
+import { entries_to_mail_to_tag_dict, mail_to_tag_dict, mail_to_tag_dict_to_json } from '../stores/mail_to_tag_dict';
 
 let lastDateString;
 $: now_date = str_to_date($dateString);
@@ -136,9 +139,54 @@ let isListView = false;
 let show = false;
 
 const remove_selected_tag = ()=>{
-    $selected_tag = {color:null, value:null};
+    $selected_tag = EMPTY_TAG;
     $now_page = 1;
 };
+
+function postBackup(url, data){
+    fetch(url, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+    })
+    .then(res=>{ console.log(data) })
+    .catch((e)=>{
+        console.log(url+" 백업에 실패했습니다. 서버가 응답이 없습니다.");
+    })
+}
+
+const upload_tags = ()=>{
+    postBackup("/all-tag-dict/", {
+        tag_list: [...$all_tag_dict].map(entry=>entry[1])
+    })
+    postBackup("/mail-tag-dict/", {
+        mail_to_tag_dict: mail_to_tag_dict_to_json($mail_to_tag_dict),
+        tag_to_mail_dict: tag_to_mail_dict_to_entries($tag_to_mail_dict)
+    })
+}
+
+const download_tags = async () => {
+    const tag_list: { value: string, color: string }[] = 
+        await fetch("/all-tag-dict/")
+        .then(res=>res.json()).then(data=>data.tag_list);
+    
+    const data = await fetch("/mail-tag-dict/").then(res=>res.json())
+    
+    const tag_to_mail_entries = data.tag_to_mail_dict;
+    const mail_to_tag_entrise = data.mail_to_tag_dict;
+
+    $selected_tag = EMPTY_TAG;
+    
+    $all_tag_dict = tag_list.reduce((acc, tag)=>{
+        acc.set(tag.value, tag);
+        return acc;
+    }, new Map([["💖", favorite_tag]]));
+    console.log("all_tag_dict 백업 다운로드 완료");
+
+    $tag_to_mail_dict = entries_to_tag_to_mail_dict(tag_to_mail_entries);
+    $mail_to_tag_dict = entries_to_mail_to_tag_dict(mail_to_tag_entrise);
+    console.log("mail_tag_dict 백업 다운로드 완료");
+}
 </script>
 
 <section
@@ -166,14 +214,20 @@ relative pl-4 pr-4 pt-2">
             <label class="p-1" for="isListView">리스트뷰 {isListView ? "on": "off"} <input id="isListView" type=checkbox bind:checked={isListView}></label>
         {/if}
     </div>
-        <div
-        class:hidden={!($isMobile && show)}
-        class="
-        h-36 p-2 mb-3
-        bg-white shadow-2xl rounded-md
-        overflow-y-auto">
-            <AllTagList/>
-        </div>
+    {#if $isMobile}
+    <div class="mb-1 flex flex-row">
+        <PinkButton id="backup" onClick={download_tags}>태그 불러오기⬇️</PinkButton>
+        <PinkButton id="backup" onClick={upload_tags}>태그 올리기⬆️</PinkButton>
+    </div>
+    {/if}
+    <div
+    class:hidden={!($isMobile && show)}
+    class="
+    h-36 p-2 mb-3
+    bg-white shadow-2xl rounded-md
+    overflow-y-auto">
+        <AllTagList/>
+    </div>
     {#if !isListView && $isDesktop}
         <div
         id="MailCardView"

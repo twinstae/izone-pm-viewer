@@ -5,9 +5,11 @@ import AllTagList from './AllTagList.svelte';
 import {selected_tag} from "../stores/tag";
 import { now_page, isDesktop, translate_url, show_list, isMobile } from '../stores/now';
 import { fly } from 'svelte/transition';
+import PinkButton from './PinkButton.svelte';
+import { EMPTY_TAG } from '../stores/all_tag_dict';
 
 const remove_selected_tag = ()=>{
-    $selected_tag = {color:null, value:null};
+    $selected_tag = EMPTY_TAG;
     $now_page = 1;
 };
 
@@ -45,6 +47,7 @@ bind:clientHeight={height}>
             <Tag tag={$selected_tag} canDelete={true} onRemove={remove_selected_tag}/>
         {/if}
     </div>
+
     <div
     class:hidden={!((650 < height || show) && $isDesktop)}
     style="min-height:43px;"

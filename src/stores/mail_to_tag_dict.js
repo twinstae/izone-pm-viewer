@@ -1,10 +1,9 @@
 import { writable } from 'svelte/store';
 import { all_tag_dict, favorite_tag } from "./all_tag_dict";
 
-let json_to_mail_to_tag_dict;
+export let entries_to_mail_to_tag_dict;
 all_tag_dict.subscribe(all_tag_dict=>{
-    json_to_mail_to_tag_dict = (json) => {
-        const data = JSON.parse(json);
+    entries_to_mail_to_tag_dict = (data) => {
         const entries = data.map(entry=>{
             const mail_id = entry[0];
             const tag_set = new Set(entry[1].map(value=>all_tag_dict.get(value)));
@@ -18,7 +17,8 @@ const init_mail_to_tag_dict = ()=>{
     const mail_to_tag_json = localStorage.getItem("mail_to_tag_dict");
     let result = new Map([["m0", new Set([favorite_tag])]]);
     if (mail_to_tag_json){
-        result = json_to_mail_to_tag_dict(mail_to_tag_json);
+        const data = JSON.parse(mail_to_tag_json);
+        result = entries_to_mail_to_tag_dict(data);
     }
     return result;
 }
@@ -37,14 +37,13 @@ mail_to_tag_dict.subscribe(dict=>{
     })
     
     const data = mail_to_tag_dict_to_json(dict);
-    localStorage.setItem("mail_to_tag_dict", data);
+    localStorage.setItem("mail_to_tag_dict", JSON.stringify(data));
 })
 
-function mail_to_tag_dict_to_json(dict){
-    const data = [...dict].map(entry=>{
+export function mail_to_tag_dict_to_json(dict){
+    return [...dict].map(entry=>{
         const mail_id = entry[0];
         const tags = [...entry[1]].map(tag=>tag.value);
         return [mail_id, tags];
     });
-    return JSON.stringify(data);
 }

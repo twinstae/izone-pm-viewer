@@ -11,7 +11,7 @@ $: new_tag = {
     color: member_color_dict[$color_n]
 }
 
-const addTag = ()=>{
+const addTag = async ()=>{
     let the_tag = new_tag;
         if ($all_tag_dict.has($tag_input)){
             the_tag = $all_tag_dict.get($tag_input)
@@ -20,6 +20,11 @@ const addTag = ()=>{
             $tag_to_mail_dict.set(new_tag, new Set([$now_pm.id]));
             $all_tag_dict.set($tag_input, new_tag)
             $all_tag_dict=$all_tag_dict;
+
+            await fetch('/all-tag-dict/tag', {
+                method: 'POST',
+                body: JSON.stringify(new_tag)
+            });
         }
         $tag_to_mail_dict=$tag_to_mail_dict;
 
@@ -29,6 +34,7 @@ const addTag = ()=>{
             $mail_to_tag_dict.set($now_pm.id, new Set([the_tag]));
         }       
         $mail_to_tag_dict=$mail_to_tag_dict;
+        fetch(`/mail-tag-dict/mail/${$now_pm.id}/tag/${new_tag.value}`, {method: 'POST'}).then(res=>{console.log("서버에 태그 추가 완료.")});
 
         $tag_input ="";
         $color_n = ($color_n+1) % 12;

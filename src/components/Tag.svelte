@@ -21,8 +21,9 @@
             ? "black"
             : "gray-700";
 
-    $: onDeleteTag = ()=>{
+    $: onDeleteTag = async ()=>{
         const the_tag = $all_tag_dict.get(tag.value);
+        await fetch(`/mail-tag-dict/mail/${$now_pm.id}/tag/${the_tag.value}`, {method: 'DELETE'});
         
         $tag_to_mail_dict.get(the_tag).delete($now_pm.id);        
         $tag_to_mail_dict=$tag_to_mail_dict;

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { all_tag_dict } from '../stores/all_tag_dict';
+import { all_tag_dict, EMPTY_TAG } from '../stores/all_tag_dict';
 import { isDesktop } from '../stores/now';
 import { selected_tag } from '../stores/tag';
 
@@ -10,7 +10,7 @@ $: all_tags = Array.from($all_tag_dict.values());
 $: check()
 function check(){
     if($all_tag_dict.has($selected_tag.value)){
-        $selected_tag = {color:null, value:null};
+        $selected_tag = EMPTY_TAG;
     }
 }
 </script>

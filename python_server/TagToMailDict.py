@@ -51,6 +51,7 @@ class TagToMailDict:
         mail_set.remove(mail_id)
         if len(mail_set) == 0:
             del self.tag_to_mail_dict[tag_value]
+
         self.save()
 
     def to_list(self):

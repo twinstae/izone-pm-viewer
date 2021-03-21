@@ -1,5 +1,7 @@
 import { writable } from 'svelte/store';
 
+export const EMPTY_TAG = { value: null, color: null};
+
 export const favorite_tag = {value: "💖", color: "#fff"};
 
 export const member_tags = [
@@ -41,8 +43,7 @@ function init_all_tag_dict(){
 export let all_tag_dict = writable(init_all_tag_dict());
 
 all_tag_dict.subscribe(value=>{
-    const data = dict_to_json(value);
-    localStorage.setItem("all_tag_dict", data);
+    localStorage.setItem("all_tag_dict", dict_to_json(value));
 })
 
 function dict_to_json(dict){
