@@ -25,7 +25,11 @@ import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
         try {
             console.log(`${i}차 시도`)
             console.log(text.slice(0,10));
-            return JSON.parse(text);
+            const arr = [];
+            for (let i = 0; i<text.length; i+=2){
+                arr.push(text[i])
+            }
+            return JSON.parse(arr.join(""));
         } catch (e) {
             if (i < 4){
                 text = text.slice(1);
