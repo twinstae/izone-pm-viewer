@@ -7,6 +7,10 @@
 
 ![](https://github.com/twinstae/izone-pm-viewer/raw/main/%EC%98%88%EC%8B%9C.png)
 
+> 이때 새 폴더가 만들어지면 안 됩니다.
+> IZ-PM-Viewer-배포 폴더가 새로 생겼다면,
+> 폴더에 있는 파일을 모두 output으로 옮겨주세요.
+
 2. 초기 설정하기.bat 파일을 실행하면 필요한 pm_list.json과 member_name.json을 알아서 생성해줍니다.
 
 3. 이제 서버 시작하기.bat 파일을 실행하면 뷰어가 열릴 겁니다. 아마도...
