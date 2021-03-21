@@ -5,6 +5,7 @@
 1. [IZ-PM-Viewer-배포.zip 다운 받기](https://github.com/twinstae/izone-pm-viewer/raw/main/IZ-PM-Viewer-%EB%B0%B0%ED%8F%AC.zip)
 압축 파일을 받아서 img와 mail이 있는 output 폴더에 풀어줍니다.
 
+### output 폴더 사진
 ![](https://github.com/twinstae/izone-pm-viewer/raw/main/%EC%98%88%EC%8B%9C.png)
 
 > 이때 새 폴더가 만들어지면 안 됩니다.
