@@ -9,6 +9,7 @@ import { isDesktop, now_pm, pm_list } from '../stores/now';
 import { all_tag_dict } from '../stores/all_tag_dict';
 import { tag_to_mail_dict } from '../stores/tag_to_mail_dict';
 import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
+import Modal from '../components/Modal.svelte';
 
     let haveInitiated = false;
 
@@ -119,14 +120,17 @@ import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
 
     let width;
     $: isDesktop.set(width > 800);
-    
+
+    let show = null;    
 </script>
 
 <div
 bind:clientWidth={width}
 class="flex w-screen h-screen relative">
-    {#if haveInitiated}
-        <MailDetailSection />
-        <MailListSection/>
-    {/if}
+    <Modal show={show}>
+        {#if haveInitiated}
+            <MailDetailSection />
+            <MailListSection/>
+        {/if}
+    </Modal>
 </div>
