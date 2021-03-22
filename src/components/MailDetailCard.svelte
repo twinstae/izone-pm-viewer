@@ -8,6 +8,7 @@ import { loadContent, now_pm, isDesktop, now_content, show_list, isMobile } from
 import { mail_to_tag_dict } from "../stores/mail_to_tag_dict";
 import MemberProfileImg from './MemberProfileImg.svelte';
 import { fade } from 'svelte/transition';
+import { goto, params } from '@roxi/routify';
     export let show;
 
     $: now_tags = $mail_to_tag_dict.has($now_pm.id)
@@ -62,7 +63,10 @@ flex flex-col">
             {#if $isMobile}
             <button
             class="shadow rounded bg-red-200 p-1 mt-2"
-            on:click={()=>{$show_list=true}}>
+            on:click={()=>{
+                $show_list=true;
+                $goto("./", { ...$params, showList: true});
+            }}>
                 목록으로 돌아가기🗃️
             </button>
             {/if}

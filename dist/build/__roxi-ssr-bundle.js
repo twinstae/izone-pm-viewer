@@ -33,10 +33,10 @@
     return __exportStar(__defProp(__create(__getProtoOf(module)), "default", {value: module, enumerable: true}), module);
   };
 
-  // dist/build/_fallback-6e92d963.js
-  var require_fallback_6e92d963 = __commonJS((exports) => {
+  // dist/build/_fallback-bb4cb1d5.js
+  var require_fallback_bb4cb1d5 = __commonJS((exports) => {
     __export(exports, {
-      default: () => fallback_6e92d963_default
+      default: () => fallback_bb4cb1d5_default
     });
     const main = __toModule(require_main());
     function v(s2) {
@@ -55,17 +55,17 @@
       let t2;
       return main.g(s2, main.u, (s3) => e2(0, t2 = s3)), [t2];
     }
-    class fallback_6e92d963_default extends main.S {
+    class fallback_bb4cb1d5_default extends main.S {
       constructor(s2) {
         super(), main.i(this, s2, g, v, main.s, {});
       }
     }
   });
 
-  // dist/build/index-8b4a4faa.js
-  var require_index_8b4a4faa = __commonJS((exports) => {
+  // dist/build/index-7240ff80.js
+  var require_index_7240ff80 = __commonJS((exports) => {
     __export(exports, {
-      default: () => index_8b4a4faa_default
+      default: () => index_7240ff80_default
     });
     const main = __toModule(require_main());
     const q = {value: null, color: null};
@@ -554,7 +554,7 @@
     }
     function Yt(t2, e2, n2) {
       const s2 = t2.slice();
-      return s2[14] = e2[n2], s2;
+      return s2[16] = e2[n2], s2;
     }
     function Gt(t2) {
       let e2;
@@ -568,13 +568,13 @@
     }
     function Xt(t2) {
       let e2, n2;
-      return e2 = new wt({props: {tag: t2[14], canDelete: true, size: "sm"}}), {c() {
+      return e2 = new wt({props: {tag: t2[16], canDelete: true, size: "sm"}}), {c() {
         main.y(e2.$$.fragment);
       }, m(t3, s2) {
         main.z(e2, t3, s2), n2 = true;
       }, p(t3, n3) {
         const s2 = {};
-        8 & n3 && (s2.tag = t3[14]), e2.$set(s2);
+        8 & n3 && (s2.tag = t3[16]), e2.$set(s2);
       }, i(t3) {
         n2 || (main.A(e2.$$.fragment, t3), n2 = true);
       }, o(t3) {
@@ -586,9 +586,9 @@
     function te(t2) {
       let e2, n2, s2, r2, o2, c2, h2, p2 = t2[7] && ee(t2);
       return {c() {
-        e2 = main.e("div"), n2 = main.e("div"), r2 = main.a(), p2 && p2.c(), main.b(n2, "contenteditable", "false"), t2[4] === void 0 && main.G(() => t2[12].call(n2)), main.b(e2, "class", "h-5/6 overflow-scroll p-1");
+        e2 = main.e("div"), n2 = main.e("div"), r2 = main.a(), p2 && p2.c(), main.b(n2, "contenteditable", "false"), t2[4] === void 0 && main.G(() => t2[14].call(n2)), main.b(e2, "class", "h-5/6 overflow-scroll p-1");
       }, m(s3, i2) {
-        main.c(s3, e2, i2), main.d(e2, n2), t2[4] !== void 0 && (n2.innerHTML = t2[4]), main.d(e2, r2), p2 && p2.m(e2, null), o2 = true, c2 || (h2 = main.l(n2, "input", t2[12]), c2 = true);
+        main.c(s3, e2, i2), main.d(e2, n2), t2[4] !== void 0 && (n2.innerHTML = t2[4]), main.d(e2, r2), p2 && p2.m(e2, null), o2 = true, c2 || (h2 = main.l(n2, "input", t2[14]), c2 = true);
       }, p(t3, s3) {
         16 & s3 && t3[4] !== n2.innerHTML && (n2.innerHTML = t3[4]), t3[7] ? p2 ? p2.p(t3, s3) : (p2 = ee(t3), p2.c(), p2.m(e2, null)) : p2 && (p2.d(1), p2 = null);
       }, i(t3) {
@@ -606,7 +606,7 @@
       return {c() {
         e2 = main.e("button"), e2.textContent = "\uBAA9\uB85D\uC73C\uB85C \uB3CC\uC544\uAC00\uAE30\u{1F5C3}\uFE0F", main.b(e2, "class", "shadow rounded bg-red-200 p-1 mt-2");
       }, m(r2, i2) {
-        main.c(r2, e2, i2), n2 || (s2 = main.l(e2, "click", t2[13]), n2 = true);
+        main.c(r2, e2, i2), n2 || (s2 = main.l(e2, "click", t2[15]), n2 = true);
       }, p: main.n, d(t3) {
         t3 && main.f(e2), n2 = false, s2();
       }};
@@ -628,9 +628,9 @@
         e2 = main.e("div"), n2 = main.e("div"), s2 = main.e("div"), main.y(r2.$$.fragment), d2 = main.a(), h2 = main.e("h4"), p2 = main.t(T2), $2 = main.a(), J2 && J2.c(), y2 = main.a(), w2 = main.e("div"), main.y(x2.$$.fragment), v2 = main.a(), k2 = main.e("div"), main.y(L2.$$.fragment), I2 = main.a(), main.y(P2.$$.fragment), W2 = main.a();
         for (let t3 = 0; t3 < H2.length; t3 += 1)
           H2[t3].c();
-        N2 = main.a(), main.y(R2.$$.fragment), F2 = main.a(), q2 && q2.c(), main.b(h2, "class", "text-xl m-1 w-4/5"), main.b(s2, "class", "relative"), main.G(() => t2[11].call(s2)), main.b(w2, "class", "absolute inset-y-0 right-0 m-1 h-8"), main.b(k2, "class", "flex flex-wrap"), main.b(n2, "class", "relative w-full"), main.j(e2, "max-height", t2[6] && t2[0] ? "70%" : "90%"), main.b(e2, "class", "\r\nshadow-2xl rounded-md bg-white \r\nw-full mt-2 p-2\r\nflex flex-col");
+        N2 = main.a(), main.y(R2.$$.fragment), F2 = main.a(), q2 && q2.c(), main.b(h2, "class", "text-xl m-1 w-4/5"), main.b(s2, "class", "relative"), main.G(() => t2[13].call(s2)), main.b(w2, "class", "absolute inset-y-0 right-0 m-1 h-8"), main.b(k2, "class", "flex flex-wrap"), main.b(n2, "class", "relative w-full"), main.j(e2, "max-height", t2[6] && t2[0] ? "70%" : "90%"), main.b(e2, "class", "\r\nshadow-2xl rounded-md bg-white \r\nw-full mt-2 p-2\r\nflex flex-col");
       }, m(i2, o2) {
-        main.c(i2, e2, o2), main.d(e2, n2), main.d(n2, s2), main.z(r2, s2, null), main.d(s2, d2), main.d(s2, h2), main.d(h2, p2), m2 = main.I(s2, t2[11].bind(s2)), main.d(n2, $2), J2 && J2.m(n2, null), main.d(n2, y2), main.d(n2, w2), main.z(x2, w2, null), main.d(n2, v2), main.d(n2, k2), main.z(L2, k2, null), main.d(k2, I2), main.z(P2, k2, null), main.d(k2, W2);
+        main.c(i2, e2, o2), main.d(e2, n2), main.d(n2, s2), main.z(r2, s2, null), main.d(s2, d2), main.d(s2, h2), main.d(h2, p2), m2 = main.I(s2, t2[13].bind(s2)), main.d(n2, $2), J2 && J2.m(n2, null), main.d(n2, y2), main.d(n2, w2), main.z(x2, w2, null), main.d(n2, v2), main.d(n2, k2), main.z(L2, k2, null), main.d(k2, I2), main.z(P2, k2, null), main.d(k2, W2);
         for (let t3 = 0; t3 < H2.length; t3 += 1)
           H2[t3].m(k2, null);
         main.d(k2, N2), main.z(R2, k2, null), main.d(e2, F2), q2 && q2.m(e2, null), D2 = true;
@@ -672,13 +672,13 @@
       }};
     }
     function se(t2, e2, n2) {
-      let s2, r2, i2, o2, c2, l2, a2, u2, d2;
-      main.g(t2, G, (t3) => n2(9, o2 = t3)), main.g(t2, ct, (t3) => n2(2, c2 = t3)), main.g(t2, lt, (t3) => n2(4, l2 = t3)), main.g(t2, ht, (t3) => n2(6, a2 = t3)), main.g(t2, ft, (t3) => n2(7, u2 = t3)), main.g(t2, dt, (t3) => n2(8, d2 = t3));
-      let h2, {show: f2} = e2;
+      let s2, r2, i2, o2, c2, l2, a2, u2, d2, h2, f2;
+      main.g(t2, G, (t3) => n2(11, o2 = t3)), main.g(t2, ct, (t3) => n2(2, c2 = t3)), main.g(t2, lt, (t3) => n2(4, l2 = t3)), main.g(t2, ht, (t3) => n2(6, a2 = t3)), main.g(t2, ft, (t3) => n2(7, u2 = t3)), main.g(t2, dt, (t3) => n2(8, d2 = t3)), main.g(t2, main.o, (t3) => n2(9, h2 = t3)), main.g(t2, main.p, (t3) => n2(10, f2 = t3));
+      let g2, {show: p2} = e2;
       return t2.$$set = (t3) => {
-        "show" in t3 && n2(0, f2 = t3.show);
+        "show" in t3 && n2(0, p2 = t3.show);
       }, t2.$$.update = () => {
-        516 & t2.$$.dirty && n2(3, s2 = o2.has(c2.id) ? Array.from(o2.get(c2.id)) : []), 4 & t2.$$.dirty && n2(10, r2 = () => {
+        2052 & t2.$$.dirty && n2(3, s2 = o2.has(c2.id) ? Array.from(o2.get(c2.id)) : []), 4 & t2.$$.dirty && n2(12, r2 = () => {
           main.q(lt, l2 = "", l2), async function(t3) {
             const e3 = await fetch(`./mail/${t3}.html`).then((t4) => t4.text()), n3 = e3.search('<div class="main-contents" id="mail-detail"><html><head></head><body>') + 69, s3 = e3.search("</body></html></div>");
             return e3.slice(n3, s3);
@@ -687,13 +687,13 @@
               main.q(lt, l2 = t3, l2);
             }, 100);
           });
-        }), 1024 & t2.$$.dirty && r2(), 2 & t2.$$.dirty && n2(5, i2 = h2 < 40);
-      }, [f2, h2, c2, s2, l2, i2, a2, u2, d2, o2, r2, function() {
-        h2 = this.clientHeight, n2(1, h2);
+        }), 4096 & t2.$$.dirty && r2(), 2 & t2.$$.dirty && n2(5, i2 = g2 < 40);
+      }, [p2, g2, c2, s2, l2, i2, a2, u2, d2, h2, f2, o2, r2, function() {
+        g2 = this.clientHeight, n2(1, g2);
       }, function() {
         l2 = this.innerHTML, lt.set(l2);
       }, () => {
-        main.q(dt, d2 = true, d2);
+        main.q(dt, d2 = true, d2), h2("./", {...f2, showList: true});
       }];
     }
     class re extends main.S {
@@ -2690,17 +2690,17 @@
         m2 = this.clientWidth, n2(0, m2);
       }];
     }
-    class index_8b4a4faa_default extends main.S {
+    class index_7240ff80_default extends main.S {
       constructor(t2) {
         super(), main.i(this, t2, ms, gs, main.s, {});
       }
     }
   });
 
-  // dist/build/_layout-2c1ce2e1.js
-  var require_layout_2c1ce2e1 = __commonJS((exports) => {
+  // dist/build/_layout-037983e2.js
+  var require_layout_037983e2 = __commonJS((exports) => {
     __export(exports, {
-      default: () => layout_2c1ce2e1_default
+      default: () => layout_037983e2_default
     });
     const main = __toModule(require_main());
     function c(s2) {
@@ -2726,7 +2726,7 @@
         "$$scope" in s3 && e2(0, o2 = s3.$$scope);
       }, [o2, n2];
     }
-    class layout_2c1ce2e1_default extends main.S {
+    class layout_037983e2_default extends main.S {
       constructor(s2) {
         super(), main.i(this, s2, u, c, main.s, {});
       }
@@ -2748,7 +2748,7 @@
       J: () => dt,
       K: () => ht,
       L: () => T,
-      M: () => p,
+      M: () => f,
       N: () => d,
       O: () => R,
       P: () => ue,
@@ -2757,7 +2757,7 @@
       S: () => Et,
       T: () => Z,
       U: () => G,
-      V: () => fe,
+      V: () => pe,
       a: () => E,
       b: () => S,
       c: () => _,
@@ -2821,13 +2821,13 @@
     function u(t2, e2, n2) {
       t2.$$.on_destroy.push(c(e2, n2));
     }
-    function p(t2, e2, n2, o2) {
+    function f(t2, e2, n2, o2) {
       if (t2) {
-        const r2 = f(t2, e2, n2, o2);
+        const r2 = p(t2, e2, n2, o2);
         return t2[0](r2);
       }
     }
-    function f(t2, e2, o2, r2) {
+    function p(t2, e2, o2, r2) {
       return t2[1] && r2 ? n(o2.ctx.slice(), t2[1](r2(e2))) : o2.ctx;
     }
     function d(t2, e2, n2, o2, r2, s2, i2) {
@@ -2847,7 +2847,7 @@
         return e3.dirty;
       }(e2, o2, r2, s2);
       if (a2) {
-        const r3 = f(e2, n2, o2, i2);
+        const r3 = p(e2, n2, o2, i2);
         t2.p(r3, a2);
       }
     }
@@ -2951,17 +2951,17 @@
 `;
       }
       const u2 = l2 + `100% {${i2(n2, 1 - n2)}}
-}`, p2 = `__svelte_${function(t3) {
+}`, f2 = `__svelte_${function(t3) {
         let e3 = 5381, n3 = t3.length;
         for (; n3--; )
           e3 = (e3 << 5) - e3 ^ t3.charCodeAt(n3);
         return e3 >>> 0;
-      }(u2)}_${a2}`, f2 = t2.ownerDocument;
-      q.add(f2);
-      const d2 = f2.__svelte_stylesheet || (f2.__svelte_stylesheet = f2.head.appendChild(P("style")).sheet), h2 = f2.__svelte_rules || (f2.__svelte_rules = {});
-      h2[p2] || (h2[p2] = true, d2.insertRule(`@keyframes ${p2} ${u2}`, d2.cssRules.length));
+      }(u2)}_${a2}`, p2 = t2.ownerDocument;
+      q.add(p2);
+      const d2 = p2.__svelte_stylesheet || (p2.__svelte_stylesheet = p2.head.appendChild(P("style")).sheet), h2 = p2.__svelte_rules || (p2.__svelte_rules = {});
+      h2[f2] || (h2[f2] = true, d2.insertRule(`@keyframes ${f2} ${u2}`, d2.cssRules.length));
       const m2 = t2.style.animation || "";
-      return t2.style.animation = `${m2 ? `${m2}, ` : ""}${p2} ${o2}ms linear ${r2}ms 1 both`, U += 1, p2;
+      return t2.style.animation = `${m2 ? `${m2}, ` : ""}${f2} ${o2}ms linear ${r2}ms 1 both`, U += 1, f2;
     }
     function D(t2, e2) {
       const n2 = (t2.style.animation || "").split(", "), o2 = n2.filter(e2 ? (t3) => t3.indexOf(e2) < 0 : (t3) => t3.indexOf("__svelte") === -1), r2 = n2.length - o2.length;
@@ -3053,31 +3053,31 @@
     function ut(t2, e2, n2) {
       t2.dispatchEvent(C(`${e2 ? "intro" : "outro"}${n2}`));
     }
-    const pt = new Set();
-    let ft;
+    const ft = new Set();
+    let pt;
     function dt() {
-      ft = {r: 0, c: [], p: ft};
+      pt = {r: 0, c: [], p: pt};
     }
     function ht() {
-      ft.r || s(ft.c), ft = ft.p;
+      pt.r || s(pt.c), pt = pt.p;
     }
     function mt(t2, e2) {
-      t2 && t2.i && (pt.delete(t2), t2.i(e2));
+      t2 && t2.i && (ft.delete(t2), t2.i(e2));
     }
     function gt(t2, e2, n2, o2) {
       if (t2 && t2.o) {
-        if (pt.has(t2))
+        if (ft.has(t2))
           return;
-        pt.add(t2), ft.c.push(() => {
-          pt.delete(t2), o2 && (n2 && t2.d(1), o2());
+        ft.add(t2), pt.c.push(() => {
+          ft.delete(t2), o2 && (n2 && t2.d(1), o2());
         }), t2.o(e2);
       }
     }
     const yt = {duration: 0};
     function $t(n2, o2, r2, a2) {
-      let c2 = o2(n2, r2), l2 = a2 ? 0 : 1, u2 = null, p2 = null, f2 = null;
+      let c2 = o2(n2, r2), l2 = a2 ? 0 : 1, u2 = null, f2 = null, p2 = null;
       function d2() {
-        f2 && D(n2, f2);
+        p2 && D(n2, p2);
       }
       function h2(t2, e2) {
         const n3 = t2.b - l2;
@@ -3085,21 +3085,21 @@
       }
       function m2(o3) {
         const {delay: r3 = 0, duration: i2 = 300, easing: a3 = e, tick: m3 = t, css: w2} = c2 || yt, _2 = {start: g() + r3, b: o3};
-        o3 || (_2.group = ft, ft.r += 1), u2 || p2 ? p2 = _2 : (w2 && (d2(), f2 = z(n2, l2, o3, i2, r3, a3, w2)), o3 && m3(0, 1), u2 = h2(_2, i2), rt(() => ut(n2, o3, "start")), function(t2) {
+        o3 || (_2.group = pt, pt.r += 1), u2 || f2 ? f2 = _2 : (w2 && (d2(), p2 = z(n2, l2, o3, i2, r3, a3, w2)), o3 && m3(0, 1), u2 = h2(_2, i2), rt(() => ut(n2, o3, "start")), function(t2) {
           let e2;
           $.size === 0 && y(b), new Promise((n3) => {
             $.add(e2 = {c: t2, f: n3});
           });
         }((t2) => {
-          if (p2 && t2 > p2.start && (u2 = h2(p2, i2), p2 = null, ut(n2, u2.b, "start"), w2 && (d2(), f2 = z(n2, l2, u2.b, u2.duration, 0, a3, c2.css))), u2) {
+          if (f2 && t2 > f2.start && (u2 = h2(f2, i2), f2 = null, ut(n2, u2.b, "start"), w2 && (d2(), p2 = z(n2, l2, u2.b, u2.duration, 0, a3, c2.css))), u2) {
             if (t2 >= u2.end)
-              m3(l2 = u2.b, 1 - l2), ut(n2, u2.b, "end"), p2 || (u2.b ? d2() : --u2.group.r || s(u2.group.c)), u2 = null;
+              m3(l2 = u2.b, 1 - l2), ut(n2, u2.b, "end"), f2 || (u2.b ? d2() : --u2.group.r || s(u2.group.c)), u2 = null;
             else if (t2 >= u2.start) {
               const e2 = t2 - u2.start;
               l2 = u2.a + u2.d * a3(e2 / u2.duration), m3(l2, 1 - l2);
             }
           }
-          return !(!u2 && !p2);
+          return !(!u2 && !f2);
         }));
       }
       return {run(t2) {
@@ -3109,7 +3109,7 @@
           c2 = c2(), m2(t2);
         }) : m2(t2);
       }, end() {
-        d2(), u2 = p2 = null;
+        d2(), u2 = f2 = null;
       }};
     }
     function bt(t2, e2) {
@@ -3120,14 +3120,14 @@
         e2.delete(t2.key);
       });
     }
-    function _t(t2, e2, n2, o2, r2, s2, i2, a2, c2, l2, u2, p2) {
-      let f2 = t2.length, d2 = s2.length, h2 = f2;
+    function _t(t2, e2, n2, o2, r2, s2, i2, a2, c2, l2, u2, f2) {
+      let p2 = t2.length, d2 = s2.length, h2 = p2;
       const m2 = {};
       for (; h2--; )
         m2[t2[h2].key] = h2;
       const g2 = [], y2 = new Map(), $2 = new Map();
       for (h2 = d2; h2--; ) {
-        const t3 = p2(r2, s2, h2), a3 = n2(t3);
+        const t3 = f2(r2, s2, h2), a3 = n2(t3);
         let c3 = i2.get(a3);
         c3 ? o2 && c3.p(t3, e2) : (c3 = l2(a3, t3), c3.c()), y2.set(a3, g2[h2] = c3), a3 in m2 && $2.set(a3, Math.abs(h2 - m2[a3]));
       }
@@ -3135,12 +3135,12 @@
       function _2(t3) {
         mt(t3, 1), t3.m(a2, u2), i2.set(t3.key, t3), u2 = t3.first, d2--;
       }
-      for (; f2 && d2; ) {
-        const e3 = g2[d2 - 1], n3 = t2[f2 - 1], o3 = e3.key, r3 = n3.key;
-        e3 === n3 ? (u2 = e3.first, f2--, d2--) : y2.has(r3) ? !i2.has(o3) || b2.has(o3) ? _2(e3) : w2.has(r3) ? f2-- : $2.get(o3) > $2.get(r3) ? (w2.add(o3), _2(e3)) : (b2.add(r3), f2--) : (c2(n3, i2), f2--);
+      for (; p2 && d2; ) {
+        const e3 = g2[d2 - 1], n3 = t2[p2 - 1], o3 = e3.key, r3 = n3.key;
+        e3 === n3 ? (u2 = e3.first, p2--, d2--) : y2.has(r3) ? !i2.has(o3) || b2.has(o3) ? _2(e3) : w2.has(r3) ? p2-- : $2.get(o3) > $2.get(r3) ? (w2.add(o3), _2(e3)) : (b2.add(r3), p2--) : (c2(n3, i2), p2--);
       }
-      for (; f2--; ) {
-        const e3 = t2[f2];
+      for (; p2--; ) {
+        const e3 = t2[p2];
         y2.has(e3.key) || c2(e3, i2);
       }
       for (; d2; )
@@ -3164,21 +3164,21 @@
     function kt(e2, n2, o2, i2, a2, c2, l2 = [-1]) {
       const u2 = B;
       H(e2);
-      const p2 = e2.$$ = {fragment: null, ctx: null, props: c2, update: t, not_equal: a2, bound: r(), on_mount: [], on_destroy: [], before_update: [], after_update: [], context: new Map(u2 ? u2.$$.context : []), callbacks: r(), dirty: l2, skip_bound: false};
-      let f2 = false;
-      if (p2.ctx = o2 ? o2(e2, n2.props || {}, (t2, n3, ...o3) => {
+      const f2 = e2.$$ = {fragment: null, ctx: null, props: c2, update: t, not_equal: a2, bound: r(), on_mount: [], on_destroy: [], before_update: [], after_update: [], context: new Map(u2 ? u2.$$.context : []), callbacks: r(), dirty: l2, skip_bound: false};
+      let p2 = false;
+      if (f2.ctx = o2 ? o2(e2, n2.props || {}, (t2, n3, ...o3) => {
         const r2 = o3.length ? o3[0] : n3;
-        return p2.ctx && a2(p2.ctx[t2], p2.ctx[t2] = r2) && (!p2.skip_bound && p2.bound[t2] && p2.bound[t2](r2), f2 && function(t3, e3) {
+        return f2.ctx && a2(f2.ctx[t2], f2.ctx[t2] = r2) && (!f2.skip_bound && f2.bound[t2] && f2.bound[t2](r2), p2 && function(t3, e3) {
           t3.$$.dirty[0] === -1 && (V.push(t3), nt(), t3.$$.dirty.fill(0)), t3.$$.dirty[e3 / 31 | 0] |= 1 << e3 % 31;
         }(e2, t2)), n3;
-      }) : [], p2.update(), f2 = true, s(p2.before_update), p2.fragment = !!i2 && i2(p2.ctx), n2.target) {
+      }) : [], f2.update(), p2 = true, s(f2.before_update), f2.fragment = !!i2 && i2(f2.ctx), n2.target) {
         if (n2.hydrate) {
           const t2 = function(t3) {
             return Array.from(t3.childNodes);
           }(n2.target);
-          p2.fragment && p2.fragment.l(t2), t2.forEach(v);
+          f2.fragment && f2.fragment.l(t2), t2.forEach(v);
         } else
-          p2.fragment && p2.fragment.c();
+          f2.fragment && f2.fragment.c();
         n2.intro && mt(e2.$$.fragment), xt(e2, n2.target, n2.anchor), at();
       }
       H(u2);
@@ -3272,7 +3272,7 @@
     }
     function Nt(t2) {
       let e2;
-      const n2 = t2[2].default, o2 = p(n2, t2, t2[1], null);
+      const n2 = t2[2].default, o2 = f(n2, t2, t2[1], null);
       return {c() {
         o2 && o2.c();
       }, m(t3, n3) {
@@ -3331,20 +3331,20 @@
       return {subscribe: Bt(o2, (e3) => {
         let o3 = false;
         const u2 = [];
-        let p2 = 0, f2 = t;
+        let f2 = 0, p2 = t;
         const d2 = () => {
-          if (p2)
+          if (f2)
             return;
-          f2();
+          p2();
           const o4 = n2(r2 ? u2[0] : u2, e3);
-          l2 ? e3(o4) : f2 = i(o4) ? o4 : t;
+          l2 ? e3(o4) : p2 = i(o4) ? o4 : t;
         }, h2 = a2.map((t2, e4) => c(t2, (t3) => {
-          u2[e4] = t3, p2 &= ~(1 << e4), o3 && d2();
+          u2[e4] = t3, f2 &= ~(1 << e4), o3 && d2();
         }, () => {
-          p2 |= 1 << e4;
+          f2 |= 1 << e4;
         }));
         return o3 = true, d2(), function() {
-          s(h2), f2();
+          s(h2), p2();
         };
       }).subscribe};
     }
@@ -3471,7 +3471,7 @@
       return function(o2, r2 = {}, s2) {
         const {component: i2} = t4, a2 = Object.assign({}, e2.params, i2.params);
         let c2 = o2 && o2.nodeType && o2;
-        c2 && (o2 = o2.getAttribute("href")), o2 = o2 ? p2(o2) : i2.shortPath;
+        c2 && (o2 = o2.getAttribute("href")), o2 = o2 ? f2(o2) : i2.shortPath;
         const l2 = n2.find((t5) => [t5.shortPath || "/", t5.path].includes(o2));
         if (l2 && l2.meta.preload === "proximity" && window.requestIdleCallback) {
           const t5 = routify.appLoaded ? 0 : 1500;
@@ -3484,7 +3484,7 @@
         return c2 ? (c2.href = u2, {update(t5) {
           c2.href = Mt(o2, t5, a2);
         }}) : u2;
-        function p2(t5) {
+        function f2(t5) {
           if (t5.match(/^\.\.?\//)) {
             let [, e3, n3] = t5.match(/^([\.\/]+)(.*)/), o3 = i2.path.replace(/\/$/, "");
             const r3 = e3.match(/\.\.\//g) || [];
@@ -3513,10 +3513,10 @@
         r2 ? e2(i2, s2) : history.replaceState({}, null, i2);
       }).subscribe(t2);
     }};
-    const pe = {props: {}, templates: {}, services: {plain: {propField: "name", valueField: "content"}, twitter: {propField: "name", valueField: "content"}, og: {propField: "property", valueField: "content"}}, plugins: [{name: "applyTemplate", condition: () => true, action: (t2, e2) => [t2, (pe.getLongest(pe.templates, t2) || ((t3) => t3))(e2)]}, {name: "createMeta", condition: () => true, action(t2, e2) {
-      pe.writeMeta(t2, e2);
+    const fe = {props: {}, templates: {}, services: {plain: {propField: "name", valueField: "content"}, twitter: {propField: "name", valueField: "content"}, og: {propField: "property", valueField: "content"}}, plugins: [{name: "applyTemplate", condition: () => true, action: (t2, e2) => [t2, (fe.getLongest(fe.templates, t2) || ((t3) => t3))(e2)]}, {name: "createMeta", condition: () => true, action(t2, e2) {
+      fe.writeMeta(t2, e2);
     }}, {name: "createOG", condition: (t2) => !t2.match(":"), action(t2, e2) {
-      pe.writeMeta(`og:${t2}`, e2);
+      fe.writeMeta(`og:${t2}`, e2);
     }}, {name: "createTitle", condition: (t2) => t2 === "title", action(t2, e2) {
       document.title = e2;
     }}], getLongest(t2, e2) {
@@ -3526,36 +3526,36 @@
         return n2[Object.keys(t2[e2]).filter((t3) => o2.includes(t3)).sort((t3, e3) => e3.length - t3.length)[0]];
       }
     }, writeMeta(t2, e2) {
-      const n2 = document.getElementsByTagName("head")[0], o2 = t2.match(/(.+)\:/), r2 = o2 && o2[1] || "plain", {propField: s2, valueField: i2} = fe.services[r2] || fe.services.plain, a2 = document.querySelector(`meta[${s2}='${t2}']`);
+      const n2 = document.getElementsByTagName("head")[0], o2 = t2.match(/(.+)\:/), r2 = o2 && o2[1] || "plain", {propField: s2, valueField: i2} = pe.services[r2] || pe.services.plain, a2 = document.querySelector(`meta[${s2}='${t2}']`);
       a2 && a2.remove();
       const c2 = document.createElement("meta");
       c2.setAttribute(s2, t2), c2.setAttribute(i2, e2), c2.setAttribute("data-origin", "routify"), n2.appendChild(c2);
     }, set(t2, e2) {
-      pe.plugins.forEach((n2) => {
+      fe.plugins.forEach((n2) => {
         n2.condition(t2, e2) && ([t2, e2] = n2.action(t2, e2) || [t2, e2]);
       });
     }, clear() {
       const t2 = document.querySelector("meta");
       t2 && t2.remove();
     }, template(t2, e2) {
-      const n2 = pe.getOrigin();
-      pe.templates[t2] = pe.templates[t2] || {}, pe.templates[t2][n2] = e2;
+      const n2 = fe.getOrigin();
+      fe.templates[t2] = fe.templates[t2] || {}, fe.templates[t2][n2] = e2;
     }, update() {
-      Object.keys(pe.props).forEach((t2) => {
-        let e2 = pe.getLongest(pe.props, t2);
-        pe.plugins.forEach((n2) => {
+      Object.keys(fe.props).forEach((t2) => {
+        let e2 = fe.getLongest(fe.props, t2);
+        fe.plugins.forEach((n2) => {
           n2.condition(t2, e2) && ([t2, e2] = n2.action(t2, e2) || [t2, e2]);
         });
       });
     }, batchedUpdate() {
-      pe._pendingUpdate || (pe._pendingUpdate = true, setTimeout(() => {
-        pe._pendingUpdate = false, this.update();
+      fe._pendingUpdate || (fe._pendingUpdate = true, setTimeout(() => {
+        fe._pendingUpdate = false, this.update();
       }));
     }, _updateQueued: false, getOrigin() {
       const t2 = oe();
       return t2 && l(t2).path || "/";
     }, _pendingUpdate: false};
-    const fe = new Proxy(pe, {set(t2, e2, n2, o2) {
+    const pe = new Proxy(fe, {set(t2, e2, n2, o2) {
       const {props: r2, getOrigin: s2} = t2;
       return Reflect.has(t2, e2) ? Reflect.set(t2, e2, n2, o2) : (r2[e2] = r2[e2] || {}, r2[e2][s2()] = n2), window.routify.appLoaded && t2.batchedUpdate(), true;
     }});
@@ -3724,8 +3724,8 @@
       return {c() {
         c2 && c2.c(), n2 = E(), o2 = P("span");
       }, m(l2, u2) {
-        var p2;
-        c2 && c2.m(l2, u2), _(l2, n2, u2), _(l2, o2, u2), r2 = true, s2 || (p2 = e2[8].call(null, o2), a2 = p2 && i(p2.destroy) ? p2.destroy : t, s2 = true);
+        var f2;
+        c2 && c2.m(l2, u2), _(l2, n2, u2), _(l2, o2, u2), r2 = true, s2 || (f2 = e2[8].call(null, o2), a2 = f2 && i(f2.destroy) ? f2.destroy : t, s2 = true);
       }, p(t2, [e3]) {
         t2[4] ? c2 ? (c2.p(t2, e3), 16 & e3 && mt(c2, 1)) : (c2 = he(t2), c2.c(), mt(c2, 1), c2.m(n2.parentNode, n2)) : c2 && (dt(), gt(c2, 1, 1, () => {
           c2 = null;
@@ -3741,7 +3741,7 @@
     function we(t2, e2, n2) {
       let o2, r2, s2, i2;
       u(t2, zt, (t3) => n2(14, s2 = t3));
-      let a2, {nodes: c2 = []} = e2, {scoped: l2 = {}} = e2, {isRoot: p2 = false} = e2, {decorator: f2} = e2, d2 = null, h2 = null, m2 = {};
+      let a2, {nodes: c2 = []} = e2, {scoped: l2 = {}} = e2, {isRoot: f2 = false} = e2, {decorator: p2} = e2, d2 = null, h2 = null, m2 = {};
       const g2 = Bt(null);
       u(t2, g2, (t3) => n2(4, i2 = t3));
       const y2 = Q("routify");
@@ -3755,19 +3755,19 @@
             for (const e5 of n3._hooks)
               e5 && await e5(t5.api);
             e4.update(), dispatchEvent(new CustomEvent("app-loaded")), parent.postMessage({msg: "app-loaded", prefetched: window.routify.prefetched, path: o3, prefetchId: s3}, "*"), window.routify.appLoaded = true, window.routify.stopAutoReady = false;
-          }({page: i2.component, metatags: fe, afterPageLoad: re});
+          }({page: i2.component, metatags: pe, afterPageLoad: re});
         }();
-        const e3 = {nodes: h2, decorator: f2 || Ct, layout: d2.isLayout ? d2 : o2 && o2.layout, component: d2, route: s2, componentFile: t3, parentNode: a2 || o2 && o2.parentNode};
-        g2.set(e3), p2 && Ht.set(e3);
+        const e3 = {nodes: h2, decorator: p2 || Ct, layout: d2.isLayout ? d2 : o2 && o2.layout, component: d2, route: s2, componentFile: t3, parentNode: a2 || o2 && o2.parentNode};
+        g2.set(e3), f2 && Ht.set(e3);
       }
       return G("routify", g2), t2.$$set = (t3) => {
-        "nodes" in t3 && n2(1, c2 = t3.nodes), "scoped" in t3 && n2(0, l2 = t3.scoped), "isRoot" in t3 && n2(9, p2 = t3.isRoot), "decorator" in t3 && n2(2, f2 = t3.decorator);
+        "nodes" in t3 && n2(1, c2 = t3.nodes), "scoped" in t3 && n2(0, l2 = t3.scoped), "isRoot" in t3 && n2(9, f2 = t3.isRoot), "decorator" in t3 && n2(2, p2 = t3.decorator);
       }, t2.$$.update = () => {
         1024 & t2.$$.dirty && (o2 = r2), 2 & t2.$$.dirty && n2(3, [d2, ...h2] = c2, d2), 8 & t2.$$.dirty && function(t3) {
           let e3 = t3.component();
           e3 instanceof Promise ? e3.then($2) : $2(e3);
         }(d2), 16 & t2.$$.dirty && i2 && It(i2, ot);
-      }, [l2, c2, f2, d2, i2, m2, g2, y2, (t3) => a2 = t3.parentNode, p2, r2];
+      }, [l2, c2, p2, d2, i2, m2, g2, y2, (t3) => a2 = t3.parentNode, f2, r2];
     }
     class _e extends Et {
       constructor(t2) {
@@ -3868,12 +3868,12 @@
       const c2 = (t3) => n2(0, r2 = t3), l2 = () => {
         s2 && (s2.destroy(), s2 = null);
       };
-      let p2 = null;
-      var f2;
-      return f2 = l2, K().$$.on_destroy.push(f2), t2.$$set = (t3) => {
+      let f2 = null;
+      var p2;
+      return p2 = l2, K().$$.on_destroy.push(p2), t2.$$set = (t3) => {
         "routes" in t3 && n2(2, i2 = t3.routes), "config" in t3 && n2(3, a2 = t3.config);
       }, t2.$$.update = () => {
-        4 & t2.$$.dirty && i2 && (clearTimeout(p2), p2 = setTimeout(() => {
+        4 & t2.$$.dirty && i2 && (clearTimeout(f2), f2 = setTimeout(() => {
           l2(), s2 = ve(i2, c2), Dt.set(i2), s2.updatePage();
         }));
       }, [r2, o2, i2, a2];
@@ -4015,7 +4015,7 @@
       }
     }
     const Ze = {...Ke, restoreDefaults: ({tree: t2}) => Je(t2), assignAPI: Ge};
-    const Xe = {root: true, ownMeta: {preload: "proximity"}, children: [{isFallback: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/_fallback", component: () => Promise.resolve().then(() => __toModule(require_fallback_6e92d963())).then((t2) => t2.default)}, {isIndex: true, isPage: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/index", id: "_index", component: () => Promise.resolve().then(() => __toModule(require_index_8b4a4faa())).then((t2) => t2.default)}], isLayout: true, meta: {preload: "proximity", recursive: true, prerender: true}, path: "/", id: "__layout", component: () => Promise.resolve().then(() => __toModule(require_layout_2c1ce2e1())).then((t2) => t2.default)};
+    const Xe = {root: true, ownMeta: {preload: "proximity"}, children: [{isFallback: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/_fallback", component: () => Promise.resolve().then(() => __toModule(require_fallback_bb4cb1d5())).then((t2) => t2.default)}, {isIndex: true, isPage: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/index", id: "_index", component: () => Promise.resolve().then(() => __toModule(require_index_7240ff80())).then((t2) => t2.default)}], isLayout: true, meta: {preload: "proximity", recursive: true, prerender: true}, path: "/", id: "__layout", component: () => Promise.resolve().then(() => __toModule(require_layout_037983e2())).then((t2) => t2.default)};
     const {tree: Ye, routes: tn} = function(t2) {
       const e2 = ["restoreDefaults", "setParamKeys", "setRegex", "setShortPath", "setRank", "assignLayout", "setPrototype", "addMetaChildren", "assignRelations", "setIsIndexable", "assignIndex", "assignAPI", "createFlatList"], n2 = {tree: t2, routes: []};
       for (let t3 of e2) {
