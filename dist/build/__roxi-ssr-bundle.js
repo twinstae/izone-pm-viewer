@@ -33,10 +33,10 @@
     return __exportStar(__defProp(__create(__getProtoOf(module)), "default", {value: module, enumerable: true}), module);
   };
 
-  // dist/build/_fallback-333cd456.js
-  var require_fallback_333cd456 = __commonJS((exports) => {
+  // dist/build/_fallback-6e92d963.js
+  var require_fallback_6e92d963 = __commonJS((exports) => {
     __export(exports, {
-      default: () => fallback_333cd456_default
+      default: () => fallback_6e92d963_default
     });
     const main = __toModule(require_main());
     function v(s2) {
@@ -55,17 +55,17 @@
       let t2;
       return main.g(s2, main.u, (s3) => e2(0, t2 = s3)), [t2];
     }
-    class fallback_333cd456_default extends main.S {
+    class fallback_6e92d963_default extends main.S {
       constructor(s2) {
         super(), main.i(this, s2, g, v, main.s, {});
       }
     }
   });
 
-  // dist/build/index-756d6944.js
-  var require_index_756d6944 = __commonJS((exports) => {
+  // dist/build/index-8b4a4faa.js
+  var require_index_8b4a4faa = __commonJS((exports) => {
     __export(exports, {
-      default: () => index_756d6944_default
+      default: () => index_8b4a4faa_default
     });
     const main = __toModule(require_main());
     const q = {value: null, color: null};
@@ -2312,9 +2312,9 @@
         if (z2 != m2) {
           z2 = m2;
           const e3 = xe(t3.time);
-          main.q($e, p2 = e3, p2), B2 = e3, b2("./", Object.assign(Object.assign({}, v2), {nowPage: m2, dateString: p2}), {static: true});
+          return main.q($e, p2 = e3, p2), B2 = e3, b2("./", Object.assign(Object.assign({}, v2), {nowPage: m2, dateString: e3})), null;
         }
-        if (B2 != p2) {
+        if (B2 !== p2) {
           let t4 = false;
           if (c2.forEach((e3, n3) => {
             if (t4 || !e3)
@@ -2690,17 +2690,17 @@
         m2 = this.clientWidth, n2(0, m2);
       }];
     }
-    class index_756d6944_default extends main.S {
+    class index_8b4a4faa_default extends main.S {
       constructor(t2) {
         super(), main.i(this, t2, ms, gs, main.s, {});
       }
     }
   });
 
-  // dist/build/_layout-bd2010cd.js
-  var require_layout_bd2010cd = __commonJS((exports) => {
+  // dist/build/_layout-2c1ce2e1.js
+  var require_layout_2c1ce2e1 = __commonJS((exports) => {
     __export(exports, {
-      default: () => layout_bd2010cd_default
+      default: () => layout_2c1ce2e1_default
     });
     const main = __toModule(require_main());
     function c(s2) {
@@ -2726,7 +2726,7 @@
         "$$scope" in s3 && e2(0, o2 = s3.$$scope);
       }, [o2, n2];
     }
-    class layout_bd2010cd_default extends main.S {
+    class layout_2c1ce2e1_default extends main.S {
       constructor(s2) {
         super(), main.i(this, s2, u, c, main.s, {});
       }
@@ -4015,7 +4015,7 @@
       }
     }
     const Ze = {...Ke, restoreDefaults: ({tree: t2}) => Je(t2), assignAPI: Ge};
-    const Xe = {root: true, ownMeta: {preload: "proximity"}, children: [{isFallback: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/_fallback", component: () => Promise.resolve().then(() => __toModule(require_fallback_333cd456())).then((t2) => t2.default)}, {isIndex: true, isPage: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/index", id: "_index", component: () => Promise.resolve().then(() => __toModule(require_index_756d6944())).then((t2) => t2.default)}], isLayout: true, meta: {preload: "proximity", recursive: true, prerender: true}, path: "/", id: "__layout", component: () => Promise.resolve().then(() => __toModule(require_layout_bd2010cd())).then((t2) => t2.default)};
+    const Xe = {root: true, ownMeta: {preload: "proximity"}, children: [{isFallback: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/_fallback", component: () => Promise.resolve().then(() => __toModule(require_fallback_6e92d963())).then((t2) => t2.default)}, {isIndex: true, isPage: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/index", id: "_index", component: () => Promise.resolve().then(() => __toModule(require_index_8b4a4faa())).then((t2) => t2.default)}], isLayout: true, meta: {preload: "proximity", recursive: true, prerender: true}, path: "/", id: "__layout", component: () => Promise.resolve().then(() => __toModule(require_layout_2c1ce2e1())).then((t2) => t2.default)};
     const {tree: Ye, routes: tn} = function(t2) {
       const e2 = ["restoreDefaults", "setParamKeys", "setRegex", "setShortPath", "setRank", "assignLayout", "setPrototype", "addMetaChildren", "assignRelations", "setIsIndexable", "assignIndex", "assignAPI", "createFlatList"], n2 = {tree: t2, routes: []};
       for (let t3 of e2) {

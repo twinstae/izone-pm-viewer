@@ -64,10 +64,14 @@ afterUpdate(() => {
         const first_date_str = time_to_dateStr(first_mail.time);
         $dateString = first_date_str;
         lastDateString = first_date_str;
-        $redirect("./", {...$params, nowPage: $now_page, dateString: $dateString}, {static: true});
+        $redirect("./", {
+            ...$params,
+            nowPage: $now_page, dateString: first_date_str});
+
+        return null;
     }
 
-    if (lastDateString != $dateString){
+    if (lastDateString !== $dateString){
         let result = false;
         filtered_list.forEach((mail, i)=>{
             if (result || !mail){
