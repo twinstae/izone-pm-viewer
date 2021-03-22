@@ -6,13 +6,17 @@
     import { isDesktop, isMobile, now_pm, show_list } from '../stores/now';
     import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
     import MemberProfileImg from './MemberProfileImg.svelte';
+    import { goto, params } from '@roxi/routify';
     export let pm;
     export let hidden;
     export let index;
 
     $: onMailSelected = ()=>{
-        if(pm){$now_pm=pm}
-        $show_list = false;
+        if(pm){
+            $now_pm=pm
+            $show_list = false;
+            $goto("./", { ...$params, showList: false});
+        }
     }
     
     $: getTags = pm => ($mail_to_tag_dict.has(pm.id) ? Array.from($mail_to_tag_dict.get(pm.id)): []);
@@ -32,12 +36,12 @@ class="border-b-2 rounded p-1 w-full">
             <MemberTag pm={pm}/>
             <TimeStampTag time={pm.time}/>
             {#if $isMobile }<br/>{/if}
-            {pm.subject}
-        </p>        
-        <p on:click={onMailSelected} class="ml-1 mt-1 text-sm truncate">
             {#each getTags(pm) as tag}
             <Tag tag={tag}/>
             {/each}
+            {pm.subject}
+        </p>
+        <p on:click={onMailSelected} class="ml-1 mt-1 text-sm truncate">
             {pm.preview || "..."}
         </p>
     {:else}

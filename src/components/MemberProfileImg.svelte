@@ -14,7 +14,12 @@ let timeout;
 </script>
 
 <img src="{image_root}{src}"
+on:pointerdown={()=>{timeout = setTimeout(openModal, 300)}}
+on:pointerup={e=>{ clearTimeout(timeout); }}
 on:mousedown={()=>{timeout = setTimeout(openModal, 500)}}
 on:mouseup={e=>{ clearTimeout(timeout); }}
-class="w-10 h-10 ml-1 mt-1 mr-2 rounded-full float-left border-gray-200 border-1"
+class="w-11 h-11 rounded-full 
+ml-1 mt-1 mr-2
+float-left
+border-gray-100 border-2"
 alt=""/>

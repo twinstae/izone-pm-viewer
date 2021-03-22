@@ -1,5 +1,7 @@
 <script lang="ts">
-import { dateString, date_to_str } from "../stores/date";
+import { goto, params } from "@roxi/routify";
+
+import { dateString, date_to_str, INIT_DATE } from "../stores/date";
 import { now_page } from "../stores/now";
 import { selected_tag } from "../stores/tag";
 import PinkButton from "./PinkButton.svelte";
@@ -15,6 +17,7 @@ function toYesterday(){
     
     $dateString = date_to_str(yesterday);
     $now_page = 1;
+    $goto("./", {...$params, nowPage: $now_page, dateString: $dateString});
 };
 
 function toTomorrow(){
@@ -27,6 +30,7 @@ function toTomorrow(){
     
     $dateString = date_to_str(tomorrow);
     $now_page = 1;
+    $goto("./", {...$params, nowPage: $now_page, dateString: $dateString});
 }
 
 function goToNextPage(){
@@ -41,9 +45,20 @@ function goToBackPage(){
     if($now_page>1) {
         $now_page-=1
     } else {
-        alert("시작 페이지입니다.")  
+        alert("시작 페이지입니다.")
     }
 }
+
+params.subscribe(p=>{
+    const new_page = parseInt(p.nowPage);
+    if($now_page != new_page){
+        $now_page = p.nowPage ? new_page : 1;
+    }
+    if($dateString != p.dateString){
+        $dateString = p.dateString || INIT_DATE;
+    }
+})
+
 </script>
 
     <PinkButton id="BackPageButton" onClick={goToBackPage}> 이전 </PinkButton>
@@ -67,8 +82,12 @@ function goToBackPage(){
     
     <br/>
     
-    <PinkButton onClick={toYesterday}> 어제 </PinkButton>
+    <PinkButton id="toYesterdayButton" onClick={toYesterday}> 어제 </PinkButton>
 
-    <input type=date class="border-1 w-36 border-gray-400 rounded" bind:value={$dateString}>
+    <input type=date class="border-1 w-36 border-gray-400 rounded"
+    bind:value={$dateString} on:change={()=>{
+        $now_page = 1;
+        $goto("./", {...$params, nowPage: $now_page, dateString: $dateString});
+    }}>
 
-    <PinkButton onClick={toTomorrow}> 내일 </PinkButton>
+    <PinkButton id="toTomorrowButton" onClick={toTomorrow}> 내일 </PinkButton>

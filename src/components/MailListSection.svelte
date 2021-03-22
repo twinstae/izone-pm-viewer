@@ -15,6 +15,7 @@ import Search from './Search.svelte';
 import PinkButton from './PinkButton.svelte';
 import { all_tag_dict, EMPTY_TAG, favorite_tag } from '../stores/all_tag_dict';
 import { entries_to_mail_to_tag_dict, mail_to_tag_dict, mail_to_tag_dict_to_json } from '../stores/mail_to_tag_dict';
+import { goto, params, redirect } from '@roxi/routify';
 
 let lastDateString;
 $: now_date = str_to_date($dateString);
@@ -22,16 +23,14 @@ $: now_date = str_to_date($dateString);
 let lastNowPage=1;
 let lastMailPerPage=3;
 let anchor_mail;
-    
+
 afterUpdate(() => {
     const first_mail = mail_list[0];
     if (
-        lastNowPage != $now_page
-        || lastDateString != $dateString
-        && first_mail
-    ){
+        lastMailPerPage == mail_per_page &&
+        (lastNowPage != $now_page || lastDateString != dateString)
+    ) {
         anchor_mail = first_mail;
-        lastNowPage = $now_page;
     }
 
     if (lastMailPerPage != mail_per_page && anchor_mail){
@@ -44,24 +43,34 @@ afterUpdate(() => {
         $now_page=Math.ceil((first_mail_index+1) / mail_per_page);
         lastNowPage=$now_page;
         lastMailPerPage = mail_per_page;
+        $redirect("./", {...$params, nowPage: $now_page});
         return null;
     }
 
     if (now_date > new Date()){
         $dateString = date_to_str(new Date());
         alert("미래로 갈 수는 없습니다.")
+        $redirect("./", {...$params, dateString: $dateString});
         return null;
     }
 
-    if (!$selected_tag.value || mail_list.length==0) {
+    if (mail_list.length==0 || !first_mail && $params.nowPage != 1) {
+        $redirect("./", {...$params, nowPage: 1});
         return null
     }
 
-    if (lastDateString != $dateString){
+    if (lastNowPage != $now_page){
+        lastNowPage = $now_page;
+        const first_date_str = time_to_dateStr(first_mail.time);
+        $dateString = first_date_str;
+        lastDateString = first_date_str;
+        $redirect("./", {...$params, nowPage: $now_page, dateString: $dateString}, {static: true});
+    }
 
+    if (lastDateString != $dateString){
         let result = false;
         filtered_list.forEach((mail, i)=>{
-            if (result){
+            if (result || !mail){
                 return null;
             }
             const mail_date_str = time_to_dateStr(mail.time);
@@ -73,17 +82,15 @@ afterUpdate(() => {
             }
         })
 
-        if (result==false){
+        if (result==false && filtered_list.length > 0){
             $now_page = maxPage;
             const last_mail = filtered_list[filtered_list.length-1];
             $dateString = time_to_dateStr(last_mail.time);
         }
         lastDateString = $dateString;
+        $redirect("./", {...$params, nowPage: $now_page, dateString: $dateString});
         return null;
     }
-    const first_date_str = time_to_dateStr(mail_list[0].time);
-    $dateString = first_date_str;
-    lastDateString = first_date_str;
 });
 
 $: selected_tag_mail_set = $tag_to_mail_dict.get($selected_tag);
@@ -141,6 +148,7 @@ let show = false;
 const remove_selected_tag = ()=>{
     $selected_tag = EMPTY_TAG;
     $now_page = 1;
+    $goto("./", {...$params, tag: ""})
 };
 
 function postBackup(url, data){
@@ -151,7 +159,8 @@ function postBackup(url, data){
     })
     .then(res=>{ console.log(data) })
     .catch((e)=>{
-        console.log(url+" 백업에 실패했습니다. 서버가 응답이 없습니다.");
+        console.error(url+" 백업에 실패했습니다.");
+        console.error(e)
     })
 }
 
@@ -186,7 +195,8 @@ const download_tags = async () => {
     $tag_to_mail_dict = entries_to_tag_to_mail_dict(tag_to_mail_entries);
     $mail_to_tag_dict = entries_to_mail_to_tag_dict(mail_to_tag_entrise);
     console.log("mail_tag_dict 백업 다운로드 완료");
-}
+};
+
 </script>
 
 <section
@@ -205,13 +215,19 @@ class="h-full
 relative pl-4 pr-4 pt-2">
     <div class="mb-1 flex flex-row">
         {#if $isMobile}
-            <label class="p-1" for="isListView">태그 목록 <input id="isListView" type=checkbox bind:checked={show}></label>
+            <label class="p-1" for="isListView">
+                태그 목록
+                <input id="isListView" type=checkbox bind:checked={show}>
+            </label>
             {#if $selected_tag.value}
                 <span class="ml-1 mt-1">현재 :</span>
                 <Tag tag={$selected_tag} canDelete={true} onRemove={remove_selected_tag}/>    
             {/if}
         {:else}
-            <label class="p-1" for="isListView">리스트뷰 {isListView ? "on": "off"} <input id="isListView" type=checkbox bind:checked={isListView}></label>
+            <label class="p-1" for="isListView">
+                리스트뷰 {isListView ? "on": "off"}
+                <input id="isListView" type=checkbox bind:checked={isListView}>
+            </label>
         {/if}
     </div>
     {#if false}

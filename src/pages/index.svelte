@@ -1,15 +1,16 @@
 
 <script lang="ts">
-import { metatags } from '@roxi/routify'
+import { goto, metatags, params } from '@roxi/routify'
 metatags.title = 'IZ*ONE Private Mail Viewer'
 import MailDetailSection from "../components/MailDetailSection.svelte";
 import MailListSection from "../components/MailListSection.svelte";
 import { member_dict, member_name_dict } from "../stores/constants";
-import { isDesktop, now_pm, pm_list } from '../stores/now';
+import { isDesktop, now_pm, pm_list, show_list } from '../stores/now';
 import { all_tag_dict } from '../stores/all_tag_dict';
 import { tag_to_mail_dict } from '../stores/tag_to_mail_dict';
 import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
 import Modal from '../components/Modal.svelte';
+import { date_to_str, INIT_DATE } from '../stores/date';
 
     let haveInitiated = false;
 
@@ -114,6 +115,8 @@ import Modal from '../components/Modal.svelte';
             $tag_to_mail_dict=$tag_to_mail_dict;
             $mail_to_tag_dict=$mail_to_tag_dict;
         }
+
+        $goto("./", { dateString:INIT_DATE, nowPage:1, tag:"", search:"", showList:true})
     }
 
     init().then(()=>{haveInitiated=true});
@@ -121,7 +124,15 @@ import Modal from '../components/Modal.svelte';
     let width;
     $: isDesktop.set(width > 800);
 
-    let show = null;    
+    let show = null;
+
+    params.subscribe(p=>{
+        const new_show_list = p.showList == 'true';
+        if(new_show_list != $show_list){
+            $show_list = new_show_list;
+        }
+    })
+    
 </script>
 
 <div

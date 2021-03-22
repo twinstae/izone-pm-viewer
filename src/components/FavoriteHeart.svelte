@@ -1,6 +1,7 @@
 <script>
     import {all_tag_dict} from "../stores/all_tag_dict";
     import {tag_to_mail_dict} from "../stores/tag_to_mail_dict";
+    import {image_root} from "../stores/constants";
     export let pm;
     
     $: favorite_tag = $all_tag_dict.get("💖");
@@ -15,15 +16,16 @@
         }
         $tag_to_mail_dict = $tag_to_mail_dict;
     }
+
+    const imgClass= "w-5 h-5 mt-0.5 float-left";
 </script>
 <label
-class="text-xl"
 on:click={onFavorite(pm)}
 for="favorite">
     {#if favorited(pm)}
-        <img class="w-6 h-6 float-left" src="./img/yellow-star.png" alt="좋아요 했어요"/>
+        <img class={imgClass} src="{image_root}yellow-star.png" alt="좋아요 했어요"/>
     {:else}
-        <img class="w-6 h-6 float-left" src="./img/empty-star.png" alt="좋아요 하실래요?"/>
+        <img class={imgClass} src="{image_root}empty-star.png" alt="좋아요 하실래요?"/>
     {/if}
 </label>
 <input type="checkbox"

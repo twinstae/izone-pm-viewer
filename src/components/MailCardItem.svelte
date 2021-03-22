@@ -7,6 +7,7 @@
     import { now_pm, show_list } from '../stores/now';
     import { mail_to_tag_dict } from "../stores/mail_to_tag_dict";
     import MemberProfileImg from "./MemberProfileImg.svelte";
+import { goto, params } from "@roxi/routify";
 
     export let pm;
     export let index;
@@ -17,6 +18,7 @@
         if(pm){
             $now_pm=pm;
             $show_list = false;
+            $goto("./", { ...$params, showList: false});
         }
     }
 

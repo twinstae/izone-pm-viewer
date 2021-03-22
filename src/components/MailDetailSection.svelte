@@ -5,12 +5,13 @@ import AllTagList from './AllTagList.svelte';
 import {selected_tag} from "../stores/tag";
 import { now_page, isDesktop, translate_url, show_list, isMobile } from '../stores/now';
 import { fly } from 'svelte/transition';
-import PinkButton from './PinkButton.svelte';
 import { EMPTY_TAG } from '../stores/all_tag_dict';
+import { goto, params } from '@roxi/routify';
 
 const remove_selected_tag = ()=>{
     $selected_tag = EMPTY_TAG;
     $now_page = 1;
+    $goto("./", {...$params, tag: ""})
 };
 
 let height;
@@ -27,7 +28,10 @@ bind:clientHeight={height}>
         {#if $isMobile}
         <button
         class="shadow rounded bg-red-200 p-1 mr-1"
-        on:click={()=>{$show_list=true}}>
+        on:click={()=>{
+            $show_list=true;
+            $goto("./", { ...$params, showList: true});
+        }}>
             목록🗃️
         </button>
         {/if}
@@ -35,7 +39,7 @@ bind:clientHeight={height}>
             <a
             href={$translate_url}
             target="_blank">
-                번역<img class="w-5 h-5 float-right" src="./img/papago.png" alt="파파고 번역하기"/>
+                번역<img class="w-5 h-5 mt-0.5 float-right" src="./img/papago.png" alt="파파고 번역하기"/>
             </a>
         </div>
         {#if 650 >= height && $isDesktop}
