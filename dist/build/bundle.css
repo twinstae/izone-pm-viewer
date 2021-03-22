@@ -15,6 +15,16 @@
         #f1d2e7,#f1c3aa,#e382a9, #e18784,
         #f3aa51, #fcf695, #fff,#cee5d5,
         #a7e0e1, #b7d3e9, #bbb0dc, #7592d7)}@media(min-width: 640px){}@media(min-width: 768px){}@media(min-width: 1024px){}@media(min-width: 1280px){}@media(min-width: 1536px){}
+#MailDetailSection.svelte-q462jf{-webkit-animation:svelte-q462jf-animateleft 0.4s;animation:svelte-q462jf-animateleft 0.4s}@-webkit-keyframes svelte-q462jf-animateleft{from{left:-300px;opacity:0
+  }to{left:0;opacity:1
+  }}@keyframes svelte-q462jf-animateleft{from{left:-300px;opacity:0
+  }to{left:0;opacity:1
+  }}
+#MailListSection.svelte-1dlnf5y{-webkit-animation:svelte-1dlnf5y-animateright 0.4s;animation:svelte-1dlnf5y-animateright 0.4s}@-webkit-keyframes svelte-1dlnf5y-animateright{from{right:-300px;opacity:0
+  }to{right:0;opacity:1
+  }}@keyframes svelte-1dlnf5y-animateright{from{right:-300px;opacity:0
+  }to{right:0;opacity:1
+  }}
 .svelte-1jadkpy{box-sizing:border-box}.bg.svelte-1jadkpy{position:fixed;z-index:1000;display:flex;flex-direction:column;justify-content:center;width:100vw;height:100vh;background:rgba(0, 0, 0, 0.66)}.window-wrap.svelte-1jadkpy{position:relative;margin:2rem;max-height:100%}.window.svelte-1jadkpy{position:relative;width:30rem;max-width:100%;max-height:100%;margin:2rem auto;color:black;border-radius:0.5rem;background:white}.content.svelte-1jadkpy{position:relative;padding:1rem;max-height:calc(100vh - 4rem);overflow:auto}.close.svelte-1jadkpy{display:block;box-sizing:border-box;position:absolute;z-index:1000;top:1rem;right:1rem;margin:0;padding:0;width:1.5rem;height:1.5rem;border:0;color:black;border-radius:1.5rem;background:white;box-shadow:0 0 0 1px black;transition:transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1),
                   background 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);-webkit-appearance:none}.close.svelte-1jadkpy:before,.close.svelte-1jadkpy:after{content:'';display:block;box-sizing:border-box;position:absolute;top:50%;width:1rem;height:1px;background:black;transform-origin:center;transition:height 0.2s cubic-bezier(0.25, 0.1, 0.25, 1),
                   background 0.2s cubic-bezier(0.25, 0.1, 0.25, 1)}.close.svelte-1jadkpy:before{transform:translate(0, -50%) rotate(45deg);left:0.25rem}.close.svelte-1jadkpy:after{transform:translate(0, -50%) rotate(-45deg);left:0.25rem}.close.svelte-1jadkpy:hover{background:black}.close.svelte-1jadkpy:hover:before,.close.svelte-1jadkpy:hover:after{height:2px;background:white}.close.svelte-1jadkpy:focus{border-color:#3399ff;box-shadow:0 0 0 2px #3399ff}.close.svelte-1jadkpy:active{transform:scale(0.9)}.close.svelte-1jadkpy:hover,.close.svelte-1jadkpy:focus,.close.svelte-1jadkpy:active{outline:none}

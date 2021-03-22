@@ -10,7 +10,6 @@ import {selected_tag} from "../stores/tag";
 import { now_page, isDesktop, show_list, isMobile } from '../stores/now';
 import { pm_list_after_search, search_input } from '../stores/search';
 import { entries_to_tag_to_mail_dict, tag_to_mail_dict, tag_to_mail_dict_to_entries } from '../stores/tag_to_mail_dict';
-import { fly } from 'svelte/transition';
 import Search from './Search.svelte';
 import PinkButton from './PinkButton.svelte';
 import { all_tag_dict, EMPTY_TAG, favorite_tag } from '../stores/all_tag_dict';
@@ -202,18 +201,23 @@ const download_tags = async () => {
 };
 
 </script>
+<style>
+    #MailListSection {
+        animation:animateright 0.4s;
+    }
+    @keyframes animateright{from{right:-300px;opacity:0} to{right:0;opacity:1}}
+</style>
+
 
 <section
 id="MailListSection"
 class:hidden={$isMobile && !$show_list}
-transition:fly={{x:200, duration:200}}
 bind:clientWidth={section_width}
 bind:clientHeight={section_height}
 style="
 min-height: {isListView || $isMobile
     ? (show ? 520:360)
-    : 490}px;
-"
+    : 490}px;"
 class="h-full
 {$isDesktop ? "w-8/12": "h-full w-full"}
 relative pl-4 pr-4 pt-2">
@@ -254,7 +258,7 @@ relative pl-4 pr-4 pt-2">
         class="
         mb-3 flex flex-wrap">
             {#each mail_list as pm, i}
-            <MailCardItem pm={pm} index={i}/>
+                <MailCardItem pm={pm} index={i}/>
             {/each}            
         </div>
     {:else}

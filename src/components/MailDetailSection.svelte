@@ -4,7 +4,6 @@ import MailDetailCard from './MailDetailCard.svelte';
 import AllTagList from './AllTagList.svelte';
 import {selected_tag} from "../stores/tag";
 import { now_page, isDesktop, translate_url, show_list, isMobile } from '../stores/now';
-import { fly } from 'svelte/transition';
 import { EMPTY_TAG } from '../stores/all_tag_dict';
 import { goto, params } from '@roxi/routify';
 
@@ -16,12 +15,17 @@ const remove_selected_tag = ()=>{
 
 let height;
 let show;
-
 </script>
+<style>
+    #MailDetailSection {
+        animation:animateleft 0.4s;
+    }
+    @keyframes animateleft{from{left:-300px;opacity:0} to{left:0;opacity:1}}
+</style>
 
 <section
+id="MailDetailSection"
 class:hidden={$isMobile && $show_list}
-transition:fly={{x:-400, duration:400}}
 class="h-full p-3 {$isDesktop ? "w-4/12" :"w-full"} flex flex-col"
 bind:clientHeight={height}>
     <div class="flex flex-row">

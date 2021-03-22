@@ -66,6 +66,8 @@ import { date_to_str, INIT_DATE } from '../stores/date';
         const mail_to_num_dict_res = await fetch("./mail_to_num_dict.json");
         const mail_to_num_dict = await mail_to_num_dict_res.json();
 
+        const mail_body_dict =  await get_data("./mail_body_dict.json");
+
         $pm_list = mail_list_data.map((pm, i)=>{
             if (pm.id=="m20731"){$now_pm = pm;} // 메일 초기화
             pm.nick = pm.member;
@@ -77,9 +79,12 @@ import { date_to_str, INIT_DATE } from '../stores/date';
                 pm.member = member_name_dict[member_n];
                 console.log(pm.nick, pm.member);
             }
+            if (mail_body_dict){
+                pm.body = mail_body_dict[pm.id];
+            }
             return pm;
         })
-
+        
         console.log("all_tag_dict", $all_tag_dict);
         let missing = 0;
         const hitomi_tag = $all_tag_dict.get("혼다 히토미");

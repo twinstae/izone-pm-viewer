@@ -7,6 +7,7 @@ const options = {
     keys: [
         "subject",
         "preview",
+        "body"
     ]
 };
 

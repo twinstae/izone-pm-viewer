@@ -55,7 +55,7 @@ flex flex-col">
     {#if $now_content}
         <div class="h-5/6 overflow-scroll p-1">
             <div
-            transition:fade="{{ duration: 200 }}"
+            transition:fade={{ duration: 200 }}
             contenteditable=false
             bind:innerHTML={$now_content}>
                 

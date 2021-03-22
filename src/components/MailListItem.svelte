@@ -7,6 +7,8 @@
     import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
     import MemberProfileImg from './MemberProfileImg.svelte';
     import { goto, params } from '@roxi/routify';
+    import { fade } from 'svelte/transition';
+    import { circOut, quadIn, quadOut } from 'svelte/easing';
     export let pm;
     export let hidden;
     export let index;
@@ -28,7 +30,8 @@ class:hidden={hidden}
 style="
 height: {$isDesktop ? '62px' : '84px'};"
 class="border-b-2 rounded p-1 w-full">
-    <div>
+    {#key pm}
+    <div in:fade={{ duration: 500 }}>
     {#if pm.member}
         <MemberProfileImg pm={pm}/>
         <p class="truncate">
@@ -52,13 +55,18 @@ class="border-b-2 rounded p-1 w-full">
         </span>
     {/if}
     </div>
+    {/key}
 </li>
 {#if hidden}
-<li class="border-b-2 rounded w-full text-gray-500 truncate" style="font-size:10px; height: 20px;">
+{#key pm}
+<li class="border-b-2 rounded w-full text-gray-500 truncate"
+    style="font-size:10px; height: 20px;"
+    in:fade={{ duration: 300}}>
     {#if pm.member}
     <MemberTag pm={pm} size=""/>
     <TimeStampTag time={pm.time} size=""/>
     <strong>{pm.subject}</strong>{" "+pm.preview}
     {/if}
 </li>
+{/key}
 {/if}
