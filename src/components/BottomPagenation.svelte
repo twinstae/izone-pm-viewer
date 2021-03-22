@@ -36,7 +36,7 @@ function toTomorrow(){
 function goToNextPage(){
     if($now_page<maxPage){
         $now_page+=1
-        $goto("./", {...$params, nowPage: $now_page});
+        $goto("./", {...$params, nowPage: $now_page+1});
     } else {
         alert("마지막 페이지입니다.");
     }
@@ -45,7 +45,7 @@ function goToNextPage(){
 function goToBackPage(){
     if($now_page>1) {
         $now_page-=1
-        $goto("./", {...$params, nowPage: $now_page});
+        $goto("./", {...$params, nowPage: $now_page-1});
     } else {
         alert("시작 페이지입니다.")
     }
