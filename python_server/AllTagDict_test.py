@@ -1,11 +1,12 @@
 import json
 from unittest import TestCase
 import AllTagDict
+import AllTagDictRouter
 from TestingUtil import client, 최예나, 히토미, status_code_는_200_ok, 예나만_있는_TAG_LIST_JSON, 예나_토미_TAG_LIST, 히토미_태그, \
     예나만_있는_TAG_LIST
 from constants import OUTPUT_DIR
 
-BASE_URL = AllTagDict.ROOT_URL+"/"
+BASE_URL = AllTagDictRouter.ROOT_URL+"/"
 
 
 class TestAllTagDict(TestCase):
@@ -54,6 +55,15 @@ class TestAllTagDict(TestCase):
 
         client.delete(BASE_URL+f"tag/{히토미}")
         self.파일에는_저장되어있다(예나만_있는_TAG_LIST)
+
+    def test_update_tag(self):
+        assert AllTagDict.has(최예나)
+        assert not AllTagDict.has(히토미)
+
+        client.put(AllTagDictRouter.ROOT_URL+f"/tag/{최예나}", json=히토미_태그)
+
+        assert not AllTagDict.has(최예나)
+        assert AllTagDict.has(히토미)
 
     @staticmethod
     def 파일에는_저장되어있다(expected):

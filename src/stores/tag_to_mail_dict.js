@@ -1,6 +1,6 @@
 
 import { writable } from 'svelte/store';
-import { all_tag_dict, favorite_tag, member_tags } from "./all_tag_dict";
+import { all_tag_dict, EMPTY_TAG, favorite_tag, member_tags } from "./all_tag_dict";
 import { selected_tag } from "./tag";
 export let entries_to_tag_to_mail_dict;
 all_tag_dict.subscribe(dict=>{
@@ -45,20 +45,19 @@ tag_to_mail_dict.subscribe(value=>{
                 dict.delete(tag);
                 return dict;
             });
-            
-
-            all_tag_dict.update(dict=>{
-                dict.delete(tag_value);
-                fetch(`/all-tag-dict/tag/${tag_value}`, {method: 'DELETE'})
-                .then(res=>{console.log("서버에서 태그 삭제 완료")});
-                return dict;
-            })
 
             selected_tag.update(selected=>{
                 if(selected == tag){
-                    return {color:null, value:null};
+                    return EMPTY_TAG;
                 }
                 return selected;
+            })
+
+            all_tag_dict.update(dict=>{
+                dict.delete(tag_value);
+                // fetch(`/all-tag-dict/tag/${tag_value}`, {method: 'DELETE'})
+                // .then(res=>{console.log("서버에서 태그 삭제 완료")});
+                return dict;
             })
         }
     })

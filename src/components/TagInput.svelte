@@ -34,7 +34,7 @@ const addTag = async ()=>{
             $mail_to_tag_dict.set($now_pm.id, new Set([the_tag]));
         }       
         $mail_to_tag_dict=$mail_to_tag_dict;
-        fetch(`/mail-tag-dict/mail/${$now_pm.id}/tag/${new_tag.value}`, {method: 'POST'}).then(res=>{console.log("서버에 태그 추가 완료.")});
+        // fetch(`/mail-tag-dict/mail/${$now_pm.id}/tag/${new_tag.value}`, {method: 'POST'}).then(res=>{console.log("서버에 태그 추가 완료.")});
 
         $tag_input ="";
         $color_n = ($color_n+1) % 12;

@@ -14,6 +14,7 @@ dist/*
 !dist/index.html
 !dist/build
 !dist/img
+dist/img/mail
 .vercel
 src/pages/example
 python_server/.idea

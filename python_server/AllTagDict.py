@@ -1,25 +1,21 @@
 import json
 from typing import Dict, List
-from fastapi import APIRouter
 from pydantic import BaseModel
 from constants import OUTPUT_DIR
-
-ROOT_URL = "/all-tag-dict"
 
 
 class Tag(BaseModel):
     value: str
     color: str
 
+    def __hash__(self):
+        return hash(tuple(sorted(self.dict().items())))
+
 
 class AllTagList(BaseModel):
     tag_list: List[Tag]
 
 
-router = APIRouter(
-    prefix=ROOT_URL,
-    tags=["all-tag-dict"]
-)
 FILE_NAME: str = "all_tag_list.json"
 is_test: bool = False
 
@@ -43,8 +39,12 @@ def get_backup() -> Dict[str, Tag]:
 all_tag_dict: Dict[str, Tag] = get_backup()
 
 
-def has(tag_value: str):
+def has(tag_value: str) -> bool:
     return tag_value in all_tag_dict
+
+
+def get(tag_value: str) -> Tag:
+    return all_tag_dict[tag_value]
 
 
 def save():
@@ -54,26 +54,28 @@ def save():
         f.write(json_str)
 
 
-@router.get("/", response_model=AllTagList)
-def get_all_tag_dict() -> AllTagList:
-    return AllTagList(tag_list=list(all_tag_dict.values()))
+def to_list():
+    return list(all_tag_dict.values())
 
 
-@router.post("/")
-def save_all_tag_dict(all_tag_list: AllTagList):
-    global all_tag_dict
-    all_tag_dict = {tag.value: tag for tag in all_tag_list.tag_list}
-    save()
-
-
-@router.post("/tag")
-def add_tag(tag: Tag):
+def add(tag: Tag):
     if tag.value not in all_tag_dict:
         all_tag_dict[tag.value] = tag
-    save()
+        save()
 
 
-@router.delete("/tag/{tag_value}")
-def delete_tag(tag_value: str):
-    del all_tag_dict[tag_value]
-    save()
+def delete(tag_value: str):
+    if tag_value in all_tag_dict:
+        del all_tag_dict[tag_value]
+        save()
+
+
+def update(old_tag_value: str, tag: Tag):
+    if old_tag_value in all_tag_dict:
+        old_tag = all_tag_dict[old_tag_value]
+
+        old_tag.value = tag.value
+        old_tag.color = tag.color
+
+        del all_tag_dict[old_tag_value]
+        all_tag_dict[tag.value] = old_tag

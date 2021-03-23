@@ -9,23 +9,31 @@ import { mail_to_tag_dict } from "../stores/mail_to_tag_dict";
 import MemberProfileImg from './MemberProfileImg.svelte';
 import { fade } from 'svelte/transition';
 import { goto, params } from '@roxi/routify';
-    export let show;
+import { all_tag_dict } from '../stores/all_tag_dict';
+export let show;
 
-    $: now_tags = $mail_to_tag_dict.has($now_pm.id)
-        ? Array.from($mail_to_tag_dict.get($now_pm.id))
-        : [];
-    
-    $: sync= ()=>{
-        $now_content="";
-
-        loadContent($now_pm.id).then(result=>{
-            setTimeout(()=>{ $now_content = result;}, 100);
-        });
+$: getTags = pm => {
+    if($mail_to_tag_dict.has(pm.id)){
+        return Array.from($mail_to_tag_dict.get(pm.id)).map(tag=>{
+            return $all_tag_dict.get(tag.value);
+        })
     }
-    $: sync()
+    return [];
+};
 
-    let height;
-    $: over = height < 40;
+$: now_tags = getTags($now_pm);
+
+$: sync= ()=>{
+    $now_content="";
+
+    loadContent($now_pm.id).then(result=>{
+        setTimeout(()=>{ $now_content = result;}, 100);
+    });
+}
+$: sync()
+
+let height;
+$: over = height < 40;
 </script>
 
 <div

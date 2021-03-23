@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from starlette.background import BackgroundTasks
 from starlette.responses import HTMLResponse, Response, FileResponse
-from AllTagDict import router as all_tag_router
+from AllTagDictRouter import router as all_tag_router
 from MailTagRouter import router as mail_tag_router
 import httpx
 

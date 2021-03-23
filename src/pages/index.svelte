@@ -1,16 +1,18 @@
 
 <script lang="ts">
-import { goto, metatags, params } from '@roxi/routify'
+import { goto, metatags, params } from '@roxi/routify';
+import Modal from '../components/Modal.svelte';
 metatags.title = 'IZ*ONE Private Mail Viewer'
 import MailDetailSection from "../components/MailDetailSection.svelte";
 import MailListSection from "../components/MailListSection.svelte";
-import { member_dict, member_name_dict } from "../stores/constants";
-import { isDesktop, now_pm, pm_list, show_list } from '../stores/now';
-import { all_tag_dict } from '../stores/all_tag_dict';
-import { tag_to_mail_dict } from '../stores/tag_to_mail_dict';
-import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
-import Modal from '../components/Modal.svelte';
-import { date_to_str, INIT_DATE } from '../stores/date';
+import { isDesktop, show_list } from '../stores/now';
+import { INIT_DATE } from '../stores/date';
+
+import { now_pm, pm_list } from '../stores/now';
+  import { member_dict, member_name_dict } from "../stores/constants";
+  import { all_tag_dict } from '../stores/all_tag_dict';
+  import { tag_to_mail_dict } from '../stores/tag_to_mail_dict';
+  import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
 
     let haveInitiated = false;
 
@@ -66,7 +68,7 @@ import { date_to_str, INIT_DATE } from '../stores/date';
         const mail_to_num_dict_res = await fetch("./mail_to_num_dict.json");
         const mail_to_num_dict = await mail_to_num_dict_res.json();
 
-        const mail_body_dict =  await get_data("./mail_body_dict.json");
+        const mail_body_dict =  await get_data("./mail_body_dict.json").catch(e=>{console.log("mail_body_dict가 없습니다."); return null});
 
         $pm_list = mail_list_data.map((pm, i)=>{
             if (pm.id=="m20731"){$now_pm = pm;} // 메일 초기화
@@ -120,12 +122,9 @@ import { date_to_str, INIT_DATE } from '../stores/date';
             $tag_to_mail_dict=$tag_to_mail_dict;
             $mail_to_tag_dict=$mail_to_tag_dict;
         }
-
-        $goto("./", { dateString:INIT_DATE, nowPage:1, tag:"", search:"", showList:true})
     }
 
     init().then(()=>{haveInitiated=true});
-
     let width;
     $: isDesktop.set(width > 800);
 
@@ -138,15 +137,17 @@ import { date_to_str, INIT_DATE } from '../stores/date';
         }
     })
     
+    
+    $goto("./", { dateString:INIT_DATE, nowPage:1, tag:"", search:"", showList:true})
 </script>
 
 <div
 bind:clientWidth={width}
 class="flex w-screen h-screen relative">
+{#if haveInitiated }
     <Modal show={show}>
-        {#if haveInitiated}
-            <MailDetailSection />
-            <MailListSection/>
-        {/if}
+        <MailDetailSection />
+        <MailListSection/>
     </Modal>
+{/if}
 </div>

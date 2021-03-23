@@ -1,27 +1,34 @@
 <script lang="ts">
-    import Tag from './Tag.svelte';
-    import TimeStampTag from './TimeStampTag.svelte';
-    import FavoriteHeart from './FavoriteHeart.svelte';
-    import MemberTag from './MemberTag.svelte';
-    import { isDesktop, isMobile, now_pm, show_list } from '../stores/now';
-    import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
-    import MemberProfileImg from './MemberProfileImg.svelte';
-    import { goto, params } from '@roxi/routify';
-    import { fade } from 'svelte/transition';
-    import { circOut, quadIn, quadOut } from 'svelte/easing';
-    export let pm;
-    export let hidden;
-    export let index;
+import Tag from './Tag.svelte';
+import TimeStampTag from './TimeStampTag.svelte';
+import FavoriteHeart from './FavoriteHeart.svelte';
+import MemberTag from './MemberTag.svelte';
+import { isDesktop, isMobile, now_pm, show_list } from '../stores/now';
+import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
+import MemberProfileImg from './MemberProfileImg.svelte';
+import { goto, params } from '@roxi/routify';
+import { fade } from 'svelte/transition';
+import { all_tag_dict } from '../stores/all_tag_dict';
+export let pm;
+export let hidden;
+export let index;
 
-    $: onMailSelected = ()=>{
-        if(pm){
-            $now_pm=pm
-            $show_list = false;
-            $goto("./", { ...$params, showList: false});
-        }
+$: onMailSelected = ()=>{
+    if(pm){
+        $now_pm=pm
+        $show_list = false;
+        $goto("./", { ...$params, showList: false});
     }
-    
-    $: getTags = pm => ($mail_to_tag_dict.has(pm.id) ? Array.from($mail_to_tag_dict.get(pm.id)): []);
+}
+
+$: getTags = pm => {
+    if($mail_to_tag_dict.has(pm.id)){
+        return Array.from($mail_to_tag_dict.get(pm.id)).map(tag=>{
+            return $all_tag_dict.get(tag.value);
+        })
+    }
+    return [];
+};
 </script>
 
 <li
