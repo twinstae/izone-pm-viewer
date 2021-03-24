@@ -1,8 +1,8 @@
 <script lang="ts">
-import Tag from './Tag.svelte';
-import TimeStampTag from './TimeStampTag.svelte';
+import Tag from './tags/Tag.svelte';
+import TimeStampTag from './tags/TimeStampTag.svelte';
 import FavoriteHeart from './FavoriteHeart.svelte';
-import MemberTag from './MemberTag.svelte';
+import MemberTag from './tags/MemberTag.svelte';
 import { isDesktop, isMobile, now_pm, show_list } from '../stores/now';
 import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
 import MemberProfileImg from './MemberProfileImg.svelte';
@@ -16,8 +16,8 @@ export let index;
 $: onMailSelected = ()=>{
     if(pm){
         $now_pm=pm
-        $show_list = false;
-        $goto("./", { ...$params, showList: false});
+        $show_list = $isDesktop || false;
+        $goto("./", { ...$params, showList: $show_list, now_pm: $now_pm.id});
     }
 }
 
@@ -33,33 +33,26 @@ $: getTags = pm => {
 
 <li
 id="MailItem-{index}"
+style="height: {$isDesktop ? '62px' : '84px'};"
 class:hidden={hidden}
-style="
-height: {$isDesktop ? '62px' : '84px'};"
 class="border-b-2 rounded p-1 w-full">
-    {#key pm}
+    {#key pm.id}
     <div in:fade={{ duration: 500 }}>
     {#if pm.member}
         <MemberProfileImg pm={pm}/>
-        <p class="truncate">
-            <FavoriteHeart pm={pm}/>
+        <FavoriteHeart pm={pm} float="left mt-0.5"/>
+        <p class="truncate" on:click={onMailSelected} >
             <MemberTag pm={pm}/>
             <TimeStampTag time={pm.time}/>
             {#if $isMobile }<br/>{/if}
-            {#each getTags(pm) as tag}
-            <Tag tag={tag}/>
-            {/each}
+            {#each getTags(pm) as tag} <Tag tag={tag}/> {/each}
             {pm.subject}
         </p>
         <p on:click={onMailSelected} class="ml-1 mt-1 text-sm truncate">
             {pm.preview || "..."}
         </p>
     {:else}
-        <span
-        class="
-        border-1 text-lg
-        rounded bg-white text-white">
-        </span>
+        <span class="border-1 rounded bg-white text-white text-lg"></span>
     {/if}
     </div>
     {/key}
