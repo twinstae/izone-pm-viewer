@@ -29,6 +29,7 @@ export let translate_url = derived(
 export let now_page = writable(1);
 
 export let show_list = writable(true);
+export let show_tag_list = writable(false);
 export let isDesktop = writable(true);
 export let isMobile = derived(
     isDesktop,
