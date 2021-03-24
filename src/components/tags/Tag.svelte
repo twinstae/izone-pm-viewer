@@ -55,7 +55,7 @@ const openModal = ()=>{open(TagModal, { tag: tag})}
 let timeout;
 $: onTouchDown = ()=>{
     if(base_tag_set.has(tag.value)){
-        timeout = setTimeout(()=>{alert("기본 태그는 아직 수정할 수 없습니다.")}, 300)
+        timeout = setTimeout(()=>{console.log("기본 태그는 아직 수정할 수 없습니다.")}, 300)
     } else {
         timeout = setTimeout(openModal, 300);
     }

@@ -23,9 +23,8 @@ params.subscribe(p=>{
 
 $: getTags = pm => {
     if($mail_to_tag_dict.has(pm.id)){
-        return Array.from($mail_to_tag_dict.get(pm.id)).map(tag=>{
-            return $all_tag_dict.get(tag.value);
-        })
+        return Array.from($mail_to_tag_dict.get(pm.id))
+            .map(tag=> $all_tag_dict.get(tag.value));
     }
     return [];
 };
@@ -45,7 +44,7 @@ $: sync()
 
 <div
 id="MailDetailCard"
-style="max-height: {$isDesktop && show ? "70%" : "90%"}"
+style="max-height: {$isDesktop && show ? "70%" : "90%"}; min-height:300px;"
 class="
 shadow-2xl rounded-md bg-white 
 w-full mt-2 p-2
@@ -69,21 +68,21 @@ flex flex-col">
         id="MailDetailCardContent"
         class="h-5/6 overflow-y-auto p-1">
             <div
-            transition:fade={{ duration: 200 }}
+            in:fade={{ duration: 300 }}
             contenteditable=false
             bind:innerHTML={$now_content}>
                 
             </div>
-            {#if $isMobile}
-            <button
-            class="shadow rounded bg-red-200 p-1 mt-2"
-            on:click={()=>{
-                $show_list=true;
-                $goto("./", { ...$params, showList: true});
-            }}>
-                목록으로 돌아가기🗃️
-            </button>
-            {/if}
         </div>
+    {/if}
+    {#if $isMobile}
+        <button
+        class="shadow rounded bg-red-200 p-1 mt-2"
+        on:click={()=>{
+            $show_list=true;
+            $goto("./", { ...$params, showList: true});
+        }}>
+            목록으로 돌아가기🗃️
+        </button>
     {/if}
 </div>

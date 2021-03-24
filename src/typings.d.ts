@@ -4,6 +4,8 @@ interface Mail {
     time: string;
     subject: string;
     preview: string;
+    body?: string;
+    nick?: string;
 };
 
 interface Tag {

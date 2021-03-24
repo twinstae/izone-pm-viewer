@@ -65,10 +65,15 @@ import { now_pm, pm_list } from '../stores/now';
             get_data('./pm_list.json'),
             get_data("./member_name.json"),
             get_data("./mail_to_num_dict.json"),
-            get_data("./mail_body_dict.json").catch(e=>{console.log("mail_body_dict가 없습니다."); return null})
+            get_data("./mail_body_dict.json")
+                .catch(e=>{
+                    console.log("mail_body_dict가 없습니다.");
+                    return null;
+                })
         ]).then((values)=>{
             const mail_list_data = values[0];
             $member_dict = values[1];
+            console.log($member_dict);
             const mail_to_num_dict = values[2];
             const mail_body_dict = values[3];
 
@@ -90,7 +95,6 @@ import { now_pm, pm_list } from '../stores/now';
                 return pm;
             })
             
-            console.log("all_tag_dict", $all_tag_dict);
             let missing = 0;
             const hitomi_tag = $all_tag_dict.get("혼다 히토미");
             if($tag_to_mail_dict.has(hitomi_tag)){
@@ -129,7 +133,7 @@ import { now_pm, pm_list } from '../stores/now';
 
     init().then(()=>{haveInitiated=true});
     let width;
-    $: isDesktop.set(width > 800);
+    $: isDesktop.set(width > 700);
 
     let show = null;
 
