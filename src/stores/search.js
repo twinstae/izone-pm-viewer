@@ -20,15 +20,14 @@ let fuse = derived(
 );
 
 export let search_input = writable("");
-export let fuzzy = writable(false);
 
 export let pm_list_after_search = derived(
-    [pm_list, fuse, search_input, fuzzy],
-    ([$pm_list, $fuse, $search_input, $fuzzy]) =>{
+    [pm_list, fuse, search_input],
+    ([$pm_list, $fuse, $search_input]) =>{
         if (!$search_input){
             return $pm_list
         }
-        return $fuse.search(($fuzzy ? "" : "'") + $search_input)
+        return $fuse.search("'" + $search_input)
             .map(r=>r.item)
     }
 );
