@@ -9,8 +9,7 @@ describe('제목과 preview를 검색한다', () => {
     })
 
     it('라면을 검색하면, 첫번째로 제목이 "카레라면"인 프메가 나온다', () => {
-        cy.get("#SearchInput").type(" "+"라면");
-        cy.get("#SearchButton").click();
+        cy.get("#SearchInput").type("라면");
 
         첫번째_카드의_제목은("카레라면");
     });
