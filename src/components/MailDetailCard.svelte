@@ -54,7 +54,7 @@ flex flex-col">
     id="MailDetailCardHeader"
     class="relative w-full leading-loose">
         <FavoriteHeart pm={$now_pm}/>
-        <MemberProfileImg pm={$now_pm}/>
+        <MemberProfileImg member={$now_pm.member}/>
         <h4 class="text-xl w-4/5">{$now_pm.subject}</h4>
         <MemberTag pm={$now_pm}  size="sm"/>
         <TimeStampTag time={$now_pm.time} size="sm"/>

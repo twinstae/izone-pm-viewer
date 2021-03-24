@@ -42,7 +42,7 @@ bg-white shadow-md rounded-md">
     <div in:fade={{ duration: 500 }} class="leading-relaxed">
     {#if pm.member}
         <FavoriteHeart pm={pm}/>
-        <MemberProfileImg pm={pm}/>
+        <MemberProfileImg member={pm.member}/>
         <h4 class="text-lg" on:click={onMailSelected}>{pm.subject}</h4>
         <MemberTag pm={pm}/>
         <TimeStampTag time={pm.time} />

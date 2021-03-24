@@ -9,7 +9,7 @@ import MemberProfileImg from './MemberProfileImg.svelte';
 import { goto, params } from '@roxi/routify';
 import { fade } from 'svelte/transition';
 import { all_tag_dict } from '../stores/all_tag_dict';
-export let pm;
+export let pm: Mail;
 export let hidden;
 export let index;
 
@@ -39,7 +39,7 @@ class="border-b-2 rounded p-1 w-full">
     {#key pm.id}
     <div in:fade={{ duration: 500 }}>
     {#if pm.member}
-        <MemberProfileImg pm={pm}/>
+        <MemberProfileImg member={pm.member}/>
         <FavoriteHeart pm={pm} float="left mt-0.5"/>
         <p class="truncate" on:click={onMailSelected} >
             <MemberTag pm={pm}/>

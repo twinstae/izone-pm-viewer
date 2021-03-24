@@ -1,10 +1,10 @@
 import { writable } from 'svelte/store';
 
-export const EMPTY_TAG = { value: null, color: null};
+export const EMPTY_TAG: Tag = { value: null, color: null};
 
-export const favorite_tag = {value: "💖", color: "#fff"};
+export const favorite_tag: Tag = {value: "💖", color: "#fff"};
 
-export const member_tags = [
+export const member_tags: Tag[] = [
     {"value":"권은비","color":"#bbb0dc"},
     {"value":"미야와키 사쿠라","color":"#f1d2e7"},
     {"value":"강혜원","color":"#db706c"},
@@ -31,12 +31,12 @@ function init_all_tag_dict(){
     const all_tag_json = localStorage.getItem("all_tag_dict");
     if (all_tag_json){
         console.log("all tag backup loaded");
+        const data: [string, Tag][] = JSON.parse(all_tag_json);
         result = [...result].reduce((acc, entry) => {
             acc.set(entry[0], entry[1]);
             return acc;
-        }, new Map(JSON.parse(all_tag_json)));
+        }, new Map(data));
     }
-
     return result;
 }
 
@@ -46,6 +46,6 @@ all_tag_dict.subscribe(value=>{
     localStorage.setItem("all_tag_dict", dict_to_json(value));
 })
 
-function dict_to_json(dict){
+function dict_to_json(dict: Map<string, Tag>){
     return JSON.stringify([...dict]);
 }

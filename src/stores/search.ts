@@ -59,12 +59,14 @@ export let filtered_list = derived(
 const EMPTY_MAIL = {"id": "", "member": "", "time": "", "subject": "", "preview": ""};
 export let getPage = derived(
     [filtered_list, now_page],
-    ([$filtered_list, $now_page])=> function(mail_per_page){
-        const pagination = ($now_page-1) * mail_per_page;
-        const page = $filtered_list.slice(pagination, pagination + mail_per_page)
-        if(page.length < mail_per_page){
-            return page.concat(Array(mail_per_page-page.length).fill(EMPTY_MAIL))
+    ([$filtered_list, $now_page]) => {
+        return function(mail_per_page: number){
+            const pagination = ($now_page-1) * mail_per_page;
+            const page = $filtered_list.slice(pagination, pagination + mail_per_page)
+            if(page.length < mail_per_page){
+                return page.concat(Array(mail_per_page-page.length).fill(EMPTY_MAIL))
+            }
+            return page;
         }
-        return page;
     }
 );

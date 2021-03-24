@@ -1,9 +1,15 @@
-import { writable, derived } from "svelte/store";
+import { Writable, writable, derived } from "svelte/store";
 
-export let pm_list = writable([{"id": "", "member": "", "time": "", "subject": "", "preview": "", "n":1}]);
-export let now_pm = writable({"id": "m20731", "member": "광배", "time": "2021/03/09 19:23", "subject": "사탕", "preview": "위즈원 사탕 푸딩 맛 있는거 알았어?? 맛있어보여서 사서 언제먹을지 고민중이야 ."});
+export let pm_list: Writable<Mail[]> = writable([{"id": "", "member": "", "time": "", "subject": "", "preview": "", "n":1}]);
+export let now_pm: Writable<Mail> = writable({
+    "id": "m20731",
+    "member": "광배",
+    "time": "2021/03/09 19:23",
+    "subject": "사탕",
+    "preview": "위즈원 사탕 푸딩 맛 있는거 알았어?? 맛있어보여서 사서 언제먹을지 고민중이야 ."
+});
 
-export async function loadContent(id){
+export async function loadContent(id: string): Promise<string>{
     const raw_html = await fetch(`./mail/${id}.html`)
         .then(result =>result.text());
 
@@ -12,7 +18,7 @@ export async function loadContent(id){
     return raw_html.slice(start, end);
 }
 
-const removeTags = s=>s.replace(/\&nbsp;<\/div>/g,"\n")
+const removeTags = (s: string)=>s.replace(/\&nbsp;<\/div>/g,"\n")
         .replace(/<\/div>/g, "\n")
         .replace(/&nbsp;/g,'')
         .replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "")

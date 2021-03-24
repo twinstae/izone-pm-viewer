@@ -4,9 +4,9 @@ import { image_root } from "../stores/constants";
 import { profile } from "../stores/preferences";
 import ProfileModal from "./ProfileModal.svelte";
 
-export let pm: {member: string};
-$: src = pm.member == "운영팀" ? "izone-logo.png"
-    :`profile/${$profile}/${pm.member}.jpg`;
+export let member: string;
+$: src = member == "운영팀" ? "izone-logo.png"
+    :`profile/${$profile}/${member}.jpg`;
 
 const {open} = getContext("simple-modal");
 const openModal = ()=>{open(ProfileModal, {})}

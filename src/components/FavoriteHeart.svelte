@@ -1,11 +1,11 @@
-<script>
+<script lang="ts">
 import {all_tag_dict} from "../stores/all_tag_dict";
 import {tag_to_mail_dict} from "../stores/tag_to_mail_dict";
 import Icon from 'fa-svelte';
 import {faStar} from '@fortawesome/free-solid-svg-icons/faStar';
 import { faStar as emptyStar} from '@fortawesome/free-regular-svg-icons/faStar';
 
-export let pm;
+export let pm: Mail;
 export let float = "right";
 
 
