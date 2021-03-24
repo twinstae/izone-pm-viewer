@@ -44,84 +44,87 @@ import { now_pm, pm_list } from '../stores/now';
     };
 
     const get_data = async (path) => {
+        const res = await fetch(path);
+        
+        const text = await res.text();
         try {
-            const res = await fetch(path);
-            return await res.json();
+            return JSON.parse(text);
         } catch (e) {
-            console.log("json 로드 실패");
-            const res = await fetch(path);
-            const text = await res.text();
-            return process(text, 0);
+            if (text.slice(0, 9) == "<!DOCTYPE"){
+                throw e; 
+            }
+            if (e instanceof SyntaxError) {
+                return process(text, 0);
+            }
+            console.error(e);
         }
     }
 
     async function init(){
-        console.log("메일 리스트 로딩 시작");
-        const mail_list_data = await get_data('./pm_list.json');
-        console.log("메일 리스트 로딩 완료");
-        
-        console.log("이름 dict 로딩 시작");
-        $member_dict = await get_data("./member_name.json");
-        console.log("이름 dict 로딩 끝");
-        console.log($member_dict);
-        
-        const mail_to_num_dict_res = await fetch("./mail_to_num_dict.json");
-        const mail_to_num_dict = await mail_to_num_dict_res.json();
+        await Promise.all([
+            get_data('./pm_list.json'),
+            get_data("./member_name.json"),
+            get_data("./mail_to_num_dict.json"),
+            get_data("./mail_body_dict.json").catch(e=>{console.log("mail_body_dict가 없습니다."); return null})
+        ]).then((values)=>{
+            const mail_list_data = values[0];
+            $member_dict = values[1];
+            const mail_to_num_dict = values[2];
+            const mail_body_dict = values[3];
 
-        const mail_body_dict =  await get_data("./mail_body_dict.json").catch(e=>{console.log("mail_body_dict가 없습니다."); return null});
-
-        $pm_list = mail_list_data.map((pm, i)=>{
-            if (pm.id=="m20731"){$now_pm = pm;} // 메일 초기화
-            pm.nick = pm.member;
-            const member_n = $member_dict[pm.nick];
-            pm.member = member_name_dict[member_n];
-            if (!pm.member && i <5700){                
-                const member_n = mail_to_num_dict[pm.id];
-                $member_dict[pm.nick] = member_n;
+            $pm_list = mail_list_data.map((pm, i)=>{
+                if (pm.id=="m20731"){$now_pm = pm;} // 메일 초기화
+                pm.nick = pm.member;
+                const member_n = $member_dict[pm.nick];
                 pm.member = member_name_dict[member_n];
-                console.log(pm.nick, pm.member);
-            }
-            if (mail_body_dict){
-                pm.body = mail_body_dict[pm.id];
-            }
-            return pm;
-        })
-        
-        console.log("all_tag_dict", $all_tag_dict);
-        let missing = 0;
-        const hitomi_tag = $all_tag_dict.get("혼다 히토미");
-        if($tag_to_mail_dict.has(hitomi_tag)){
-            $pm_list.forEach((pm)=>{
-                const member_tag = $all_tag_dict.get(pm.member);
-                const mail_set = $tag_to_mail_dict.get(member_tag);
-                if (mail_set){
-                    mail_set.add(pm.id)
-                } else {
-                    console.log(pm.id, pm.nick);
-                    missing += 1;
+                if (!pm.member && mail_to_num_dict.has(pm.id)){
+                    const member_n = mail_to_num_dict[pm.id];
+                    $member_dict[pm.nick] = member_n;
+                    pm.member = member_name_dict[member_n];
+                    console.log("member_name.json 에 멤버 이름이 없습니다.");
+                    console.log(pm.nick, pm.member);
                 }
-            })
-            $tag_to_mail_dict = $tag_to_mail_dict;
-        }
-        console.log("누락", missing)
-        
-        if(!$all_tag_dict.has("생일")){
-            const birthday_tag = {
-                value: "생일",
-                color: "LightPink"
-            };
-            $all_tag_dict.set(birthday_tag.value, birthday_tag)
-            $all_tag_dict=$all_tag_dict;
-            $tag_to_mail_dict.set(birthday_tag, new Set());
-
-            $pm_list.map(pm=>{
-                if(pm.id.slice(0,1) == "b"){
-                    addTag(birthday_tag, pm);
+                if (mail_body_dict){
+                    pm.body = mail_body_dict[pm.id];
                 }
+                return pm;
             })
-            $tag_to_mail_dict=$tag_to_mail_dict;
-            $mail_to_tag_dict=$mail_to_tag_dict;
-        }
+            
+            console.log("all_tag_dict", $all_tag_dict);
+            let missing = 0;
+            const hitomi_tag = $all_tag_dict.get("혼다 히토미");
+            if($tag_to_mail_dict.has(hitomi_tag)){
+                $pm_list.forEach((pm)=>{
+                    const member_tag = $all_tag_dict.get(pm.member);
+                    const mail_set = $tag_to_mail_dict.get(member_tag);
+                    if (mail_set){
+                        mail_set.add(pm.id)
+                    } else {
+                        console.log(pm.id, pm.nick);
+                        missing += 1;
+                    }
+                })
+                $tag_to_mail_dict = $tag_to_mail_dict;
+            }
+            console.log("누락", missing)
+            
+            if(!$all_tag_dict.has("생일")){
+                const birthday_tag = {
+                    value: "생일",
+                    color: "LightPink"
+                };
+                $all_tag_dict.set(birthday_tag.value, birthday_tag)
+                $all_tag_dict=$all_tag_dict;
+                $tag_to_mail_dict.set(birthday_tag, new Set());
+                $pm_list.map(pm=>{
+                    if(pm.id.slice(0,1) == "b"){
+                        addTag(birthday_tag, pm);
+                    }
+                })
+                $tag_to_mail_dict=$tag_to_mail_dict;
+                $mail_to_tag_dict=$mail_to_tag_dict;
+            }
+        });
     }
 
     init().then(()=>{haveInitiated=true});
@@ -137,8 +140,15 @@ import { now_pm, pm_list } from '../stores/now';
         }
     })
     
-    
-    $goto("./", { dateString:INIT_DATE, nowPage:1, tag:"", search:"", showList:true})
+    if (!$params.dateString){
+            $goto("./", {
+            dateString:INIT_DATE,
+            nowPage:1,
+            tag:"",
+            search:"",
+            showList:true,
+            now_pm:"m20731"
+        })};
 </script>
 
 <div
