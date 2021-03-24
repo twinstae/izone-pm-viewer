@@ -13,3 +13,5 @@ export let profile = writable(initProfile());
 profile.subscribe((value)=>{
     localStorage.setItem(PROFILE_KEY, value);
 })
+
+export let ping = writable(false);

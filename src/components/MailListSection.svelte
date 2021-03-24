@@ -13,6 +13,7 @@ import ShowTagListInput from './tags/ShowTagListInput.svelte';
 import SyncTagButtons from './SyncTagButtons.svelte';
 import MailItemList from './MailItemList.svelte';
 import MailCardView from './MailCardView.svelte';
+import { ping } from '../stores/preferences';
 
 let section_width;
 let section_height;
@@ -140,7 +141,7 @@ relative pl-4 pr-4 pt-2">
             </label>
         {/if}
     </div>
-    {#if false} <SyncTagButtons /> {/if}
+    {#if $ping} <SyncTagButtons /> {/if}
     <AllTagList hidden={!($isMobile && $show_tag_list)} />
     {#if !isListView && $isDesktop}
         <MailCardView mail_list={mail_list} />

@@ -6,6 +6,7 @@ import { all_tag_dict } from "../../stores/all_tag_dict";
 import { tag_to_mail_dict } from "../../stores/tag_to_mail_dict";
 import { mail_to_tag_dict } from "../../stores/mail_to_tag_dict";
 import api from "../../api";
+import { ping } from "../../stores/preferences";
 
 $: new_tag = {
     value: $tag_input,
@@ -23,7 +24,9 @@ const addTag = async ()=>{
         $all_tag_dict.set($tag_input, new_tag)
         $all_tag_dict=$all_tag_dict;
 
-        // await api.AllTagDict.addTag(new_tag);
+        if($ping){
+            await api.AllTagDict.addTag(new_tag);
+        }
     }
     $tag_to_mail_dict=$tag_to_mail_dict;
 
@@ -33,7 +36,9 @@ const addTag = async ()=>{
         $mail_to_tag_dict.set($now_pm.id, new Set([the_tag]));
     }       
     $mail_to_tag_dict=$mail_to_tag_dict;
-    //await api.MailTagDict.addTag($now_pm.id, the_tag.value)
+    if($ping){
+        await api.MailTagDict.addTag($now_pm.id, the_tag.value);
+    }
 
     $tag_input ="";
     $color_n = ($color_n+1) % 12;

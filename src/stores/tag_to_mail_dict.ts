@@ -1,6 +1,7 @@
 
 import { Writable, writable } from 'svelte/store';
 import { all_tag_dict, EMPTY_TAG, favorite_tag, member_tags } from "./all_tag_dict";
+import { ping } from './preferences';
 import { selected_tag } from "./tag";
 
 export let entries_to_tag_to_mail_dict: (entries: [string, string[]][]) => Map<Tag, Set<string>>;
@@ -38,6 +39,11 @@ function init_tag_to_mail_dict(): Map<Tag, Set<string>> {
 
 export let tag_to_mail_dict: Writable<Map<Tag, Set<string>>> = writable(init_tag_to_mail_dict());
 
+let isPing;
+ping.subscribe((value)=>{
+    isPing = value;
+})
+
 tag_to_mail_dict.subscribe(value=>{
     [...value].forEach(([tag, mail_set])=>{
         if (mail_set.size==0
@@ -57,8 +63,10 @@ tag_to_mail_dict.subscribe(value=>{
 
             all_tag_dict.update(dict=>{
                 dict.delete(tag_value);
-                // fetch(`/all-tag-dict/tag/${tag_value}`, {method: 'DELETE'})
-                // .then(res=>{console.log("서버에서 태그 삭제 완료")});
+                if(isPing){
+                    fetch(`/all-tag-dict/tag/${tag_value}`, {method: 'DELETE'})
+                        .then(res=>{console.log("서버에서 태그 삭제 완료")});
+                }
                 return dict;
             })
         }

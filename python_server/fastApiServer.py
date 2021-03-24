@@ -50,6 +50,11 @@ def get_media_type(file_name):
         return "application/json"
 
 
+@app.get("/ping")
+def ping():
+    return {"msg": "ok"}
+
+
 @app.get("/build/{file_name}")
 async def bundle(file_name: str, background_tasks: BackgroundTasks):
     try:

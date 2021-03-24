@@ -15,14 +15,13 @@ const upload_tags = ()=>{
 const download_tags = async () => {
     $selected_tag = EMPTY_TAG;
 
-    const all_tag_dict_test = await api.AllTagDict.get();
-    console.log(all_tag_dict_test);
+    $all_tag_dict = await api.AllTagDict.get();
     console.log("all_tag_dict 백업 다운로드 완료");
 
     const data = await api.MailTagDict.get();
     console.log(data);
-    // $tag_to_mail_dict = data.tag_to_mail_dict;
-    // $mail_to_tag_dict = data.mail_to_tag_dict;
+    $tag_to_mail_dict = data.tag_to_mail_dict;
+    $mail_to_tag_dict = data.mail_to_tag_dict;
     console.log("mail_tag_dict 백업 다운로드 완료");
 };
 </script>
