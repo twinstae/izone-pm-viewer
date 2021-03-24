@@ -40,12 +40,17 @@ $: onDeleteTag = async ()=>{
 }
 
 params.subscribe(p=>{
-    if (p.tag == null && $selected_tag != EMPTY_TAG) {
+    if (!p.tag && $selected_tag != EMPTY_TAG) {
         $selected_tag = EMPTY_TAG;
     }
-    if(p.tag && $selected_tag.value != p.tag){
-        $selected_tag = $all_tag_dict.get(p.tag);
-}});
+    if (p.tag){
+        if (!$all_tag_dict.has(p.tag)){
+            $selected_tag = EMPTY_TAG;
+        } else if ($selected_tag.value != p.tag){
+            $selected_tag = $all_tag_dict.get(p.tag);
+        }
+    }
+});
 
 const onSelectTag = (tag)=>
 ()=>{

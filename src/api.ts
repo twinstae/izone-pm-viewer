@@ -67,7 +67,7 @@ const MailTagDict = {
     },
     addTag: async (pm_id: string, tag_value: string)=>{
         return post(`/mail-tag-dict/mail/${pm_id}/tag/${tag_value}`)
-        .then(res=>{console.log("서버에 태그 추가 완료."); return res;});
+            .then(res=>{console.log("서버에 태그 추가 완료."); return res;});
     },
     deleteTag: async (pm_id: string, tag_value: string)=>{
         return await fetch(`/mail-tag-dict/mail/${pm_id}/tag/${tag_value}`, {method: 'DELETE'});

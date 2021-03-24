@@ -9,7 +9,7 @@ import httpx
 
 app = FastAPI()
 client = httpx.AsyncClient()
-GITHUB_URL = "https://raw.githubusercontent.com/twinstae/izone-pm-viewer/main/deploy"
+GITHUB_URL = "https://raw.githubusercontent.com/twinstae/izone-pm-viewer/main/dist"
 
 
 @app.on_event("shutdown")

@@ -37,7 +37,8 @@ const addTag = async ()=>{
     }       
     $mail_to_tag_dict=$mail_to_tag_dict;
     if($ping){
-        await api.MailTagDict.addTag($now_pm.id, the_tag.value);
+        console.log(the_tag)
+        await api.MailTagDict.addTag($now_pm.id, $tag_input);
     }
 
     $tag_input ="";

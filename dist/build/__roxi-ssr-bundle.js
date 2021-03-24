@@ -33,10 +33,10 @@
     return __exportStar(__defProp(__create(__getProtoOf(module)), "default", {value: module, enumerable: true}), module);
   };
 
-  // dist/build/_fallback-cb0c7fe0.js
-  var require_fallback_cb0c7fe0 = __commonJS((exports) => {
+  // dist/build/_fallback-873d923c.js
+  var require_fallback_873d923c = __commonJS((exports) => {
     __export(exports, {
-      default: () => fallback_cb0c7fe0_default
+      default: () => fallback_873d923c_default
     });
     const main2 = __toModule(require_main());
     function v(s2) {
@@ -55,17 +55,17 @@
       let t3;
       return main2.g(s2, main2.u, (s3) => e2(0, t3 = s3)), [t3];
     }
-    class fallback_cb0c7fe0_default extends main2.S {
+    class fallback_873d923c_default extends main2.S {
       constructor(s2) {
         super(), main2.i(this, s2, g, v, main2.s, {});
       }
     }
   });
 
-  // dist/build/index-fa45bdb0.js
-  var require_index_fa45bdb0 = __commonJS((exports) => {
+  // dist/build/index-68748367.js
+  var require_index_68748367 = __commonJS((exports) => {
     __export(exports, {
-      default: () => index_fa45bdb0_default
+      default: () => index_68748367_default
     });
     const main2 = __toModule(require_main());
     function S(e2) {
@@ -246,17 +246,17 @@
         f2 = this.clientHeight, n2(2, f2);
       }];
     }
-    class index_fa45bdb0_default extends main2.S {
+    class index_68748367_default extends main2.S {
       constructor(e2) {
         super(), main2.i(this, e2, G, F, main2.s, {});
       }
     }
   });
 
-  // dist/build/index-dc58350b.js
-  var require_index_dc58350b = __commonJS((exports) => {
+  // dist/build/index-934e5058.js
+  var require_index_934e5058 = __commonJS((exports) => {
     __export(exports, {
-      default: () => index_dc58350b_default
+      default: () => index_934e5058_default
     });
     const main2 = __toModule(require_main());
     function X(t3) {
@@ -869,7 +869,7 @@
       };
       let {tag: v2} = e2, {canDelete: w2 = false} = e2, {size: b2 = "xs"} = e2, {onRemove: x2 = null} = e2;
       main2.V.subscribe((t4) => {
-        t4.tag == null && p2 != it && main2.W($t, p2 = it, p2), t4.tag && p2.value != t4.tag && main2.W($t, p2 = u2.get(t4.tag), p2);
+        t4.tag || p2 == it || main2.W($t, p2 = it, p2), t4.tag && (u2.has(t4.tag) ? p2.value != t4.tag && main2.W($t, p2 = u2.get(t4.tag), p2) : main2.W($t, p2 = it, p2));
       });
       const {open: _2} = main2.O("simple-modal"), M2 = () => {
         _2(At, {tag: v2});
@@ -963,7 +963,7 @@
       };
       const f2 = () => d2(void 0, void 0, void 0, function* () {
         let t4 = r2;
-        o2.has(s2) ? (t4 = o2.get(s2), c2.get(t4).add(l2.id)) : (c2.set(r2, new Set([l2.id])), o2.set(s2, r2), at.set(o2), a3 && (yield ee.addTag(r2))), vt.set(c2), u2.has(l2.id) ? u2.get(l2.id).add(t4) : u2.set(l2.id, new Set([t4])), ut.set(u2), a3 && (yield ne.addTag(l2.id, t4.value)), main2.W(pt, s2 = "", s2), main2.W(mt, i2 = (i2 + 1) % 12, i2);
+        o2.has(s2) ? (t4 = o2.get(s2), c2.get(t4).add(l2.id)) : (c2.set(r2, new Set([l2.id])), o2.set(s2, r2), at.set(o2), a3 && (yield ee.addTag(r2))), vt.set(c2), u2.has(l2.id) ? u2.get(l2.id).add(t4) : u2.set(l2.id, new Set([t4])), ut.set(u2), a3 && (console.log(t4), yield ne.addTag(l2.id, s2)), main2.W(pt, s2 = "", s2), main2.W(mt, i2 = (i2 + 1) % 12, i2);
       });
       return t3.$$.update = () => {
         5 & t3.$$.dirty && (r2 = {value: s2, color: Wt[i2]});
@@ -3321,17 +3321,17 @@
         y2 = this.clientWidth, n2(0, y2);
       }];
     }
-    class index_dc58350b_default extends main2.S {
+    class index_934e5058_default extends main2.S {
       constructor(t3) {
         super(), main2.i(this, t3, hs, ds, main2.s, {});
       }
     }
   });
 
-  // dist/build/_layout-9717b6c8.js
-  var require_layout_9717b6c8 = __commonJS((exports) => {
+  // dist/build/_layout-a5a1ebac.js
+  var require_layout_a5a1ebac = __commonJS((exports) => {
     __export(exports, {
-      default: () => layout_9717b6c8_default
+      default: () => layout_a5a1ebac_default
     });
     const main2 = __toModule(require_main());
     function c(s2) {
@@ -3357,7 +3357,7 @@
         "$$scope" in s3 && e2(0, o2 = s3.$$scope);
       }, [o2, n2];
     }
-    class layout_9717b6c8_default extends main2.S {
+    class layout_a5a1ebac_default extends main2.S {
       constructor(s2) {
         super(), main2.i(this, s2, u, c, main2.s, {});
       }
@@ -4701,7 +4701,7 @@
       }
     }
     const rn = {...Xe, restoreDefaults: ({tree: t3}) => tn(t3), assignAPI: en};
-    const sn = {root: true, ownMeta: {preload: "proximity"}, children: [{isFallback: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/_fallback", component: () => Promise.resolve().then(() => __toModule(require_fallback_cb0c7fe0())).then((t3) => t3.default)}, {isDir: true, ext: "", children: [{isIndex: true, isPage: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/gallery/index", id: "_gallery_index", component: () => Promise.resolve().then(() => __toModule(require_index_fa45bdb0())).then((t3) => t3.default)}], meta: {recursive: true, preload: "proximity", prerender: true}, path: "/gallery"}, {isIndex: true, isPage: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/index", id: "_index", component: () => Promise.resolve().then(() => __toModule(require_index_dc58350b())).then((t3) => t3.default)}], isLayout: true, meta: {preload: "proximity", recursive: true, prerender: true}, path: "/", id: "__layout", component: () => Promise.resolve().then(() => __toModule(require_layout_9717b6c8())).then((t3) => t3.default)};
+    const sn = {root: true, ownMeta: {preload: "proximity"}, children: [{isFallback: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/_fallback", component: () => Promise.resolve().then(() => __toModule(require_fallback_873d923c())).then((t3) => t3.default)}, {isDir: true, ext: "", children: [{isIndex: true, isPage: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/gallery/index", id: "_gallery_index", component: () => Promise.resolve().then(() => __toModule(require_index_68748367())).then((t3) => t3.default)}], meta: {recursive: true, preload: "proximity", prerender: true}, path: "/gallery"}, {isIndex: true, isPage: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/index", id: "_index", component: () => Promise.resolve().then(() => __toModule(require_index_934e5058())).then((t3) => t3.default)}], isLayout: true, meta: {preload: "proximity", recursive: true, prerender: true}, path: "/", id: "__layout", component: () => Promise.resolve().then(() => __toModule(require_layout_a5a1ebac())).then((t3) => t3.default)};
     const {tree: an, routes: cn} = function(t3) {
       const e2 = ["restoreDefaults", "setParamKeys", "setRegex", "setShortPath", "setRank", "assignLayout", "setPrototype", "addMetaChildren", "assignRelations", "setIsIndexable", "assignIndex", "assignAPI", "createFlatList"], n2 = {tree: t3, routes: []};
       for (let t4 of e2) {
@@ -4736,7 +4736,7 @@
     }, {target: document.body}, "routify-app");
   });
 
-  // dist/build/index-b8834002.js
+  // dist/build/index-94e26697.js
   const main = __toModule(require_main());
   function a(a2, {delay: o = 0, duration: e = 400, easing: i = main.E} = {}) {
     const n = +getComputedStyle(a2).opacity;
