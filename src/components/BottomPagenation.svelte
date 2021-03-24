@@ -86,7 +86,8 @@ params.subscribe(p=>{
     
     <PinkButton id="toYesterdayButton" onClick={toYesterday}> 어제 </PinkButton>
 
-    <input type=date class="border-1 w-36 border-gray-400 rounded"
+    <input id="DateStringInput"
+    type=date class="border-1 w-36 border-gray-400 rounded"
     bind:value={$dateString} on:change={()=>{
         $now_page = 1;
         $goto("./", {...$params, nowPage: $now_page, dateString: $dateString});
