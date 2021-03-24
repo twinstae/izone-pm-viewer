@@ -7,7 +7,6 @@ import MailDetailSection from "../components/MailDetailSection.svelte";
 import MailListSection from "../components/MailListSection.svelte";
 import { isDesktop, show_list } from '../stores/now';
 import { INIT_DATE } from '../stores/date';
-
 import { now_pm, pm_list } from '../stores/now';
 import { member_dict, member_name_dict } from "../stores/constants";
 import { all_tag_dict } from '../stores/all_tag_dict';
