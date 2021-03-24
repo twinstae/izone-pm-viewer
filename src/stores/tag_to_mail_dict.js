@@ -40,18 +40,18 @@ tag_to_mail_dict.subscribe(value=>{
     [...value].forEach(([tag, mail_set])=>{
         if (mail_set.size==0
             && tag.value!="💖" && ! member_tags.includes(tag)){ // 💖는 0 개여도 유지
-            const tag_value = tag.value;
-            tag_to_mail_dict.update(dict=>{
-                dict.delete(tag);
-                return dict;
-            });
-
             selected_tag.update(selected=>{
                 if(selected == tag){
                     return EMPTY_TAG;
                 }
                 return selected;
             })
+            
+            const tag_value = tag.value;
+            tag_to_mail_dict.update(dict=>{
+                dict.delete(tag);
+                return dict;
+            });
 
             all_tag_dict.update(dict=>{
                 dict.delete(tag_value);
