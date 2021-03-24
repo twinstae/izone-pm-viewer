@@ -52,6 +52,7 @@ h3 {
 <div style="text-align: center;">
     <h3>태그 수정</h3>
     <input type="text"
+    id="TagUpdateInput"
     style="background-color:{color}; text-align: center;"
     class="{color=="#fff" ? "p-0 border-2 border-gray" : "p-0.5"}
     rounded m-3 pl-1 pr-1.5 w-20"
@@ -64,11 +65,12 @@ h3 {
     class="{choice.color=="#fff" ? "p-0 border-2 border-gray" : "p-0.5"}
     rounded m-0.5 pl-1 pr-1.5">
         <input
+        id="TagUpdateColorRadio-{choice.value}"
         type="radio" bind:group={color} value={choice.color}>
         {choice.value}
     </label>
     {/each}
 </div>
-<PinkButton onClick={onClick}>
+<PinkButton id="TagUpdateButton" onClick={onClick}>
     결정했어요!
 </PinkButton>

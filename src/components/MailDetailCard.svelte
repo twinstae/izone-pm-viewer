@@ -44,12 +44,15 @@ $: sync()
 </script>
 
 <div
+id="MailDetailCard"
 style="max-height: {$isDesktop && show ? "70%" : "90%"}"
 class="
 shadow-2xl rounded-md bg-white 
 w-full mt-2 p-2
 flex flex-col">
-    <div class="relative w-full leading-loose">
+    <div
+    id="MailDetailCardHeader"
+    class="relative w-full leading-loose">
         <FavoriteHeart pm={$now_pm}/>
         <MemberProfileImg pm={$now_pm}/>
         <h4 class="text-xl w-4/5">{$now_pm.subject}</h4>
@@ -62,7 +65,9 @@ flex flex-col">
         <TagInput/>    
     </div>
     {#if $now_content}
-        <div class="h-5/6 overflow-y-auto p-1">
+        <div
+        id="MailDetailCardContent"
+        class="h-5/6 overflow-y-auto p-1">
             <div
             transition:fade={{ duration: 200 }}
             contenteditable=false

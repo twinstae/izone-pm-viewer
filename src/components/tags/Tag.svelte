@@ -52,7 +52,7 @@ const onSelectTag = (tag)=>
 const {open} = getContext("simple-modal");
 const openModal = ()=>{open(TagModal, { tag: tag})}
 let timeout;
-$: onLongTouch = ()=>{
+$: onTouchDown = ()=>{
     if(base_tag_set.has(tag.value)){
         timeout = setTimeout(()=>{alert("기본 태그는 아직 수정할 수 없습니다.")}, 300)
     } else {
@@ -86,13 +86,13 @@ $: text_color = tag.value=="타임캡슐" ? "#b299e6"
     }
 </style>
 <span
-on:pointerdown={onLongTouch}
+on:pointerdown={onTouchDown}
 on:pointerup={onTouchUp}
 on:click={onSelectTag(tag)}
 style="
 background-color: {backgroud_color};
 color: {text_color};"
-class="{padding} {border} m-0.5 mr-0 text-{size}
+class="Tag-{tag.value} {padding} {border} m-0.5 mr-0 text-{size}
 {tag.value=="💖" ? "pt-0" : ""}">
     {#if tag.value=="💖"}
         <Icon icon={faStar}>좋아요 태그</Icon>
@@ -112,7 +112,8 @@ on:click={onRemove ? onRemove : onDeleteTag}
 style="
 background-color: {backgroud_color};
 color: {text_color};"
-class="{tag.color=="#fff" ? "border-2 border-l-0 p-0.5 pl-1" : "p-1"}
+class="DeleteTag-{tag.value}
+{tag.color=="#fff" ? "border-2 border-l-0 p-0.5 pl-1" : "p-1"}
 rounded-r {onRemove ? "-ml-1" : "-ml-2"} mt-0.5 mb-0.5 text-{size}">
 X</span>
 {/if}

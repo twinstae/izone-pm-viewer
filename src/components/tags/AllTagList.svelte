@@ -17,7 +17,7 @@ function check(){
 <div
     class:hidden={hidden}
     style="min-height:43px;"
-    class="
+    class="AllTagList
     h-36 p-2 mt-3 mb-3
     bg-white shadow-2xl rounded-md
     overflow-y-auto">
