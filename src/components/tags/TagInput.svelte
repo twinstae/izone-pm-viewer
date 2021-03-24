@@ -1,10 +1,10 @@
 <script lang="ts">
-import { tag_input, color_n } from "../stores/tag";
-import { isDesktop, isMobile, now_pm } from "../stores/now";
-import { member_color_dict } from "../stores/constants";
-import { all_tag_dict } from "../stores/all_tag_dict";
-import { tag_to_mail_dict } from "../stores/tag_to_mail_dict";
-import { mail_to_tag_dict } from "../stores/mail_to_tag_dict";
+import { tag_input, color_n } from "../../stores/tag";
+import { isMobile, now_pm } from "../../stores/now";
+import { member_color_dict } from "../../stores/constants";
+import { all_tag_dict } from "../../stores/all_tag_dict";
+import { tag_to_mail_dict } from "../../stores/tag_to_mail_dict";
+import { mail_to_tag_dict } from "../../stores/mail_to_tag_dict";
 
 $: new_tag = {
     value: $tag_input,
@@ -49,8 +49,7 @@ const onAddTag = e=>{
 
 <input type="text"
 class="
-border-2 border-gray
-m-1 p-1
+border-2 border-gray p-1
 rounded w-16
 text-xs"
 placeholder="새 태그"

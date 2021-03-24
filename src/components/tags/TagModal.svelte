@@ -1,8 +1,8 @@
 <script lang="ts">
 import { getContext } from "svelte";
 
-import { all_tag_dict } from "../stores/all_tag_dict";
-import PinkButton from "./PinkButton.svelte";
+import { all_tag_dict } from "../../stores/all_tag_dict";
+import PinkButton from "../buttons/PinkButton.svelte";
 export let tag: {
     value: string,
     color: string

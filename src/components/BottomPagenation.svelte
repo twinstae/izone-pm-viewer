@@ -4,7 +4,7 @@ import { goto, params } from "@roxi/routify";
 import { dateString, date_to_str, INIT_DATE } from "../stores/date";
 import { now_page } from "../stores/now";
 import { selected_tag } from "../stores/tag";
-import PinkButton from "./PinkButton.svelte";
+import PinkButton from "./buttons/PinkButton.svelte";
 export let maxPage: number;
 
 function toYesterday(){
