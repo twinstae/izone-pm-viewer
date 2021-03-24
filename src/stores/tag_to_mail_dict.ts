@@ -1,5 +1,6 @@
 
 import { Writable, writable } from 'svelte/store';
+import api from '../api';
 import { all_tag_dict, EMPTY_TAG, favorite_tag, member_tags } from "./all_tag_dict";
 import { ping } from './preferences';
 import { selected_tag } from "./tag";
@@ -64,8 +65,7 @@ tag_to_mail_dict.subscribe(value=>{
             all_tag_dict.update(dict=>{
                 dict.delete(tag_value);
                 if(isPing){
-                    fetch(`/all-tag-dict/tag/${tag_value}`, {method: 'DELETE'})
-                        .then(res=>{console.log("서버에서 태그 삭제 완료")});
+                    api.AllTagDict.deleteTag(tag_value);
                 }
                 return dict;
             })

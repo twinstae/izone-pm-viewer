@@ -4,7 +4,7 @@ import { mail_to_tag_dict } from "../../stores/mail_to_tag_dict";
 import { tag_to_mail_dict } from "../../stores/tag_to_mail_dict";
 import { now_pm } from "../../stores/now";
 import { selected_tag } from "../../stores/tag";
-import { goto, params } from "@roxi/routify";
+import { goto, params, redirect } from "@roxi/routify";
 import { getContext } from "svelte";
 import TagModal from "./TagModal.svelte";
 import { base_tag_set } from "../../stores/constants";
@@ -45,7 +45,7 @@ params.subscribe(p=>{
     }
     if (p.tag){
         if (!$all_tag_dict.has(p.tag)){
-            $selected_tag = EMPTY_TAG;
+            $redirect("./", {...$params, tag: ""})
         } else if ($selected_tag.value != p.tag){
             $selected_tag = $all_tag_dict.get(p.tag);
         }
