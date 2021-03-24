@@ -15,6 +15,7 @@ import { faInstagram } from '@fortawesome/free-brands-svg-icons/faInstagram';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons/faYoutube';
 import { faBirthdayCake } from '@fortawesome/free-solid-svg-icons/faBirthdayCake';
 import {faStar} from '@fortawesome/free-solid-svg-icons/faStar';
+import api from "../../api";
 
 export let tag: {
     value: string,
@@ -26,7 +27,7 @@ export let onRemove = null;
 
 $: onDeleteTag = async ()=>{
     const the_tag = $all_tag_dict.get(tag.value);
-    // await fetch(`/mail-tag-dict/mail/${$now_pm.id}/tag/${the_tag.value}`, {method: 'DELETE'});
+    // await api.MailTagDict.deleteTag($now_pm.id, the_tag.value);
     
     $tag_to_mail_dict.get(the_tag).delete($now_pm.id);        
     $tag_to_mail_dict=$tag_to_mail_dict;

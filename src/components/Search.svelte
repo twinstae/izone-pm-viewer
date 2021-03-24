@@ -12,7 +12,7 @@ params.subscribe(p=>{
 
 search_input.subscribe((value)=>{
     $now_page=1;
-    $goto("./", {...$params, search: $search_input});
+    $goto("./", {...$params, search: value});
 });
 </script>
 
