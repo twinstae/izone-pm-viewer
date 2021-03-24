@@ -1,4 +1,6 @@
 <script lang="ts">
+import { params, redirect } from '@roxi/routify';
+
 import { all_tag_dict, EMPTY_TAG } from '../../stores/all_tag_dict';
 import { selected_tag } from '../../stores/tag';
 import Tag from './Tag.svelte';
@@ -11,6 +13,7 @@ $: check()
 function check(){
     if($all_tag_dict.has($selected_tag.value)){
         $selected_tag = EMPTY_TAG;
+        $redirect("./", {...$params, tag: ""});
     }
 }
 </script>

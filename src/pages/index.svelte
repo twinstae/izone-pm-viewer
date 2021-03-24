@@ -1,6 +1,6 @@
 
 <script lang="ts">
-import { goto, metatags, params } from '@roxi/routify';
+import { goto, metatags, params, redirect } from '@roxi/routify';
 import Modal from '../components/Modal.svelte';
 metatags.title = 'IZ*ONE Private Mail Viewer'
 import MailDetailSection from "../components/MailDetailSection.svelte";
@@ -9,10 +9,11 @@ import { isDesktop, show_list } from '../stores/now';
 import { INIT_DATE } from '../stores/date';
 import { now_pm, pm_list } from '../stores/now';
 import { member_dict, member_name_dict } from "../stores/constants";
-import { all_tag_dict } from '../stores/all_tag_dict';
+import { all_tag_dict, EMPTY_TAG } from '../stores/all_tag_dict';
 import { tag_to_mail_dict } from '../stores/tag_to_mail_dict';
 import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
 import { ping } from '../stores/preferences';
+import { selected_tag } from '../stores/tag';
 
 let haveInitiated = false;
 
@@ -143,12 +144,32 @@ $: isDesktop.set(width > 700);
 
 let show = null;
 
-params.subscribe(p=>{
+params.subscribe(p=>{   
     const new_show_list = p.showList == 'true';
     if(new_show_list != $show_list){
         $show_list = new_show_list;
     }
 })
+
+$: console.log($params);
+
+params.subscribe(p=>{
+    if (!p.tag && $selected_tag != EMPTY_TAG) {
+        $selected_tag = EMPTY_TAG;
+    }
+    
+    if (p.tag){
+        if ($selected_tag == EMPTY_TAG && !$all_tag_dict.has(p.tag)){
+            $redirect("./", { ...$params, tag: ""});
+            console.log("redirect to empty tag url")
+            
+        } else if ($selected_tag.value != p.tag){
+            console.log("tag update")
+            const new_tag = $all_tag_dict.get(p.tag);
+            console.log(new_tag);
+        }
+    }
+});
 
 if (!$params.dateString){
     $goto("./", {
