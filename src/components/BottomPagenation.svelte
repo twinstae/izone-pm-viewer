@@ -3,12 +3,12 @@ import { goto, params } from "@roxi/routify";
 
 import { dateString, date_to_str, INIT_DATE } from "../stores/date";
 import { now_page } from "../stores/now";
-import { selected_tag } from "../stores/tag";
+import { selected_tag_value } from "../stores/tag";
 import PinkButton from "./buttons/PinkButton.svelte";
 export let maxPage: number;
 
 function toYesterday(){
-    if ($selected_tag.value){
+    if ($selected_tag_value){
         if($now_page<maxPage)$now_page+=1;
         return null;
     }
@@ -21,7 +21,7 @@ function toYesterday(){
 };
 
 function toTomorrow(){
-    if ($selected_tag.value){
+    if ($selected_tag_value){
         if($now_page>1)$now_page-=1;
         return null;
     }

@@ -1,7 +1,7 @@
 <script lang="ts">
 import MailDetailCard from './MailDetailCard.svelte';
 import AllTagList from './tags/AllTagList.svelte';
-import {selected_tag} from "../stores/tag";
+import { selected_tag_value } from "../stores/tag";
 import { isDesktop, isMobile, show_list, show_tag_list } from '../stores/now';
 import SelectedTag from './tags/SelectedTag.svelte';
 import PapagoLink from './buttons/PapagoLink.svelte';
@@ -27,7 +27,7 @@ bind:clientHeight={height}>
         {#if $isMobile} <BackToListButton />{/if}
         <PapagoLink />
         {#if !over && $isDesktop} <ShowTagListInput /> {/if}
-        {#if $selected_tag.value} <SelectedTag /> {/if}
+        {#if $selected_tag_value} <SelectedTag /> {/if}
     </div>
     <AllTagList hidden={!((over || $show_tag_list) && $isDesktop)}/>
     <MailDetailCard show={over || $show_tag_list}/>

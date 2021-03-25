@@ -1,10 +1,10 @@
 <script lang="ts">
-import { all_tag_dict, EMPTY_TAG } from "../../stores/all_tag_dict";
+import { all_tag_dict } from "../../stores/all_tag_dict";
 import { mail_to_tag_dict } from "../../stores/mail_to_tag_dict";
 import { tag_to_mail_dict } from "../../stores/tag_to_mail_dict";
 import { now_pm } from "../../stores/now";
-import { selected_tag } from "../../stores/tag";
-import { goto, params, redirect } from "@roxi/routify";
+import { selected_tag_value } from "../../stores/tag";
+import { goto, params } from "@roxi/routify";
 import { getContext } from "svelte";
 import TagModal from "./TagModal.svelte";
 import { base_tag_set } from "../../stores/constants";
@@ -15,8 +15,8 @@ import { faInstagram } from '@fortawesome/free-brands-svg-icons/faInstagram';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons/faYoutube';
 import { faBirthdayCake } from '@fortawesome/free-solid-svg-icons/faBirthdayCake';
 import {faStar} from '@fortawesome/free-solid-svg-icons/faStar';
-import api from "../../api";
 import { ping } from "../../stores/preferences";
+import api from "../../api";
 
 export let tag: {
     value: string,
@@ -27,22 +27,24 @@ export let size = "xs";
 export let onRemove = null;
 
 $: onDeleteTag = async ()=>{
-    const the_tag = $all_tag_dict.get(tag.value);
-    if($ping){
-        await api.MailTagDict.deleteTag($now_pm.id, the_tag.value);
-    }
+    const the_tag = $all_tag_dict.get(tag.value);   
     
     $tag_to_mail_dict.get(the_tag).delete($now_pm.id);        
     $tag_to_mail_dict=$tag_to_mail_dict;
 
     $mail_to_tag_dict.get($now_pm.id).delete(the_tag)
     $mail_to_tag_dict=$mail_to_tag_dict;
+
+    if($ping){
+        console.log("start delete");
+        await api.MailTagDict.deleteTag($now_pm.id, tag.value);
+    }
 }
 
-const onSelectTag = (tag)=>
+const onSelectTag = (tag: Tag)=>
 ()=>{
-    selected_tag.set(tag);
-    $goto("./", {...$params, tag: $selected_tag.value, nowPage:1})
+    selected_tag_value.set(tag.value);
+    $goto("./", {...$params, tag: $selected_tag_value, nowPage:1})
 }
 
 const {open} = getContext("simple-modal");
@@ -74,6 +76,7 @@ $: text_color = tag.value=="타임캡슐" ? "#b299e6"
         : tag.value=="💖" ? "#ffb40d"
             : "black";
 
+$: icon = iconDict.get(tag.value);
 </script>
 <style>
     span {
@@ -95,8 +98,8 @@ class="Tag-{tag.value.replace(" ", "-")} {padding} {border} m-0.5 mr-0 text-{siz
     {:else}
         {#if iconDict.has(tag.value)}
         <Icon
-        class="mb-1 text-{iconDict.get(tag.value).color}"
-        icon={iconDict.get(tag.value).icon}></Icon>
+        class="mb-1 text-{icon.color}"
+        icon={icon.icon}></Icon>
         {/if}
     {tag.value}
     {/if}

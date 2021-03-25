@@ -2,8 +2,10 @@ import { writable, derived } from 'svelte/store';
 import Fuse from "fuse.js";
 import { pm_list, now_page } from './now';
 import { tag_to_mail_dict } from './tag_to_mail_dict';
-import { selected_tag } from './tag';
+import { selected_tag_value } from './tag';
 import { dateString } from './date';
+import { all_tag_dict } from './all_tag_dict';
+import { is_promise } from 'svelte/internal';
 
 const options = {
     useExtendedSearch: true,
@@ -33,11 +35,15 @@ export let pm_list_after_search = derived(
 );
 
 export let filtered_list = derived(
-    [pm_list_after_search, selected_tag, tag_to_mail_dict, search_input, dateString],
-    ([$pm_list_after_search, $selected_tag, $tag_to_mail_dict, $search_input, $dateString])=>{
-
-        const selected_tag_mail_set = $tag_to_mail_dict.get($selected_tag);
-        const filterByTag = (mail)=> selected_tag_mail_set.has(mail.id);
+    [pm_list_after_search, all_tag_dict, selected_tag_value, tag_to_mail_dict, search_input, dateString],
+    ([$pm_list_after_search, $all_tag_dict, $selected_tag_value, $tag_to_mail_dict, $search_input, $dateString])=>{
+        if($selected_tag_value){
+            const selected_tag = $all_tag_dict.get($selected_tag_value);
+            const selected_tag_mail_set = $tag_to_mail_dict.get(selected_tag) || new Set();
+            console.log(selected_tag_mail_set);
+            const filterByTag = (mail: Mail) => selected_tag_mail_set.has(mail.id);
+            return $pm_list_after_search.filter(filterByTag);
+        }
 
         const filterByDate = mail => {
             const date_str = mail.time.split(" ")[0].replace(/\//g, "-");
@@ -47,10 +53,9 @@ export let filtered_list = derived(
         const no_filter = (mail)=>true;
 
         const filter_by = 
-        ($selected_tag.value && filterByTag) ||
-        ($search_input && no_filter)||
-        ($dateString && filterByDate) || 
-        no_filter;
+            ($search_input && no_filter)||
+            ($dateString && filterByDate) || 
+            no_filter;
 
         return $pm_list_after_search.filter(filter_by);
     }

@@ -3,7 +3,7 @@ import { Writable, writable } from 'svelte/store';
 import api from '../api';
 import { all_tag_dict, EMPTY_TAG, favorite_tag, member_tags } from "./all_tag_dict";
 import { ping } from './preferences';
-import { selected_tag } from "./tag";
+import { selected_tag_value } from "./tag";
 
 export let entries_to_tag_to_mail_dict: (entries: [string, string[]][]) => Map<Tag, Set<string>>;
 all_tag_dict.subscribe(dict=>{
@@ -49,8 +49,8 @@ tag_to_mail_dict.subscribe(value=>{
     [...value].forEach(([tag, mail_set])=>{
         if (mail_set.size==0
             && tag.value!="💖" && ! member_tags.includes(tag)){ // 💖는 0 개여도 유지
-            selected_tag.update(selected=>{
-                if(selected == tag){
+            selected_tag_value.update(selected=>{
+                if(selected == tag.value){
                     return EMPTY_TAG;
                 }
                 return selected;
@@ -64,9 +64,6 @@ tag_to_mail_dict.subscribe(value=>{
 
             all_tag_dict.update(dict=>{
                 dict.delete(tag_value);
-                if(isPing){
-                    api.AllTagDict.deleteTag(tag_value);
-                }
                 return dict;
             })
         }

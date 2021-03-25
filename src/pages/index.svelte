@@ -13,7 +13,8 @@ import { all_tag_dict, EMPTY_TAG } from '../stores/all_tag_dict';
 import { tag_to_mail_dict } from '../stores/tag_to_mail_dict';
 import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
 import { ping } from '../stores/preferences';
-import { selected_tag } from '../stores/tag';
+import { selected_tag_value } from '../stores/tag';
+import api from '../api';
 
 let haveInitiated = false;
 
@@ -132,7 +133,7 @@ async function init(){
 }
 
 init().then(()=>{haveInitiated=true});
-fetch("./ping").then(res=>res.json()).then(obj=> {
+    api.ping.then(res=>res.json()).then(obj=> {
     if (obj.msg == "ok"){
         console.log("신 서버로 작동합니다. 태그 저장, 동기화를 사용할 수 있습니다.");
         $ping = true;
@@ -151,22 +152,19 @@ params.subscribe(p=>{
     }
 })
 
-$: console.log($params);
-
 params.subscribe(p=>{
-    if (!p.tag && $selected_tag != EMPTY_TAG) {
-        $selected_tag = EMPTY_TAG;
+    if (!p.tag && $selected_tag_value != EMPTY_TAG) {
+        $selected_tag_value = EMPTY_TAG;
     }
     
     if (p.tag){
-        if ($selected_tag == EMPTY_TAG && !$all_tag_dict.has(p.tag)){
+        if (!$all_tag_dict.has(p.tag)){
             $redirect("./", { ...$params, tag: ""});
-            console.log("redirect to empty tag url")
-            
-        } else if ($selected_tag.value != p.tag){
-            console.log("tag update")
+            console.log("redirect to empty tag url");
+
+        } else if ($selected_tag_value != p.tag){
             const new_tag = $all_tag_dict.get(p.tag);
-            console.log(new_tag);
+            $selected_tag_value = new_tag.value;
         }
     }
 });

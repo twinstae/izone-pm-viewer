@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 
-export const EMPTY_TAG: Tag = { value: null, color: null};
+export const EMPTY_TAG: string = null;
 
 export const favorite_tag: Tag = {value: "💖", color: "#fff"};
 

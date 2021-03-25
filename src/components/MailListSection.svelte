@@ -3,7 +3,7 @@ import BottomPagenation from './BottomPagenation.svelte';
 import AllTagList from './tags/AllTagList.svelte';
 import { afterUpdate } from "svelte";
 import { dateString, date_to_str, str_to_date, time_to_dateStr } from "../stores/date";
-import {selected_tag} from "../stores/tag";
+import { selected_tag_value } from "../stores/tag";
 import { now_page, isDesktop, show_list, isMobile, show_tag_list } from '../stores/now';
 import { filtered_list, getPage } from '../stores/search';
 import Search from './Search.svelte';
@@ -133,7 +133,7 @@ relative pl-4 pr-4 pt-2">
     <div class="mb-1 flex flex-row">
         {#if $isMobile}
             <ShowTagListInput /> 
-            {#if $selected_tag.value} <SelectedTag /> {/if}
+            {#if $selected_tag_value} <SelectedTag /> {/if}
         {:else}
             <label class="p-1" for="isListViewInput">
                 리스트뷰 {isListView ? "on": "off"}
