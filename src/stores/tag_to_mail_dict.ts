@@ -47,6 +47,10 @@ ping.subscribe((value)=>{
 
 tag_to_mail_dict.subscribe(value=>{
     [...value].forEach(([tag, mail_set])=>{
+        if(!mail_set){
+            console.log(tag, mail_set);
+            console.log(value);
+        }
         if (mail_set.size==0
             && tag.value!="💖" && ! member_tags.includes(tag)){ // 💖는 0 개여도 유지
             selected_tag_value.update(selected=>{

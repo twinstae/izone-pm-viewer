@@ -123,6 +123,9 @@ async function init(){
             };
             $all_tag_dict.set(birthday_tag.value, birthday_tag)
             $all_tag_dict=$all_tag_dict;
+        }
+        const birthday_tag = $all_tag_dict.get("생일");
+        if (!$tag_to_mail_dict.has(birthday_tag)){
             $tag_to_mail_dict.set(birthday_tag, new Set());
             $pm_list.map(pm=>{
                 if(pm.id.slice(0,1) == "b"){

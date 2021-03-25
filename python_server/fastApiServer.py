@@ -17,6 +17,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost:5000",
+    "http://127.0.0.1:5000",
 ]
 
 app.add_middleware(
@@ -181,9 +182,12 @@ def 현재_서버_파일을_지우고_새_서버를_가져온다() -> bool:
         print("서버가 이미 최신 버전입니다.")
         return True
 
+    os.remove("버전"+".".join(old_server_version))
+
     for file_name in file_list:
         old_path = "./"+file_name
-        os.remove(old_path)
+        if os.path.exists(old_path):
+            os.remove(old_path)
         assert not os.path.exists(old_path)
         new_file_src = "output/python_server/"+file_name
         shutil.copy(new_file_src, old_path)

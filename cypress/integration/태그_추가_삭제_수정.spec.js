@@ -1,8 +1,8 @@
 
 import {port} from './config';
+import {태그를_수정한다, 캔디핑크} from './testingUtil';
 
 describe('태그를 추가하고 수정하고 삭제한다', () => {
-    const 캔디핑크 = "rgb(217, 89, 140)";
 
     function 태그가_존재한다(value, color=""){
         cy.get("span").contains(value).should('exist');
@@ -17,11 +17,6 @@ describe('태그를 추가하고 수정하고 삭제한다', () => {
         cy.get(".AllTagList:first").within(func);
         cy.get("#MailDetailCardHeader").within(func);
         cy.get("#MailCard-0").within(func);
-    }
-
-    function 롱터치(target_selector){
-        cy.get(target_selector).trigger('pointerdown')
-        cy.wait(500)
     }
 
     it("초기화", ()=>{
@@ -39,11 +34,7 @@ describe('태그를 추가하고 수정하고 삭제한다', () => {
     });
 
     it('태그를 수정하면, 모든 곳에서 태그가 바뀐다', ()=>{
-        롱터치(".Tag-테스트:first");
-
-        cy.get('#TagUpdateInput').type('{backspace}{backspace}{backspace}test');
-        cy.get('#TagUpdateColorRadio-캔디핑크').click();
-        cy.get('#TagUpdateButton').click();
+        태그를_수정한다("테스트", "test", "캔디핑크");
 
         모든_곳에서(()=>{
             태그가_없다("테스트");

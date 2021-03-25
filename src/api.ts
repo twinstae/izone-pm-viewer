@@ -102,6 +102,7 @@ const AllTagDict = {
     }
 };
 
+const member_tag_set = new Set(member_tags.map(tag=>tag.value))
 const MAIL_TAG_ROOT = API_ROOT+"/mail-tag-dict";
 const MailTagDict = {
     get: async ()=>{
@@ -111,6 +112,7 @@ const MailTagDict = {
         return postBackup(MAIL_TAG_ROOT+"/", {
             mail_to_tag_dict: mail_to_tag_dict_to_json(mail_to_tag_dict),
             tag_to_mail_dict: tag_to_mail_dict_to_entries(tag_to_mail_dict)
+                .filter(entry=>!member_tag_set.has(entry[0]))
         })
     },
     addTag: async (pm_id: string, tag_value: string)=>{
