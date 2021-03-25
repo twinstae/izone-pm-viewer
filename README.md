@@ -40,6 +40,8 @@ output 폴더에 새 폴더가 생기지 않았는지 확인합니다. 모든 �
 
 F12를 누르면 개발자 도구 창이 뜹니다. Console 탭을 찾아서 클릭하고 에러가 뜨는 게 없는지 확인합니다.
 
+![](https://github.com/twinstae/izone-pm-viewer/raw/main/%EC%BD%98%EC%86%94.png)
+
 #### Failed to load resource: the server responded with a sataus of 404 :8000/pm_list.json
 서버가 pm_list.json을 찾지 못해서 생기는 에러입니다.
 0번 확인합니다.
