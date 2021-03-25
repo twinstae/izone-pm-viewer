@@ -1,16 +1,15 @@
+from typing import List
 import asyncio
 import shutil
 import time
-from typing import List
-
+import json
+import os
 import uvicorn
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from starlette.responses import FileResponse
-import json
 import httpx
-import os
 
 from ApiRouter import api_router
 
@@ -125,7 +124,7 @@ async def shutdown_event():
 async def root():
     if os.path.exists('output/index.html'):
         return FileResponse('output/index.html')
-    raise HTTPException(status_code=404, detail=f"저장된 빌드 파일이 없습니다.")
+    raise HTTPException(status_code=404, detail="저장된 빌드 파일이 없습니다.")
 
 
 app.include_router(api_router)
