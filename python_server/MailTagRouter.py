@@ -1,5 +1,5 @@
 from typing import List, Tuple
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
 import AllTagDict
@@ -35,13 +35,32 @@ def save_mail_tag_dict(req_body: MailTagDictEntries):
 
 @router.post("/mail/{mail_id}/tag/{tag_value}")
 def add_tag_to_mail(mail_id: str, tag_value: str):
-    assert AllTagDict.has(tag_value)
+    tag_value_가_all_tag_dict_에_있는지_체크(tag_value)
+
     mail_to_tag_dict.add_tag(mail_id=mail_id, tag_value=tag_value)
     tag_to_mail_dict.add_mail(mail_id=mail_id, tag_value=tag_value)
 
 
 @router.delete("/mail/{mail_id}/tag/{tag_value}")
 def delete_tag_from_mail(mail_id: str, tag_value: str):
-    assert AllTagDict.has(tag_value)
+    tag_value_가_all_tag_dict_에_있는지_체크(tag_value)
+    mail_tag_dict_에_mail_id_가_있는지_체크(mail_id)
+    tag_가_tag_to_mail_dict에_있는지_체크(tag_value)
+
     mail_to_tag_dict.remove_tag(mail_id=mail_id, tag_value=tag_value)
     tag_to_mail_dict.remove_mail(mail_id=mail_id, tag_value=tag_value)
+
+
+def tag_value_가_all_tag_dict_에_있는지_체크(tag_value):
+    if not AllTagDict.has(tag_value):
+        raise HTTPException(status_code=404, detail=f"태그 {tag_value}가 없습니다")
+
+
+def tag_가_tag_to_mail_dict에_있는지_체크(tag_value):
+    if not tag_to_mail_dict.has(tag_value):
+        raise HTTPException(status_code=404, detail=f"tag_value {tag_value} 에 해당하는 mail_set 이 없습니다")
+
+
+def mail_tag_dict_에_mail_id_가_있는지_체크(mail_id):
+    if not mail_to_tag_dict.has(mail_id):
+        raise HTTPException(status_code=404, detail=f"mail_id {mail_id} 에 해당하는 tag_set 이 없습니다")

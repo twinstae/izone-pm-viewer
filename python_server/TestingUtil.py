@@ -1,4 +1,4 @@
-from starlette.responses import Response
+from requests import Response
 from starlette.testclient import TestClient
 from fastApiServer import app
 
@@ -35,3 +35,8 @@ client = TestClient(app)
 
 def status_code_는_200_ok(response: Response):
     assert response.status_code == 200
+
+
+def status_code_는_404_not_found(response: Response, expected_message):
+    assert response.status_code == 404
+    assert expected_message in response.text
