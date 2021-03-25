@@ -1,4 +1,4 @@
 chcp 65001
 ipconfig
-python fastApiServer.py
+uvicorn fastApiServer:app --host 0.0.0.0
 PAUSE

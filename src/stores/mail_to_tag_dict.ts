@@ -6,7 +6,10 @@ all_tag_dict.subscribe(all_tag_dict=>{
     entries_to_mail_to_tag_dict = (data) => {
         const entries: [string, Set<Tag>][] = data.map(entry=>{
             const mail_id = entry[0];
-            const tag_set = new Set(entry[1].map(value=>all_tag_dict.get(value)));
+            const tag_list = entry[1]
+                .filter(v=>all_tag_dict.has(v))
+                .map(value=>all_tag_dict.get(value));
+            const tag_set = new Set(tag_list);
             return [mail_id, tag_set];
         })
         return new Map(entries);

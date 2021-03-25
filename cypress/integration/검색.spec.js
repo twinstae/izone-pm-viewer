@@ -1,10 +1,12 @@
+import {port} from './config';
+
 describe('제목과 preview를 검색한다', () => {
     function 첫번째_카드의_제목은(title){
         cy.get("#MailCard-0 div h4").should('have.text', title);
     }
 
     it('초기화', ()=>{
-        cy.visit('http://localhost:5000/?dateString=2021-03-15&nowPage=1&showList=true&now_pm=m20731');
+        cy.visit(`http://localhost:${port}/?dateString=2021-03-15&nowPage=1&showList=true&now_pm=m20731`);
         cy.get("#MailCard-1"); // 메일이 보이면
     })
 

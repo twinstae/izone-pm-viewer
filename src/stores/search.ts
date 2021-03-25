@@ -38,10 +38,12 @@ export let filtered_list = derived(
     [pm_list_after_search, all_tag_dict, selected_tag_value, tag_to_mail_dict, search_input, dateString],
     ([$pm_list_after_search, $all_tag_dict, $selected_tag_value, $tag_to_mail_dict, $search_input, $dateString])=>{
         if($selected_tag_value){
-            const selected_tag = $all_tag_dict.get($selected_tag_value);
-            const selected_tag_mail_set = $tag_to_mail_dict.get(selected_tag) || new Set();
-            console.log(selected_tag_mail_set);
-            const filterByTag = (mail: Mail) => selected_tag_mail_set.has(mail.id);
+            let selected_tag = $all_tag_dict.get($selected_tag_value);
+            if (!$tag_to_mail_dict.has(selected_tag)){
+                $tag_to_mail_dict.set(selected_tag, new Set());
+            }
+            let selected_tag_mail_set = $tag_to_mail_dict.get(selected_tag);
+            let filterByTag = (mail: Mail) => selected_tag_mail_set.has(mail.id);
             return $pm_list_after_search.filter(filterByTag);
         }
 

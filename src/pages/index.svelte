@@ -35,7 +35,9 @@ const process = (text, i)=>{
         for (let i = 0; i<text.length; i+=2){
             arr.push(text[i])
         }
-        return JSON.parse(arr.join(""));
+        const result = JSON.parse(arr.join(""));
+        console.log("로딩 성공!")
+        return result;
     } catch (e) {
         if (i < 4){
             text = text.slice(1);
@@ -55,7 +57,8 @@ const get_data = async (path) => {
             throw e; 
         }
         if (e instanceof SyntaxError) {
-            return process(text, 0);
+            console.log("json 읽기 실패. 재시도합니다.");
+            return process(text.slice(2), 2);
         }
         console.error(e);
     }
@@ -133,13 +136,16 @@ async function init(){
 }
 
 init().then(()=>{haveInitiated=true});
-    api.ping.then(res=>res.json())
-    .then(obj=> {
-        if (obj.msg == "ok"){
-            console.log("신 서버로 작동합니다. 태그 저장, 동기화를 사용할 수 있습니다.");
-            $ping = true;
-        }
-    }).catch(e=>{console.log("구 버전 서버로 작동합니다.")})
+
+api.ping.then(res=>res.status == 200)
+.then(()=>{
+    console.log("API 서버 연결 성공! 신 서버로 작동합니다. 태그 동기화 및 저장 기능을 사용할 수 있습니다.")
+    $ping = true;
+})
+.catch(e=>{
+    console.error(e);
+    console.log("구 버전 서버로 작동합니다.");
+});
 
 let width;
 $: isDesktop.set(width > 700);

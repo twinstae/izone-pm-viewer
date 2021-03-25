@@ -29,15 +29,19 @@ export let onRemove = null;
 $: onDeleteTag = async ()=>{
     const the_tag = $all_tag_dict.get(tag.value);   
     
-    $tag_to_mail_dict.get(the_tag).delete($now_pm.id);        
+    if ($tag_to_mail_dict.has(the_tag)){
+        $tag_to_mail_dict.get(the_tag).delete($now_pm.id);
+    }
     $tag_to_mail_dict=$tag_to_mail_dict;
 
-    $mail_to_tag_dict.get($now_pm.id).delete(the_tag)
+    if ($mail_to_tag_dict.has($now_pm.id)){
+        $mail_to_tag_dict.get($now_pm.id).delete(the_tag)
+    }
     $mail_to_tag_dict=$mail_to_tag_dict;
 
     if($ping){
-        console.log("start delete");
-        await api.MailTagDict.deleteTag($now_pm.id, tag.value);
+        await api.MailTagDict.deleteTag($now_pm.id, tag.value)
+        .then(res=>{console.log("서버에서 태그 삭제 성공")});
     }
 }
 
@@ -94,12 +98,12 @@ color: {text_color};"
 class="Tag-{tag.value.replace(" ", "-")} {padding} {border} m-0.5 mr-0 text-{size}
 {tag.value=="💖" ? "pt-0" : ""}">
     {#if tag.value=="💖"}
-        <Icon icon={faStar}>좋아요 태그</Icon>
+        <Icon icon={faStar} />
     {:else}
         {#if iconDict.has(tag.value)}
         <Icon
         class="mb-1 text-{icon.color}"
-        icon={icon.icon}></Icon>
+        icon={icon.icon} />
         {/if}
     {tag.value}
     {/if}

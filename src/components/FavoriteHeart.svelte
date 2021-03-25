@@ -10,7 +10,8 @@ export let float = "right";
 
 
 $: favorite_tag = $all_tag_dict.get("💖");
-$: favorited = $tag_to_mail_dict.get(favorite_tag).has(pm.id);
+$: favorite_set = $tag_to_mail_dict.get(favorite_tag);
+$: favorited = favorite_set ? favorite_set.has(pm.id) : false;
 
 $: onFavorite = ()=>{
     const favorite_set = $tag_to_mail_dict.get(favorite_tag);

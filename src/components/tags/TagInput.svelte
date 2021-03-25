@@ -17,16 +17,19 @@ const addTag = async ()=>{
     let the_tag = new_tag;
 
     if ($all_tag_dict.has($tag_input)){
-        the_tag = $all_tag_dict.get($tag_input)
-        $tag_to_mail_dict.get(the_tag).add($now_pm.id);
+        the_tag = $all_tag_dict.get($tag_input);        
     } else {
-        $tag_to_mail_dict.set(new_tag, new Set([$now_pm.id]));
         $all_tag_dict.set($tag_input, new_tag)
         $all_tag_dict=$all_tag_dict;
-
         if($ping){
             await api.AllTagDict.addTag(new_tag);
         }
+    }
+
+    if($tag_to_mail_dict.has(the_tag)){
+        $tag_to_mail_dict.get(the_tag).add($now_pm.id);
+    } else {
+        $tag_to_mail_dict.set(the_tag, new Set([$now_pm.id]));
     }
     $tag_to_mail_dict=$tag_to_mail_dict;
 
@@ -36,13 +39,14 @@ const addTag = async ()=>{
         $mail_to_tag_dict.set($now_pm.id, new Set([the_tag]));
     }       
     $mail_to_tag_dict=$mail_to_tag_dict;
-    if($ping){
-        console.log(the_tag)
-        await api.MailTagDict.addTag($now_pm.id, $tag_input);
-    }
 
     $tag_input ="";
     $color_n = ($color_n+1) % 12;
+
+    if($ping){
+        console.log(the_tag)
+        await api.MailTagDict.addTag($now_pm.id, the_tag.value);
+    }
 }
 
 </script>

@@ -1,3 +1,5 @@
+import {port} from './config';
+
 describe('페이지를 이동하면 목록이 갱신된다', () => {
   const 첫번째_카드_제목_of_page = {
     1: '21/3/15_그래도',
@@ -26,7 +28,7 @@ describe('페이지를 이동하면 목록이 갱신된다', () => {
     cy.get("#MailCard-0 div h4").should('have.text', title);
   }
   it("초기화", ()=>{
-    cy.visit('http://localhost:5000/?dateString=2021-03-15&nowPage=1&showList=true&now_pm=m20731');
+    cy.visit(`http://localhost:${port}/?dateString=2021-03-15&nowPage=1&showList=true&now_pm=m20731`);
     cy.get("#MailCard-0")
     
     // 메일이 보이면

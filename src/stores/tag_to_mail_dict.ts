@@ -7,9 +7,11 @@ export let entries_to_tag_to_mail_dict: (entries: [string, string[]][]) => Map<T
 all_tag_dict.subscribe(dict=>{
     entries_to_tag_to_mail_dict = (entries) => {
         return new Map(
-            entries.map((entry_data)=>{
-                const tag = dict.get(entry_data[0]);
-                const mail_set = new Set(entry_data[1])
+            entries
+            .filter(entry=>dict.has(entry[0]))
+            .map((entry)=>{
+                const tag = dict.get(entry[0]);
+                const mail_set = new Set(entry[1])
                 return [tag, mail_set]
             })
         );

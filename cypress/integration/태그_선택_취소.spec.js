@@ -1,6 +1,8 @@
+import {port} from './config';
+
 describe('태그를 선택하고 취소하고, 삭제한다.', () => {
     it("초기화", ()=>{
-      cy.visit('http://localhost:5000/?dateString=2021-03-15&nowPage=1&showList=true&now_pm=m21381');
+      cy.visit(`http://localhost:${port}/?dateString=2021-03-15&nowPage=1&showList=true&now_pm=m21381`);
       cy.get("#MailCard-0"); // 메일이 보이면
     });
     

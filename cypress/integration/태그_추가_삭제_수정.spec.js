@@ -1,4 +1,6 @@
 
+import {port} from './config';
+
 describe('태그를 추가하고 수정하고 삭제한다', () => {
     const 캔디핑크 = "rgb(217, 89, 140)";
 
@@ -23,7 +25,7 @@ describe('태그를 추가하고 수정하고 삭제한다', () => {
     }
 
     it("초기화", ()=>{
-      cy.visit('http://localhost:5000/?dateString=2021-03-15&nowPage=1&showList=true&now_pm=m21406');
+      cy.visit(`http://localhost:${port}/?dateString=2021-03-15&nowPage=1&showList=true&now_pm=m21406`);
       cy.get("#MailCard-0"); // 메일이 보이면
     })
   
@@ -42,7 +44,6 @@ describe('태그를 추가하고 수정하고 삭제한다', () => {
         cy.get('#TagUpdateInput').type('{backspace}{backspace}{backspace}test');
         cy.get('#TagUpdateColorRadio-캔디핑크').click();
         cy.get('#TagUpdateButton').click();
-
 
         모든_곳에서(()=>{
             태그가_없다("테스트");
