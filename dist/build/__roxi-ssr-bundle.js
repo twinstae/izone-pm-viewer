@@ -33,10 +33,10 @@
     return __exportStar(__defProp(__create(__getProtoOf(module)), "default", {value: module, enumerable: true}), module);
   };
 
-  // dist/build/_fallback-f985facf.js
-  var require_fallback_f985facf = __commonJS((exports) => {
+  // dist/build/_fallback-3094bc0a.js
+  var require_fallback_3094bc0a = __commonJS((exports) => {
     __export(exports, {
-      default: () => fallback_f985facf_default
+      default: () => fallback_3094bc0a_default
     });
     const main2 = __toModule(require_main());
     function v(s2) {
@@ -55,17 +55,17 @@
       let t3;
       return main2.g(s2, main2.u, (s3) => e2(0, t3 = s3)), [t3];
     }
-    class fallback_f985facf_default extends main2.S {
+    class fallback_3094bc0a_default extends main2.S {
       constructor(s2) {
         super(), main2.i(this, s2, g, v, main2.s, {});
       }
     }
   });
 
-  // dist/build/index-951d6bdc.js
-  var require_index_951d6bdc = __commonJS((exports) => {
+  // dist/build/index-f839b0f4.js
+  var require_index_f839b0f4 = __commonJS((exports) => {
     __export(exports, {
-      default: () => index_951d6bdc_default
+      default: () => index_f839b0f4_default
     });
     const main2 = __toModule(require_main());
     function S(e2) {
@@ -246,17 +246,17 @@
         f2 = this.clientHeight, n2(2, f2);
       }];
     }
-    class index_951d6bdc_default extends main2.S {
+    class index_f839b0f4_default extends main2.S {
       constructor(e2) {
         super(), main2.i(this, e2, G, F, main2.s, {});
       }
     }
   });
 
-  // dist/build/index-27793ceb.js
-  var require_index_27793ceb = __commonJS((exports) => {
+  // dist/build/index-51cfd1a6.js
+  var require_index_51cfd1a6 = __commonJS((exports) => {
     __export(exports, {
-      default: () => index_27793ceb_default
+      default: () => index_51cfd1a6_default
     });
     const main2 = __toModule(require_main());
     function X(t3) {
@@ -535,7 +535,7 @@
     let Ot = main2.M(Ct, (t3) => !t3);
     const St = "http://localhost:8000/api";
     async function jt(t3) {
-      return await fetch(t3);
+      return await fetch(St + t3);
     }
     async function Lt(t3, e2 = "") {
       return e2 ? fetch(St + t3, {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(e2)}) : fetch(St + t3, {method: "POST"});
@@ -3318,17 +3318,17 @@
         v2 = this.clientWidth, n2(0, v2);
       }];
     }
-    class index_27793ceb_default extends main2.S {
+    class index_51cfd1a6_default extends main2.S {
       constructor(t3) {
         super(), main2.i(this, t3, hs, ds, main2.s, {});
       }
     }
   });
 
-  // dist/build/_layout-19c5a206.js
-  var require_layout_19c5a206 = __commonJS((exports) => {
+  // dist/build/_layout-c49aef79.js
+  var require_layout_c49aef79 = __commonJS((exports) => {
     __export(exports, {
-      default: () => layout_19c5a206_default
+      default: () => layout_c49aef79_default
     });
     const main2 = __toModule(require_main());
     function c(s2) {
@@ -3354,7 +3354,7 @@
         "$$scope" in s3 && e2(0, o2 = s3.$$scope);
       }, [o2, n2];
     }
-    class layout_19c5a206_default extends main2.S {
+    class layout_c49aef79_default extends main2.S {
       constructor(s2) {
         super(), main2.i(this, s2, u, c, main2.s, {});
       }
@@ -4698,7 +4698,7 @@
       }
     }
     const rn = {...Xe, restoreDefaults: ({tree: t3}) => tn(t3), assignAPI: en};
-    const sn = {root: true, ownMeta: {preload: "proximity"}, children: [{isFallback: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/_fallback", component: () => Promise.resolve().then(() => __toModule(require_fallback_f985facf())).then((t3) => t3.default)}, {isDir: true, ext: "", children: [{isIndex: true, isPage: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/gallery/index", id: "_gallery_index", component: () => Promise.resolve().then(() => __toModule(require_index_951d6bdc())).then((t3) => t3.default)}], meta: {recursive: true, preload: "proximity", prerender: true}, path: "/gallery"}, {isIndex: true, isPage: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/index", id: "_index", component: () => Promise.resolve().then(() => __toModule(require_index_27793ceb())).then((t3) => t3.default)}], isLayout: true, meta: {preload: "proximity", recursive: true, prerender: true}, path: "/", id: "__layout", component: () => Promise.resolve().then(() => __toModule(require_layout_19c5a206())).then((t3) => t3.default)};
+    const sn = {root: true, ownMeta: {preload: "proximity"}, children: [{isFallback: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/_fallback", component: () => Promise.resolve().then(() => __toModule(require_fallback_3094bc0a())).then((t3) => t3.default)}, {isDir: true, ext: "", children: [{isIndex: true, isPage: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/gallery/index", id: "_gallery_index", component: () => Promise.resolve().then(() => __toModule(require_index_f839b0f4())).then((t3) => t3.default)}], meta: {recursive: true, preload: "proximity", prerender: true}, path: "/gallery"}, {isIndex: true, isPage: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/index", id: "_index", component: () => Promise.resolve().then(() => __toModule(require_index_51cfd1a6())).then((t3) => t3.default)}], isLayout: true, meta: {preload: "proximity", recursive: true, prerender: true}, path: "/", id: "__layout", component: () => Promise.resolve().then(() => __toModule(require_layout_c49aef79())).then((t3) => t3.default)};
     const {tree: an, routes: cn} = function(t3) {
       const e2 = ["restoreDefaults", "setParamKeys", "setRegex", "setShortPath", "setRank", "assignLayout", "setPrototype", "addMetaChildren", "assignRelations", "setIsIndexable", "assignIndex", "assignAPI", "createFlatList"], n2 = {tree: t3, routes: []};
       for (let t4 of e2) {
@@ -4733,7 +4733,7 @@
     }, {target: document.body}, "routify-app");
   });
 
-  // dist/build/index-15ea7f18.js
+  // dist/build/index-ffd38052.js
   const main = __toModule(require_main());
   function a(a2, {delay: o = 0, duration: e = 400, easing: i = main.E} = {}) {
     const n = +getComputedStyle(a2).opacity;

@@ -17,4 +17,5 @@ dist/*
 !dist/build
 !dist/img
 dist/img/mail
+dist/build/*.map
 assets/pm_list.json

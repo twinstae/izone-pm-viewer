@@ -6,7 +6,7 @@ import {tag_to_mail_dict_to_entries, entries_to_tag_to_mail_dict} from "./stores
 const API_ROOT = "http://localhost:8000/api";
 
 async function get(url: string){
-    return await fetch(url);
+    return await fetch(API_ROOT+url);
 }
 
 async function post(url: string, body:any =""){
