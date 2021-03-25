@@ -22,3 +22,4 @@ python_server/all_tag_list.json
 python_server/output/
 assets/mail_body_dict.json
 assets/pm_list.json
+*.pyc
