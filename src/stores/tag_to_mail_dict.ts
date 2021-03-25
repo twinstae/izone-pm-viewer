@@ -1,6 +1,4 @@
-
 import { Writable, writable } from 'svelte/store';
-import api from '../api';
 import { all_tag_dict, EMPTY_TAG, favorite_tag, member_tags } from "./all_tag_dict";
 import { ping } from './preferences';
 import { selected_tag_value } from "./tag";

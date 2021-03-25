@@ -133,12 +133,13 @@ async function init(){
 }
 
 init().then(()=>{haveInitiated=true});
-    api.ping.then(res=>res.json()).then(obj=> {
-    if (obj.msg == "ok"){
-        console.log("신 서버로 작동합니다. 태그 저장, 동기화를 사용할 수 있습니다.");
-        $ping = true;
-    }
-}).catch(e=>{console.log("구 버전 서버로 작동합니다.")})
+    api.ping.then(res=>res.json())
+    .then(obj=> {
+        if (obj.msg == "ok"){
+            console.log("신 서버로 작동합니다. 태그 저장, 동기화를 사용할 수 있습니다.");
+            $ping = true;
+        }
+    }).catch(e=>{console.log("구 버전 서버로 작동합니다.")})
 
 let width;
 $: isDesktop.set(width > 700);

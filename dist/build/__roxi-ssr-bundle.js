@@ -33,10 +33,10 @@
     return __exportStar(__defProp(__create(__getProtoOf(module)), "default", {value: module, enumerable: true}), module);
   };
 
-  // dist/build/_fallback-f1435306.js
-  var require_fallback_f1435306 = __commonJS((exports) => {
+  // dist/build/_fallback-f985facf.js
+  var require_fallback_f985facf = __commonJS((exports) => {
     __export(exports, {
-      default: () => fallback_f1435306_default
+      default: () => fallback_f985facf_default
     });
     const main2 = __toModule(require_main());
     function v(s2) {
@@ -55,52 +55,52 @@
       let t3;
       return main2.g(s2, main2.u, (s3) => e2(0, t3 = s3)), [t3];
     }
-    class fallback_f1435306_default extends main2.S {
+    class fallback_f985facf_default extends main2.S {
       constructor(s2) {
         super(), main2.i(this, s2, g, v, main2.s, {});
       }
     }
   });
 
-  // dist/build/index-2794ab28.js
-  var require_index_2794ab28 = __commonJS((exports) => {
+  // dist/build/index-951d6bdc.js
+  var require_index_951d6bdc = __commonJS((exports) => {
     __export(exports, {
-      default: () => index_2794ab28_default
+      default: () => index_951d6bdc_default
     });
     const main2 = __toModule(require_main());
     function S(e2) {
-      let t3, a3, r2, m2, g2;
+      let t3, n2, r2, m2, g2;
       return {c() {
-        t3 = main2.e("li"), a3 = main2.e("img"), main2.h(a3, "max-height", e2[2] + "px"), main2.h(a3, "max-width", e2[3] + "px"), a3.src !== (r2 = `/img/mail/${e2[0].n}/${e2[0].date.replace(/-/g, "")}/${e2[0].name}`) && main2.b(a3, "src", r2), main2.b(a3, "alt", ""), main2.h(t3, "max-height", k + "px"), main2.h(t3, "max-width", k + "px"), main2.h(t3, "overflow", "hidden"), main2.b(t3, "class", "m-2 shadow-lg border-white border-8 rounded");
-      }, m(n2, c2) {
-        main2.c(n2, t3, c2), main2.d(t3, a3), e2[4](a3), g2 = true;
+        t3 = main2.e("li"), n2 = main2.e("img"), main2.h(n2, "max-height", e2[2] + "px"), main2.h(n2, "max-width", e2[3] + "px"), n2.src !== (r2 = `/img/mail/${e2[0].n}/${e2[0].date.replace(/-/g, "")}/${e2[0].name}`) && main2.b(n2, "src", r2), main2.b(n2, "alt", ""), main2.h(t3, "max-height", k + "px"), main2.h(t3, "max-width", k + "px"), main2.h(t3, "overflow", "hidden"), main2.b(t3, "class", "m-2 shadow-lg border-white border-8 rounded");
+      }, m(a3, c2) {
+        main2.c(a3, t3, c2), main2.d(t3, n2), e2[4](n2), g2 = true;
       }, p(e3, [t4]) {
-        (!g2 || 4 & t4) && main2.h(a3, "max-height", e3[2] + "px"), (!g2 || 8 & t4) && main2.h(a3, "max-width", e3[3] + "px"), (!g2 || 1 & t4 && a3.src !== (r2 = `/img/mail/${e3[0].n}/${e3[0].date.replace(/-/g, "")}/${e3[0].name}`)) && main2.b(a3, "src", r2);
+        (!g2 || 4 & t4) && main2.h(n2, "max-height", e3[2] + "px"), (!g2 || 8 & t4) && main2.h(n2, "max-width", e3[3] + "px"), (!g2 || 1 & t4 && n2.src !== (r2 = `/img/mail/${e3[0].n}/${e3[0].date.replace(/-/g, "")}/${e3[0].name}`)) && main2.b(n2, "src", r2);
       }, i(e3) {
         g2 || (main2.j(() => {
           m2 || (m2 = main2.k(t3, a, {duration: 1e3}, true)), m2.run(1);
         }), g2 = true);
       }, o(e3) {
         m2 || (m2 = main2.k(t3, a, {duration: 1e3}, false)), m2.run(0), g2 = false;
-      }, d(a4) {
-        a4 && main2.f(t3), e2[4](null), a4 && m2 && m2.end();
+      }, d(n3) {
+        n3 && main2.f(t3), e2[4](null), n3 && m2 && m2.end();
       }};
     }
     const k = 250;
-    function q(e2, t3, a3) {
-      let n2, {image: c2} = t3, l2 = 1.25 * k, s2 = 1.25 * k, o2 = false;
+    function q(e2, t3, n2) {
+      let a3, {image: c2} = t3, l2 = 1.25 * k, s2 = 1.25 * k, o2 = false;
       return main2.l(() => {
         setTimeout(() => {
-          if (n2 && !o2) {
-            const e3 = n2.width > n2.height;
-            a3(2, l2 = k * (e3 ? 1 : 1.25)), a3(3, s2 = k * (e3 ? 1.25 : 1)), o2 = true;
+          if (a3 && !o2) {
+            const e3 = a3.width > a3.height;
+            n2(2, l2 = k * (e3 ? 1 : 1.25)), n2(3, s2 = k * (e3 ? 1.25 : 1)), o2 = true;
           }
         }, 200);
       }), e2.$$set = (e3) => {
-        "image" in e3 && a3(0, c2 = e3.image);
-      }, [c2, n2, l2, s2, function(e3) {
+        "image" in e3 && n2(0, c2 = e3.image);
+      }, [c2, a3, l2, s2, function(e3) {
         main2.m[e3 ? "unshift" : "push"](() => {
-          n2 = e3, a3(1, n2);
+          a3 = e3, n2(1, a3);
         });
       }];
     }
@@ -110,57 +110,57 @@
       }
     }
     const {setTimeout: C} = main2.C;
-    function D(e2, t3, a3) {
-      const n2 = e2.slice();
-      return n2[15] = t3[a3], n2;
+    function D(e2, t3, n2) {
+      const a3 = e2.slice();
+      return a3[15] = t3[n2], a3;
     }
-    function X(e2, t3, a3) {
-      const n2 = e2.slice();
-      return n2[18] = t3[a3], n2;
+    function X(e2, t3, n2) {
+      const a3 = e2.slice();
+      return a3[18] = t3[n2], a3;
     }
     function Y(e2) {
-      let t3, a3;
+      let t3, n2;
       return t3 = new A({props: {image: e2[18]}}), {c() {
         main2.q(t3.$$.fragment);
-      }, m(e3, n2) {
-        main2.r(t3, e3, n2), a3 = true;
-      }, p(e3, a4) {
-        const n2 = {};
-        24 & a4 && (n2.image = e3[18]), t3.$set(n2);
+      }, m(e3, a3) {
+        main2.r(t3, e3, a3), n2 = true;
+      }, p(e3, n3) {
+        const a3 = {};
+        24 & n3 && (a3.image = e3[18]), t3.$set(a3);
       }, i(e3) {
-        a3 || (main2.p(t3.$$.fragment, e3), a3 = true);
+        n2 || (main2.p(t3.$$.fragment, e3), n2 = true);
       }, o(e3) {
-        main2.v(t3.$$.fragment, e3), a3 = false;
+        main2.v(t3.$$.fragment, e3), n2 = false;
       }, d(e3) {
         main2.w(t3, e3);
       }};
     }
     function E(e2) {
-      let t3, a3, c2, i2, d2, r2, m2 = e2[15] + "", b2 = e2[3][e2[15]], w2 = [];
+      let t3, n2, c2, i2, d2, r2, m2 = e2[15] + "", b2 = e2[3][e2[15]], w2 = [];
       for (let t4 = 0; t4 < b2.length; t4 += 1)
         w2[t4] = Y(X(e2, b2, t4));
       const $2 = (e3) => main2.v(w2[e3], 1, 1, () => {
         w2[e3] = null;
       });
       return {c() {
-        t3 = main2.e("h3"), a3 = main2.t(m2), c2 = main2.a(), i2 = main2.e("ul");
+        t3 = main2.e("h3"), n2 = main2.t(m2), c2 = main2.a(), i2 = main2.e("ul");
         for (let e3 = 0; e3 < w2.length; e3 += 1)
           w2[e3].c();
         d2 = main2.a(), main2.b(t3, "class", "bg-white p-2 text-2xl text-center"), main2.b(i2, "class", "flex flex-wrap");
-      }, m(e3, n2) {
-        main2.c(e3, t3, n2), main2.d(t3, a3), main2.c(e3, c2, n2), main2.c(e3, i2, n2);
+      }, m(e3, a3) {
+        main2.c(e3, t3, a3), main2.d(t3, n2), main2.c(e3, c2, a3), main2.c(e3, i2, a3);
         for (let e4 = 0; e4 < w2.length; e4 += 1)
           w2[e4].m(i2, null);
         main2.d(i2, d2), r2 = true;
       }, p(e3, t4) {
-        if ((!r2 || 16 & t4) && m2 !== (m2 = e3[15] + "") && main2.o(a3, m2), 24 & t4) {
-          let a4;
-          for (b2 = e3[3][e3[15]], a4 = 0; a4 < b2.length; a4 += 1) {
-            const n2 = X(e3, b2, a4);
-            w2[a4] ? (w2[a4].p(n2, t4), main2.p(w2[a4], 1)) : (w2[a4] = Y(n2), w2[a4].c(), main2.p(w2[a4], 1), w2[a4].m(i2, d2));
+        if ((!r2 || 16 & t4) && m2 !== (m2 = e3[15] + "") && main2.o(n2, m2), 24 & t4) {
+          let n3;
+          for (b2 = e3[3][e3[15]], n3 = 0; n3 < b2.length; n3 += 1) {
+            const a3 = X(e3, b2, n3);
+            w2[n3] ? (w2[n3].p(a3, t4), main2.p(w2[n3], 1)) : (w2[n3] = Y(a3), w2[n3].c(), main2.p(w2[n3], 1), w2[n3].m(i2, d2));
           }
-          for (main2.D(), a4 = b2.length; a4 < w2.length; a4 += 1)
-            $2(a4);
+          for (main2.D(), n3 = b2.length; n3 < w2.length; n3 += 1)
+            $2(n3);
           main2.x();
         }
       }, i(e3) {
@@ -179,7 +179,7 @@
       }};
     }
     function F(e2) {
-      let t3, a3, c2, o2, d2, r2, m2 = false, g2 = () => {
+      let t3, n2, c2, o2, d2, r2, m2 = false, g2 = () => {
         m2 = false;
       };
       main2.j(e2[8]), main2.j(e2[9]);
@@ -190,23 +190,23 @@
         h2[e3] = null;
       });
       return {c() {
-        a3 = main2.e("div");
+        n2 = main2.e("div");
         for (let e3 = 0; e3 < h2.length; e3 += 1)
           h2[e3].c();
-        main2.b(a3, "class", "flex flex-col"), main2.j(() => e2[10].call(a3));
-      }, m(n2, l2) {
-        main2.c(n2, a3, l2);
+        main2.b(n2, "class", "flex flex-col"), main2.j(() => e2[10].call(n2));
+      }, m(a3, l2) {
+        main2.c(a3, n2, l2);
         for (let e3 = 0; e3 < h2.length; e3 += 1)
-          h2[e3].m(a3, null);
-        c2 = main2.z(a3, e2[10].bind(a3)), o2 = true, d2 || (r2 = [main2.A(window, "scroll", e2[5]), main2.A(window, "scroll", () => {
+          h2[e3].m(n2, null);
+        c2 = main2.z(n2, e2[10].bind(n2)), o2 = true, d2 || (r2 = [main2.A(window, "scroll", e2[5]), main2.A(window, "scroll", () => {
           m2 = true, clearTimeout(t3), t3 = C(g2, 100), e2[8]();
         }), main2.A(window, "resize", e2[9])], d2 = true);
-      }, p(e3, [n2]) {
-        if (1 & n2 && !m2 && (m2 = true, clearTimeout(t3), scrollTo(window.pageXOffset, e3[0]), t3 = C(g2, 100)), 24 & n2) {
+      }, p(e3, [a3]) {
+        if (1 & a3 && !m2 && (m2 = true, clearTimeout(t3), scrollTo(window.pageXOffset, e3[0]), t3 = C(g2, 100)), 24 & a3) {
           let t4;
           for (u2 = e3[4], t4 = 0; t4 < u2.length; t4 += 1) {
             const c3 = D(e3, u2, t4);
-            h2[t4] ? (h2[t4].p(c3, n2), main2.p(h2[t4], 1)) : (h2[t4] = E(c3), h2[t4].c(), main2.p(h2[t4], 1), h2[t4].m(a3, null));
+            h2[t4] ? (h2[t4].p(c3, a3), main2.p(h2[t4], 1)) : (h2[t4] = E(c3), h2[t4].c(), main2.p(h2[t4], 1), h2[t4].m(n2, null));
           }
           for (main2.D(), t4 = u2.length; t4 < h2.length; t4 += 1)
             b2(t4);
@@ -224,39 +224,39 @@
           main2.v(h2[e4]);
         o2 = false;
       }, d(e3) {
-        e3 && main2.f(a3), main2.y(h2, e3), c2(), d2 = false, main2.B(r2);
+        e3 && main2.f(n2), main2.y(h2, e3), c2(), d2 = false, main2.B(r2);
       }};
     }
-    function G(e2, t3, a3) {
-      let n2, c2, l2;
+    function G(e2, t3, n2) {
+      let a3, c2, l2;
       const s2 = [{date: "2021-03-21", name: "b90d39624e131102cd037536ae52686a.jpeg", n: "6"}, {date: "2021-03-21", name: "94cf5360320d40e1d3142cea84f99081.jpeg", n: "7"}, {date: "2021-03-21", name: "90384e791c8d1adc105a4f0ea6d68d3c.jpeg", n: "8"}, {date: "2021-03-21", name: "34932e3f9c24f95a5fcf0019d8231ac3.jpeg", n: "9"}, {date: "2021-03-21", name: "ead6e6f71df1d2d175a97fbda10576ed.jpeg", n: "9"}, {date: "2021-03-21", name: "c3281576e74db5c6933abe9df5935ab9.jpeg", n: "11"}, {date: "2021-03-21", name: "3e6e3d9f314bf90df5ff422d07687322.jpeg", n: "12"}, {date: "2021-03-21", name: "6b27979497b3a8efb71a90302fefad1a.jpeg", n: "12"}, {date: "2021-03-21", name: "a75b6b26a62405c797a95cef04c5fe68.jpeg", n: "12"}, {date: "2021-03-21", name: "b4b37951916017cda21c57f599c1ed0d.jpeg", n: "12"}, {date: "2021-03-21", name: "dec6537c06b004488ca6c1b613be5b28.jpeg", n: "12"}, {date: "2021-03-21", name: "e2791622abdcffa0f3f0f756c37567db.jpeg", n: "12"}];
       let o2 = s2.concat(s2).concat(s2).concat(s2).concat(s2), i2 = 1;
       let d2, f2, r2 = 0, m2 = false;
       return e2.$$.update = () => {
-        64 & e2.$$.dirty && a3(7, n2 = o2 && o2.slice(0, 6 * i2)), 128 & e2.$$.dirty && a3(3, c2 = n2.reduce((e3, t4) => (e3[t4.date] == null && (e3[t4.date] = []), e3[t4.date].push(t4), e3), {}));
-      }, a3(4, l2 = [...new Set(o2.map((e3) => e3.date))].sort()), [r2, d2, f2, c2, l2, function() {
+        64 & e2.$$.dirty && n2(7, a3 = o2 && o2.slice(0, 6 * i2)), 128 & e2.$$.dirty && n2(3, c2 = a3.reduce((e3, t4) => (e3[t4.date] == null && (e3[t4.date] = []), e3[t4.date].push(t4), e3), {}));
+      }, n2(4, l2 = [...new Set(o2.map((e3) => e3.date))].sort()), [r2, d2, f2, c2, l2, function() {
         d2 + r2 + 10 > f2 && !m2 && (m2 = true, setTimeout(() => {
-          a3(6, i2 += 1), m2 = false;
+          n2(6, i2 += 1), m2 = false;
         }, 300));
-      }, i2, n2, function() {
-        a3(0, r2 = window.pageYOffset);
+      }, i2, a3, function() {
+        n2(0, r2 = window.pageYOffset);
       }, function() {
-        a3(1, d2 = window.innerHeight);
+        n2(1, d2 = window.innerHeight);
       }, function() {
-        f2 = this.clientHeight, a3(2, f2);
+        f2 = this.clientHeight, n2(2, f2);
       }];
     }
-    class index_2794ab28_default extends main2.S {
+    class index_951d6bdc_default extends main2.S {
       constructor(e2) {
         super(), main2.i(this, e2, G, F, main2.s, {});
       }
     }
   });
 
-  // dist/build/index-4117a6a7.js
-  var require_index_4117a6a7 = __commonJS((exports) => {
+  // dist/build/index-27793ceb.js
+  var require_index_27793ceb = __commonJS((exports) => {
     __export(exports, {
-      default: () => index_4117a6a7_default
+      default: () => index_27793ceb_default
     });
     const main2 = __toModule(require_main());
     function X(t3) {
@@ -483,81 +483,81 @@
       const e2 = ut(t3);
       localStorage.setItem("mail_to_tag_dict", JSON.stringify(e2));
     });
-    const dt = "http://localhost:8000/api";
-    async function ft(t3) {
-      return await fetch(t3);
-    }
-    async function ht(t3, e2 = "") {
-      return e2 ? fetch(dt + t3, {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(e2)}) : fetch(dt + t3, {method: "POST"});
-    }
-    async function gt(t3) {
-      return await fetch(dt + t3, {method: "DELETE"});
-    }
-    function pt(t3, e2) {
-      return ht(t3, e2).then((t4) => (console.log(e2), t4)).catch((e3) => {
-        console.error(t3 + " \uBC31\uC5C5\uC5D0 \uC2E4\uD328\uD588\uC2B5\uB2C8\uB2E4."), console.error(e3);
-      });
-    }
-    var mt = {AllTagDict: {get: async () => {
-      const t3 = await ft("/all-tag-dict/").then((t4) => t4.json()).then((t4) => t4.tag_list);
-      let e2 = ot.reduce((t4, e3) => (t4.set(e3.value, e3), t4), new Map([["\u{1F496}", it]]));
-      return t3.reduce((t4, e3) => (t4.set(e3.value, e3), t4), e2);
-    }, save: async (t3) => pt("/all-tag-dict/", {tag_list: [...t3].map((t4) => t4[1])}), addTag: async (t3) => ht("/all-tag-dict/tag", t3), deleteTag: async (t3) => await gt(`/all-tag-dict/tag/${t3}`).then((t4) => (console.log("\uC11C\uBC84\uC5D0\uC11C \uD0DC\uADF8 \uC0AD\uC81C \uC644\uB8CC"), t4)), updateTag: async (t3, e2) => await async function(t4, e3) {
-      fetch(dt + t4, {method: "PUT", headers: {"Content-Type": "application/json"}, body: JSON.stringify(e3)});
-    }("/all-tag-dict/tag/" + t3, e2)}, MailTagDict: {get: async () => {
-      const t3 = await ft("/mail-tag-dict/").then((t4) => t4.json());
-      return {tag_to_mail_dict: () => yt(t3.tag_to_mail_dict), mail_to_tag_dict: () => ct(t3.mail_to_tag_dict)};
-    }, save: async (t3, e2) => pt("/mail-tag-dict/", {mail_to_tag_dict: ut(t3), tag_to_mail_dict: Mt(e2)}), addTag: async (t3, e2) => ht(`/mail-tag-dict/mail/${t3}/tag/${e2}`).then((t4) => (console.log("\uC11C\uBC84\uC5D0 \uD0DC\uADF8 \uCD94\uAC00 \uC644\uB8CC."), t4)), deleteTag: async (t3, e2) => await gt(`/mail-tag-dict/mail/${t3}/tag/${e2}`)}, ping: fetch(dt + "/ping")};
-    let $t = main2.L(function() {
+    let dt = main2.L(function() {
       const t3 = localStorage.getItem("preferences-profile");
       return t3 || "latest";
     }());
-    $t.subscribe((t3) => {
+    dt.subscribe((t3) => {
       localStorage.setItem("preferences-profile", t3);
     });
-    let yt;
-    let wt = main2.L(false);
-    let vt = main2.L("");
-    let bt = main2.L(Math.floor(12 * Math.random()));
-    let xt = main2.L(null);
+    let ft;
+    let ht = main2.L(false);
+    let gt = main2.L("");
+    let pt = main2.L(Math.floor(12 * Math.random()));
+    let mt = main2.L(null);
     lt.subscribe((t3) => {
-      yt = (e2) => new Map(e2.map((e3) => [t3.get(e3[0]), new Set(e3[1])]));
+      ft = (e2) => new Map(e2.map((e3) => [t3.get(e3[0]), new Set(e3[1])]));
     });
-    let _t = main2.L(function() {
+    let $t = main2.L(function() {
       const t3 = () => new Set();
       let e2 = ot.reduce((e3, n3) => (e3.set(n3, t3()), e3), new Map([[it, t3()]]));
       const n2 = localStorage.getItem("tag_to_mail_dict");
       if (n2) {
         const t4 = JSON.parse(n2);
-        e2 = [...yt(t4)].reduce((t5, e3) => (t5.set(e3[0], e3[1]), t5), e2);
+        e2 = [...ft(t4)].reduce((t5, e3) => (t5.set(e3[0], e3[1]), t5), e2);
       }
       return e2;
     }());
-    function Mt(t3) {
+    function yt(t3) {
       return [...t3].map((t4) => [t4[0].value, [...t4[1]]]);
     }
-    wt.subscribe((t3) => {
-    }), _t.subscribe((t3) => {
+    ht.subscribe((t3) => {
+    }), $t.subscribe((t3) => {
       if ([...t3].forEach(([t4, e3]) => {
         if (e3.size == 0 && t4.value != "\u{1F496}" && !ot.includes(t4)) {
-          xt.update((e5) => e5 == t4.value ? null : e5);
+          mt.update((e5) => e5 == t4.value ? null : e5);
           const e4 = t4.value;
-          _t.update((e5) => (e5.delete(t4), e5)), lt.update((t5) => (t5.delete(e4), t5));
+          $t.update((e5) => (e5.delete(t4), e5)), lt.update((t5) => (t5.delete(e4), t5));
         }
       }), !t3)
         return null;
-      const e2 = Mt(t3);
+      const e2 = yt(t3);
       localStorage.setItem("tag_to_mail_dict", JSON.stringify(e2));
     });
-    let kt = main2.L([{id: "", member: "", time: "", subject: "", preview: "", n: 1}]);
-    let Ct = main2.L({id: "m20731", member: "\uAD11\uBC30", time: "2021/03/09 19:23", subject: "\uC0AC\uD0D5", preview: "\uC704\uC988\uC6D0 \uC0AC\uD0D5 \uD478\uB529 \uB9DB \uC788\uB294\uAC70 \uC54C\uC558\uC5B4?? \uB9DB\uC788\uC5B4\uBCF4\uC5EC\uC11C \uC0AC\uC11C \uC5B8\uC81C\uBA39\uC744\uC9C0 \uACE0\uBBFC\uC911\uC774\uC57C ."});
-    let Ot = main2.L("");
-    let St = main2.M(Ot, (t3) => "https://papago.naver.com/?sk=ja&tk=ko&hn=1&st=" + t3.replace(/\&nbsp;<\/div>/g, "\n").replace(/<\/div>/g, "\n").replace(/&nbsp;/g, "").replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/gi, "").replace(/\n\n/g, "\n").replace(/\n/g, "%0A"));
-    let jt = main2.L(1);
-    let Lt = main2.L(true);
-    let Pt = main2.L(false);
-    let It = main2.L(true);
-    let Tt = main2.M(It, (t3) => !t3);
+    let wt = main2.L([{id: "", member: "", time: "", subject: "", preview: "", n: 1}]);
+    let vt = main2.L({id: "m20731", member: "\uAD11\uBC30", time: "2021/03/09 19:23", subject: "\uC0AC\uD0D5", preview: "\uC704\uC988\uC6D0 \uC0AC\uD0D5 \uD478\uB529 \uB9DB \uC788\uB294\uAC70 \uC54C\uC558\uC5B4?? \uB9DB\uC788\uC5B4\uBCF4\uC5EC\uC11C \uC0AC\uC11C \uC5B8\uC81C\uBA39\uC744\uC9C0 \uACE0\uBBFC\uC911\uC774\uC57C ."});
+    let bt = main2.L("");
+    let xt = main2.M(bt, (t3) => "https://papago.naver.com/?sk=ja&tk=ko&hn=1&st=" + t3.replace(/\&nbsp;<\/div>/g, "\n").replace(/<\/div>/g, "\n").replace(/&nbsp;/g, "").replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/gi, "").replace(/\n\n/g, "\n").replace(/\n/g, "%0A"));
+    let _t = main2.L(1);
+    let Mt = main2.L(true);
+    let kt = main2.L(false);
+    let Ct = main2.L(true);
+    let Ot = main2.M(Ct, (t3) => !t3);
+    const St = "http://localhost:8000/api";
+    async function jt(t3) {
+      return await fetch(t3);
+    }
+    async function Lt(t3, e2 = "") {
+      return e2 ? fetch(St + t3, {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(e2)}) : fetch(St + t3, {method: "POST"});
+    }
+    async function Pt(t3) {
+      return await fetch(St + t3, {method: "DELETE"});
+    }
+    function It(t3, e2) {
+      return Lt(t3, e2).then((t4) => (console.log(e2), t4)).catch((e3) => {
+        console.error(t3 + " \uBC31\uC5C5\uC5D0 \uC2E4\uD328\uD588\uC2B5\uB2C8\uB2E4."), console.error(e3);
+      });
+    }
+    var Tt = {AllTagDict: {get: async () => {
+      const t3 = await jt("/all-tag-dict/").then((t4) => t4.json()).then((t4) => t4.tag_list);
+      let e2 = ot.reduce((t4, e3) => (t4.set(e3.value, e3), t4), new Map([["\u{1F496}", it]]));
+      return t3.reduce((t4, e3) => (t4.set(e3.value, e3), t4), e2);
+    }, save: async (t3) => It("/all-tag-dict/", {tag_list: [...t3].map((t4) => t4[1])}), addTag: async (t3) => Lt("/all-tag-dict/tag", t3), deleteTag: async (t3) => await Pt(`/all-tag-dict/tag/${t3}`).then((t4) => (console.log("\uC11C\uBC84\uC5D0\uC11C \uD0DC\uADF8 \uC0AD\uC81C \uC644\uB8CC"), t4)), updateTag: async (t3, e2) => await async function(t4, e3) {
+      fetch(St + t4, {method: "PUT", headers: {"Content-Type": "application/json"}, body: JSON.stringify(e3)});
+    }("/all-tag-dict/tag/" + t3, e2)}, MailTagDict: {get: async () => {
+      const t3 = await jt("/mail-tag-dict/").then((t4) => t4.json());
+      return {tag_to_mail_dict: () => ft(t3.tag_to_mail_dict), mail_to_tag_dict: () => ct(t3.mail_to_tag_dict)};
+    }, save: async (t3, e2) => It("/mail-tag-dict/", {mail_to_tag_dict: ut(t3), tag_to_mail_dict: yt(e2)}), addTag: async (t3, e2) => Lt(`/mail-tag-dict/mail/${t3}/tag/${e2}`).then((t4) => (console.log("\uC11C\uBC84\uC5D0 \uD0DC\uADF8 \uCD94\uAC00 \uC644\uB8CC."), t4)), deleteTag: async (t3, e2) => await Pt(`/mail-tag-dict/mail/${t3}/tag/${e2}`)}, ping: fetch(St + "/ping")};
     function Bt(t3) {
       let e2, n2, s2, c2;
       const d2 = t3[3].default, f2 = main2.H(d2, t3, t3[2], null);
@@ -651,14 +651,14 @@
     }
     function Rt(t3, e2, n2) {
       let r2, s2, i2;
-      main2.g(t3, wt, (t4) => n2(5, s2 = t4)), main2.g(t3, lt, (t4) => n2(6, i2 = t4));
+      main2.g(t3, ht, (t4) => n2(5, s2 = t4)), main2.g(t3, lt, (t4) => n2(6, i2 = t4));
       let {tag: o2} = e2, c2 = o2.value, l2 = o2.color;
       const {close: a3} = main2.O("simple-modal");
       return t3.$$set = (t4) => {
         "tag" in t4 && n2(4, o2 = t4.tag);
       }, t3.$$.update = () => {
         115 & t3.$$.dirty && n2(2, r2 = () => {
-          s2 && mt.AllTagDict.updateTag(o2.value, {value: c2, color: l2});
+          s2 && Tt.AllTagDict.updateTag(o2.value, {value: c2, color: l2});
           const t4 = i2.get(o2.value);
           i2.delete(t4.value), t4.value = c2, t4.color = l2, i2.set(c2, t4), lt.set(i2), a3();
         });
@@ -849,7 +849,7 @@
     }
     function ae(t3, e2, n2) {
       let r2, s2, i2, o2, c2, l2, a3, u2, d2, f2, h2, g2, p2, m2, $2, y2;
-      main2.g(t3, lt, (t4) => n2(15, d2 = t4)), main2.g(t3, _t, (t4) => n2(16, f2 = t4)), main2.g(t3, Ct, (t4) => n2(17, h2 = t4)), main2.g(t3, at, (t4) => n2(18, g2 = t4)), main2.g(t3, wt, (t4) => n2(19, p2 = t4)), main2.g(t3, main2.U, (t4) => n2(20, m2 = t4)), main2.g(t3, main2.V, (t4) => n2(21, $2 = t4)), main2.g(t3, xt, (t4) => n2(22, y2 = t4));
+      main2.g(t3, lt, (t4) => n2(15, d2 = t4)), main2.g(t3, $t, (t4) => n2(16, f2 = t4)), main2.g(t3, vt, (t4) => n2(17, h2 = t4)), main2.g(t3, at, (t4) => n2(18, g2 = t4)), main2.g(t3, ht, (t4) => n2(19, p2 = t4)), main2.g(t3, main2.U, (t4) => n2(20, m2 = t4)), main2.g(t3, main2.V, (t4) => n2(21, $2 = t4)), main2.g(t3, mt, (t4) => n2(22, y2 = t4));
       var w2 = this && this.__awaiter || function(t4, e3, n3, r3) {
         return new (n3 || (n3 = Promise))(function(s3, i3) {
           function o3(t5) {
@@ -886,7 +886,7 @@
       }, t3.$$.update = () => {
         1015809 & t3.$$.dirty && n2(4, r2 = () => w2(void 0, void 0, void 0, function* () {
           const t4 = d2.get(v2.value);
-          f2.get(t4).delete(h2.id), _t.set(f2), g2.get(h2.id).delete(t4), at.set(g2), p2 && (console.log("start delete"), yield mt.MailTagDict.deleteTag(h2.id, v2.value));
+          f2.get(t4).delete(h2.id), $t.set(f2), g2.get(h2.id).delete(t4), at.set(g2), p2 && (console.log("start delete"), yield Tt.MailTagDict.deleteTag(h2.id, v2.value));
         })), 1 & t3.$$.dirty && n2(5, s2 = () => {
           Ht.has(v2.value) ? n2(14, C2 = setTimeout(() => {
             console.log("\uAE30\uBCF8 \uD0DC\uADF8\uB294 \uC544\uC9C1 \uC218\uC815\uD560 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4.");
@@ -895,7 +895,7 @@
           clearTimeout(C2);
         }), 1 & t3.$$.dirty && n2(7, o2 = v2.color == "#fff" ? "border-2 p-0.5" : "p-1"), 11 & t3.$$.dirty && n2(8, c2 = _2 || b2 && v2.value != "\uC0DD\uC77C" ? "rounded-l border-r-0" : "rounded"), 1 & t3.$$.dirty && n2(9, l2 = v2.value == "\uD0C0\uC784\uCEA1\uC290" ? "#333333" : v2.color), 1 & t3.$$.dirty && n2(10, a3 = v2.value == "\uD0C0\uC784\uCEA1\uC290" ? "#b299e6" : v2.value == "\u{1F496}" ? "#ffb40d" : "black"), 1 & t3.$$.dirty && n2(11, u2 = O2.get(v2.value));
       }, [v2, b2, x2, _2, r2, s2, i2, o2, c2, l2, a3, u2, (t4) => () => {
-        xt.set(t4.value), m2("./", Object.assign(Object.assign({}, $2), {tag: y2, nowPage: 1}));
+        mt.set(t4.value), m2("./", Object.assign(Object.assign({}, $2), {tag: y2, nowPage: 1}));
       }, O2, C2, d2, f2, h2, g2, p2];
     }
     class ue extends main2.S {
@@ -940,7 +940,7 @@
     }
     function pe(t3, e2, n2) {
       let r2, s2, i2, o2, c2, l2, a3, u2;
-      main2.g(t3, vt, (t4) => n2(0, s2 = t4)), main2.g(t3, bt, (t4) => n2(2, i2 = t4)), main2.g(t3, lt, (t4) => n2(6, o2 = t4)), main2.g(t3, _t, (t4) => n2(7, c2 = t4)), main2.g(t3, Ct, (t4) => n2(8, l2 = t4)), main2.g(t3, wt, (t4) => n2(9, a3 = t4)), main2.g(t3, at, (t4) => n2(10, u2 = t4));
+      main2.g(t3, gt, (t4) => n2(0, s2 = t4)), main2.g(t3, pt, (t4) => n2(2, i2 = t4)), main2.g(t3, lt, (t4) => n2(6, o2 = t4)), main2.g(t3, $t, (t4) => n2(7, c2 = t4)), main2.g(t3, vt, (t4) => n2(8, l2 = t4)), main2.g(t3, ht, (t4) => n2(9, a3 = t4)), main2.g(t3, at, (t4) => n2(10, u2 = t4));
       var d2 = this && this.__awaiter || function(t4, e3, n3, r3) {
         return new (n3 || (n3 = Promise))(function(s3, i3) {
           function o3(t5) {
@@ -968,12 +968,12 @@
       };
       const f2 = () => d2(void 0, void 0, void 0, function* () {
         let t4 = r2;
-        o2.has(s2) ? (t4 = o2.get(s2), c2.get(t4).add(l2.id)) : (c2.set(r2, new Set([l2.id])), o2.set(s2, r2), lt.set(o2), a3 && (yield mt.AllTagDict.addTag(r2))), _t.set(c2), u2.has(l2.id) ? u2.get(l2.id).add(t4) : u2.set(l2.id, new Set([t4])), at.set(u2), a3 && (console.log(t4), yield mt.MailTagDict.addTag(l2.id, s2)), main2.W(vt, s2 = "", s2), main2.W(bt, i2 = (i2 + 1) % 12, i2);
+        o2.has(s2) ? (t4 = o2.get(s2), c2.get(t4).add(l2.id)) : (c2.set(r2, new Set([l2.id])), o2.set(s2, r2), lt.set(o2), a3 && (yield Tt.AllTagDict.addTag(r2))), $t.set(c2), u2.has(l2.id) ? u2.get(l2.id).add(t4) : u2.set(l2.id, new Set([t4])), at.set(u2), a3 && (console.log(t4), yield Tt.MailTagDict.addTag(l2.id, s2)), main2.W(gt, s2 = "", s2), main2.W(pt, i2 = (i2 + 1) % 12, i2);
       });
       return t3.$$.update = () => {
         5 & t3.$$.dirty && (r2 = {value: s2, color: Vt[i2]});
       }, [s2, f2, i2, function() {
-        s2 = this.value, vt.set(s2);
+        s2 = this.value, gt.set(s2);
       }, (t4) => {
         t4.code === "Enter" && f2();
       }];
@@ -1010,14 +1010,14 @@
     }
     function we(t3, e2, n2) {
       let r2, s2, i2, o2, c2;
-      main2.g(t3, lt, (t4) => n2(5, o2 = t4)), main2.g(t3, _t, (t4) => n2(6, c2 = t4));
+      main2.g(t3, lt, (t4) => n2(5, o2 = t4)), main2.g(t3, $t, (t4) => n2(6, c2 = t4));
       let {pm: l2} = e2, {float: a3 = "right"} = e2;
       return t3.$$set = (t4) => {
         "pm" in t4 && n2(3, l2 = t4.pm), "float" in t4 && n2(0, a3 = t4.float);
       }, t3.$$.update = () => {
         32 & t3.$$.dirty && n2(4, r2 = o2.get("\u{1F496}")), 88 & t3.$$.dirty && n2(2, i2 = () => {
           const t4 = c2.get(r2);
-          t4.has(l2.id) ? t4.delete(l2.id) : t4.add(l2.id), _t.set(c2);
+          t4.has(l2.id) ? t4.delete(l2.id) : t4.add(l2.id), $t.set(c2);
         }), 88 & t3.$$.dirty && n2(1, s2 = c2.get(r2).has(l2.id));
       }, [a3, s2, i2, l2, r2, o2, c2];
     }
@@ -1104,9 +1104,9 @@
     }
     function Oe(t3, e2, n2) {
       let r2;
-      main2.g(t3, $t, (t4) => n2(0, r2 = t4));
+      main2.g(t3, dt, (t4) => n2(0, r2 = t4));
       return [r2, [{path: "la-vie-en-rose", name: "\uB77C\uBE44\uC559 \uB85C\uC988"}, {path: "one-the-story", name: "One The Story \uD3EC\uC2A4\uD130"}, {path: "latest", name: "\uCD5C\uC2E0 \uD504\uBA54"}], function() {
-        r2 = this.__value, $t.set(r2);
+        r2 = this.__value, dt.set(r2);
       }, [[]]];
     }
     class Se extends main2.S {
@@ -1128,7 +1128,7 @@
     }
     function Le(t3, e2, n2) {
       let r2, s2;
-      main2.g(t3, $t, (t4) => n2(4, s2 = t4));
+      main2.g(t3, dt, (t4) => n2(4, s2 = t4));
       let {member: i2} = e2;
       const {open: o2} = main2.O("simple-modal"), c2 = () => {
         o2(Se, {});
@@ -1258,31 +1258,31 @@
     }
     function Ee(t3, e2, n2) {
       let r2, s2, i2, o2, c2, l2, a3, u2, d2, f2, h2, g2, p2;
-      main2.g(t3, Ct, (t4) => n2(1, o2 = t4)), main2.g(t3, kt, (t4) => n2(15, c2 = t4)), main2.g(t3, at, (t4) => n2(10, l2 = t4)), main2.g(t3, lt, (t4) => n2(11, a3 = t4)), main2.g(t3, Ot, (t4) => n2(3, u2 = t4)), main2.g(t3, It, (t4) => n2(4, d2 = t4)), main2.g(t3, Tt, (t4) => n2(5, f2 = t4)), main2.g(t3, Lt, (t4) => n2(6, h2 = t4)), main2.g(t3, main2.U, (t4) => n2(7, g2 = t4)), main2.g(t3, main2.V, (t4) => n2(8, p2 = t4));
+      main2.g(t3, vt, (t4) => n2(1, o2 = t4)), main2.g(t3, wt, (t4) => n2(15, c2 = t4)), main2.g(t3, at, (t4) => n2(10, l2 = t4)), main2.g(t3, lt, (t4) => n2(11, a3 = t4)), main2.g(t3, bt, (t4) => n2(3, u2 = t4)), main2.g(t3, Ct, (t4) => n2(4, d2 = t4)), main2.g(t3, Ot, (t4) => n2(5, f2 = t4)), main2.g(t3, Mt, (t4) => n2(6, h2 = t4)), main2.g(t3, main2.U, (t4) => n2(7, g2 = t4)), main2.g(t3, main2.V, (t4) => n2(8, p2 = t4));
       let {show: m2} = e2;
       main2.V.subscribe((t4) => {
         if (o2.id != t4.now_pm) {
           const e3 = c2.filter((e4) => e4.id == t4.now_pm);
-          e3.length == 1 && main2.W(Ct, o2 = e3[0], o2);
+          e3.length == 1 && main2.W(vt, o2 = e3[0], o2);
         }
       });
       return t3.$$set = (t4) => {
         "show" in t4 && n2(0, m2 = t4.show);
       }, t3.$$.update = () => {
         3072 & t3.$$.dirty && n2(9, r2 = (t4) => l2.has(t4.id) ? Array.from(l2.get(t4.id)).map((t5) => a3.get(t5.value)) : []), 514 & t3.$$.dirty && n2(2, s2 = r2(o2)), 2 & t3.$$.dirty && n2(12, i2 = () => {
-          main2.W(Ot, u2 = "", u2), async function(t4) {
+          main2.W(bt, u2 = "", u2), async function(t4) {
             const e3 = await fetch(`./mail/${t4}.html`).then((t5) => t5.text()), n3 = e3.search('<div class="main-contents" id="mail-detail"><html><head></head><body>') + 69, r3 = e3.search("</body></html></div>");
             return e3.slice(n3, r3);
           }(o2.id).then((t4) => {
             setTimeout(() => {
-              main2.W(Ot, u2 = t4, u2);
+              main2.W(bt, u2 = t4, u2);
             }, 100);
           });
         }), 4096 & t3.$$.dirty && i2();
       }, [m2, o2, s2, u2, d2, f2, h2, g2, p2, r2, l2, a3, i2, function() {
-        u2 = this.innerHTML, Ot.set(u2);
+        u2 = this.innerHTML, bt.set(u2);
       }, () => {
-        main2.W(Lt, h2 = true, h2), g2("./", {...p2, showList: true});
+        main2.W(Mt, h2 = true, h2), g2("./", {...p2, showList: true});
       }];
     }
     class Ne extends main2.S {
@@ -1357,13 +1357,13 @@
     }
     function Fe(t3, e2, n2) {
       let r2, s2, i2, o2, c2;
-      main2.g(t3, lt, (t4) => n2(2, s2 = t4)), main2.g(t3, xt, (t4) => n2(3, i2 = t4)), main2.g(t3, main2.Z, (t4) => n2(4, o2 = t4)), main2.g(t3, main2.V, (t4) => n2(5, c2 = t4));
+      main2.g(t3, lt, (t4) => n2(2, s2 = t4)), main2.g(t3, mt, (t4) => n2(3, i2 = t4)), main2.g(t3, main2.Z, (t4) => n2(4, o2 = t4)), main2.g(t3, main2.V, (t4) => n2(5, c2 = t4));
       let {hidden: l2} = e2;
       return t3.$$set = (t4) => {
         "hidden" in t4 && n2(0, l2 = t4.hidden);
       }, t3.$$.update = () => {
         4 & t3.$$.dirty && n2(1, r2 = Array.from(s2.values()));
-      }, s2.has(i2) && (main2.W(xt, i2 = null, i2), o2("./", Object.assign(Object.assign({}, c2), {tag: ""}))), [l2, r2, s2];
+      }, s2.has(i2) && (main2.W(mt, i2 = null, i2), o2("./", Object.assign(Object.assign({}, c2), {tag: ""}))), [l2, r2, s2];
     }
     class Ve extends main2.S {
       constructor(t3) {
@@ -1389,9 +1389,9 @@
     }
     function qe(t3, e2, n2) {
       let r2, s2, i2, o2, c2;
-      main2.g(t3, xt, (t4) => n2(0, r2 = t4)), main2.g(t3, jt, (t4) => n2(3, s2 = t4)), main2.g(t3, main2.U, (t4) => n2(4, i2 = t4)), main2.g(t3, main2.V, (t4) => n2(5, o2 = t4)), main2.g(t3, lt, (t4) => n2(1, c2 = t4));
+      main2.g(t3, mt, (t4) => n2(0, r2 = t4)), main2.g(t3, _t, (t4) => n2(3, s2 = t4)), main2.g(t3, main2.U, (t4) => n2(4, i2 = t4)), main2.g(t3, main2.V, (t4) => n2(5, o2 = t4)), main2.g(t3, lt, (t4) => n2(1, c2 = t4));
       return [r2, c2, () => {
-        main2.W(xt, r2 = null, r2), main2.W(jt, s2 = 1, s2), i2("./", Object.assign(Object.assign({}, o2), {tag: ""}));
+        main2.W(mt, r2 = null, r2), main2.W(_t, s2 = 1, s2), i2("./", Object.assign(Object.assign({}, o2), {tag: ""}));
       }];
     }
     class He extends main2.S {
@@ -1413,7 +1413,7 @@
     }
     function Ue(t3, e2, n2) {
       let r2;
-      return main2.g(t3, St, (t4) => n2(0, r2 = t4)), [r2];
+      return main2.g(t3, xt, (t4) => n2(0, r2 = t4)), [r2];
     }
     class Ye extends main2.S {
       constructor(t3) {
@@ -1434,8 +1434,8 @@
     }
     function Qe(t3, e2, n2) {
       let r2;
-      return main2.g(t3, Pt, (t4) => n2(0, r2 = t4)), [r2, function() {
-        r2 = this.checked, Pt.set(r2);
+      return main2.g(t3, kt, (t4) => n2(0, r2 = t4)), [r2, function() {
+        r2 = this.checked, kt.set(r2);
       }];
     }
     class Xe extends main2.S {
@@ -1455,9 +1455,9 @@
     }
     function tn(t3, e2, n2) {
       let r2, s2, i2;
-      main2.g(t3, Lt, (t4) => n2(0, r2 = t4)), main2.g(t3, main2.U, (t4) => n2(1, s2 = t4)), main2.g(t3, main2.V, (t4) => n2(2, i2 = t4));
+      main2.g(t3, Mt, (t4) => n2(0, r2 = t4)), main2.g(t3, main2.U, (t4) => n2(1, s2 = t4)), main2.g(t3, main2.V, (t4) => n2(2, i2 = t4));
       return [r2, s2, i2, () => {
-        main2.W(Lt, r2 = true, r2), s2("./", {...i2, showList: true});
+        main2.W(Mt, r2 = true, r2), s2("./", {...i2, showList: true});
       }];
     }
     class en extends main2.S {
@@ -1537,7 +1537,7 @@
     }
     function cn(t3, e2, n2) {
       let r2, s2, i2, o2, c2, l2, a3;
-      return main2.g(t3, Tt, (t4) => n2(2, s2 = t4)), main2.g(t3, Lt, (t4) => n2(3, i2 = t4)), main2.g(t3, It, (t4) => n2(4, o2 = t4)), main2.g(t3, xt, (t4) => n2(5, c2 = t4)), main2.g(t3, Pt, (t4) => n2(6, l2 = t4)), t3.$$.update = () => {
+      return main2.g(t3, Ot, (t4) => n2(2, s2 = t4)), main2.g(t3, Mt, (t4) => n2(3, i2 = t4)), main2.g(t3, Ct, (t4) => n2(4, o2 = t4)), main2.g(t3, mt, (t4) => n2(5, c2 = t4)), main2.g(t3, kt, (t4) => n2(6, l2 = t4)), t3.$$.update = () => {
         1 & t3.$$.dirty && n2(1, r2 = 650 < a3);
       }, [a3, r2, s2, i2, o2, c2, l2, function() {
         a3 = this.clientHeight, n2(0, a3);
@@ -1627,34 +1627,34 @@
     }
     function wn(t3, e2, n2) {
       let r2, s2, i2, o2, c2;
-      main2.g(t3, xt, (t4) => n2(12, r2 = t4)), main2.g(t3, jt, (t4) => n2(1, s2 = t4)), main2.g(t3, un, (t4) => n2(2, i2 = t4)), main2.g(t3, main2.U, (t4) => n2(3, o2 = t4)), main2.g(t3, main2.V, (t4) => n2(4, c2 = t4));
+      main2.g(t3, mt, (t4) => n2(12, r2 = t4)), main2.g(t3, _t, (t4) => n2(1, s2 = t4)), main2.g(t3, un, (t4) => n2(2, i2 = t4)), main2.g(t3, main2.U, (t4) => n2(3, o2 = t4)), main2.g(t3, main2.V, (t4) => n2(4, c2 = t4));
       let {maxPage: l2} = e2;
       main2.V.subscribe((t4) => {
         const e3 = parseInt(t4.nowPage);
-        s2 != e3 && main2.W(jt, s2 = t4.nowPage ? e3 : 1, s2), i2 != t4.dateString && main2.W(un, i2 = t4.dateString || an, i2);
+        s2 != e3 && main2.W(_t, s2 = t4.nowPage ? e3 : 1, s2), i2 != t4.dateString && main2.W(un, i2 = t4.dateString || an, i2);
       });
       return t3.$$set = (t4) => {
         "maxPage" in t4 && n2(0, l2 = t4.maxPage);
       }, [l2, s2, i2, o2, c2, function() {
         if (r2)
-          return s2 < l2 && main2.W(jt, s2 += 1, s2), null;
+          return s2 < l2 && main2.W(_t, s2 += 1, s2), null;
         const [t4, e3, n3] = i2.split("-").map((t5) => parseInt(t5)), a3 = new Date(t4, e3 - 1, n3 - 1);
-        main2.W(un, i2 = dn(a3), i2), main2.W(jt, s2 = 1, s2), o2("./", Object.assign(Object.assign({}, c2), {nowPage: s2, dateString: i2}));
+        main2.W(un, i2 = dn(a3), i2), main2.W(_t, s2 = 1, s2), o2("./", Object.assign(Object.assign({}, c2), {nowPage: s2, dateString: i2}));
       }, function() {
         if (r2)
-          return s2 > 1 && main2.W(jt, s2 -= 1, s2), null;
+          return s2 > 1 && main2.W(_t, s2 -= 1, s2), null;
         const [t4, e3, n3] = i2.split("-").map((t5) => parseInt(t5)), l3 = new Date(t4, e3 - 1, n3 + 1);
-        main2.W(un, i2 = dn(l3), i2), main2.W(jt, s2 = 1, s2), o2("./", Object.assign(Object.assign({}, c2), {nowPage: s2, dateString: i2}));
+        main2.W(un, i2 = dn(l3), i2), main2.W(_t, s2 = 1, s2), o2("./", Object.assign(Object.assign({}, c2), {nowPage: s2, dateString: i2}));
       }, function() {
-        s2 < l2 ? (main2.W(jt, s2 += 1, s2), o2("./", Object.assign(Object.assign({}, c2), {nowPage: s2}))) : alert("\uB9C8\uC9C0\uB9C9 \uD398\uC774\uC9C0\uC785\uB2C8\uB2E4.");
+        s2 < l2 ? (main2.W(_t, s2 += 1, s2), o2("./", Object.assign(Object.assign({}, c2), {nowPage: s2}))) : alert("\uB9C8\uC9C0\uB9C9 \uD398\uC774\uC9C0\uC785\uB2C8\uB2E4.");
       }, function() {
-        s2 > 1 ? (main2.W(jt, s2 -= 1, s2), o2("./", Object.assign(Object.assign({}, c2), {nowPage: s2}))) : alert("\uC2DC\uC791 \uD398\uC774\uC9C0\uC785\uB2C8\uB2E4.");
+        s2 > 1 ? (main2.W(_t, s2 -= 1, s2), o2("./", Object.assign(Object.assign({}, c2), {nowPage: s2}))) : alert("\uC2DC\uC791 \uD398\uC774\uC9C0\uC785\uB2C8\uB2E4.");
       }, function() {
-        s2 = main2._(this.value), jt.set(s2);
+        s2 = main2._(this.value), _t.set(s2);
       }, function() {
         i2 = this.value, un.set(i2);
       }, () => {
-        main2.W(jt, s2 = 1, s2), o2("./", {...c2, nowPage: s2, dateString: i2});
+        main2.W(_t, s2 = 1, s2), o2("./", {...c2, nowPage: s2, dateString: i2});
       }];
     }
     class vn extends main2.S {
@@ -2353,10 +2353,10 @@
       Qn.push(...t3);
     }(Zn);
     const ar = {useExtendedSearch: true, keys: ["subject", "preview", "body"]};
-    let ur = main2.M(kt, (t3) => new lr(t3, ar));
+    let ur = main2.M(wt, (t3) => new lr(t3, ar));
     let dr = main2.L("");
-    let fr = main2.M([kt, ur, dr], ([t3, e2, n2]) => n2 ? e2.search("'" + n2).map((t4) => t4.item) : t3);
-    let hr = main2.M([fr, lt, xt, _t, dr, un], ([t3, e2, n2, r2, s2, i2]) => {
+    let fr = main2.M([wt, ur, dr], ([t3, e2, n2]) => n2 ? e2.search("'" + n2).map((t4) => t4.item) : t3);
+    let hr = main2.M([fr, lt, mt, $t, dr, un], ([t3, e2, n2, r2, s2, i2]) => {
       if (n2) {
         const s3 = e2.get(n2), i3 = r2.get(s3) || new Set();
         console.log(i3);
@@ -2367,7 +2367,7 @@
       return t3.filter(c2);
     });
     const gr = {id: "", member: "", time: "", subject: "", preview: ""};
-    let pr = main2.M([hr, jt], ([t3, e2]) => function(n2) {
+    let pr = main2.M([hr, _t], ([t3, e2]) => function(n2) {
       const r2 = (e2 - 1) * n2, s2 = t3.slice(r2, r2 + n2);
       return s2.length < n2 ? s2.concat(Array(n2 - s2.length).fill(gr)) : s2;
     });
@@ -2385,12 +2385,12 @@
     }
     function $r(t3, e2, n2) {
       let r2, s2, i2, o2;
-      main2.g(t3, dr, (t4) => n2(1, r2 = t4)), main2.g(t3, jt, (t4) => n2(3, s2 = t4)), main2.g(t3, main2.U, (t4) => n2(4, i2 = t4)), main2.g(t3, main2.V, (t4) => n2(5, o2 = t4));
+      main2.g(t3, dr, (t4) => n2(1, r2 = t4)), main2.g(t3, _t, (t4) => n2(3, s2 = t4)), main2.g(t3, main2.U, (t4) => n2(4, i2 = t4)), main2.g(t3, main2.V, (t4) => n2(5, o2 = t4));
       let {search_length: c2} = e2;
       return main2.V.subscribe((t4) => {
         r2 != t4.search && main2.W(dr, r2 = t4.search || "", r2);
       }), dr.subscribe((t4) => {
-        main2.W(jt, s2 = 1, s2), i2("./", Object.assign(Object.assign({}, o2), {search: t4}));
+        main2.W(_t, s2 = 1, s2), i2("./", Object.assign(Object.assign({}, o2), {search: t4}));
       }), t3.$$set = (t4) => {
         "search_length" in t4 && n2(0, c2 = t4.search_length);
       }, [c2, r2, function() {
@@ -2443,14 +2443,14 @@
     }
     function xr(t3, e2, n2) {
       let r2, s2, i2, o2;
-      main2.g(t3, lt, (t4) => n2(2, r2 = t4)), main2.g(t3, at, (t4) => n2(3, s2 = t4)), main2.g(t3, _t, (t4) => n2(4, i2 = t4)), main2.g(t3, xt, (t4) => n2(5, o2 = t4));
+      main2.g(t3, lt, (t4) => n2(2, r2 = t4)), main2.g(t3, at, (t4) => n2(3, s2 = t4)), main2.g(t3, $t, (t4) => n2(4, i2 = t4)), main2.g(t3, mt, (t4) => n2(5, o2 = t4));
       return [() => {
-        mt.AllTagDict.save(r2), mt.MailTagDict.save(s2, i2);
+        Tt.AllTagDict.save(r2), Tt.MailTagDict.save(s2, i2);
       }, () => {
-        Promise.all([mt.AllTagDict.get(), mt.MailTagDict.get()]).then((t4) => {
-          main2.W(xt, o2 = null, o2), main2.W(lt, r2 = t4[0], r2), console.log("all_tag_dict \uBC31\uC5C5 \uB2E4\uC6B4\uB85C\uB4DC \uC644\uB8CC");
+        Promise.all([Tt.AllTagDict.get(), Tt.MailTagDict.get()]).then((t4) => {
+          main2.W(mt, o2 = null, o2), main2.W(lt, r2 = t4[0], r2), console.log("all_tag_dict \uBC31\uC5C5 \uB2E4\uC6B4\uB85C\uB4DC \uC644\uB8CC");
           const e3 = t4[1];
-          console.log(e3), main2.W(_t, i2 = e3.tag_to_mail_dict(), i2), main2.W(at, s2 = e3.mail_to_tag_dict(), s2), console.log("mail_tag_dict \uBC31\uC5C5 \uB2E4\uC6B4\uB85C\uB4DC \uC644\uB8CC");
+          console.log(e3), main2.W($t, i2 = e3.tag_to_mail_dict(), i2), main2.W(at, s2 = e3.mail_to_tag_dict(), s2), console.log("mail_tag_dict \uBC31\uC5C5 \uB2E4\uC6B4\uB85C\uB4DC \uC644\uB8CC");
         });
       }];
     }
@@ -2659,13 +2659,13 @@
     }
     function Br(t3, e2, n2) {
       let r2, s2, i2, o2, c2, l2, a3, u2, d2, f2;
-      main2.g(t3, Ct, (t4) => n2(7, i2 = t4)), main2.g(t3, Lt, (t4) => n2(8, o2 = t4)), main2.g(t3, It, (t4) => n2(3, c2 = t4)), main2.g(t3, main2.U, (t4) => n2(9, l2 = t4)), main2.g(t3, main2.V, (t4) => n2(10, a3 = t4)), main2.g(t3, at, (t4) => n2(11, u2 = t4)), main2.g(t3, lt, (t4) => n2(12, d2 = t4)), main2.g(t3, Tt, (t4) => n2(6, f2 = t4));
+      main2.g(t3, vt, (t4) => n2(7, i2 = t4)), main2.g(t3, Mt, (t4) => n2(8, o2 = t4)), main2.g(t3, Ct, (t4) => n2(3, c2 = t4)), main2.g(t3, main2.U, (t4) => n2(9, l2 = t4)), main2.g(t3, main2.V, (t4) => n2(10, a3 = t4)), main2.g(t3, at, (t4) => n2(11, u2 = t4)), main2.g(t3, lt, (t4) => n2(12, d2 = t4)), main2.g(t3, Ot, (t4) => n2(6, f2 = t4));
       let {pm: h2} = e2, {hidden: g2} = e2, {index: p2} = e2;
       return t3.$$set = (t4) => {
         "pm" in t4 && n2(0, h2 = t4.pm), "hidden" in t4 && n2(1, g2 = t4.hidden), "index" in t4 && n2(2, p2 = t4.index);
       }, t3.$$.update = () => {
         1929 & t3.$$.dirty && n2(4, r2 = () => {
-          h2 && (main2.W(Ct, i2 = h2, i2), main2.W(Lt, o2 = c2 || false, o2), l2("./", Object.assign(Object.assign({}, a3), {showList: o2, now_pm: i2.id})));
+          h2 && (main2.W(vt, i2 = h2, i2), main2.W(Mt, o2 = c2 || false, o2), l2("./", Object.assign(Object.assign({}, a3), {showList: o2, now_pm: i2.id})));
         }), 6144 & t3.$$.dirty && n2(5, s2 = (t4) => u2.has(t4.id) ? Array.from(u2.get(t4.id)).map((t5) => d2.get(t5.value)) : []);
       }, [h2, g2, p2, c2, r2, s2, f2, i2, o2, l2, a3, u2, d2];
     }
@@ -2740,7 +2740,7 @@
     }
     function Dr(t3, e2, n2) {
       let r2, s2;
-      main2.g(t3, Tt, (t4) => n2(2, r2 = t4)), main2.g(t3, Pt, (t4) => n2(3, s2 = t4));
+      main2.g(t3, Ot, (t4) => n2(2, r2 = t4)), main2.g(t3, kt, (t4) => n2(3, s2 = t4));
       let {mail_list: i2} = e2, {isTyping: o2} = e2;
       return t3.$$set = (t4) => {
         "mail_list" in t4 && n2(0, i2 = t4.mail_list), "isTyping" in t4 && n2(1, o2 = t4.isTyping);
@@ -2884,13 +2884,13 @@
     }
     function Kr(t3, e2, n2) {
       let r2, s2, i2, o2, c2, l2, a3, u2, d2;
-      main2.g(t3, at, (t4) => n2(4, i2 = t4)), main2.g(t3, lt, (t4) => n2(5, o2 = t4)), main2.g(t3, Ct, (t4) => n2(6, c2 = t4)), main2.g(t3, Lt, (t4) => n2(7, l2 = t4)), main2.g(t3, It, (t4) => n2(8, a3 = t4)), main2.g(t3, main2.U, (t4) => n2(9, u2 = t4)), main2.g(t3, main2.V, (t4) => n2(10, d2 = t4));
+      main2.g(t3, at, (t4) => n2(4, i2 = t4)), main2.g(t3, lt, (t4) => n2(5, o2 = t4)), main2.g(t3, vt, (t4) => n2(6, c2 = t4)), main2.g(t3, Mt, (t4) => n2(7, l2 = t4)), main2.g(t3, Ct, (t4) => n2(8, a3 = t4)), main2.g(t3, main2.U, (t4) => n2(9, u2 = t4)), main2.g(t3, main2.V, (t4) => n2(10, d2 = t4));
       let {pm: f2} = e2, {index: h2} = e2;
       return t3.$$set = (t4) => {
         "pm" in t4 && n2(0, f2 = t4.pm), "index" in t4 && n2(1, h2 = t4.index);
       }, t3.$$.update = () => {
         48 & t3.$$.dirty && n2(2, r2 = (t4) => i2.has(t4.id) ? Array.from(i2.get(t4.id)).map((t5) => o2.get(t5.value)) : []), 1985 & t3.$$.dirty && n2(3, s2 = () => {
-          f2 && (main2.W(Ct, c2 = f2, c2), main2.W(Lt, l2 = a3 || false, l2), u2("./", Object.assign(Object.assign({}, d2), {showList: l2, now_pm: c2.id})));
+          f2 && (main2.W(vt, c2 = f2, c2), main2.W(Mt, l2 = a3 || false, l2), u2("./", Object.assign(Object.assign({}, d2), {showList: l2, now_pm: c2.id})));
         });
       }, [f2, h2, r2, s2, i2, o2, c2, l2, a3, u2, d2];
     }
@@ -3112,14 +3112,14 @@
     }
     function cs(t3, e2, n2) {
       let r2, s2, i2, o2, c2, l2, a3, u2, d2, f2, h2, g2, p2, m2, $2, y2, w2, v2, b2, x2, _2, M2, k2;
-      main2.g(t3, Tt, (t4) => n2(3, d2 = t4)), main2.g(t3, hr, (t4) => n2(4, f2 = t4)), main2.g(t3, pr, (t4) => n2(17, h2 = t4)), main2.g(t3, un, (t4) => n2(18, g2 = t4)), main2.g(t3, jt, (t4) => n2(26, p2 = t4)), main2.g(t3, main2.Z, (t4) => n2(27, m2 = t4)), main2.g(t3, main2.V, (t4) => n2(28, $2 = t4)), main2.g(t3, Pt, (t4) => n2(5, y2 = t4)), main2.g(t3, Lt, (t4) => n2(10, w2 = t4)), main2.g(t3, It, (t4) => n2(11, v2 = t4)), main2.g(t3, xt, (t4) => n2(12, b2 = t4)), main2.g(t3, wt, (t4) => n2(13, x2 = t4));
+      main2.g(t3, Ot, (t4) => n2(3, d2 = t4)), main2.g(t3, hr, (t4) => n2(4, f2 = t4)), main2.g(t3, pr, (t4) => n2(17, h2 = t4)), main2.g(t3, un, (t4) => n2(18, g2 = t4)), main2.g(t3, _t, (t4) => n2(26, p2 = t4)), main2.g(t3, main2.Z, (t4) => n2(27, m2 = t4)), main2.g(t3, main2.V, (t4) => n2(28, $2 = t4)), main2.g(t3, kt, (t4) => n2(5, y2 = t4)), main2.g(t3, Mt, (t4) => n2(10, w2 = t4)), main2.g(t3, Ct, (t4) => n2(11, v2 = t4)), main2.g(t3, mt, (t4) => n2(12, b2 = t4)), main2.g(t3, ht, (t4) => n2(13, x2 = t4));
       let C2, O2 = 1, S2 = 3;
       main2.l(() => {
         const t4 = l2[0];
         if (S2 != i2 || O2 == p2 && k2 == un || (C2 = t4), S2 != i2 && C2) {
           let t5 = 0;
           return f2.forEach((t6, e3) => {
-          }), main2.W(jt, p2 = Math.ceil((t5 + 1) / i2), p2), O2 = p2, S2 = i2, m2("./", Object.assign(Object.assign({}, $2), {nowPage: p2})), null;
+          }), main2.W(_t, p2 = Math.ceil((t5 + 1) / i2), p2), O2 = p2, S2 = i2, m2("./", Object.assign(Object.assign({}, $2), {nowPage: p2})), null;
         }
         if (a3 > new Date())
           return main2.W(un, g2 = dn(new Date()), g2), alert("\uBBF8\uB798\uB85C \uAC08 \uC218\uB294 \uC5C6\uC2B5\uB2C8\uB2E4."), m2("./", Object.assign(Object.assign({}, $2), {dateString: g2})), null;
@@ -3136,9 +3136,9 @@
             if (t5 || !e3)
               return null;
             const r3 = hn(e3.time);
-            fn(r3) <= a3 && (main2.W(jt, p2 = Math.ceil((n3 + 1) / i2), p2), main2.W(un, g2 = r3, g2), t5 = true);
+            fn(r3) <= a3 && (main2.W(_t, p2 = Math.ceil((n3 + 1) / i2), p2), main2.W(un, g2 = r3, g2), t5 = true);
           }), t5 == 0 && f2.length > 0) {
-            main2.W(jt, p2 = o2, p2);
+            main2.W(_t, p2 = o2, p2);
             const t6 = f2[f2.length - 1];
             main2.W(un, g2 = hn(t6.time), g2);
           }
@@ -3211,7 +3211,7 @@
     let fs = null;
     function hs(t3, e2, n2) {
       let r2, s2, i2, o2, c2, l2, a3, u2, d2, f2, h2, g2, p2;
-      main2.g(t3, _t, (t4) => n2(2, s2 = t4)), main2.g(t3, at, (t4) => n2(3, i2 = t4)), main2.g(t3, Jt, (t4) => n2(7, o2 = t4)), main2.g(t3, kt, (t4) => n2(8, c2 = t4)), main2.g(t3, Ct, (t4) => n2(9, l2 = t4)), main2.g(t3, lt, (t4) => n2(10, a3 = t4)), main2.g(t3, wt, (t4) => n2(11, u2 = t4)), main2.g(t3, Lt, (t4) => n2(12, d2 = t4)), main2.g(t3, xt, (t4) => n2(13, f2 = t4)), main2.g(t3, main2.Z, (t4) => n2(14, h2 = t4)), main2.g(t3, main2.V, (t4) => n2(15, g2 = t4)), main2.g(t3, main2.U, (t4) => n2(16, p2 = t4));
+      main2.g(t3, $t, (t4) => n2(2, s2 = t4)), main2.g(t3, at, (t4) => n2(3, i2 = t4)), main2.g(t3, Jt, (t4) => n2(7, o2 = t4)), main2.g(t3, wt, (t4) => n2(8, c2 = t4)), main2.g(t3, vt, (t4) => n2(9, l2 = t4)), main2.g(t3, lt, (t4) => n2(10, a3 = t4)), main2.g(t3, ht, (t4) => n2(11, u2 = t4)), main2.g(t3, Mt, (t4) => n2(12, d2 = t4)), main2.g(t3, mt, (t4) => n2(13, f2 = t4)), main2.g(t3, main2.Z, (t4) => n2(14, h2 = t4)), main2.g(t3, main2.V, (t4) => n2(15, g2 = t4)), main2.g(t3, main2.U, (t4) => n2(16, p2 = t4));
       var m2 = this && this.__awaiter || function(t4, e3, n3, r3) {
         return new (n3 || (n3 = Promise))(function(s3, i3) {
           function o3(t5) {
@@ -3270,8 +3270,8 @@
             const e3 = t4[0];
             main2.W(Jt, o2 = t4[1], o2), console.log(o2);
             const n3 = t4[2], u3 = t4[3];
-            main2.W(kt, c2 = e3.map((t5, e4) => {
-              t5.id == "m20731" && main2.W(Ct, l2 = t5, l2), t5.nick = t5.member;
+            main2.W(wt, c2 = e3.map((t5, e4) => {
+              t5.id == "m20731" && main2.W(vt, l2 = t5, l2), t5.nick = t5.member;
               const r3 = o2[t5.nick];
               if (t5.member = qt[r3], !t5.member && n3.has(t5.id)) {
                 const e5 = n3[t5.id];
@@ -3284,51 +3284,51 @@
             if (s2.has(f3) && (c2.forEach((t5) => {
               const e4 = a3.get(t5.member), n4 = s2.get(e4);
               n4 ? n4.add(t5.id) : (console.log(t5.id, t5.nick), d3 += 1);
-            }), _t.set(s2)), console.log("\uB204\uB77D", d3), !a3.has("\uC0DD\uC77C")) {
+            }), $t.set(s2)), console.log("\uB204\uB77D", d3), !a3.has("\uC0DD\uC77C")) {
               const t5 = {value: "\uC0DD\uC77C", color: "LightPink"};
               a3.set(t5.value, t5), lt.set(a3), s2.set(t5, new Set()), c2.map((e4) => {
                 e4.id.slice(0, 1) == "b" && r2(t5, e4);
-              }), _t.set(s2), at.set(i2);
+              }), $t.set(s2), at.set(i2);
             }
           });
         });
       }().then(() => {
         n2(1, $2 = true);
-      }), mt.ping.then((t4) => t4.json()).then((t4) => {
-        t4.msg == "ok" && (console.log("\uC2E0 \uC11C\uBC84\uB85C \uC791\uB3D9\uD569\uB2C8\uB2E4. \uD0DC\uADF8 \uC800\uC7A5, \uB3D9\uAE30\uD654\uB97C \uC0AC\uC6A9\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."), main2.W(wt, u2 = true, u2));
+      }), Tt.ping.then((t4) => t4.json()).then((t4) => {
+        t4.msg == "ok" && (console.log("\uC2E0 \uC11C\uBC84\uB85C \uC791\uB3D9\uD569\uB2C8\uB2E4. \uD0DC\uADF8 \uC800\uC7A5, \uB3D9\uAE30\uD654\uB97C \uC0AC\uC6A9\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."), main2.W(ht, u2 = true, u2));
       }).catch((t4) => {
         console.log("\uAD6C \uBC84\uC804 \uC11C\uBC84\uB85C \uC791\uB3D9\uD569\uB2C8\uB2E4.");
       }), main2.V.subscribe((t4) => {
         const e3 = t4.showList == "true";
-        e3 != d2 && main2.W(Lt, d2 = e3, d2);
+        e3 != d2 && main2.W(Mt, d2 = e3, d2);
       }), main2.V.subscribe((t4) => {
-        if (t4.tag || f2 == null || main2.W(xt, f2 = null, f2), t4.tag)
+        if (t4.tag || f2 == null || main2.W(mt, f2 = null, f2), t4.tag)
           if (a3.has(t4.tag)) {
             if (f2 != t4.tag) {
               const e3 = a3.get(t4.tag);
-              main2.W(xt, f2 = e3.value, f2);
+              main2.W(mt, f2 = e3.value, f2);
             }
           } else
             h2("./", Object.assign(Object.assign({}, g2), {tag: ""})), console.log("redirect to empty tag url");
       }), g2.dateString || p2("./", {dateString: an, nowPage: 1, tag: "", search: "", showList: true, now_pm: "m20731"}), t3.$$.update = () => {
         12 & t3.$$.dirty && (r2 = (t4, e3) => {
           s2.get(t4).add(e3.id), i2.has(e3.id) ? i2.get(e3.id).add(t4) : i2.set(e3.id, new Set([t4]));
-        }), 1 & t3.$$.dirty && It.set(v2 > 700);
+        }), 1 & t3.$$.dirty && Ct.set(v2 > 700);
       }, [v2, $2, s2, i2, function() {
         v2 = this.clientWidth, n2(0, v2);
       }];
     }
-    class index_4117a6a7_default extends main2.S {
+    class index_27793ceb_default extends main2.S {
       constructor(t3) {
         super(), main2.i(this, t3, hs, ds, main2.s, {});
       }
     }
   });
 
-  // dist/build/_layout-3e4e1ed4.js
-  var require_layout_3e4e1ed4 = __commonJS((exports) => {
+  // dist/build/_layout-19c5a206.js
+  var require_layout_19c5a206 = __commonJS((exports) => {
     __export(exports, {
-      default: () => layout_3e4e1ed4_default
+      default: () => layout_19c5a206_default
     });
     const main2 = __toModule(require_main());
     function c(s2) {
@@ -3354,7 +3354,7 @@
         "$$scope" in s3 && e2(0, o2 = s3.$$scope);
       }, [o2, n2];
     }
-    class layout_3e4e1ed4_default extends main2.S {
+    class layout_19c5a206_default extends main2.S {
       constructor(s2) {
         super(), main2.i(this, s2, u, c, main2.s, {});
       }
@@ -4698,7 +4698,7 @@
       }
     }
     const rn = {...Xe, restoreDefaults: ({tree: t3}) => tn(t3), assignAPI: en};
-    const sn = {root: true, ownMeta: {preload: "proximity"}, children: [{isFallback: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/_fallback", component: () => Promise.resolve().then(() => __toModule(require_fallback_f1435306())).then((t3) => t3.default)}, {isDir: true, ext: "", children: [{isIndex: true, isPage: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/gallery/index", id: "_gallery_index", component: () => Promise.resolve().then(() => __toModule(require_index_2794ab28())).then((t3) => t3.default)}], meta: {recursive: true, preload: "proximity", prerender: true}, path: "/gallery"}, {isIndex: true, isPage: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/index", id: "_index", component: () => Promise.resolve().then(() => __toModule(require_index_4117a6a7())).then((t3) => t3.default)}], isLayout: true, meta: {preload: "proximity", recursive: true, prerender: true}, path: "/", id: "__layout", component: () => Promise.resolve().then(() => __toModule(require_layout_3e4e1ed4())).then((t3) => t3.default)};
+    const sn = {root: true, ownMeta: {preload: "proximity"}, children: [{isFallback: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/_fallback", component: () => Promise.resolve().then(() => __toModule(require_fallback_f985facf())).then((t3) => t3.default)}, {isDir: true, ext: "", children: [{isIndex: true, isPage: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/gallery/index", id: "_gallery_index", component: () => Promise.resolve().then(() => __toModule(require_index_951d6bdc())).then((t3) => t3.default)}], meta: {recursive: true, preload: "proximity", prerender: true}, path: "/gallery"}, {isIndex: true, isPage: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/index", id: "_index", component: () => Promise.resolve().then(() => __toModule(require_index_27793ceb())).then((t3) => t3.default)}], isLayout: true, meta: {preload: "proximity", recursive: true, prerender: true}, path: "/", id: "__layout", component: () => Promise.resolve().then(() => __toModule(require_layout_19c5a206())).then((t3) => t3.default)};
     const {tree: an, routes: cn} = function(t3) {
       const e2 = ["restoreDefaults", "setParamKeys", "setRegex", "setShortPath", "setRank", "assignLayout", "setPrototype", "addMetaChildren", "assignRelations", "setIsIndexable", "assignIndex", "assignAPI", "createFlatList"], n2 = {tree: t3, routes: []};
       for (let t4 of e2) {
@@ -4733,7 +4733,7 @@
     }, {target: document.body}, "routify-app");
   });
 
-  // dist/build/index-79eaa098.js
+  // dist/build/index-15ea7f18.js
   const main = __toModule(require_main());
   function a(a2, {delay: o = 0, duration: e = 400, easing: i = main.E} = {}) {
     const n = +getComputedStyle(a2).opacity;
