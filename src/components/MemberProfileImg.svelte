@@ -1,7 +1,7 @@
 <script lang="ts">
 import { getContext } from "svelte";
 import { image_root } from "../stores/constants";
-import { profile } from "../stores/preferences";
+import { dark, profile } from "../stores/preferences";
 import ProfileModal from "./ProfileModal.svelte";
 
 export let member: string;
@@ -18,6 +18,6 @@ on:pointerdown={()=>{timeout = setTimeout(openModal, 300)}}
 on:pointerup={e=>{ clearTimeout(timeout); }}
 on:mousedown={()=>{timeout = setTimeout(openModal, 500)}}
 on:mouseup={e=>{ clearTimeout(timeout); }}
-class="w-11 h-11 rounded-full border-gray-100 border-2
+class="w-12 h-12 rounded-full {$dark ? "border-gray-700" : "border-gray-100"} border-2
 float-left"
 alt=""/>

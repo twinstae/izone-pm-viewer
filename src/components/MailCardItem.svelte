@@ -10,6 +10,7 @@ import MemberProfileImg from "./MemberProfileImg.svelte";
 import { goto, params } from "@roxi/routify";
 import { fade } from "svelte/transition";
 import { all_tag_dict } from "../stores/all_tag_dict";
+import { dark, dynamic_dark_bg } from "../stores/preferences";
 
 export let pm: Mail;
 export let index;
@@ -34,10 +35,11 @@ $: onMailSelected = ()=>{
 
 <div
 id="MailCard-{index}"
-style="width: 264px; height:156px"
-class="m-3 p-2
+style="width: 276px; height:156px"
+class="m-2 p-2
 relative overflow-y-auto
-bg-white shadow-md rounded-md">
+{$dynamic_dark_bg}
+shadow-md rounded-md">
     {#key pm}
     <div in:fade={{ duration: 500 }} class="leading-relaxed">
     {#if pm.member}

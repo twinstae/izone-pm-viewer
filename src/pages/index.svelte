@@ -8,13 +8,14 @@ import MailListSection from "../components/MailListSection.svelte";
 import { isDesktop, show_list } from '../stores/now';
 import { INIT_DATE } from '../stores/date';
 import { now_pm, pm_list } from '../stores/now';
-import { member_dict, member_name_dict } from "../stores/constants";
+import { image_root, member_dict, member_name_dict } from "../stores/constants";
 import { all_tag_dict, EMPTY_TAG } from '../stores/all_tag_dict';
 import { tag_to_mail_dict } from '../stores/tag_to_mail_dict';
 import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
-import { ping } from '../stores/preferences';
+import { dark, ping } from '../stores/preferences';
 import { selected_tag_value } from '../stores/tag';
 import api from '../api';
+import Background from '../components/Background.svelte';
 
 let haveInitiated = false;
 
@@ -127,11 +128,14 @@ async function init(){
         const birthday_tag = $all_tag_dict.get("생일");
         if (!$tag_to_mail_dict.has(birthday_tag)){
             $tag_to_mail_dict.set(birthday_tag, new Set());
+        }
+        console.log("size", $tag_to_mail_dict.get(birthday_tag).size)
+        if ($tag_to_mail_dict.get(birthday_tag).size == 0){
             $pm_list.map(pm=>{
-                if(pm.id.slice(0,1) == "b"){
-                    addTag(birthday_tag, pm);
-                }
-            })
+                    if(pm.id.slice(0,1) == "b"){
+                        addTag(birthday_tag, pm);
+                    }
+                })
             $tag_to_mail_dict=$tag_to_mail_dict;
             $mail_to_tag_dict=$mail_to_tag_dict;
         }
@@ -141,9 +145,11 @@ async function init(){
 init().then(()=>{haveInitiated=true});
 
 api.ping.then(res=>res.status == 200)
-.then(()=>{
-    console.log("API 서버 연결 성공! 신 서버로 작동합니다. 태그 동기화 및 저장 기능을 사용할 수 있습니다.")
-    $ping = true;
+.then((success)=>{
+    if(success){
+        console.log("API 서버 연결 성공! 신 서버로 작동합니다. 태그 동기화 및 저장 기능을 사용할 수 있습니다.");
+        $ping = true;
+    }
 })
 .catch(e=>{
     console.error(e);
@@ -189,13 +195,14 @@ if (!$params.dateString){
         now_pm:"m20731"
     })
 };
-</script>
 
+</script>
 <div
 bind:clientWidth={width}
 class="flex w-screen h-screen relative">
 {#if haveInitiated }
     <Modal show={show}>
+        <Background />
         <MailDetailSection />
         <MailListSection/>
     </Modal>

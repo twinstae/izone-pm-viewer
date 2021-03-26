@@ -13,11 +13,12 @@ import ShowTagListInput from './tags/ShowTagListInput.svelte';
 import SyncTagButtons from './SyncTagButtons.svelte';
 import MailItemList from './MailItemList.svelte';
 import MailCardView from './MailCardView.svelte';
-import { ping } from '../stores/preferences';
+import { dynamic_dark_bg, ping } from '../stores/preferences';
+import DarkModeButton from './buttons/DarkModeButton.svelte';
 
 let section_width;
 let section_height;
-$: mail_per_width =  Math.floor((section_width - 33) / 288)
+$: mail_per_width =  Math.floor((section_width - 32) / 292)
 $: mail_per_height = Math.floor((section_height - 220) / 164);
 $: mail_per_page = $isMobile
     ? 5
@@ -113,6 +114,7 @@ let isListView = false;
 $: min_height = isListView || $isMobile
     ? ($show_tag_list ? 520:360)
     : 490;
+
 </script>
 <style>
     #MailListSection {
@@ -130,16 +132,17 @@ style="
 min-height: {min_height}px;"
 class="h-full {$isDesktop ? "w-8/12": "w-full"}
 relative pl-4 pr-4 pt-2">
-    <div class="mb-1 flex flex-row">
+    <div class="ml-2 flex flex-row">
         {#if $isMobile}
+            <DarkModeButton />
             <ShowTagListInput /> 
-            {#if $selected_tag_value} <SelectedTag /> {/if}
         {:else}
-            <label class="p-1" for="isListViewInput">
+            <label class="p-1 rounded {$dynamic_dark_bg}" for="isListViewInput">
                 리스트뷰 {isListView ? "on": "off"}
                 <input id="isListViewInput" type=checkbox bind:checked={isListView}>
             </label>
         {/if}
+        {#if $selected_tag_value} <SelectedTag /> {/if}
     </div>
     {#if $ping} <SyncTagButtons /> {/if}
     <AllTagList hidden={!($isMobile && $show_tag_list)} />

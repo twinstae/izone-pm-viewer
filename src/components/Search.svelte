@@ -1,6 +1,7 @@
 <script lang="ts">
 import { goto, params } from '@roxi/routify'
 import { now_page } from "../stores/now";
+import { dark, dynamic_dark_bg } from '../stores/preferences';
 import { search_input } from "../stores/search";
 export let search_length;
 
@@ -16,10 +17,13 @@ search_input.subscribe((value)=>{
 });
 </script>
 
-<span id="MailCounter" class="m-2 bg-red-100 rounded p-0.5">
+<span id="MailCounter"
+class="m-2 rounded p-0.5
+{$dark ? "bg-gray-700 text-gray-300" : "bg-red-100"}">
     {search_length}건
 </span>
 <input
 id="SearchInput"
-class="border-1 border-gray-400 rounded w-28 pl-1"
+class="border-2 border-gray-{$dark ? "600": "400"} rounded pl-1 {$dynamic_dark_bg}"
+style="width: 170px;"
 type="text" bind:value={$search_input} placeholder="검색"/>

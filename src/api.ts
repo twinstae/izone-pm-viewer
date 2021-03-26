@@ -72,27 +72,21 @@ const parse_json = (text) => {
     }
 }
 const ALL_TAG_DICT_ROOT = API_ROOT+"/all-tag-dict";
+const base_tag_list = member_tags.concat([favorite_tag]);
 const AllTagDict = {
     get: async ()=>{
         const tag_list: Tag[] = await get(ALL_TAG_DICT_ROOT+"/")
             .then(res=>res.text())
             .then(parse_json)
             .then(data=>data.tag_list);
-        let result = member_tags.reduce(((acc, tag) => {
-            acc.set(tag.value, tag);
-            return acc;
-        }), new Map([
-            ["💖", favorite_tag],
-        ]));
-        
-        result = tag_list.reduce((acc, tag)=>{
-            acc.set(tag.value, tag);
-            return acc;
-        }, result);;
-        return result;
+        return base_tag_list.concat(tag_list);
     },
     save: async (data:Map<string, Tag>)=>{
-        return postBackup(ALL_TAG_DICT_ROOT+"/", { tag_list: [...data].map(entry=>entry[1])});
+        const body = {
+            tag_list: [...data].map(entry=>entry[1])
+        };
+        console.log(body);       
+        return postBackup(ALL_TAG_DICT_ROOT+"/", body);
     },
     addTag: async (new_tag: Tag) => {
         return post(ALL_TAG_DICT_ROOT+'/tag', new_tag);
@@ -109,11 +103,13 @@ const MailTagDict = {
         return await get(MAIL_TAG_ROOT+"/").then(res=>res.json());
     },
     save: async (mail_to_tag_dict: Map<string, Set<Tag>>, tag_to_mail_dict: Map<Tag, Set<string>>)=>{
-        return postBackup(MAIL_TAG_ROOT+"/", {
+        const body = {
             mail_to_tag_dict: mail_to_tag_dict_to_json(mail_to_tag_dict),
             tag_to_mail_dict: tag_to_mail_dict_to_entries(tag_to_mail_dict)
                 .filter(entry=>!member_tag_set.has(entry[0]))
-        })
+        };
+        console.log(body);
+        return postBackup(MAIL_TAG_ROOT+"/", body);
     },
     addTag: async (pm_id: string, tag_value: string)=>{
         return post(`${MAIL_TAG_ROOT}/mail/${pm_id}/tag/${tag_value}`)

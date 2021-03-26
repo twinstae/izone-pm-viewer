@@ -12,3 +12,8 @@ interface Tag {
     value: string;
     color: string;
 }
+
+interface Profile {
+    path: string;
+    name: string;
+}

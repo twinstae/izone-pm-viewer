@@ -12,7 +12,6 @@ const remove_selected_tag = ()=>{
 };
 
 </script>
-<span class="ml-1 mt-1">현재 :</span>
 <Tag
 tag={$all_tag_dict.get($selected_tag_value)}
 canDelete={true}

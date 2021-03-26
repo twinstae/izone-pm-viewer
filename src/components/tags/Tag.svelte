@@ -7,15 +7,14 @@ import { selected_tag_value } from "../../stores/tag";
 import { goto, params } from "@roxi/routify";
 import { getContext } from "svelte";
 import TagModal from "./TagModal.svelte";
-import { base_tag_set } from "../../stores/constants";
+import { base_tag_set, member_color_to_dark_dict } from "../../stores/constants";
 import Icon from 'fa-svelte';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons/faTwitter';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons/faFacebook';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons/faInstagram';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons/faYoutube';
-import { faBirthdayCake } from '@fortawesome/free-solid-svg-icons/faBirthdayCake';
 import {faStar} from '@fortawesome/free-solid-svg-icons/faStar';
-import { ping } from "../../stores/preferences";
+import { dark, ping } from "../../stores/preferences";
 import api from "../../api";
 
 export let tag: {
@@ -64,7 +63,6 @@ $: onTouchDown = ()=>{
 $: onTouchUp = e=>{ clearTimeout(timeout); }
 
 const iconDict = new Map([
-    ["생일", {icon: faBirthdayCake, color: "red-600"}],
     ["트위터", {icon: faTwitter, color: "blue-500"}],
     ["페이스북", {icon: faFacebook, color: "blue-900"}],
     ["인스타", {icon: faInstagram, color: "red-500"}],
@@ -76,11 +74,16 @@ $: border = onRemove || (canDelete && tag.value!="생일")
     ? "rounded-l border-r-0"
     : "rounded";
 $: backgroud_color = tag.value=="타임캡슐" ? "#333333" : tag.color;
+$: dark_bg_color = member_color_to_dark_dict[backgroud_color];
+
 $: text_color = tag.value=="타임캡슐" ? "#b299e6"
         : tag.value=="💖" ? "#ffb40d"
             : "black";
 
 $: icon = iconDict.get(tag.value);
+
+$: style = `background-color: ${$dark ? dark_bg_color : backgroud_color};
+            color: ${text_color};`
 </script>
 <style>
     span {
@@ -92,9 +95,7 @@ $: icon = iconDict.get(tag.value);
 on:pointerdown={onTouchDown}
 on:pointerup={onTouchUp}
 on:click={onSelectTag(tag)}
-style="
-background-color: {backgroud_color};
-color: {text_color};"
+style={style}
 class="Tag-{tag.value.replace(" ", "-")} {padding} {border} m-0.5 mr-0 text-{size}
 {tag.value=="💖" ? "pt-0" : ""}">
     {#if tag.value=="💖"}
@@ -112,9 +113,7 @@ class="Tag-{tag.value.replace(" ", "-")} {padding} {border} m-0.5 mr-0 text-{siz
 {#if onRemove || (canDelete && tag.value!="생일")}
 <span
 on:click={onRemove ? onRemove : onDeleteTag}
-style="
-background-color: {backgroud_color};
-color: {text_color};"
+style={style}
 class="{onRemove ? "Remove" : "Delete"}Tag-{tag.value.replace(" ", "-")}
 {tag.color=="#fff" ? "border-2 border-l-0 p-0.5 pl-1" : "p-1"}
 rounded-r {onRemove ? "-ml-1" : "-ml-2"} mt-0.5 mb-0.5 text-{size}">

@@ -21,8 +21,26 @@ const download_tags = () => {
             ...$tag_to_mail_dict]
             .map(entry=>[entry[0].value, entry[1]])
         );
-        
-        $all_tag_dict = values[0];
+        const new_tag_list = values[0];
+        const new_tag_set = new Set(new_tag_list.map(t=>t.value));
+
+        const old_entries = [...$all_tag_dict]
+            .filter(([tag_value, _])=>new_tag_set.has(tag_value));
+
+        $all_tag_dict = new_tag_list.reduce((acc, new_tag)=>{
+            if (!acc.has(new_tag.value)){
+                acc.set(new_tag.value, new_tag);
+            } else {
+                const old_tag = acc.get(new_tag.value);
+                if (old_tag.color != new_tag.color){
+                    old_tag.color = new_tag.color;
+                    acc.set(old_tag.value, old_tag);
+                    console.log()
+                }
+                // 값도 색도 같으면 그냥 통과
+            }
+            return acc;
+        }, new Map(old_entries))
         console.log("all_tag_dict 백업 다운로드 완료");
 
         const data = values[1];
@@ -64,7 +82,7 @@ const download_tags = () => {
 };
 
 </script>
-<div class="mb-1 flex flex-row">
+<div class="flex flex-row ml-1">
     <PinkButton id="DownloadTagsButton" onClick={download_tags}>태그 불러오기⬇️</PinkButton>
     <PinkButton id="UploadTagsButton"   onClick={upload_tags}>  태그 올리기⬆️  </PinkButton>
 </div>

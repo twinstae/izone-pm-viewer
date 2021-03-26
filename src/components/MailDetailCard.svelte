@@ -10,6 +10,7 @@ import MemberProfileImg from './MemberProfileImg.svelte';
 import { fade } from 'svelte/transition';
 import { goto, params } from '@roxi/routify';
 import { all_tag_dict } from '../stores/all_tag_dict';
+import { dark, dynamic_dark_bg } from '../stores/preferences';
 export let show;
 
 params.subscribe(p=>{
@@ -46,7 +47,8 @@ $: sync()
 id="MailDetailCard"
 style="max-height: {$isDesktop && show ? "70%" : "90%"}; min-height:300px;"
 class="
-shadow-2xl rounded-md bg-white 
+shadow-2xl rounded-md
+{$dynamic_dark_bg}
 w-full mt-2 p-2
 flex flex-col">
     <div
@@ -77,7 +79,7 @@ flex flex-col">
     {/if}
     {#if $isMobile}
         <button
-        class="shadow rounded bg-red-200 p-1 mt-2"
+        class="shadow rounded p-1 mt-2 {$dark ? "bg-gray-900 text-gray-300" : "bg-red-100"}"
         on:click={()=>{
             $show_list=true;
             $goto("./", { ...$params, showList: true});

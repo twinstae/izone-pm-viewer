@@ -16,6 +16,23 @@ export const member_color_dict = {
     12:"gray"
 }
 
+export const member_color_to_dark_dict = {
+    "#d9598c":"#d02f6f",
+    "#f1d2e7":"#c33c98",
+    "#f3aa51":"#ee8b11",
+    "#fcf695":"#f7eb08",
+    "#567ace":"#345ab2",
+    "#b7d3e9":"#3c89c3",
+    "#bbb0dc":"#674eb1",
+    "#db706c":"#cd3732",
+    "#f1c3aa":"#dd6422",
+    "#cee5d5":"#4f9665",
+    "#fff"   :"#d9d9d9",
+    "#a7e0e1":"#41bcbe",
+    "gray"   :"#595959",
+    "LightPink": "#ff3352"
+}
+
 export let member_dict = writable({});
 
 export let member_reverse_dict = derived(

@@ -3,6 +3,7 @@ import { goto, params } from "@roxi/routify";
 
 import { dateString, date_to_str, INIT_DATE } from "../stores/date";
 import { now_page } from "../stores/now";
+import { dark, dynamic_dark_bg } from "../stores/preferences";
 import { selected_tag_value } from "../stores/tag";
 import PinkButton from "./buttons/PinkButton.svelte";
 export let maxPage: number;
@@ -67,14 +68,17 @@ params.subscribe(p=>{
     
     <span
     id="NowPageSpan"
-    class="bg-white border-2 border-gray-400 rounded w-24 p-1"
-    class:bg-red-300={maxPage<=$now_page}
-    class:border-red-300={maxPage<=$now_page}>
+    class="{$dynamic_dark_bg} border-gray-{$dark ? "600": "400"}
+        border-2 rounded w-24 p-1"
+    class:bg-red-300={!$dark && maxPage<=$now_page}
+    class:bg-red-500={$dark &&maxPage<=$now_page}
+    class:border-red-700={maxPage<=$now_page}>
         <input
         id="NowPageInput"
         type="number"
-        class="w-9"
-        class:bg-red-300={maxPage<=$now_page}
+        class="w-9 {$dynamic_dark_bg}"
+        class:bg-red-300={!$dark && maxPage<=$now_page}
+        class:bg-red-500={$dark &&maxPage<=$now_page}
         bind:value={$now_page}
         min=1 max={maxPage}>
         <span>/ {maxPage}</span>
@@ -87,7 +91,7 @@ params.subscribe(p=>{
     <PinkButton id="toYesterdayButton" onClick={toYesterday}> 어제 </PinkButton>
 
     <input id="DateStringInput"
-    type=date class="border-1 w-36 border-gray-400 rounded"
+    type=date class="w-38 border-2 border-gray-{$dark ? "600": "400"} rounded {$dynamic_dark_bg}"
     bind:value={$dateString} on:change={()=>{
         $now_page = 1;
         $goto("./", {...$params, nowPage: $now_page, dateString: $dateString});

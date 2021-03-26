@@ -18,6 +18,7 @@
     import * as svelte from 'svelte';
     import { fade } from 'svelte/transition';
     import { createEventDispatcher } from "svelte";
+import { dark, dynamic_dark_bg } from '../stores/preferences';
   
     const dispatch = createEventDispatcher();
   
@@ -184,13 +185,12 @@
   
     .window {
       position: relative;
-      width: 30rem;
+      width: 32rem;
       max-width: 100%;
       max-height: 100%;
       margin: 2rem auto;
       color: black;
       border-radius: 0.5rem;
-      background: white;
     }
   
     .content {
@@ -284,7 +284,7 @@
     >
       <div class="window-wrap" bind:this={wrap} style={cssWindowWrap}>
         <div
-          class="window"
+          class="window {$dynamic_dark_bg}"
           role="dialog"
           aria-modal="true"
           bind:this={modalWindow}

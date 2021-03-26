@@ -1,8 +1,10 @@
 <script lang="ts">
 import { show_tag_list } from "../../stores/now";
+import { dynamic_dark_bg } from "../../stores/preferences";
+
 </script>
 
-<label class="p-1" for="showTagListInput">
+<label class="p-1 rounded {$dynamic_dark_bg}" for="showTagListInput">
     태그 목록
     <input id="showTagListInput"
     type=checkbox

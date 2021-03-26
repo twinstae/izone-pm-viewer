@@ -3,7 +3,8 @@ import { getContext } from "svelte";
 import api from "../../api";
 
 import { all_tag_dict } from "../../stores/all_tag_dict";
-import { ping } from "../../stores/preferences";
+import { member_color_to_dark_dict } from "../../stores/constants";
+import { dark, ping } from "../../stores/preferences";
 import PinkButton from "../buttons/PinkButton.svelte";
 export let tag: {
     value: string,
@@ -58,7 +59,8 @@ h3 {
     <h3>태그 수정</h3>
     <input type="text"
     id="TagUpdateInput"
-    style="background-color:{color}; text-align: center;"
+    style="text-align: center;
+    background-color:{ $dark ? member_color_to_dark_dict[color] : color};"
     class="{color=="#fff" ? "p-0 border-2 border-gray" : "p-0.5"}
     rounded m-3 pl-1 pr-1.5 w-20"
     bind:value={value}>
@@ -66,7 +68,7 @@ h3 {
 <div class="flex flex-wrap p-1">
     {#each choices as choice}
     <label
-    style="background-color:{choice.color}"
+    style="background-color:{ $dark ? member_color_to_dark_dict[choice.color] : choice.color}"
     class="{choice.color=="#fff" ? "p-0 border-2 border-gray" : "p-0.5"}
     rounded m-0.5 pl-1 pr-1.5">
         <input

@@ -1,6 +1,7 @@
 <script lang="ts">
 import { params, redirect } from '@roxi/routify';
 import { all_tag_dict, EMPTY_TAG } from '../../stores/all_tag_dict';
+import { dynamic_dark_bg } from '../../stores/preferences';
 import { selected_tag_value } from '../../stores/tag';
 import Tag from './Tag.svelte';
 
@@ -20,9 +21,8 @@ function check(){
     class:hidden={hidden}
     style="min-height:43px;"
     class="AllTagList
-    h-36 p-2 mt-3 mb-3
-    bg-white shadow-2xl rounded-md
-    overflow-y-auto">
+    {$dynamic_dark_bg}
+    h-36 p-2 mt-2 shadow-2xl rounded-md overflow-y-auto">
     <div class="flex flex-wrap">
         {#each all_tags as tag}
             <Tag tag={tag} size="sm"/>

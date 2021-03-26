@@ -6,7 +6,7 @@ import { all_tag_dict } from "../../stores/all_tag_dict";
 import { tag_to_mail_dict } from "../../stores/tag_to_mail_dict";
 import { mail_to_tag_dict } from "../../stores/mail_to_tag_dict";
 import api from "../../api";
-import { ping } from "../../stores/preferences";
+import { dark, dynamic_dark_bg, ping } from "../../stores/preferences";
 
 $: new_tag = {
     value: $tag_input,
@@ -52,13 +52,13 @@ const addTag = async ()=>{
 </script>
 
 <input type="text" id="TagInput"
-class="border-2 border-gray p-1 rounded w-16 text-xs"
+class="border-2 border-gray-300 p-1 rounded w-16 text-xs {$dynamic_dark_bg}"
 placeholder="새 태그"
 bind:value={$tag_input}
 on:keypress={e=>{if(e.code==="Enter")addTag();}}>
 
 <button id="AddTagButton"
 on:click={addTag}
-class="text-xs shadow rounded bg-red-400 p-1 m-1">
+class="text-xs text-black shadow rounded bg-red-400 p-1 m-1">
     추가
 </button>
