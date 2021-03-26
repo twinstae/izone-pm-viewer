@@ -8,7 +8,7 @@ export let isTyping: boolean;
 </script>
 <ul id="MailItemList"
 style="max-width: 728px;"
-class="{$dynamic_dark_bg} rounded shadow-xl mb-3 m-2">
+class="{$dynamic_dark_bg} rounded shadow-xl m-1">
     {#each mail_list as pm, i}
         <MailListItem index={i} pm={pm}
         hidden={$isMobile

@@ -23,9 +23,14 @@ const DARK_KEY = "dark-mode";
 export let dark = writable(initPref(DARK_KEY, false));
 dark.subscribe((value)=>{
     localStorage.setItem(DARK_KEY, value);
-})
+});
 
 export let dynamic_dark_bg = derived(
     dark,
     $dark=>$dark ? "bg-gray-800 text-gray-300 " : "bg-white"
-)
+);
+
+export let dynamic_dark_border = derived(
+    dark,
+    $dark=>$dark ? "border-gray-900" : "border-gray-100"
+);

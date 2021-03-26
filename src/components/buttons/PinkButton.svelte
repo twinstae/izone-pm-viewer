@@ -8,7 +8,7 @@ import { dark } from "../../stores/preferences";
 
 <button
 id={id}
-class="rounded {$dark ? "bg-gray-700 text-gray-300" : "bg-red-100"} m-2 pl-1 pr-1"
+class="rounded {$dark ? "bg-gray-800 text-gray-300" : "bg-red-100"} m-2 pl-1 pr-1"
 on:click={onClick}>
 <slot></slot>
 </button>

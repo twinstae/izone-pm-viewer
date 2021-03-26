@@ -9,7 +9,7 @@ import MemberProfileImg from './MemberProfileImg.svelte';
 import { goto, params } from '@roxi/routify';
 import { fade } from 'svelte/transition';
 import { all_tag_dict } from '../stores/all_tag_dict';
-import { dark } from '../stores/preferences';
+import { dark, dynamic_dark_border } from '../stores/preferences';
 export let pm: Mail;
 export let hidden;
 export let index;
@@ -36,8 +36,7 @@ $: getTags = pm => {
 id="MailItem-{index}"
 style="height: {$isDesktop ? '62px' : '84px'};"
 class:hidden={hidden}
-class="border-b-2 rounded p-1 w-full leading-relaxed
-border-gray-{$dark ? "500" : "300"}">
+class="border-b-2 rounded p-1 w-full leading-relaxed {$dynamic_dark_border}">
     {#key pm.id}
     <div in:fade={{ duration: 500 }}>
     {#if pm.member}
@@ -61,8 +60,7 @@ border-gray-{$dark ? "500" : "300"}">
 </li>
 {#if hidden}
 {#key pm}
-<li class="border-b-2 rounded w-full text-gray-300 truncate
-           border-gray-{$dark ? "500" : "300"}"
+<li class="{$dynamic_dark_border} border-b-2 rounded w-full text-gray-300 truncate "
     style="font-size:10px; height: 20px;"
     in:fade={{ duration: 300}}>
     {#if pm.member}

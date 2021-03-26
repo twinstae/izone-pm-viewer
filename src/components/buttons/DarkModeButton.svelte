@@ -16,9 +16,9 @@ background-image: linear-gradient(
 <span
     on:click={()=>{$dark = !$dark}}
     style="{$dark ? "" : color_iz_bg}"
-    class="rounded pl-1 pr-1 mr-1 border-2
+    class="rounded pl-1 pr-1 mr-1 border-2 text-lg
     {$dark
-        ? "text-gray-400 border-gray-800  bg-gray-800"
-        : "text-red-400 border-red-300 border-2"}">
-        {$dark ? "Dark" : "COLOR"}
+        ? "text-gray-400 border-gray-900 bg-gray-800"
+        : "text-red-300  border-red-300 border-2"}">
+        {$dark ? "다크" : "컬러"}
 </span>

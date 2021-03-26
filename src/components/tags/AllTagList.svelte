@@ -22,8 +22,8 @@ function check(){
     style="min-height:43px;"
     class="AllTagList
     {$dynamic_dark_bg}
-    h-36 p-2 mt-2 shadow-2xl rounded-md overflow-y-auto">
-    <div class="flex flex-wrap">
+    h-36 p-2 m-1 shadow-2xl rounded-md overflow-y-auto">
+    <div class="flex flex-wrap w-full">
         {#each all_tags as tag}
             <Tag tag={tag} size="sm"/>
         {/each}

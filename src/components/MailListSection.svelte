@@ -10,7 +10,7 @@ import Search from './Search.svelte';
 import { params, redirect } from '@roxi/routify';
 import SelectedTag from './tags/SelectedTag.svelte';
 import ShowTagListInput from './tags/ShowTagListInput.svelte';
-import SyncTagButtons from './SyncTagButtons.svelte';
+import SyncTagButtons from './buttons/SyncTagButtons.svelte';
 import MailItemList from './MailItemList.svelte';
 import MailCardView from './MailCardView.svelte';
 import { dynamic_dark_bg, ping } from '../stores/preferences';

@@ -1,4 +1,6 @@
 <script lang="ts">
+import { fade } from "svelte/transition";
+
 import { image_root } from "../stores/constants";
 import { isMobile } from "../stores/now";
 import { dark } from "../stores/preferences";
@@ -16,7 +18,10 @@ $: background_image = $dark ? custom_mic : color_iz;
 </script>
 
 <div id="Background" class="w-screen h-screen absolute bg-contain"
-style="background-image: {background_image};
+transition:fade
+style="
+       background-color: black;
+       background-image: {background_image};
        background-position: center;
        background-size: cover;
        background-attachment: fixed;"></div>

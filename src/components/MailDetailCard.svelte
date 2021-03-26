@@ -49,7 +49,7 @@ style="max-height: {$isDesktop && show ? "70%" : "90%"}; min-height:300px;"
 class="
 shadow-2xl rounded-md
 {$dynamic_dark_bg}
-w-full mt-2 p-2
+w-full m-1 p-2
 flex flex-col">
     <div
     id="MailDetailCardHeader"
@@ -73,7 +73,6 @@ flex flex-col">
             in:fade={{ duration: 300 }}
             contenteditable=false
             bind:innerHTML={$now_content}>
-                
             </div>
         </div>
     {/if}

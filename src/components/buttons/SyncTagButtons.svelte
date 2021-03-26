@@ -1,10 +1,10 @@
 <script lang="ts">
-import api from "../api";
-import { all_tag_dict, EMPTY_TAG, member_tags } from "../stores/all_tag_dict";
-import { mail_to_tag_dict } from "../stores/mail_to_tag_dict";
-import { selected_tag_value } from "../stores/tag";
-import { tag_to_mail_dict } from "../stores/tag_to_mail_dict";
-import PinkButton from "./buttons/PinkButton.svelte";
+import api from "../../api";
+import { all_tag_dict, EMPTY_TAG, member_tags } from "../../stores/all_tag_dict";
+import { mail_to_tag_dict } from "../../stores/mail_to_tag_dict";
+import { selected_tag_value } from "../../stores/tag";
+import { tag_to_mail_dict } from "../../stores/tag_to_mail_dict";
+import PinkButton from "./PinkButton.svelte";
 
 
 const upload_tags = ()=>{
@@ -82,7 +82,7 @@ const download_tags = () => {
 };
 
 </script>
-<div class="flex flex-row ml-1">
+<div class="flex flex-row">
     <PinkButton id="DownloadTagsButton" onClick={download_tags}>태그 불러오기⬇️</PinkButton>
     <PinkButton id="UploadTagsButton"   onClick={upload_tags}>  태그 올리기⬆️  </PinkButton>
 </div>

@@ -76,13 +76,24 @@ $: border = onRemove || (canDelete && tag.value!="생일")
 $: backgroud_color = tag.value=="타임캡슐" ? "#333333" : tag.color;
 $: dark_bg_color = member_color_to_dark_dict[backgroud_color];
 
-$: text_color = tag.value=="타임캡슐" ? "#b299e6"
-        : tag.value=="💖" ? "#ffb40d"
-            : "black";
+$: text_color = ()=>{
+    if (tag.value=="타임캡슐"){
+        return "#b299e6";
+    }
+    if (tag.value=="💖"){
+        return "#ffb40d";
+    }
+    /*
+    if (tag.value == "김민주" || tag.value == "최예나"){
+        return "#666";
+    }
+    */
+    return "black";
+}
 
 $: get_dark_text_color = ()=>{
-    if(text_color != "black"){
-        return text_color;
+    if(text_color() != "black"){
+        return text_color();
     }
     if (tag.value == "김민주" || tag.value == "최예나"){
         return "#666";
@@ -93,7 +104,7 @@ $: get_dark_text_color = ()=>{
 $: icon = iconDict.get(tag.value);
 
 $: style = `background-color: ${$dark ? dark_bg_color : backgroud_color};
-            color: ${$dark ? get_dark_text_color(): text_color};`
+            color: ${$dark ? get_dark_text_color(): text_color()};`
 </script>
 <style>
     span {
