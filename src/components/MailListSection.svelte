@@ -130,7 +130,7 @@ bind:clientWidth={section_width}
 bind:clientHeight={section_height}
 style="
 min-height: {min_height}px;"
-class="h-full {$isDesktop ? "w-8/12": "w-full"}
+class="h-full {$isDesktop ? "w-1/2 lg:w-2/3 xl:w-3/4": "w-full"}
 relative pl-4 pr-4 pt-2">
     <div class="ml-2 flex flex-row">
         {#if $isMobile}

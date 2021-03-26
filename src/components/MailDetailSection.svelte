@@ -20,12 +20,12 @@ $: over = 650 < height;
 <section
 id="MailDetailSection"
 class:hidden={$isMobile && $show_list}
-class="h-full p-3 {$isDesktop ? "w-4/12" :"w-full"} flex flex-col"
+class="h-full p-3 {$isDesktop ? "w-1/2 lg:w-1/3 xl:w-1/4" :"w-full"} flex flex-col"
 bind:clientHeight={height}>
     <div class="flex flex-row">
         {#if $isMobile} <BackToListButton />{/if}
         <PapagoLink />
-        {#if $isDesktop} <DarkModeButton /> {/if}
+        <DarkModeButton />
         {#if !over && $isDesktop} 
             <ShowTagListInput />
         {/if}

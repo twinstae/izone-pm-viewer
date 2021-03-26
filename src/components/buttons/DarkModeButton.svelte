@@ -19,6 +19,6 @@ background-image: linear-gradient(
     class="rounded pl-1 pr-1 mr-1 border-2
     {$dark
         ? "text-gray-400 border-gray-800  bg-gray-800"
-        : "text-black border-red-300 border-2"}">
+        : "text-red-400 border-red-300 border-2"}">
         {$dark ? "Dark" : "COLOR"}
 </span>

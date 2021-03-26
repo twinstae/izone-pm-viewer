@@ -56,7 +56,7 @@ shadow-md rounded-md">
             {pm.preview}
         </p>
     {:else}
-        <img class="ml-5 m-3 w-10/12"
+        <img class="ml-5 mt-2 w-10/12"
         alt="no mail" src="{image_root}izone-logo-card.png"/>
     {/if}
     </div>

@@ -20,7 +20,7 @@ export const member_color_to_dark_dict = {
     "#d9598c":"#d02f6f",
     "#f1d2e7":"#c33c98",
     "#f3aa51":"#ee8b11",
-    "#fcf695":"#f7eb08",
+    "#fcf695":"#dfd407",
     "#567ace":"#345ab2",
     "#b7d3e9":"#3c89c3",
     "#bbb0dc":"#674eb1",

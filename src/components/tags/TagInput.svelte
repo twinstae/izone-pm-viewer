@@ -14,6 +14,10 @@ $: new_tag = {
 }
 
 const addTag = async ()=>{
+    if ($tag_input == ""){
+        alert("태그를 입력해주세요.")
+        return null;
+    }
     let the_tag = new_tag;
 
     if ($all_tag_dict.has($tag_input)){

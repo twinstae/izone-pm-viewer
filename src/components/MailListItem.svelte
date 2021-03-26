@@ -36,7 +36,7 @@ $: getTags = pm => {
 id="MailItem-{index}"
 style="height: {$isDesktop ? '62px' : '84px'};"
 class:hidden={hidden}
-class="border-b-2 rounded p-1 w-full
+class="border-b-2 rounded p-1 w-full leading-relaxed
 border-gray-{$dark ? "500" : "300"}">
     {#key pm.id}
     <div in:fade={{ duration: 500 }}>

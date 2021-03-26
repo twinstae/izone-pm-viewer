@@ -80,10 +80,20 @@ $: text_color = tag.value=="타임캡슐" ? "#b299e6"
         : tag.value=="💖" ? "#ffb40d"
             : "black";
 
+$: get_dark_text_color = ()=>{
+    if(text_color != "black"){
+        return text_color;
+    }
+    if (tag.value == "김민주" || tag.value == "최예나"){
+        return "#666";
+    }
+    return "#ddd"
+};
+
 $: icon = iconDict.get(tag.value);
 
 $: style = `background-color: ${$dark ? dark_bg_color : backgroud_color};
-            color: ${text_color};`
+            color: ${$dark ? get_dark_text_color(): text_color};`
 </script>
 <style>
     span {
