@@ -1,12 +1,13 @@
 <script lang="ts">
 import { goto, params } from "@roxi/routify";
-
-import { dateString, date_to_str, INIT_DATE } from "../stores/date";
+import { dateString, date_to_str, INIT_DATE, str_to_date } from "../stores/date";
 import { now_page } from "../stores/now";
 import { dark, dynamic_dark_bg, dynamic_dark_border } from "../stores/preferences";
 import { selected_tag_value } from "../stores/tag";
 import PinkButton from "./buttons/PinkButton.svelte";
-export let maxPage: number;
+import Datepicker from "./datepicker/Datepicker.svelte";
+
+export let maxPage;
 
 function toYesterday(){
     if ($selected_tag_value){
@@ -68,15 +69,15 @@ params.subscribe(p=>{
     
     <span
     id="NowPageSpan"
-    class="{$dynamic_dark_bg} {$dynamic_dark_border}
-        border-2 rounded w-24 p-1"
+    class="{$dynamic_dark_bg('bg-white')} {$dynamic_dark_border}
+        border-2 rounded w-24 p-0.5 pl-2 pr-2"
     class:bg-red-300={!$dark && maxPage<=$now_page}
     class:bg-red-500={$dark &&maxPage<=$now_page}
     class:border-red-700={maxPage<=$now_page}>
         <input
         id="NowPageInput"
         type="number"
-        class="w-9 {$dynamic_dark_bg}"
+        class="w-9 {$dynamic_dark_bg("bg-white")}"
         class:bg-red-300={!$dark && maxPage<=$now_page}
         class:bg-red-500={$dark &&maxPage<=$now_page}
         bind:value={$now_page}
@@ -90,11 +91,24 @@ params.subscribe(p=>{
     
     <PinkButton id="toYesterdayButton" onClick={toYesterday}> 어제 </PinkButton>
 
-    <input id="DateStringInput"
-    type=date class="w-38 border-2 {$dynamic_dark_border} rounded {$dynamic_dark_bg}"
-    bind:value={$dateString} on:change={()=>{
+    {#key $dark}
+    <Datepicker
+    on:dateSelected={(e)=>{    
         $now_page = 1;
         $goto("./", {...$params, nowPage: $now_page, dateString: $dateString});
-    }}>
+    }}
+    selected={str_to_date($dateString)}
+    bind:formattedSelected={$dateString}
+    format={"#{Y}-#{m}-#{d}"}
+    start={new Date(2019 , 1 -1, 18)} end={new Date()}
+    buttonTextColor={$dark ? "#ddd" : "black"}
+    dayTextColor={$dark ? "#ddd" : "white"}
+    buttonBorderColor={$dark ? "rgb(55, 65, 81)" : "rgb(243, 244, 246)"}
+    buttonBackgroundColor={$dark ? "rgb(31, 41, 55)" : "white"}
+    dayBackgroundColor={$dark ? "rgb(31, 41, 55)" : "white"}
+    daysOfWeek={['일','월','화','수','목','금','토'].map(d=>[d+"요일", d])}
+    monthsOfYear={[...Array(12).keys()].map(n=>[`${n+1}월`, `${n+1}월`])}
+    />
+    {/key}
 
     <PinkButton id="toTomorrowButton" onClick={toTomorrow}> 내일 </PinkButton>

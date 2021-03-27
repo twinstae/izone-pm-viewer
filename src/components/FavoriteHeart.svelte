@@ -4,21 +4,26 @@ import {tag_to_mail_dict} from "../stores/tag_to_mail_dict";
 import Icon from 'fa-svelte';
 import {faStar} from '@fortawesome/free-solid-svg-icons/faStar';
 import { faStar as emptyStar} from '@fortawesome/free-regular-svg-icons/faStar';
+import { ping } from "../stores/preferences";
+import api from "../api";
 
-export let pm: Mail;
+export let pm_id: string;
 export let float = "right";
 
 
 $: favorite_tag = $all_tag_dict.get("💖");
 $: favorite_set = $tag_to_mail_dict.get(favorite_tag);
-$: favorited = favorite_set ? favorite_set.has(pm.id) : false;
+$: favorited = favorite_set ? favorite_set.has(pm_id) : false;
 
-$: onFavorite = ()=>{
+$: onFavorite = async ()=>{
     const favorite_set = $tag_to_mail_dict.get(favorite_tag);
-    if (favorite_set.has(pm.id)){
-        favorite_set.delete(pm.id);
+    if (favorite_set.has(pm_id)){
+        favorite_set.delete(pm_id);
+
+        if($ping) api.MailTagDict.deleteTag(pm_id, "💖");
     } else {
-        favorite_set.add(pm.id);
+        favorite_set.add(pm_id);
+        if($ping) api.MailTagDict.addTag(pm_id, "💖");
     }
     $tag_to_mail_dict = $tag_to_mail_dict;
 }

@@ -21,7 +21,7 @@ function check(){
     class:hidden={hidden}
     style="min-height:43px;"
     class="AllTagList
-    {$dynamic_dark_bg}
+    {$dynamic_dark_bg("bg-white")}
     h-36 p-2 m-1 shadow-2xl rounded-md overflow-y-auto">
     <div class="flex flex-wrap w-full">
         {#each all_tags as tag}

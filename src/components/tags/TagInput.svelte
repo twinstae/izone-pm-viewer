@@ -48,7 +48,7 @@ const addTag = async ()=>{
     $color_n = ($color_n+1) % 12;
 
     if($ping){
-        console.log(the_tag)
+        console.log(the_tag);
         await api.MailTagDict.addTag($now_pm.id, the_tag.value);
     }
 }
@@ -56,7 +56,7 @@ const addTag = async ()=>{
 </script>
 
 <input type="text" id="TagInput"
-class="border-2 p-1 rounded w-16 text-xs {$dynamic_dark_bg} {$dynamic_dark_border}"
+class="border-2 p-1 rounded w-16 text-xs {$dynamic_dark_bg("bg-white")} {$dynamic_dark_border}"
 placeholder="새 태그"
 bind:value={$tag_input}
 on:keypress={e=>{if(e.code==="Enter")addTag();}}>

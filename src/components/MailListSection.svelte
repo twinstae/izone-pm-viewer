@@ -15,6 +15,7 @@ import MailItemList from './MailItemList.svelte';
 import MailCardView from './MailCardView.svelte';
 import { dynamic_dark_bg, ping } from '../stores/preferences';
 import DarkModeButton from './buttons/DarkModeButton.svelte';
+import NYearsAgoButton from './buttons/NYearsAgoButton.svelte';
 
 let section_width;
 let section_height;
@@ -137,7 +138,7 @@ relative pl-4 pr-4 pt-2">
             <DarkModeButton />
             <ShowTagListInput /> 
         {:else}
-            <label class="p-1 rounded {$dynamic_dark_bg}" for="isListViewInput">
+            <label class="p-1 rounded {$dynamic_dark_bg("bg-red-100")}" for="isListViewInput">
                 리스트뷰 {isListView ? "on": "off"}
                 <input id="isListViewInput" type=checkbox bind:checked={isListView}>
             </label>
@@ -154,4 +155,5 @@ relative pl-4 pr-4 pt-2">
     <BottomPagenation maxPage={maxPage}/>
     <br/>
     <Search search_length={$filtered_list.length}/>
+    <NYearsAgoButton />
 </section>

@@ -1,7 +1,7 @@
 <script lang="ts">
 import { goto, params } from '@roxi/routify'
-import { now_page } from "../stores/now";
-import { dark, dynamic_dark_bg, dynamic_dark_border } from '../stores/preferences';
+import { now_page, show_list } from "../stores/now";
+import { dynamic_dark_bg, dynamic_dark_border } from '../stores/preferences';
 import { search_input } from "../stores/search";
 export let search_length;
 
@@ -11,19 +11,30 @@ params.subscribe(p=>{
     }
 })
 
-search_input.subscribe((value)=>{
+let now_input = $search_input;
+
+let timeout;
+$: search = ()=>{
     $now_page=1;
-    $goto("./", {...$params, search: value});
-});
+    $search_input = now_input;
+    $show_list = true;
+    $goto("./", {...$params, showList:true, search: now_input});
+}
 </script>
 
 <span id="MailCounter"
 class="m-2 rounded p-0.5
-{$dark ? "bg-gray-800 text-gray-300" : "bg-red-100"}">
+{$dynamic_dark_bg("bg-red-100")}">
     {search_length}건
 </span>
 <input
 id="SearchInput"
-class="border-2 {$dynamic_dark_border} rounded pl-1 {$dynamic_dark_bg}"
-style="width: 170px;"
-type="text" bind:value={$search_input} placeholder="검색"/>
+class="w-28 rounded pl-1 border-2 {$dynamic_dark_border} {$dynamic_dark_bg("bg-white")}"
+on:keydown={event=>{
+    clearTimeout(timeout);
+    if (event.key == "Enter"){
+        return search();
+    }
+    timeout = setTimeout(search, 500);
+}}
+type="text" bind:value={now_input} placeholder="검색어 입력"/>

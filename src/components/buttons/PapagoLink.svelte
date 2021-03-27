@@ -1,10 +1,9 @@
 <script lang="ts">
 import { translate_url } from "../../stores/now";
-import { dark } from "../../stores/preferences";
+import { dynamic_dark_bg } from "../../stores/preferences";
 </script>
 
-<div class="w-16 p-1 shadow rounded mr-1
-            {$dark ? "bg-gray-900 text-gray-300" : "bg-red-100"}">
+<div class="w-16 p-1 shadow rounded mr-1 {$dynamic_dark_bg("bg-red-100")}">
     <a
     href={$translate_url}
     target="_blank">

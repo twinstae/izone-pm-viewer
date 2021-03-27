@@ -284,7 +284,7 @@ import { dark, dynamic_dark_bg } from '../stores/preferences';
     >
       <div class="window-wrap" bind:this={wrap} style={cssWindowWrap}>
         <div
-          class="window {$dynamic_dark_bg}"
+          class="window {$dynamic_dark_bg("bg-white")}"
           role="dialog"
           aria-modal="true"
           bind:this={modalWindow}

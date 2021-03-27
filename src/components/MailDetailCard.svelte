@@ -48,13 +48,13 @@ id="MailDetailCard"
 style="max-height: {$isDesktop && show ? "70%" : "90%"}; min-height:300px;"
 class="
 shadow-2xl rounded-md
-{$dynamic_dark_bg}
+{$dynamic_dark_bg("bg-white")}
 w-full m-1 p-2
 flex flex-col">
     <div
     id="MailDetailCardHeader"
     class="relative w-full leading-loose">
-        <FavoriteHeart pm={$now_pm}/>
+        <FavoriteHeart pm_id={$now_pm.id}/>
         <MemberProfileImg member={$now_pm.member}/>
         <h4 class="text-xl w-4/5">{$now_pm.subject}</h4>
         <MemberTag pm={$now_pm}  size="sm"/>

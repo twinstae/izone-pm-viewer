@@ -9,15 +9,16 @@ import MemberProfileImg from './MemberProfileImg.svelte';
 import { goto, params } from '@roxi/routify';
 import { fade } from 'svelte/transition';
 import { all_tag_dict } from '../stores/all_tag_dict';
-import { dark, dynamic_dark_border } from '../stores/preferences';
+import { dynamic_dark_border } from '../stores/preferences';
 export let pm: Mail;
 export let hidden;
 export let index;
 
 $: onMailSelected = ()=>{
+    console.log("i am here")
     if(pm){
         $now_pm=pm
-        $show_list = $isDesktop || false;
+        $show_list = false;
         $goto("./", { ...$params, showList: $show_list, now_pm: $now_pm.id});
     }
 }
@@ -41,7 +42,7 @@ class="border-b-2 rounded p-1 w-full leading-relaxed {$dynamic_dark_border}">
     <div in:fade={{ duration: 500 }}>
     {#if pm.member}
         <MemberProfileImg member={pm.member}/>
-        <FavoriteHeart pm={pm} float="left mt-0.5"/>
+        <FavoriteHeart pm_id={pm.id} float="left mt-0.5"/>
         <p class="truncate" on:click={onMailSelected} >
             <MemberTag pm={pm}/>
             <TimeStampTag time={pm.time}/>

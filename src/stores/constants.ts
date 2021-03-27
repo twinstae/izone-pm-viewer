@@ -27,7 +27,7 @@ export const member_color_to_dark_dict = {
     "#db706c":"#cd3732",
     "#f1c3aa":"#dd6422",
     "#cee5d5":"#4f9665",
-    "#fff"   :"#d9d9d9",
+    "#fff"   :"#ddd",
     "#a7e0e1":"#41bcbe",
     "gray"   :"#595959",
     "LightPink": "#ff3352"

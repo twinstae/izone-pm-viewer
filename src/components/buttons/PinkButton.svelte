@@ -1,14 +1,12 @@
 <script lang="ts">
-import { dark } from "../../stores/preferences";
-
-
+import { dynamic_dark_bg } from "../../stores/preferences";
     export let onClick;
     export let id: string;
 </script>
 
 <button
 id={id}
-class="rounded {$dark ? "bg-gray-800 text-gray-300" : "bg-red-100"} m-2 pl-1 pr-1"
+class="rounded {$dynamic_dark_bg("bg-red-100")} m-1 p-0.5 pl-1 pr-1"
 on:click={onClick}>
 <slot></slot>
 </button>

@@ -8,11 +8,11 @@ import MailListSection from "../components/MailListSection.svelte";
 import { isDesktop, show_list } from '../stores/now';
 import { INIT_DATE } from '../stores/date';
 import { now_pm, pm_list } from '../stores/now';
-import { image_root, member_dict, member_name_dict } from "../stores/constants";
+import { member_dict, member_name_dict } from "../stores/constants";
 import { all_tag_dict, EMPTY_TAG } from '../stores/all_tag_dict';
 import { tag_to_mail_dict } from '../stores/tag_to_mail_dict';
 import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
-import { dark, ping } from '../stores/preferences';
+import { ping } from '../stores/preferences';
 import { selected_tag_value } from '../stores/tag';
 import api from '../api';
 import Background from '../components/Background.svelte';
@@ -162,9 +162,8 @@ $: isDesktop.set(width > 700);
 let show = null;
 
 params.subscribe(p=>{   
-    const new_show_list = p.showList == 'true';
-    if(new_show_list != $show_list){
-        $show_list = new_show_list;
+    if ($show_list != (p.showList == "true")){
+        $show_list == (p.showList == "true")
     }
 })
 

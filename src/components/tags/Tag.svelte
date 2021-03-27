@@ -14,7 +14,7 @@ import { faFacebook } from '@fortawesome/free-brands-svg-icons/faFacebook';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons/faInstagram';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons/faYoutube';
 import {faStar} from '@fortawesome/free-solid-svg-icons/faStar';
-import { dark, ping } from "../../stores/preferences";
+import { dark, dynamic_dark_border, ping } from "../../stores/preferences";
 import api from "../../api";
 
 export let tag: {
@@ -63,17 +63,18 @@ $: onTouchDown = ()=>{
 $: onTouchUp = e=>{ clearTimeout(timeout); }
 
 const iconDict = new Map([
-    ["트위터", {icon: faTwitter, color: "blue-500"}],
-    ["페이스북", {icon: faFacebook, color: "blue-900"}],
-    ["인스타", {icon: faInstagram, color: "red-500"}],
-    ["유튜브", {icon: faYoutube, color: "red-600"}],
+    ["트위터", faTwitter],
+    ["페이스북", faFacebook],
+    ["인스타", faInstagram],
+    ["유튜브", faYoutube],
 ]);
 
 $: padding = tag.color=="#fff" ? "border-2 p-0.5" : "p-1";
 $: border = onRemove || (canDelete && tag.value!="생일")
     ? "rounded-l border-r-0"
     : "rounded";
-$: backgroud_color = tag.value=="타임캡슐" ? "#333333" : tag.color;
+
+$: backgroud_color = tag.value=="타임캡슐" ? "#555" : tag.color;
 $: dark_bg_color = member_color_to_dark_dict[backgroud_color];
 
 $: text_color = ()=>{
@@ -83,11 +84,6 @@ $: text_color = ()=>{
     if (tag.value=="💖"){
         return "#ffb40d";
     }
-    /*
-    if (tag.value == "김민주" || tag.value == "최예나"){
-        return "#666";
-    }
-    */
     return "black";
 }
 
@@ -96,9 +92,9 @@ $: get_dark_text_color = ()=>{
         return text_color();
     }
     if (tag.value == "김민주" || tag.value == "최예나"){
-        return "#666";
+        return "#333";
     }
-    return "#ddd"
+    return "#eee"
 };
 
 $: icon = iconDict.get(tag.value);
@@ -118,14 +114,14 @@ on:pointerup={onTouchUp}
 on:click={onSelectTag(tag)}
 style={style}
 class="Tag-{tag.value.replace(" ", "-")} {padding} {border} m-0.5 mr-0 text-{size}
-{tag.value=="💖" ? "pt-0" : ""}">
+{$dynamic_dark_border} {tag.value=="💖" ? "pt-0" : ""}">
     {#if tag.value=="💖"}
         <Icon icon={faStar} />
     {:else}
         {#if iconDict.has(tag.value)}
         <Icon
-        class="mb-1 text-{icon.color}"
-        icon={icon.icon} />
+        class="mb-1 text-white"
+        icon={icon} />
         {/if}
     {tag.value}
     {/if}
@@ -136,7 +132,10 @@ class="Tag-{tag.value.replace(" ", "-")} {padding} {border} m-0.5 mr-0 text-{siz
 on:click={onRemove ? onRemove : onDeleteTag}
 style={style}
 class="{onRemove ? "Remove" : "Delete"}Tag-{tag.value.replace(" ", "-")}
+{$dynamic_dark_border}
 {tag.color=="#fff" ? "border-2 border-l-0 p-0.5 pl-1" : "p-1"}
-rounded-r {onRemove ? "-ml-1" : "-ml-2"} mt-0.5 mb-0.5 text-{size}">
+rounded-r {onRemove ? "-ml-1" : "-ml-2"} mt-0.5 mb-0.5 text-{size}"
+>
+
 X</span>
 {/if}

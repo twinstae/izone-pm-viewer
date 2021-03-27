@@ -3,9 +3,8 @@ import Fuse from "fuse.js";
 import { pm_list, now_page } from './now';
 import { tag_to_mail_dict } from './tag_to_mail_dict';
 import { selected_tag_value } from './tag';
-import { dateString } from './date';
+import { dateString, time_to_dateStr } from './date';
 import { all_tag_dict } from './all_tag_dict';
-import { is_promise } from 'svelte/internal';
 
 const options = {
     useExtendedSearch: true,
@@ -22,6 +21,18 @@ let fuse = derived(
 );
 
 export let search_input = writable("");
+
+export let date_mail_n_dict = derived(
+    pm_list,
+    $pm_list =>$pm_list.reduce((acc, pm)=>{
+        const date = time_to_dateStr(pm.time);
+        if (!acc.has(date)){
+            acc.set(date, 0);
+        }
+        acc.set(date, acc.get(date)+1);
+        return acc;
+    }, new Map())
+)
 
 export let pm_list_after_search = derived(
     [pm_list, fuse, search_input],
@@ -48,7 +59,7 @@ export let filtered_list = derived(
         }
 
         const filterByDate = mail => {
-            const date_str = mail.time.split(" ")[0].replace(/\//g, "-");
+            const date_str = time_to_dateStr(mail.time);
             return date_str == $dateString;
         };
 

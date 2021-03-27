@@ -10,7 +10,7 @@ import MemberProfileImg from "./MemberProfileImg.svelte";
 import { goto, params } from "@roxi/routify";
 import { fade } from "svelte/transition";
 import { all_tag_dict } from "../stores/all_tag_dict";
-import { dark, dynamic_dark_bg } from "../stores/preferences";
+import { dynamic_dark_bg } from "../stores/preferences";
 
 export let pm: Mail;
 export let index;
@@ -26,7 +26,7 @@ $: getTags = (pm) => {
 $: onMailSelected = ()=>{
     if(pm){
         $now_pm=pm;
-        $show_list = $isDesktop || false;
+        $show_list = false;
         $goto("./", { ...$params, showList: $show_list, now_pm: $now_pm.id});
     }
 }
@@ -38,12 +38,12 @@ id="MailCard-{index}"
 style="width: 276px; height:156px"
 class="m-2 p-2
 relative overflow-y-auto
-{$dynamic_dark_bg}
+{$dynamic_dark_bg("bg-white")}
 shadow-md rounded-md">
     {#key pm}
     <div in:fade={{ duration: 500 }} class="leading-relaxed">
     {#if pm.member}
-        <FavoriteHeart pm={pm}/>
+        <FavoriteHeart pm_id={pm.id}/>
         <MemberProfileImg member={pm.member}/>
         <h4 class="text-lg" on:click={onMailSelected}>{pm.subject}</h4>
         <MemberTag pm={pm}/>

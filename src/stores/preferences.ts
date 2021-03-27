@@ -27,10 +27,10 @@ dark.subscribe((value)=>{
 
 export let dynamic_dark_bg = derived(
     dark,
-    $dark=>$dark ? "bg-gray-800 text-gray-300 " : "bg-white"
+    $dark=>(base)=>$dark ? "bg-gray-800 text-gray-300 " : base
 );
 
 export let dynamic_dark_border = derived(
     dark,
-    $dark=>$dark ? "border-gray-900" : "border-gray-100"
+    $dark=>$dark ? "border-gray-700" : "border-gray-100"
 );
