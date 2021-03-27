@@ -10,12 +10,10 @@ import Search from './Search.svelte';
 import { params, redirect } from '@roxi/routify';
 import SelectedTag from './tags/SelectedTag.svelte';
 import ShowTagListInput from './tags/ShowTagListInput.svelte';
-import SyncTagButtons from './buttons/SyncTagButtons.svelte';
 import MailItemList from './MailItemList.svelte';
 import MailCardView from './MailCardView.svelte';
-import { dynamic_dark_bg, ping } from '../stores/preferences';
+import { dynamic_dark_bg } from '../stores/preferences';
 import DarkModeButton from './buttons/DarkModeButton.svelte';
-import NYearsAgoButton from './buttons/NYearsAgoButton.svelte';
 
 let section_width;
 let section_height;
@@ -145,15 +143,13 @@ relative pl-4 pr-4 pt-2">
         {/if}
         {#if $selected_tag_value} <SelectedTag /> {/if}
     </div>
-    {#if $ping} <SyncTagButtons /> {/if}
     <AllTagList hidden={!($isMobile && $show_tag_list)} />
     {#if !isListView && $isDesktop}
         <MailCardView mail_list={mail_list} />
     {:else}
         <MailItemList mail_list={mail_list} isTyping={isTyping} />
     {/if}
-    <BottomPagenation maxPage={maxPage}/>
-    <br/>
-    <Search search_length={$filtered_list.length}/>
-    <NYearsAgoButton />
+    <BottomPagenation maxPage={maxPage} parent_width={section_width}/>
+    {#if section_width < 600}<br>{/if}
+    <Search search_length={$filtered_list.length} />
 </section>

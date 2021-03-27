@@ -4,7 +4,7 @@ import TimeStampTag from './tags/TimeStampTag.svelte';
 import TagInput from './tags/TagInput.svelte';
 import FavoriteHeart from './FavoriteHeart.svelte';
 import MemberTag from './tags/MemberTag.svelte';
-import { loadContent, now_pm, isDesktop, now_content, show_list, isMobile, pm_list } from '../stores/now';
+import { now_pm, isDesktop, show_list, isMobile, pm_list } from '../stores/now';
 import { mail_to_tag_dict } from "../stores/mail_to_tag_dict";
 import MemberProfileImg from './MemberProfileImg.svelte';
 import { fade } from 'svelte/transition';
@@ -32,14 +32,12 @@ $: getTags = pm => {
 
 $: now_tags = getTags($now_pm);
 
-$: sync= ()=>{
-    $now_content="";
-
-    loadContent($now_pm.id).then(result=>{
-        setTimeout(()=>{ $now_content = result;}, 100);
-    });
-}
-$: sync()
+$: html_body = $now_pm.images
+    .reduce((body, img)=>
+        body.replace(
+        "{이미지}",
+        `<img src="../${img}" style="max-width:100%;display:block;margin-left:auto;margin-right:auto; margin-top:8px;">`
+    ).replace(/\n\n/g, "<br/>").replace(/\n/g, "<br/>"), $now_pm.body);
 
 </script>
 
@@ -65,17 +63,18 @@ flex flex-col">
         {/each}
         <TagInput/>    
     </div>
-    {#if $now_content}
-        <div
-        id="MailDetailCardContent"
-        class="h-5/6 overflow-y-auto p-1">
+    <div
+    id="MailDetailCardContent"
+    class="h-5/6 overflow-y-auto p-1">
+        {#key $now_pm}
             <div
+            class="leading-relaxed"
             in:fade={{ duration: 300 }}
             contenteditable=false
-            bind:innerHTML={$now_content}>
+            bind:innerHTML={html_body}>
             </div>
-        </div>
-    {/if}
+        {/key}
+    </div>
     {#if $isMobile}
         <button
         class="shadow rounded p-1 mt-2 {$dark ? "bg-gray-900 text-gray-300" : "bg-red-100"}"

@@ -18,20 +18,6 @@ export async function loadContent(id: string): Promise<string>{
     return raw_html.slice(start, end);
 }
 
-const removeTags = (s: string)=>s.replace(/\&nbsp;<\/div>/g,"\n")
-        .replace(/<\/div>/g, "\n")
-        .replace(/&nbsp;/g,'')
-        .replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "")
-        .replace(/\n\n/g,"\n")
-        .replace(/\n/g,"%0A");
-
-export let now_content = writable("");
-
-export let translate_url = derived(
-    now_content,
-    $now_content=>"https://papago.naver.com/?sk=ja&tk=ko&hn=1&st=" + removeTags($now_content)
-)
-
 export let now_page = writable(1);
 
 export let show_list = writable(true);

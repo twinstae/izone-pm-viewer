@@ -10,6 +10,9 @@ import { goto, params } from '@roxi/routify';
 import { fade } from 'svelte/transition';
 import { all_tag_dict } from '../stores/all_tag_dict';
 import { dynamic_dark_border } from '../stores/preferences';
+import { dateString, date_to_str } from '../stores/date';
+import { getContext } from 'svelte';
+import SyncModal from './SyncModal.svelte';
 export let pm: Mail;
 export let hidden;
 export let index;
@@ -31,12 +34,29 @@ $: getTags = pm => {
     }
     return [];
 };
+
+const today_str = date_to_str(new Date());
+const {open} = getContext("simple-modal");
+const openModal = ()=>{open(SyncModal)}
+let timeout;
+$: onTouchDown = ()=>{
+    if (!pm.member && $dateString == today_str){
+        timeout = setTimeout(openModal, 300);
+    }
+};
+$: onTouchUp = e=>{ 
+    if (!pm.member && $dateString == today_str){
+        clearTimeout(timeout);
+    }
+}
 </script>
 
 <li
 id="MailItem-{index}"
 style="height: {$isDesktop ? '62px' : '84px'};"
 class:hidden={hidden}
+on:pointerdown={onTouchDown}
+on:pointerup={onTouchUp}
 class="border-b-2 rounded p-1 w-full leading-relaxed {$dynamic_dark_border}">
     {#key pm.id}
     <div in:fade={{ duration: 500 }}>
@@ -53,8 +73,6 @@ class="border-b-2 rounded p-1 w-full leading-relaxed {$dynamic_dark_border}">
         <p on:click={onMailSelected} class="ml-1 mt-1 text-sm truncate">
             {pm.preview || "..."}
         </p>
-    {:else}
-        <span class="border-1 rounded bg-white text-white text-lg"></span>
     {/if}
     </div>
     {/key}

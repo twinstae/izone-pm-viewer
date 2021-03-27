@@ -78,6 +78,6 @@ h3 {
     </label>
     {/each}
 </div>
-<PinkButton id="TagUpdateButton" onClick={onClick}>
+<PinkButton id="TagUpdateButton" onClick={onClick} strong={true}>
     결정했어요!
 </PinkButton>

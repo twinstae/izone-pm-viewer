@@ -145,17 +145,20 @@ import { dynamic_dark_bg } from '../../stores/preferences';
     return new Date(selected);
   }
 
-  $: canIncrementYear = year < today.getFullYear();
+  $: canIncrementYear = new Date(year+1, month, 1) <= new Date();
   $: canDecrementYear = new Date(year-1, month+1, 18) >= new Date(2019, 1, 18);
 
   function incrementYear(direction, day = 1) {
-    if (direction === 1 && !canIncrementYear) return;
-    if (direction === -1 && !canDecrementYear) return;
+    let new_date = new Date(year + direction, month, day);
+    if (direction === 1 && !canIncrementYear) {
+      new_date = new Date();
+    };
+    if (direction === -1 && !canDecrementYear){
+      new_date = new Date(2019, 1, 18);
+    };
 
-    let current = new Date(year, month, 1);
-    current.setFullYear(current.getFullYear() + direction);
-    month = current.getMonth();
-    year = current.getFullYear();
+    month = new_date.getMonth();
+    year = new_date.getFullYear();
     highlighted = new Date(year, month, day);
   }
 

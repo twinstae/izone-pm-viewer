@@ -14,14 +14,14 @@ const color_iz = `
 $: custom_mic = `url('${image_root}bg/custom_mic${$isMobile ? "_m" : ""}.jpg')`;
 
 $: background_image = $dark ? custom_mic : color_iz;
-
+let test = false;
 </script>
-
+{#if test} <div class="bg-opacity-20"></div> <div class="bg-opacity-40"></div>  <div class="bg-opacity-60"></div> <div class="bg-opacity-80"></div> {/if}
 <div id="Background" class="w-screen h-screen absolute bg-contain"
 transition:fade
 style="
-       background-color: black;
-       background-image: {background_image};
-       background-position: center;
-       background-size: cover;
-       background-attachment: fixed;"></div>
+background-color: black;
+background-image: {background_image};
+background-position: center;
+background-size: cover;
+background-attachment: fixed;"></div>

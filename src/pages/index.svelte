@@ -6,7 +6,7 @@ metatags.title = 'IZ*ONE Private Mail Viewer'
 import MailDetailSection from "../components/MailDetailSection.svelte";
 import MailListSection from "../components/MailListSection.svelte";
 import { isDesktop, show_list } from '../stores/now';
-import { INIT_DATE } from '../stores/date';
+import { INIT_DATE, str_to_date, time_to_dateStr } from '../stores/date';
 import { now_pm, pm_list } from '../stores/now';
 import { member_dict, member_name_dict } from "../stores/constants";
 import { all_tag_dict, EMPTY_TAG } from '../stores/all_tag_dict';
@@ -49,7 +49,7 @@ const process = (text, i)=>{
 };
 
 const get_data = async (path) => {
-    const res = await fetch(path);
+    const res = await fetch(path, {cache: "no-cache"});
     const text = await res.text();
     try {
         return JSON.parse(text);
@@ -80,7 +80,7 @@ async function init(){
         $member_dict = values[1];
         console.log($member_dict);
         const mail_to_num_dict = values[2];
-        const mail_body_dict = values[3];
+        const mail_body_dict: Map<string, {body: string, images: string}> = values[3];
 
         $pm_list = mail_list_data.map((pm, i)=>{
             if (pm.id=="m20731"){$now_pm = pm;} // 메일 초기화
@@ -95,10 +95,12 @@ async function init(){
                 console.log(pm.nick, pm.member);
             }
             if (mail_body_dict){
-                pm.body = mail_body_dict[pm.id];
+                const {body, images} = mail_body_dict[pm.id];
+                pm.body = body;
+                pm.images = images;
             }
             return pm;
-        })
+        }).sort(pm=>str_to_date(time_to_dateStr(pm.time)));
         
         let missing = 0;
         const hitomi_tag = $all_tag_dict.get("혼다 히토미");

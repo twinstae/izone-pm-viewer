@@ -23,13 +23,14 @@ $: search = ()=>{
 </script>
 
 <span id="MailCounter"
-class="m-2 rounded p-0.5
+class="m-1 rounded p-1
 {$dynamic_dark_bg("bg-red-100")}">
     {search_length}건
 </span>
 <input
 id="SearchInput"
-class="w-28 rounded pl-1 border-2 {$dynamic_dark_border} {$dynamic_dark_bg("bg-white")}"
+class="w-28 p-0.5 rounded border-2
+{$dynamic_dark_border} {$dynamic_dark_bg("bg-white")}"
 on:keydown={event=>{
     clearTimeout(timeout);
     if (event.key == "Enter"){

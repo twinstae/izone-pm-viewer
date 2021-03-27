@@ -80,9 +80,7 @@ const download_tags = () => {
         }
     });
 };
-
 </script>
-<div class="flex flex-row">
-    <PinkButton id="DownloadTagsButton" onClick={download_tags}>태그 불러오기⬇️</PinkButton>
-    <PinkButton id="UploadTagsButton"   onClick={upload_tags}>  태그 올리기⬆️  </PinkButton>
-</div>
+
+<PinkButton id="DownloadTagsButton" onClick={download_tags} strong={true}>태그 불러오기⬇️</PinkButton>
+<PinkButton id="UploadTagsButton"   onClick={upload_tags}   strong={true}>태그 올리기⬆️  </PinkButton>

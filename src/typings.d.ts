@@ -5,6 +5,7 @@ interface Mail {
     subject: string;
     preview: string;
     body?: string;
+    images?: string[];
     nick?: string;
 };
 

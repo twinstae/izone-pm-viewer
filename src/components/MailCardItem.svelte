@@ -11,6 +11,9 @@ import { goto, params } from "@roxi/routify";
 import { fade } from "svelte/transition";
 import { all_tag_dict } from "../stores/all_tag_dict";
 import { dynamic_dark_bg } from "../stores/preferences";
+import { dateString, date_to_str } from "../stores/date";
+import { getContext } from "svelte";
+import SyncModal from "./SyncModal.svelte";
 
 export let pm: Mail;
 export let index;
@@ -30,12 +33,20 @@ $: onMailSelected = ()=>{
         $goto("./", { ...$params, showList: $show_list, now_pm: $now_pm.id});
     }
 }
-
+const today_str = date_to_str(new Date());
+const {open} = getContext("simple-modal");
+const openModal = ()=>{open(SyncModal)}
+$: no_mail = !pm.member && $dateString == today_str;
+let timeout;
+$: onTouchDown = ()=>{if (no_mail) timeout = setTimeout(openModal, 300);};
+$: onTouchUp = e=>{   if (no_mail) clearTimeout(timeout); };
 </script>
 
 <div
 id="MailCard-{index}"
 style="width: 276px; height:156px"
+on:pointerdown={onTouchDown}
+on:pointerup={onTouchUp}
 class="m-2 p-2
 relative overflow-y-auto
 {$dynamic_dark_bg("bg-white")}

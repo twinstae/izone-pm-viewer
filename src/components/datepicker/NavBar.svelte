@@ -1,9 +1,7 @@
 <script>
   import { createEventDispatcher } from 'svelte';
 import { dynamic_dark_bg } from '../../stores/preferences';
-import Icon from 'fa-svelte';
-
-import {faStar} from '@fortawesome/free-solid-svg-icons/faStar';
+import { fly } from 'svelte/transition';
   const dispatch = createEventDispatcher();
 
   export let month;
@@ -43,28 +41,46 @@ import {faStar} from '@fortawesome/free-solid-svg-icons/faStar';
     dispatch('monthSelected', i);
     toggleMonthSelectorOpen();
   }
+
+  let direction;
 </script>
 
 <div class="title">
   <div class="heading-section flex justify-center p-2">
     <div class="leading-tight">
-      <span class="label" on:click={() => dispatch('incrementYear', -1)}>◁</span>
+      <span class="label" on:click={() => {
+        direction = -1;
+        dispatch('incrementYear', -1);
+      }}>◁</span>
       <span class="label">
         {year}년
       </span> 
-      <span class="label" on:click={() => dispatch('incrementYear', 1)}>▷</span>
+      <span class="label" on:click={() => {
+        direction = 1;
+        dispatch('incrementYear', 1);
+      }}>▷</span>
     </div>
     <div class="leading-tight mr-4 ml-4">
-      <span class="label" on:click={() => dispatch('incrementMonth', -1)}>◁</span>
+      <span class="label" on:click={() => {
+        direction = -1;
+        dispatch('incrementMonth', -1);
+      }}>◁</span>
       <span class="label" on:click={toggleMonthSelectorOpen}>
         {monthsOfYear[month][0]}
       </span> 
-      <span class="label" on:click={() => dispatch('incrementMonth', 1)}>▷</span>
+      <span class="label" on:click={() => { 
+        direction = 1;
+        dispatch('incrementMonth', 1);
+      }}>▷</span>
     </div>
   </div>
-  <div class="month-selector {$dynamic_dark_bg("bg-white")}" class:open={monthSelectorOpen}>
+  <div
+  class="month-selector {$dynamic_dark_bg("bg-white")}"
+  class:open={monthSelectorOpen}>
+    {#key year}
     {#each availableMonths as monthDefinition, index}
       <div 
+        in:fly={{x: direction * 100}}
         class="month-selector--month" 
         class:selected={index === month}
         class:selectable={monthDefinition.selectable}
@@ -73,6 +89,7 @@ import {faStar} from '@fortawesome/free-solid-svg-icons/faStar';
         <span>{monthDefinition.abbrev}</span>
       </div>
     {/each}
+    {/key}
   </div>
 </div>
 

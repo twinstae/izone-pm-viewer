@@ -54,7 +54,7 @@ h3 {
 }
 </style>
 
-<h3 class="{$dark ? "text-gray-300": "text-black"}">프로필 사진을 바꿉니다.</h3>
+<h3 class="{$dark ? "text-gray-300": "text-black"}">프로필 사진 바꾸기</h3>
 <div id="ProfileChoiceList"
 class="flex flex-col p-4 overflow-y-auto"
 bind:clientWidth={width}>
