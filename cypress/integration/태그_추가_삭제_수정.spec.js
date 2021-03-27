@@ -1,6 +1,6 @@
 
 import {port} from './config';
-import {태그를_수정한다, 캔디핑크} from './testingUtil';
+import {태그를_추가한다, 태그를_수정한다, 캔디핑크} from './testingUtil';
 
 describe('태그를 추가하고 수정하고 삭제한다', () => {
 
@@ -27,8 +27,8 @@ describe('태그를 추가하고 수정하고 삭제한다', () => {
     it('테스트 태그를 입력하고 버튼을 누르면, 모든 곳에 태그가 추가된다.', () => {
         모든_곳에서(()=>{태그가_없다("테스트");});
 
-        cy.get("#TagInput").type("테스트")
-        cy.get("#AddTagButton").click();
+        태그를_추가한다("테스트");
+
 
         모든_곳에서(()=>{태그가_존재한다("테스트");})
     });

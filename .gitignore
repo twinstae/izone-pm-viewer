@@ -20,3 +20,4 @@ dist/img/mail
 dist/build/*.map
 assets/pm_list.json
 *.ipynb
+cypress/examples

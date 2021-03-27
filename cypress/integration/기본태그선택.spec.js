@@ -3,6 +3,7 @@ import {
     태그_불러오기_버튼을_클릭,
     태그를_클릭한다,
     첫번째_카드의_제목은,
+    첫번째_카드_제목_of_tag,
     base_tags,
 } from "./testingUtil";
 

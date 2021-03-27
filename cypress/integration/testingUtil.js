@@ -22,6 +22,7 @@ export async function 토끼_태그를_서버에_추가한다(){
 export function 태그를_추가한다(value){
     cy.get("#TagInput").type(value)
     cy.get("#AddTagButton").click();
+    cy.wait(500);
 }
 
 export function 태그가_존재한다(value, color=""){
@@ -68,7 +69,7 @@ export function 첫번째_카드의_제목은(title){
     cy.get("#MailCard-0 div h4").should('have.text', title);
 }
 
-const 첫번째_카드_제목_of_tag = {
+export const 첫번째_카드_제목_of_tag = {
     "미야와키 사쿠라": '。',
     "강혜원": '어제',
     "최예나": '맞다!!',
