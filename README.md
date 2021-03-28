@@ -5,7 +5,17 @@
 1. [IZ-PM-Viewer-배포.zip 다운 받기](https://github.com/twinstae/izone-pm-viewer/raw/main/IZ-PM-Viewer-%EB%B0%B0%ED%8F%AC.zip)
 압축 파일을 받아서 img와 mail이 있는 output 폴더에 풀어줍니다.
 
-신형 서버도 받으려면 [여기](https://github.com/twinstae/izone-pm-viewer/raw/main/%EC%84%9C%EB%B2%84-%EB%B0%B0%ED%8F%AC%EC%9A%A9.zip)
+신형 서버도 받으려면 [여기](https://github.com/twinstae/izone-pm-viewer/raw/main/%EC%84%9C%EB%B2%84-%EB%B0%B0%ED%8F%AC%EC%9A%A9.zip) 신 서버는 절대 output 폴더에 풀면 안 되고. 그 상위 폴더에 풀어줘야합니다.
+
+- 최상위 폴더
+  - FastAPI 설치.bat
+  - 서버 파일들
+  - 신형 서버 시작하기.bat
+  - output
+    - build
+    - img
+    - mail
+    - 서버 시작하기.bat
 
 ### output 폴더 사진
 ![](https://github.com/twinstae/izone-pm-viewer/raw/main/%EC%98%88%EC%8B%9C.png)
