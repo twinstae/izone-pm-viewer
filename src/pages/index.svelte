@@ -181,7 +181,9 @@ params.subscribe(p=>{
 
         } else if ($selected_tag_value != p.tag){
             const new_tag = $all_tag_dict.get(p.tag);
-            $selected_tag_value = new_tag.value;
+            if(new_tag){
+                $selected_tag_value = new_tag.value;
+            }
         }
     }
 });
@@ -198,6 +200,13 @@ if (!$params.dateString){
 };
 
 </script>
+
+<style global>
+  #MailDetailCardContent div p {
+    margin-top: 8px;
+  }
+</style>
+
 <div
 bind:clientWidth={width}
 class="flex w-screen h-screen relative">

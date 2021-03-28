@@ -16,8 +16,6 @@ let timeout;
 <img src="{image_root}{src}"
 on:pointerdown={()=>{timeout = setTimeout(openModal, 300)}}
 on:pointerup={e=>{ clearTimeout(timeout); }}
-on:mousedown={()=>{timeout = setTimeout(openModal, 500)}}
-on:mouseup={e=>{ clearTimeout(timeout); }}
-class="w-12 h-12 rounded-full {$dark ? "border-gray-700" : "border-gray-100"} border-2
-float-left"
+class="w-12 h-12 rounded-full border-2 float-left
+{$dark ? "border-gray-700" : "border-gray-100"}"
 alt=""/>

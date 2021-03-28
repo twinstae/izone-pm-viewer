@@ -39,6 +39,11 @@ $: html_body = $now_pm.images
         `<img src="../${img}" style="max-width:100%;display:block;margin-left:auto;margin-right:auto; margin-top:8px;">`
     ).replace(/\n\n/g, "<br/>").replace(/\n/g, "<br/>"), $now_pm.body);
 
+now_pm.subscribe((_)=>{
+    const div: HTMLElement = document.getElementById("MailDetailCardContent");
+    if(div) div.scrollTo({top: 0, behavior: 'smooth'});
+})
+
 </script>
 
 <div
@@ -72,6 +77,7 @@ flex flex-col">
             in:fade={{ duration: 300 }}
             contenteditable=false
             bind:innerHTML={html_body}>
+                <p>로딩 중</p>
             </div>
         {/key}
     </div>

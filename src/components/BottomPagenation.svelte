@@ -66,12 +66,14 @@ params.subscribe(p=>{
     if($now_page != new_page){
         $now_page = p.nowPage ? new_page : 1;
     }
+    
+    if(p.dateString == "NaN-Na-Na" || $dateString == "NaN-Na-Na"){
+        $dateString = lastDateString;
+        $goto("./", {...$params, dateString: lastDateString})
+        return null;
+    }
+
     if($dateString != p.dateString){
-        if(p.dateString == "NaN-Na-Na"){
-            $dateString = lastDateString;
-            $goto("./", {...$params, dateString: lastDateString})
-            return null;
-        }
         $dateString = p.dateString || INIT_DATE;
         lastDateString = $dateString;
     }

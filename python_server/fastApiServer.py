@@ -34,10 +34,13 @@ GITHUB_URL = "https://raw.githubusercontent.com/twinstae/izone-pm-viewer/main"
 
 @app.on_event("startup")
 async def startup_event():
-    print("최신 빌드를 다운로드합니다.")
-    start = time.time()
+    pass
 
+
+async def check_and_update_build_and_server():
     try:
+        print("최신 빌드를 다운로드합니다.")
+        start = time.time()
         build_url, server_source_url = await get_build_url()
         build_info = await get_json(build_url)
         server_info = await get_json(server_source_url)
@@ -70,8 +73,7 @@ async def get_build_url():
     if "tree" not in main_data and "message" in main_data:
         print(main_data)
         raise 깃허브_서버_허용량_초과()
-        
-    
+
     dist_url = find_url_for_path_from_tree(main_data, "dist")
     server_source_url = find_url_for_path_from_tree(main_data, "python_server")
 

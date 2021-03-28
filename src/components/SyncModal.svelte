@@ -6,11 +6,11 @@ import PinkButton from "./buttons/PinkButton.svelte";
 import api from "../api";
 let id: string = localStorage.getItem("pm-user-id");
 let token: string = localStorage.getItem("pm-access-token");
-$: onSubmit = ()=>{
+$: onSubmit = async ()=>{
     localStorage.setItem("pm-user-id", id);
     localStorage.setItem("pm-access-token", token);
     console.log(id, token);
-    //const res = api.load_pm(token);
+    await api.load_pm(token);
 }
 </script>
 
