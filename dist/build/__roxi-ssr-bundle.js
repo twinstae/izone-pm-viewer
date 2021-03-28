@@ -33,10 +33,10 @@
     return __exportStar(__defProp(__create(__getProtoOf(module)), "default", {value: module, enumerable: true}), module);
   };
 
-  // dist/build/_fallback-43b9eb52.js
-  var require_fallback_43b9eb52 = __commonJS((exports) => {
+  // dist/build/_fallback-3b602e46.js
+  var require_fallback_3b602e46 = __commonJS((exports) => {
     __export(exports, {
-      default: () => fallback_43b9eb52_default
+      default: () => fallback_3b602e46_default
     });
     const main2 = __toModule(require_main());
     function v(s2) {
@@ -55,17 +55,17 @@
       let t3;
       return main2.g(s2, main2.u, (s3) => e2(0, t3 = s3)), [t3];
     }
-    class fallback_43b9eb52_default extends main2.S {
+    class fallback_3b602e46_default extends main2.S {
       constructor(s2) {
         super(), main2.i(this, s2, g, v, main2.s, {});
       }
     }
   });
 
-  // dist/build/index-ab55cd21.js
-  var require_index_ab55cd21 = __commonJS((exports) => {
+  // dist/build/index-e6327fa2.js
+  var require_index_e6327fa2 = __commonJS((exports) => {
     __export(exports, {
-      default: () => index_ab55cd21_default
+      default: () => index_e6327fa2_default
     });
     const main2 = __toModule(require_main());
     function S(e2) {
@@ -136,7 +136,7 @@
       }};
     }
     function E(e2) {
-      let t3, n3, c2, i2, f2, r2, m2 = e2[15] + "", b2 = e2[3][e2[15]], w2 = [];
+      let t3, n3, c2, i2, d2, r2, m2 = e2[15] + "", b2 = e2[3][e2[15]], w2 = [];
       for (let t4 = 0; t4 < b2.length; t4 += 1)
         w2[t4] = Y(X(e2, b2, t4));
       const $2 = (e3) => main2.v(w2[e3], 1, 1, () => {
@@ -146,18 +146,18 @@
         t3 = main2.e("h3"), n3 = main2.t(m2), c2 = main2.a(), i2 = main2.e("ul");
         for (let e3 = 0; e3 < w2.length; e3 += 1)
           w2[e3].c();
-        f2 = main2.a(), main2.b(t3, "class", "bg-white p-2 text-2xl text-center"), main2.b(i2, "class", "flex flex-wrap");
+        d2 = main2.a(), main2.b(t3, "class", "bg-white p-2 text-2xl text-center"), main2.b(i2, "class", "flex flex-wrap");
       }, m(e3, a3) {
         main2.c(e3, t3, a3), main2.d(t3, n3), main2.c(e3, c2, a3), main2.c(e3, i2, a3);
         for (let e4 = 0; e4 < w2.length; e4 += 1)
           w2[e4].m(i2, null);
-        main2.d(i2, f2), r2 = true;
+        main2.d(i2, d2), r2 = true;
       }, p(e3, t4) {
         if ((!r2 || 16 & t4) && m2 !== (m2 = e3[15] + "") && main2.o(n3, m2), 24 & t4) {
           let n4;
           for (b2 = e3[3][e3[15]], n4 = 0; n4 < b2.length; n4 += 1) {
             const a3 = X(e3, b2, n4);
-            w2[n4] ? (w2[n4].p(a3, t4), main2.p(w2[n4], 1)) : (w2[n4] = Y(a3), w2[n4].c(), main2.p(w2[n4], 1), w2[n4].m(i2, f2));
+            w2[n4] ? (w2[n4].p(a3, t4), main2.p(w2[n4], 1)) : (w2[n4] = Y(a3), w2[n4].c(), main2.p(w2[n4], 1), w2[n4].m(i2, d2));
           }
           for (main2.D(), n4 = b2.length; n4 < w2.length; n4 += 1)
             $2(n4);
@@ -179,7 +179,7 @@
       }};
     }
     function F(e2) {
-      let t3, n3, c2, o3, f2, r2, m2 = false, g2 = () => {
+      let t3, n3, c2, o3, d2, r2, m2 = false, g2 = () => {
         m2 = false;
       };
       main2.j(e2[8]), main2.j(e2[9]);
@@ -198,9 +198,9 @@
         main2.c(a3, n3, l2);
         for (let e3 = 0; e3 < h2.length; e3 += 1)
           h2[e3].m(n3, null);
-        c2 = main2.z(n3, e2[10].bind(n3)), o3 = true, f2 || (r2 = [main2.A(window, "scroll", e2[5]), main2.A(window, "scroll", () => {
+        c2 = main2.z(n3, e2[10].bind(n3)), o3 = true, d2 || (r2 = [main2.A(window, "scroll", e2[5]), main2.A(window, "scroll", () => {
           m2 = true, clearTimeout(t3), t3 = C(g2, 100), e2[8]();
-        }), main2.A(window, "resize", e2[9])], f2 = true);
+        }), main2.A(window, "resize", e2[9])], d2 = true);
       }, p(e3, [a3]) {
         if (1 & a3 && !m2 && (m2 = true, clearTimeout(t3), scrollTo(window.pageXOffset, e3[0]), t3 = C(g2, 100)), 24 & a3) {
           let t4;
@@ -224,39 +224,39 @@
           main2.v(h2[e4]);
         o3 = false;
       }, d(e3) {
-        e3 && main2.f(n3), main2.y(h2, e3), c2(), f2 = false, main2.B(r2);
+        e3 && main2.f(n3), main2.y(h2, e3), c2(), d2 = false, main2.B(r2);
       }};
     }
     function G(e2, t3, n3) {
       let a3, c2, l2;
       const s2 = [{date: "2021-03-21", name: "b90d39624e131102cd037536ae52686a.jpeg", n: "6"}, {date: "2021-03-21", name: "94cf5360320d40e1d3142cea84f99081.jpeg", n: "7"}, {date: "2021-03-21", name: "90384e791c8d1adc105a4f0ea6d68d3c.jpeg", n: "8"}, {date: "2021-03-21", name: "34932e3f9c24f95a5fcf0019d8231ac3.jpeg", n: "9"}, {date: "2021-03-21", name: "ead6e6f71df1d2d175a97fbda10576ed.jpeg", n: "9"}, {date: "2021-03-21", name: "c3281576e74db5c6933abe9df5935ab9.jpeg", n: "11"}, {date: "2021-03-21", name: "3e6e3d9f314bf90df5ff422d07687322.jpeg", n: "12"}, {date: "2021-03-21", name: "6b27979497b3a8efb71a90302fefad1a.jpeg", n: "12"}, {date: "2021-03-21", name: "a75b6b26a62405c797a95cef04c5fe68.jpeg", n: "12"}, {date: "2021-03-21", name: "b4b37951916017cda21c57f599c1ed0d.jpeg", n: "12"}, {date: "2021-03-21", name: "dec6537c06b004488ca6c1b613be5b28.jpeg", n: "12"}, {date: "2021-03-21", name: "e2791622abdcffa0f3f0f756c37567db.jpeg", n: "12"}];
       let o3 = s2.concat(s2).concat(s2).concat(s2).concat(s2), i2 = 1;
-      let f2, d2, r2 = 0, m2 = false;
+      let d2, f2, r2 = 0, m2 = false;
       return e2.$$.update = () => {
         64 & e2.$$.dirty && n3(7, a3 = o3 && o3.slice(0, 6 * i2)), 128 & e2.$$.dirty && n3(3, c2 = a3.reduce((e3, t4) => (e3[t4.date] == null && (e3[t4.date] = []), e3[t4.date].push(t4), e3), {}));
-      }, n3(4, l2 = [...new Set(o3.map((e3) => e3.date))].sort()), [r2, f2, d2, c2, l2, function() {
-        f2 + r2 + 10 > d2 && !m2 && (m2 = true, setTimeout(() => {
+      }, n3(4, l2 = [...new Set(o3.map((e3) => e3.date))].sort()), [r2, d2, f2, c2, l2, function() {
+        d2 + r2 + 10 > f2 && !m2 && (m2 = true, setTimeout(() => {
           n3(6, i2 += 1), m2 = false;
         }, 300));
       }, i2, a3, function() {
         n3(0, r2 = window.pageYOffset);
       }, function() {
-        n3(1, f2 = window.innerHeight);
+        n3(1, d2 = window.innerHeight);
       }, function() {
-        d2 = this.clientHeight, n3(2, d2);
+        f2 = this.clientHeight, n3(2, f2);
       }];
     }
-    class index_ab55cd21_default extends main2.S {
+    class index_e6327fa2_default extends main2.S {
       constructor(e2) {
         super(), main2.i(this, e2, G, F, main2.s, {});
       }
     }
   });
 
-  // dist/build/index-8e91e176.js
-  var require_index_8e91e176 = __commonJS((exports) => {
+  // dist/build/index-75a207d2.js
+  var require_index_75a207d2 = __commonJS((exports) => {
     __export(exports, {
-      default: () => index_8e91e176_default
+      default: () => index_75a207d2_default
     });
     const main2 = __toModule(require_main());
     function ae(e2, t3) {
@@ -1569,18 +1569,20 @@
     function $n(e2) {
       let t3, n3, r2, o3, i2, d2, u2;
       return {c() {
-        t3 = main2.e("div"), n3 = main2.e("a"), r2 = main2.t("\uBC88\uC5ED"), o3 = main2.e("img"), main2.b(o3, "class", "w-5 h-5 mt-0.5 float-right"), o3.src !== (i2 = "./img/papago.png") && main2.b(o3, "src", "./img/papago.png"), main2.b(o3, "alt", "\uD30C\uD30C\uACE0 \uBC88\uC5ED\uD558\uAE30"), main2.b(n3, "href", d2 = "https://papago.naver.com/?sk=ja&tk=ko&hn=1&st=" + e2[1].body.replace(/\n/g, "%0A").replace(/<[^>]+>/g, "")), main2.b(n3, "target", "_blank"), main2.b(t3, "class", u2 = "w-16 p-1 shadow rounded mr-1 " + e2[0]("bg-red-100"));
+        t3 = main2.e("div"), n3 = main2.e("a"), r2 = main2.t("\uBC88\uC5ED"), o3 = main2.e("img"), main2.b(o3, "class", "w-5 h-5 mt-0.5 float-right"), o3.src !== (i2 = "./img/papago.png") && main2.b(o3, "src", "./img/papago.png"), main2.b(o3, "alt", "\uD30C\uD30C\uACE0 \uBC88\uC5ED\uD558\uAE30"), main2.b(n3, "href", d2 = "https://papago.naver.com/?sk=ja&tk=ko&hn=1&st=" + e2[0]), main2.b(n3, "target", "_blank"), main2.b(t3, "class", u2 = "w-16 p-1 shadow rounded mr-1 " + e2[1]("bg-red-100"));
       }, m(e3, s2) {
         main2.c(e3, t3, s2), main2.d(t3, n3), main2.d(n3, r2), main2.d(n3, o3);
       }, p(e3, [r3]) {
-        2 & r3 && d2 !== (d2 = "https://papago.naver.com/?sk=ja&tk=ko&hn=1&st=" + e3[1].body.replace(/\n/g, "%0A").replace(/<[^>]+>/g, "")) && main2.b(n3, "href", d2), 1 & r3 && u2 !== (u2 = "w-16 p-1 shadow rounded mr-1 " + e3[0]("bg-red-100")) && main2.b(t3, "class", u2);
+        1 & r3 && d2 !== (d2 = "https://papago.naver.com/?sk=ja&tk=ko&hn=1&st=" + e3[0]) && main2.b(n3, "href", d2), 2 & r3 && u2 !== (u2 = "w-16 p-1 shadow rounded mr-1 " + e3[1]("bg-red-100")) && main2.b(t3, "class", u2);
       }, i: main2.n, o: main2.n, d(e3) {
         e3 && main2.f(t3);
       }};
     }
     function yn(e2, t3, n3) {
-      let r2, o3;
-      return main2.g(e2, he, (e3) => n3(0, r2 = e3)), main2.g(e2, Ae, (e3) => n3(1, o3 = e3)), [r2, o3];
+      let r2, o3, s2;
+      return main2.g(e2, Ae, (e3) => n3(2, o3 = e3)), main2.g(e2, he, (e3) => n3(1, s2 = e3)), e2.$$.update = () => {
+        4 & e2.$$.dirty && n3(0, r2 = o3.body.replace(/\n/g, "%0A").replace(/\{이미지\}/g, "").replace(/<[^>]+>/g, ""));
+      }, [r2, s2, o3];
     }
     class bn extends main2.S {
       constructor(e2) {
@@ -4320,17 +4322,17 @@
         w2 = this.clientWidth, n3(0, w2);
       }];
     }
-    class index_8e91e176_default extends main2.S {
+    class index_75a207d2_default extends main2.S {
       constructor(e2) {
         super(), main2.i(this, e2, zs, Ns, main2.s, {});
       }
     }
   });
 
-  // dist/build/_layout-bc8e916e.js
-  var require_layout_bc8e916e = __commonJS((exports) => {
+  // dist/build/_layout-1540f712.js
+  var require_layout_1540f712 = __commonJS((exports) => {
     __export(exports, {
-      default: () => layout_bc8e916e_default
+      default: () => layout_1540f712_default
     });
     const main2 = __toModule(require_main());
     function c(s2) {
@@ -4356,7 +4358,7 @@
         "$$scope" in s3 && e2(0, o3 = s3.$$scope);
       }, [o3, n3];
     }
-    class layout_bc8e916e_default extends main2.S {
+    class layout_1540f712_default extends main2.S {
       constructor(s2) {
         super(), main2.i(this, s2, u, c, main2.s, {});
       }
@@ -5747,7 +5749,7 @@
       }
     }
     const un = {...on, restoreDefaults: ({tree: t3}) => sn(t3), assignAPI: an};
-    const fn = {root: true, ownMeta: {preload: "proximity"}, children: [{isFallback: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/_fallback", component: () => Promise.resolve().then(() => __toModule(require_fallback_43b9eb52())).then((t3) => t3.default)}, {isDir: true, ext: "", children: [{isIndex: true, isPage: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/gallery/index", id: "_gallery_index", component: () => Promise.resolve().then(() => __toModule(require_index_ab55cd21())).then((t3) => t3.default)}], meta: {recursive: true, preload: "proximity", prerender: true}, path: "/gallery"}, {isIndex: true, isPage: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/index", id: "_index", component: () => Promise.resolve().then(() => __toModule(require_index_8e91e176())).then((t3) => t3.default)}], isLayout: true, meta: {preload: "proximity", recursive: true, prerender: true}, path: "/", id: "__layout", component: () => Promise.resolve().then(() => __toModule(require_layout_bc8e916e())).then((t3) => t3.default)};
+    const fn = {root: true, ownMeta: {preload: "proximity"}, children: [{isFallback: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/_fallback", component: () => Promise.resolve().then(() => __toModule(require_fallback_3b602e46())).then((t3) => t3.default)}, {isDir: true, ext: "", children: [{isIndex: true, isPage: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/gallery/index", id: "_gallery_index", component: () => Promise.resolve().then(() => __toModule(require_index_e6327fa2())).then((t3) => t3.default)}], meta: {recursive: true, preload: "proximity", prerender: true}, path: "/gallery"}, {isIndex: true, isPage: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/index", id: "_index", component: () => Promise.resolve().then(() => __toModule(require_index_75a207d2())).then((t3) => t3.default)}], isLayout: true, meta: {preload: "proximity", recursive: true, prerender: true}, path: "/", id: "__layout", component: () => Promise.resolve().then(() => __toModule(require_layout_1540f712())).then((t3) => t3.default)};
     const {tree: pn, routes: dn} = function(t3) {
       const e2 = ["restoreDefaults", "setParamKeys", "setRegex", "setShortPath", "setRank", "assignLayout", "setPrototype", "addMetaChildren", "assignRelations", "setIsIndexable", "assignIndex", "assignAPI", "createFlatList"], n3 = {tree: t3, routes: []};
       for (let t4 of e2) {
@@ -5782,7 +5784,7 @@
     }, {target: document.body}, "routify-app");
   });
 
-  // dist/build/index-f9ee07f8.js
+  // dist/build/index-c04e03b0.js
   const main = __toModule(require_main());
   function n(t2) {
     const n2 = t2 - 1;
