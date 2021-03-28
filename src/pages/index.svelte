@@ -79,16 +79,16 @@ async function init(){
         const mail_list_data = values[0];
         $member_dict = values[1];
         console.log($member_dict);
-        const mail_to_num_dict = values[2];
+        const mail_to_num_dict: Map<string, number> = new Map(Object.entries(values[2]));
         const mail_body_dict: Map<string, {body: string, images: string}> = values[3];
 
         $pm_list = mail_list_data.map((pm, i)=>{
-            if (pm.id=="m20731"){$now_pm = pm;} // 메일 초기화
+            if (i==0){$now_pm = pm;} // 메일 초기화
             pm.nick = pm.member;
             const member_n = $member_dict[pm.nick];
             pm.member = member_name_dict[member_n];
             if (!pm.member && mail_to_num_dict.has(pm.id)){
-                const member_n = mail_to_num_dict[pm.id];
+                const member_n = mail_to_num_dict.get(pm.id);
                 $member_dict[pm.nick] = member_n;
                 pm.member = member_name_dict[member_n];
                 console.log("member_name.json 에 멤버 이름이 없습니다.");
@@ -141,6 +141,17 @@ async function init(){
             $tag_to_mail_dict=$tag_to_mail_dict;
             $mail_to_tag_dict=$mail_to_tag_dict;
         }
+
+        if (!$params.dateString){
+            $goto("./", {
+                dateString:INIT_DATE,
+                nowPage:1,
+                tag:"",
+                search:"",
+                showList:true,
+                now_pm:$pm_list[0].id
+            })
+        };
     });
 }
 
@@ -187,17 +198,6 @@ params.subscribe(p=>{
         }
     }
 });
-
-if (!$params.dateString){
-    $goto("./", {
-        dateString:INIT_DATE,
-        nowPage:1,
-        tag:"",
-        search:"",
-        showList:true,
-        now_pm:"m20731"
-    })
-};
 
 </script>
 
