@@ -144,12 +144,12 @@ async function init(){
 
         if (!$params.dateString){
             $goto("./", {
-                dateString:INIT_DATE || $params.dateString,
-                nowPage:1 || $params.nowPgae,
-                tag:"" || $params.tag,
-                search:"" || $params.search,
-                showList:true || $params.showList == "true",
-                now_pm:$pm_list[0].id || $params.now_pm
+                dateString: $params.dateString || INIT_DATE,
+                nowPage: $params.nowPage || 1,
+                tag: $params.tag || "",
+                search: $params.search || "",
+                showList: $params.showList || true,
+                now_pm: $params.now_pm || $pm_list[0].id
             })
         };
     });

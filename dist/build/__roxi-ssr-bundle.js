@@ -33,10 +33,10 @@
     return __exportStar(__defProp(__create(__getProtoOf(module)), "default", {value: module, enumerable: true}), module);
   };
 
-  // dist/build/_fallback-858f5bbe.js
-  var require_fallback_858f5bbe = __commonJS((exports) => {
+  // dist/build/_fallback-37faf890.js
+  var require_fallback_37faf890 = __commonJS((exports) => {
     __export(exports, {
-      default: () => fallback_858f5bbe_default
+      default: () => fallback_37faf890_default
     });
     const main2 = __toModule(require_main());
     function v(s2) {
@@ -55,17 +55,17 @@
       let t3;
       return main2.g(s2, main2.u, (s3) => e2(0, t3 = s3)), [t3];
     }
-    class fallback_858f5bbe_default extends main2.S {
+    class fallback_37faf890_default extends main2.S {
       constructor(s2) {
         super(), main2.i(this, s2, g, v, main2.s, {});
       }
     }
   });
 
-  // dist/build/index-fea4d6f3.js
-  var require_index_fea4d6f3 = __commonJS((exports) => {
+  // dist/build/index-9f393c42.js
+  var require_index_9f393c42 = __commonJS((exports) => {
     __export(exports, {
-      default: () => index_fea4d6f3_default
+      default: () => index_9f393c42_default
     });
     const main2 = __toModule(require_main());
     function S(e2) {
@@ -246,17 +246,17 @@
         f2 = this.clientHeight, n3(2, f2);
       }];
     }
-    class index_fea4d6f3_default extends main2.S {
+    class index_9f393c42_default extends main2.S {
       constructor(e2) {
         super(), main2.i(this, e2, G, F, main2.s, {});
       }
     }
   });
 
-  // dist/build/index-a7d47443.js
-  var require_index_a7d47443 = __commonJS((exports) => {
+  // dist/build/index-b1a9ab17.js
+  var require_index_b1a9ab17 = __commonJS((exports) => {
     __export(exports, {
-      default: () => index_a7d47443_default
+      default: () => index_b1a9ab17_default
     });
     const main2 = __toModule(require_main());
     function ae(e2, t3) {
@@ -4088,7 +4088,7 @@
       k2 = W2(e2), M2 = z2[k2] = E2[k2](e2), C2 = new Io({props: {maxPage: e2[6], parent_width: e2[0]}});
       let F2 = e2[0] < 600 && Ts();
       return D2 = new zo({props: {search_length: e2[4].length}}), {c() {
-        t3 = main2.e("section"), n3 = main2.e("div"), o3.c(), d2 = main2.a(), N2 && N2.c(), u2 = main2.a(), main2.q(h2.$$.fragment), x2 = main2.a(), M2.c(), _2 = main2.a(), main2.q(C2.$$.fragment), S2 = main2.a(), F2 && F2.c(), O2 = main2.a(), main2.q(D2.$$.fragment), main2.b(n3, "class", "ml-2 flex flex-row"), main2.b(t3, "id", "MailListSection"), main2.h(t3, "min-height", e2[9] + "px"), main2.b(t3, "class", T2 = (e2[11] ? "w-1/2 lg:w-2/3 xl:w-3/4" : "w-full") + "\r\nrelative p-4 svelte-1dlnf5y"), main2.j(() => e2[20].call(t3)), main2.Y(t3, "hidden", e2[3] && !e2[10]);
+        t3 = main2.e("section"), n3 = main2.e("div"), o3.c(), d2 = main2.a(), N2 && N2.c(), u2 = main2.a(), main2.q(h2.$$.fragment), x2 = main2.a(), M2.c(), _2 = main2.a(), main2.q(C2.$$.fragment), S2 = main2.a(), F2 && F2.c(), O2 = main2.a(), main2.q(D2.$$.fragment), main2.b(n3, "class", "ml-2 flex flex-row"), main2.b(t3, "id", "MailListSection"), main2.h(t3, "min-height", e2[9] + "px"), main2.b(t3, "class", T2 = "h-full " + (e2[11] ? "w-1/2 lg:w-2/3 xl:w-3/4" : "w-full") + "\r\nrelative p-4 svelte-1dlnf5y"), main2.j(() => e2[20].call(t3)), main2.Y(t3, "hidden", e2[3] && !e2[10]);
       }, m(o4, s2) {
         main2.c(o4, t3, s2), main2.d(t3, n3), A2[r2].m(n3, null), main2.d(n3, d2), N2 && N2.m(n3, null), main2.d(t3, u2), main2.r(h2, t3, null), main2.d(t3, x2), z2[k2].m(t3, null), main2.d(t3, _2), main2.r(C2, t3, null), main2.d(t3, S2), F2 && F2.m(t3, null), main2.d(t3, O2), main2.r(D2, t3, null), j2 = main2.z(t3, e2[20].bind(t3)), P2 = true;
       }, p(e3, [s2]) {
@@ -4107,7 +4107,7 @@
         const u3 = {};
         64 & s2 && (u3.maxPage = e3[6]), 1 & s2 && (u3.parent_width = e3[0]), C2.$set(u3), e3[0] < 600 ? F2 || (F2 = Ts(), F2.c(), F2.m(t3, O2)) : F2 && (F2.d(1), F2 = null);
         const $2 = {};
-        16 & s2 && ($2.search_length = e3[4].length), D2.$set($2), (!P2 || 512 & s2) && main2.h(t3, "min-height", e3[9] + "px"), (!P2 || 2048 & s2 && T2 !== (T2 = (e3[11] ? "w-1/2 lg:w-2/3 xl:w-3/4" : "w-full") + "\r\nrelative p-4 svelte-1dlnf5y")) && main2.b(t3, "class", T2), 3080 & s2 && main2.Y(t3, "hidden", e3[3] && !e3[10]);
+        16 & s2 && ($2.search_length = e3[4].length), D2.$set($2), (!P2 || 512 & s2) && main2.h(t3, "min-height", e3[9] + "px"), (!P2 || 2048 & s2 && T2 !== (T2 = "h-full " + (e3[11] ? "w-1/2 lg:w-2/3 xl:w-3/4" : "w-full") + "\r\nrelative p-4 svelte-1dlnf5y")) && main2.b(t3, "class", T2), 3080 & s2 && main2.Y(t3, "hidden", e3[3] && !e3[10]);
       }, i(e3) {
         P2 || (main2.p(o3), main2.p(N2), main2.p(h2.$$.fragment, e3), main2.p(M2), main2.p(C2.$$.fragment, e3), main2.p(D2.$$.fragment, e3), P2 = true);
       }, o(e3) {
@@ -4332,7 +4332,7 @@
             const p3 = c2.get("\uC0DD\uC77C");
             o3.has(p3) || o3.set(p3, new Set()), console.log("size", o3.get(p3).size), o3.get(p3).size == 0 && (l2.map((e4) => {
               e4.id.slice(0, 1) == "b" && r2(p3, e4);
-            }), Le.set(o3), Ce.set(s2)), d2.dateString || u2("./", {dateString: Tn || d2.dateString, nowPage: 1, tag: d2.tag, search: d2.search, showList: true, now_pm: l2[0].id || d2.now_pm});
+            }), Le.set(o3), Ce.set(s2)), d2.dateString || u2("./", {dateString: d2.dateString || Tn, nowPage: d2.nowPage || 1, tag: d2.tag || "", search: d2.search || "", showList: d2.showList || true, now_pm: d2.now_pm || l2[0].id});
           });
         });
       }().then(() => {
@@ -4360,17 +4360,17 @@
         w2 = this.clientWidth, n3(0, w2);
       }];
     }
-    class index_a7d47443_default extends main2.S {
+    class index_b1a9ab17_default extends main2.S {
       constructor(e2) {
         super(), main2.i(this, e2, Fs, zs, main2.s, {});
       }
     }
   });
 
-  // dist/build/_layout-f435ee53.js
-  var require_layout_f435ee53 = __commonJS((exports) => {
+  // dist/build/_layout-5cea121e.js
+  var require_layout_5cea121e = __commonJS((exports) => {
     __export(exports, {
-      default: () => layout_f435ee53_default
+      default: () => layout_5cea121e_default
     });
     const main2 = __toModule(require_main());
     function c(s2) {
@@ -4396,7 +4396,7 @@
         "$$scope" in s3 && e2(0, o3 = s3.$$scope);
       }, [o3, n3];
     }
-    class layout_f435ee53_default extends main2.S {
+    class layout_5cea121e_default extends main2.S {
       constructor(s2) {
         super(), main2.i(this, s2, u, c, main2.s, {});
       }
@@ -4417,7 +4417,7 @@
       H: () => i,
       I: () => I,
       J: () => f,
-      K: () => p,
+      K: () => d,
       L: () => X,
       M: () => Y,
       N: () => M,
@@ -4507,14 +4507,14 @@
     }
     function f(t3, e2, n3, o3) {
       if (t3) {
-        const r2 = d(t3, e2, n3, o3);
+        const r2 = p(t3, e2, n3, o3);
         return t3[0](r2);
       }
     }
-    function d(t3, e2, o3, r2) {
+    function p(t3, e2, o3, r2) {
       return t3[1] && r2 ? n2(o3.ctx.slice(), t3[1](r2(e2))) : o3.ctx;
     }
-    function p(t3, e2, n3, o3, r2, s2, i2) {
+    function d(t3, e2, n3, o3, r2, s2, i2) {
       const a3 = function(t4, e3, n4, o4) {
         if (t4[2] && o4) {
           const r3 = t4[2](o4(n4));
@@ -4531,7 +4531,7 @@
         return e3.dirty;
       }(e2, o3, r2, s2);
       if (a3) {
-        const r3 = d(e2, n3, o3, i2);
+        const r3 = p(e2, n3, o3, i2);
         t3.p(r3, a3);
       }
     }
@@ -4660,10 +4660,10 @@
         for (; n4--; )
           e3 = (e3 << 5) - e3 ^ t4.charCodeAt(n4);
         return e3 >>> 0;
-      }(u2)}_${a3}`, d2 = t3.ownerDocument;
-      z.add(d2);
-      const p2 = d2.__svelte_stylesheet || (d2.__svelte_stylesheet = d2.head.appendChild(O("style")).sheet), h2 = d2.__svelte_rules || (d2.__svelte_rules = {});
-      h2[f2] || (h2[f2] = true, p2.insertRule(`@keyframes ${f2} ${u2}`, p2.cssRules.length));
+      }(u2)}_${a3}`, p2 = t3.ownerDocument;
+      z.add(p2);
+      const d2 = p2.__svelte_stylesheet || (p2.__svelte_stylesheet = p2.head.appendChild(O("style")).sheet), h2 = p2.__svelte_rules || (p2.__svelte_rules = {});
+      h2[f2] || (h2[f2] = true, d2.insertRule(`@keyframes ${f2} ${u2}`, d2.cssRules.length));
       const m2 = t3.style.animation || "";
       return t3.style.animation = `${m2 ? `${m2}, ` : ""}${f2} ${o3}ms linear ${r2}ms 1 both`, K += 1, f2;
     }
@@ -4733,11 +4733,11 @@
     function ft(t3) {
       st.push(t3);
     }
-    let dt = false;
-    const pt = new Set();
+    let pt = false;
+    const dt = new Set();
     function ht() {
-      if (!dt) {
-        dt = true;
+      if (!pt) {
+        pt = true;
         do {
           for (let t3 = 0; t3 < nt.length; t3 += 1) {
             const e2 = nt[t3];
@@ -4747,13 +4747,13 @@
             ot.pop()();
           for (let t3 = 0; t3 < rt.length; t3 += 1) {
             const e2 = rt[t3];
-            pt.has(e2) || (pt.add(e2), e2());
+            dt.has(e2) || (dt.add(e2), e2());
           }
           rt.length = 0;
         } while (nt.length);
         for (; st.length; )
           st.pop()();
-        at = false, dt = false, pt.clear();
+        at = false, pt = false, dt.clear();
       }
     }
     function mt(t3) {
@@ -4798,27 +4798,27 @@
       function f2() {
         s2 && J(n3, s2);
       }
-      function d2() {
-        const {delay: o4 = 0, duration: r3 = 300, easing: i2 = e, tick: d3 = t2, css: p3} = c2 || Pt;
-        p3 && (s2 = W(n3, 0, 1, r3, o4, i2, p3, u2++)), d3(0, 1);
+      function p2() {
+        const {delay: o4 = 0, duration: r3 = 300, easing: i2 = e, tick: p3 = t2, css: d3} = c2 || Pt;
+        d3 && (s2 = W(n3, 0, 1, r3, o4, i2, d3, u2++)), p3(0, 1);
         const h2 = $() + o4, m2 = h2 + r3;
         a3 && a3.abort(), l2 = true, ut(() => $t(n3, true, "start")), a3 = v((t3) => {
           if (l2) {
             if (t3 >= m2)
-              return d3(1, 0), $t(n3, true, "end"), f2(), l2 = false;
+              return p3(1, 0), $t(n3, true, "end"), f2(), l2 = false;
             if (t3 >= h2) {
               const e2 = i2((t3 - h2) / r3);
-              d3(e2, 1 - e2);
+              p3(e2, 1 - e2);
             }
           }
           return l2;
         });
       }
-      let p2 = false;
+      let d2 = false;
       return {start() {
-        p2 || (J(n3), i(c2) ? (c2 = c2(), yt().then(d2)) : d2());
+        d2 || (J(n3), i(c2) ? (c2 = c2(), yt().then(p2)) : p2());
       }, invalidate() {
-        p2 = false;
+        d2 = false;
       }, end() {
         l2 && (f2(), l2 = false);
       }};
@@ -4827,15 +4827,15 @@
       let a3, c2 = o3(n3, r2), l2 = true;
       const u2 = wt;
       function f2() {
-        const {delay: o4 = 0, duration: r3 = 300, easing: i2 = e, tick: f3 = t2, css: d2} = c2 || Pt;
-        d2 && (a3 = W(n3, 1, 0, r3, o4, i2, d2));
-        const p2 = $() + o4, h2 = p2 + r3;
+        const {delay: o4 = 0, duration: r3 = 300, easing: i2 = e, tick: f3 = t2, css: p2} = c2 || Pt;
+        p2 && (a3 = W(n3, 1, 0, r3, o4, i2, p2));
+        const d2 = $() + o4, h2 = d2 + r3;
         ut(() => $t(n3, false, "start")), v((t3) => {
           if (l2) {
             if (t3 >= h2)
               return f3(0, 1), $t(n3, false, "end"), --u2.r || s(u2.c), false;
-            if (t3 >= p2) {
-              const e2 = i2((t3 - p2) / r3);
+            if (t3 >= d2) {
+              const e2 = i2((t3 - d2) / r3);
               f3(1 - e2, e2);
             }
           }
@@ -4849,9 +4849,9 @@
       }};
     }
     function jt(n3, o3, r2, a3) {
-      let c2 = o3(n3, r2), l2 = a3 ? 0 : 1, u2 = null, f2 = null, d2 = null;
-      function p2() {
-        d2 && J(n3, d2);
+      let c2 = o3(n3, r2), l2 = a3 ? 0 : 1, u2 = null, f2 = null, p2 = null;
+      function d2() {
+        p2 && J(n3, p2);
       }
       function h2(t3, e2) {
         const n4 = t3.b - l2;
@@ -4859,10 +4859,10 @@
       }
       function m2(o4) {
         const {delay: r3 = 0, duration: i2 = 300, easing: a4 = e, tick: m3 = t2, css: g2} = c2 || Pt, y2 = {start: $() + r3, b: o4};
-        o4 || (y2.group = wt, wt.r += 1), u2 || f2 ? f2 = y2 : (g2 && (p2(), d2 = W(n3, l2, o4, i2, r3, a4, g2)), o4 && m3(0, 1), u2 = h2(y2, i2), ut(() => $t(n3, o4, "start")), v((t3) => {
-          if (f2 && t3 > f2.start && (u2 = h2(f2, i2), f2 = null, $t(n3, u2.b, "start"), g2 && (p2(), d2 = W(n3, l2, u2.b, u2.duration, 0, a4, c2.css))), u2) {
+        o4 || (y2.group = wt, wt.r += 1), u2 || f2 ? f2 = y2 : (g2 && (d2(), p2 = W(n3, l2, o4, i2, r3, a4, g2)), o4 && m3(0, 1), u2 = h2(y2, i2), ut(() => $t(n3, o4, "start")), v((t3) => {
+          if (f2 && t3 > f2.start && (u2 = h2(f2, i2), f2 = null, $t(n3, u2.b, "start"), g2 && (d2(), p2 = W(n3, l2, u2.b, u2.duration, 0, a4, c2.css))), u2) {
             if (t3 >= u2.end)
-              m3(l2 = u2.b, 1 - l2), $t(n3, u2.b, "end"), f2 || (u2.b ? p2() : --u2.group.r || s(u2.group.c)), u2 = null;
+              m3(l2 = u2.b, 1 - l2), $t(n3, u2.b, "end"), f2 || (u2.b ? d2() : --u2.group.r || s(u2.group.c)), u2 = null;
             else if (t3 >= u2.start) {
               const e2 = t3 - u2.start;
               l2 = u2.a + u2.d * a4(e2 / u2.duration), m3(l2, 1 - l2);
@@ -4876,7 +4876,7 @@
           c2 = c2(), m2(t3);
         }) : m2(t3);
       }, end() {
-        p2(), u2 = f2 = null;
+        d2(), u2 = f2 = null;
       }};
     }
     const St = typeof window != "undefined" ? window : typeof globalThis != "undefined" ? globalThis : global;
@@ -4889,30 +4889,30 @@
       });
     }
     function Lt(t3, e2, n3, o3, r2, s2, i2, a3, c2, l2, u2, f2) {
-      let d2 = t3.length, p2 = s2.length, h2 = d2;
+      let p2 = t3.length, d2 = s2.length, h2 = p2;
       const m2 = {};
       for (; h2--; )
         m2[t3[h2].key] = h2;
       const g2 = [], y2 = new Map(), $2 = new Map();
-      for (h2 = p2; h2--; ) {
+      for (h2 = d2; h2--; ) {
         const t4 = f2(r2, s2, h2), a4 = n3(t4);
         let c3 = i2.get(a4);
         c3 ? o3 && c3.p(t4, e2) : (c3 = l2(a4, t4), c3.c()), y2.set(a4, g2[h2] = c3), a4 in m2 && $2.set(a4, Math.abs(h2 - m2[a4]));
       }
       const b2 = new Set(), w2 = new Set();
       function _2(t4) {
-        xt(t4, 1), t4.m(a3, u2), i2.set(t4.key, t4), u2 = t4.first, p2--;
+        xt(t4, 1), t4.m(a3, u2), i2.set(t4.key, t4), u2 = t4.first, d2--;
       }
-      for (; d2 && p2; ) {
-        const e3 = g2[p2 - 1], n4 = t3[d2 - 1], o4 = e3.key, r3 = n4.key;
-        e3 === n4 ? (u2 = e3.first, d2--, p2--) : y2.has(r3) ? !i2.has(o4) || b2.has(o4) ? _2(e3) : w2.has(r3) ? d2-- : $2.get(o4) > $2.get(r3) ? (w2.add(o4), _2(e3)) : (b2.add(r3), d2--) : (c2(n4, i2), d2--);
+      for (; p2 && d2; ) {
+        const e3 = g2[d2 - 1], n4 = t3[p2 - 1], o4 = e3.key, r3 = n4.key;
+        e3 === n4 ? (u2 = e3.first, p2--, d2--) : y2.has(r3) ? !i2.has(o4) || b2.has(o4) ? _2(e3) : w2.has(r3) ? p2-- : $2.get(o4) > $2.get(r3) ? (w2.add(o4), _2(e3)) : (b2.add(r3), p2--) : (c2(n4, i2), p2--);
       }
-      for (; d2--; ) {
-        const e3 = t3[d2];
+      for (; p2--; ) {
+        const e3 = t3[p2];
         y2.has(e3.key) || c2(e3, i2);
       }
-      for (; p2; )
-        _2(g2[p2 - 1]);
+      for (; d2; )
+        _2(g2[d2 - 1]);
       return g2;
     }
     function At(t3, e2, n3) {
@@ -4937,13 +4937,13 @@
       const u2 = H;
       G(e2);
       const f2 = e2.$$ = {fragment: null, ctx: null, props: c2, update: t2, not_equal: a3, bound: r(), on_mount: [], on_destroy: [], before_update: [], after_update: [], context: new Map(u2 ? u2.$$.context : []), callbacks: r(), dirty: l2, skip_bound: false};
-      let d2 = false;
+      let p2 = false;
       if (f2.ctx = o3 ? o3(e2, n3.props || {}, (t3, n4, ...o4) => {
         const r2 = o4.length ? o4[0] : n4;
-        return f2.ctx && a3(f2.ctx[t3], f2.ctx[t3] = r2) && (!f2.skip_bound && f2.bound[t3] && f2.bound[t3](r2), d2 && function(t4, e3) {
+        return f2.ctx && a3(f2.ctx[t3], f2.ctx[t3] = r2) && (!f2.skip_bound && f2.bound[t3] && f2.bound[t3](r2), p2 && function(t4, e3) {
           t4.$$.dirty[0] === -1 && (nt.push(t4), ct(), t4.$$.dirty.fill(0)), t4.$$.dirty[e3 / 31 | 0] |= 1 << e3 % 31;
         }(e2, t3)), n4;
-      }) : [], f2.update(), d2 = true, s(f2.before_update), f2.fragment = !!i2 && i2(f2.ctx), n3.target) {
+      }) : [], f2.update(), p2 = true, s(f2.before_update), f2.fragment = !!i2 && i2(f2.ctx), n3.target) {
         if (n3.hydrate) {
           const t3 = function(t4) {
             return Array.from(t4.childNodes);
@@ -5050,7 +5050,7 @@
       }, m(t4, n4) {
         o3 && o3.m(t4, n4), e2 = true;
       }, p(t4, [e3]) {
-        o3 && o3.p && 2 & e3 && p(o3, n3, t4, t4[1], e3, null, null);
+        o3 && o3.p && 2 & e3 && d(o3, n3, t4, t4[1], e3, null, null);
       }, i(t4) {
         e2 || (xt(o3, t4), e2 = true);
       }, o(t4) {
@@ -5103,20 +5103,20 @@
       return {subscribe: Xt(o3, (e3) => {
         let o4 = false;
         const u2 = [];
-        let f2 = 0, d2 = t2;
-        const p2 = () => {
+        let f2 = 0, p2 = t2;
+        const d2 = () => {
           if (f2)
             return;
-          d2();
+          p2();
           const o5 = n3(r2 ? u2[0] : u2, e3);
-          l2 ? e3(o5) : d2 = i(o5) ? o5 : t2;
+          l2 ? e3(o5) : p2 = i(o5) ? o5 : t2;
         }, h2 = a3.map((t3, e4) => c(t3, (t4) => {
-          u2[e4] = t4, f2 &= ~(1 << e4), o4 && p2();
+          u2[e4] = t4, f2 &= ~(1 << e4), o4 && d2();
         }, () => {
           f2 |= 1 << e4;
         }));
-        return o4 = true, p2(), function() {
-          s(h2), d2();
+        return o4 = true, d2(), function() {
+          s(h2), p2();
         };
       }).subscribe};
     }
@@ -5201,7 +5201,7 @@
     }
     const ue = Xt([]);
     const fe = Yt(ue, (t3) => t3.slice(0, 2));
-    function de(t3) {
+    function pe(t3) {
       const e2 = t3.data ? t3.data.prefetchId : t3;
       if (!e2)
         return null;
@@ -5215,16 +5215,16 @@
         });
       }
     }
-    function pe(t3, e2, n3) {
+    function de(t3, e2, n3) {
       let o3;
       return u(t3, fe, (t4) => n3(0, o3 = t4)), [o3];
     }
     fe.subscribe((t3) => t3.forEach(({options: t4}) => {
-      setTimeout(() => de(t4.prefetch), t4.timeout);
-    })), addEventListener("message", de, false);
+      setTimeout(() => pe(t4.prefetch), t4.timeout);
+    })), addEventListener("message", pe, false);
     class he extends Ct {
       constructor(t3) {
-        super(), Nt(this, t3, pe, le, a2, {});
+        super(), Nt(this, t3, de, le, a2, {});
       }
     }
     function me() {
@@ -5513,7 +5513,7 @@
     function Le(t3, e2, n3) {
       let o3, r2, s2, i2;
       u(t3, te, (t4) => n3(14, s2 = t4));
-      let a3, {nodes: c2 = []} = e2, {scoped: l2 = {}} = e2, {isRoot: f2 = false} = e2, {decorator: d2} = e2, p2 = null, h2 = null, m2 = {};
+      let a3, {nodes: c2 = []} = e2, {scoped: l2 = {}} = e2, {isRoot: f2 = false} = e2, {decorator: p2} = e2, d2 = null, h2 = null, m2 = {};
       const g2 = Xt(null);
       u(t3, g2, (t4) => n3(4, i2 = t4));
       const y2 = tt("routify");
@@ -5529,17 +5529,17 @@
             e4.update(), dispatchEvent(new CustomEvent("app-loaded")), parent.postMessage({msg: "app-loaded", prefetched: window.routify.prefetched, path: o4, prefetchId: s3}, "*"), window.routify.appLoaded = true, window.routify.stopAutoReady = false;
           }({page: i2.component, metatags: ke, afterPageLoad: ge});
         }();
-        const e3 = {nodes: h2, decorator: d2 || Vt, layout: p2.isLayout ? p2 : o3 && o3.layout, component: p2, route: s2, componentFile: t4, parentNode: a3 || o3 && o3.parentNode};
+        const e3 = {nodes: h2, decorator: p2 || Vt, layout: d2.isLayout ? d2 : o3 && o3.layout, component: d2, route: s2, componentFile: t4, parentNode: a3 || o3 && o3.parentNode};
         g2.set(e3), f2 && ne.set(e3);
       }
       return Y("routify", g2), t3.$$set = (t4) => {
-        "nodes" in t4 && n3(1, c2 = t4.nodes), "scoped" in t4 && n3(0, l2 = t4.scoped), "isRoot" in t4 && n3(9, f2 = t4.isRoot), "decorator" in t4 && n3(2, d2 = t4.decorator);
+        "nodes" in t4 && n3(1, c2 = t4.nodes), "scoped" in t4 && n3(0, l2 = t4.scoped), "isRoot" in t4 && n3(9, f2 = t4.isRoot), "decorator" in t4 && n3(2, p2 = t4.decorator);
       }, t3.$$.update = () => {
-        1024 & t3.$$.dirty && (o3 = r2), 2 & t3.$$.dirty && n3(3, [p2, ...h2] = c2, p2), 8 & t3.$$.dirty && function(t4) {
+        1024 & t3.$$.dirty && (o3 = r2), 2 & t3.$$.dirty && n3(3, [d2, ...h2] = c2, d2), 8 & t3.$$.dirty && function(t4) {
           let e3 = t4.component();
           e3 instanceof Promise ? e3.then($2) : $2(e3);
-        }(p2), 16 & t3.$$.dirty && i2 && Ht(i2, lt);
-      }, [l2, c2, d2, p2, i2, m2, g2, y2, (t4) => a3 = t4.parentNode, f2, r2];
+        }(d2), 16 & t3.$$.dirty && i2 && Ht(i2, lt);
+      }, [l2, c2, p2, d2, i2, m2, g2, y2, (t4) => a3 = t4.parentNode, f2, r2];
     }
     class Ae extends Ct {
       constructor(t3) {
@@ -5641,8 +5641,8 @@
         s2 && (s2.destroy(), s2 = null);
       };
       let f2 = null;
-      var d2;
-      return d2 = l2, Q().$$.on_destroy.push(d2), t3.$$set = (t4) => {
+      var p2;
+      return p2 = l2, Q().$$.on_destroy.push(p2), t3.$$set = (t4) => {
         "routes" in t4 && n3(2, i2 = t4.routes), "config" in t4 && n3(3, a3 = t4.config);
       }, t3.$$.update = () => {
         4 & t3.$$.dirty && i2 && (clearTimeout(f2), f2 = setTimeout(() => {
@@ -5787,8 +5787,8 @@
       }
     }
     const un = {...on, restoreDefaults: ({tree: t3}) => sn(t3), assignAPI: an};
-    const fn = {root: true, ownMeta: {preload: "proximity"}, children: [{isFallback: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/_fallback", component: () => Promise.resolve().then(() => __toModule(require_fallback_858f5bbe())).then((t3) => t3.default)}, {isDir: true, ext: "", children: [{isIndex: true, isPage: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/gallery/index", id: "_gallery_index", component: () => Promise.resolve().then(() => __toModule(require_index_fea4d6f3())).then((t3) => t3.default)}], meta: {recursive: true, preload: "proximity", prerender: true}, path: "/gallery"}, {isIndex: true, isPage: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/index", id: "_index", component: () => Promise.resolve().then(() => __toModule(require_index_a7d47443())).then((t3) => t3.default)}], isLayout: true, meta: {preload: "proximity", recursive: true, prerender: true}, path: "/", id: "__layout", component: () => Promise.resolve().then(() => __toModule(require_layout_f435ee53())).then((t3) => t3.default)};
-    const {tree: dn, routes: pn} = function(t3) {
+    const fn = {root: true, ownMeta: {preload: "proximity"}, children: [{isFallback: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/_fallback", component: () => Promise.resolve().then(() => __toModule(require_fallback_37faf890())).then((t3) => t3.default)}, {isDir: true, ext: "", children: [{isIndex: true, isPage: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/gallery/index", id: "_gallery_index", component: () => Promise.resolve().then(() => __toModule(require_index_9f393c42())).then((t3) => t3.default)}], meta: {recursive: true, preload: "proximity", prerender: true}, path: "/gallery"}, {isIndex: true, isPage: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/index", id: "_index", component: () => Promise.resolve().then(() => __toModule(require_index_b1a9ab17())).then((t3) => t3.default)}], isLayout: true, meta: {preload: "proximity", recursive: true, prerender: true}, path: "/", id: "__layout", component: () => Promise.resolve().then(() => __toModule(require_layout_5cea121e())).then((t3) => t3.default)};
+    const {tree: pn, routes: dn} = function(t3) {
       const e2 = ["restoreDefaults", "setParamKeys", "setRegex", "setShortPath", "setRank", "assignLayout", "setPrototype", "addMetaChildren", "assignRelations", "setIsIndexable", "assignIndex", "assignAPI", "createFlatList"], n3 = {tree: t3, routes: []};
       for (let t4 of e2) {
         (un[t4].sync || un[t4])(n3);
@@ -5797,7 +5797,7 @@
     }(fn);
     function hn(e2) {
       let n3, o3;
-      return n3 = new Be({props: {routes: pn}}), {c() {
+      return n3 = new Be({props: {routes: dn}}), {c() {
         Tt(n3.$$.fragment);
       }, m(t3, e3) {
         Ft(n3, t3, e3), o3 = true;
@@ -5822,7 +5822,7 @@
     }, {target: document.body}, "routify-app");
   });
 
-  // dist/build/index-be9f0e91.js
+  // dist/build/index-55115afe.js
   const main = __toModule(require_main());
   function n(t2) {
     const n2 = t2 - 1;

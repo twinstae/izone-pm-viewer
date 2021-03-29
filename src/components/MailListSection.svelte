@@ -128,7 +128,7 @@ class:hidden={$isMobile && !$show_list}
 bind:clientWidth={section_width}
 bind:clientHeight={section_height}
 style="min-height: {min_height}px;"
-class="{$isDesktop ? "w-1/2 lg:w-2/3 xl:w-3/4": "w-full"}
+class="h-full {$isDesktop ? "w-1/2 lg:w-2/3 xl:w-3/4": "w-full"}
 relative p-4">
     <div class="ml-2 flex flex-row">
         {#if $isMobile}
