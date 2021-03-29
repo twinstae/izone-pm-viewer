@@ -33,10 +33,10 @@
     return __exportStar(__defProp(__create(__getProtoOf(module)), "default", {value: module, enumerable: true}), module);
   };
 
-  // dist/build/_fallback-37faf890.js
-  var require_fallback_37faf890 = __commonJS((exports) => {
+  // dist/build/_fallback-bca528f9.js
+  var require_fallback_bca528f9 = __commonJS((exports) => {
     __export(exports, {
-      default: () => fallback_37faf890_default
+      default: () => fallback_bca528f9_default
     });
     const main2 = __toModule(require_main());
     function v(s2) {
@@ -55,17 +55,17 @@
       let t3;
       return main2.g(s2, main2.u, (s3) => e2(0, t3 = s3)), [t3];
     }
-    class fallback_37faf890_default extends main2.S {
+    class fallback_bca528f9_default extends main2.S {
       constructor(s2) {
         super(), main2.i(this, s2, g, v, main2.s, {});
       }
     }
   });
 
-  // dist/build/index-9f393c42.js
-  var require_index_9f393c42 = __commonJS((exports) => {
+  // dist/build/index-5f7af05f.js
+  var require_index_5f7af05f = __commonJS((exports) => {
     __export(exports, {
-      default: () => index_9f393c42_default
+      default: () => index_5f7af05f_default
     });
     const main2 = __toModule(require_main());
     function S(e2) {
@@ -246,17 +246,17 @@
         f2 = this.clientHeight, n3(2, f2);
       }];
     }
-    class index_9f393c42_default extends main2.S {
+    class index_5f7af05f_default extends main2.S {
       constructor(e2) {
         super(), main2.i(this, e2, G, F, main2.s, {});
       }
     }
   });
 
-  // dist/build/index-b1a9ab17.js
-  var require_index_b1a9ab17 = __commonJS((exports) => {
+  // dist/build/index-20078339.js
+  var require_index_20078339 = __commonJS((exports) => {
     __export(exports, {
-      default: () => index_b1a9ab17_default
+      default: () => index_20078339_default
     });
     const main2 = __toModule(require_main());
     function ae(e2, t3) {
@@ -4153,7 +4153,7 @@
       });
       let T2 = false;
       return e2.$$.update = () => {
-        1 & e2.$$.dirty && n3(14, r2 = Math.floor((k2 - 32) / 292)), 2 & e2.$$.dirty && n3(15, o3 = Math.floor((M2 - 220) / 164)), 49166 & e2.$$.dirty && n3(16, s2 = u2 ? 5 : T2 ? Math.floor((M2 - 200) / 62) : r2 * o3), 65552 & e2.$$.dirty && n3(6, i2 = Math.ceil(g2.length / s2)), 2 & e2.$$.dirty && n3(7, l2 = M2 < 400), 196624 & e2.$$.dirty && n3(8, a3 = g2 ? h2(s2) : []), 262144 & e2.$$.dirty && (c2 = Pn(f2)), 44 & e2.$$.dirty && n3(9, d2 = T2 || u2 ? y2 ? 520 : 360 : 490);
+        1 & e2.$$.dirty && n3(14, r2 = Math.floor((k2 - 32) / 292)), 2 & e2.$$.dirty && n3(15, o3 = Math.floor((M2 - 220) / 164)), 49166 & e2.$$.dirty && n3(16, s2 = u2 ? 5 : T2 ? Math.floor((M2 - 200) / 62) : r2 * o3), 65552 & e2.$$.dirty && n3(6, i2 = Math.ceil(g2.length / s2)), 2 & e2.$$.dirty && n3(7, l2 = M2 < 512), 196624 & e2.$$.dirty && n3(8, a3 = g2 ? h2(s2) : []), 262144 & e2.$$.dirty && (c2 = Pn(f2)), 44 & e2.$$.dirty && n3(9, d2 = T2 || u2 ? y2 ? 520 : 360 : 490);
       }, [k2, M2, T2, u2, g2, y2, i2, l2, a3, d2, b2, w2, v2, x2, r2, o3, s2, h2, f2, function() {
         T2 = this.checked, n3(2, T2);
       }, function() {
@@ -4360,17 +4360,17 @@
         w2 = this.clientWidth, n3(0, w2);
       }];
     }
-    class index_b1a9ab17_default extends main2.S {
+    class index_20078339_default extends main2.S {
       constructor(e2) {
         super(), main2.i(this, e2, Fs, zs, main2.s, {});
       }
     }
   });
 
-  // dist/build/_layout-5cea121e.js
-  var require_layout_5cea121e = __commonJS((exports) => {
+  // dist/build/_layout-e4b01935.js
+  var require_layout_e4b01935 = __commonJS((exports) => {
     __export(exports, {
-      default: () => layout_5cea121e_default
+      default: () => layout_e4b01935_default
     });
     const main2 = __toModule(require_main());
     function c(s2) {
@@ -4396,7 +4396,7 @@
         "$$scope" in s3 && e2(0, o3 = s3.$$scope);
       }, [o3, n3];
     }
-    class layout_5cea121e_default extends main2.S {
+    class layout_e4b01935_default extends main2.S {
       constructor(s2) {
         super(), main2.i(this, s2, u, c, main2.s, {});
       }
@@ -5787,7 +5787,7 @@
       }
     }
     const un = {...on, restoreDefaults: ({tree: t3}) => sn(t3), assignAPI: an};
-    const fn = {root: true, ownMeta: {preload: "proximity"}, children: [{isFallback: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/_fallback", component: () => Promise.resolve().then(() => __toModule(require_fallback_37faf890())).then((t3) => t3.default)}, {isDir: true, ext: "", children: [{isIndex: true, isPage: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/gallery/index", id: "_gallery_index", component: () => Promise.resolve().then(() => __toModule(require_index_9f393c42())).then((t3) => t3.default)}], meta: {recursive: true, preload: "proximity", prerender: true}, path: "/gallery"}, {isIndex: true, isPage: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/index", id: "_index", component: () => Promise.resolve().then(() => __toModule(require_index_b1a9ab17())).then((t3) => t3.default)}], isLayout: true, meta: {preload: "proximity", recursive: true, prerender: true}, path: "/", id: "__layout", component: () => Promise.resolve().then(() => __toModule(require_layout_5cea121e())).then((t3) => t3.default)};
+    const fn = {root: true, ownMeta: {preload: "proximity"}, children: [{isFallback: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/_fallback", component: () => Promise.resolve().then(() => __toModule(require_fallback_bca528f9())).then((t3) => t3.default)}, {isDir: true, ext: "", children: [{isIndex: true, isPage: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/gallery/index", id: "_gallery_index", component: () => Promise.resolve().then(() => __toModule(require_index_5f7af05f())).then((t3) => t3.default)}], meta: {recursive: true, preload: "proximity", prerender: true}, path: "/gallery"}, {isIndex: true, isPage: true, meta: {recursive: true, preload: "proximity", prerender: true}, path: "/index", id: "_index", component: () => Promise.resolve().then(() => __toModule(require_index_20078339())).then((t3) => t3.default)}], isLayout: true, meta: {preload: "proximity", recursive: true, prerender: true}, path: "/", id: "__layout", component: () => Promise.resolve().then(() => __toModule(require_layout_e4b01935())).then((t3) => t3.default)};
     const {tree: pn, routes: dn} = function(t3) {
       const e2 = ["restoreDefaults", "setParamKeys", "setRegex", "setShortPath", "setRank", "assignLayout", "setPrototype", "addMetaChildren", "assignRelations", "setIsIndexable", "assignIndex", "assignAPI", "createFlatList"], n3 = {tree: t3, routes: []};
       for (let t4 of e2) {
@@ -5822,7 +5822,7 @@
     }, {target: document.body}, "routify-app");
   });
 
-  // dist/build/index-55115afe.js
+  // dist/build/index-dc01f036.js
   const main = __toModule(require_main());
   function n(t2) {
     const n2 = t2 - 1;

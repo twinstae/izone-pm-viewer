@@ -26,7 +26,7 @@ $: mail_per_page = $isMobile
         : mail_per_width * mail_per_height;
 
 $: maxPage = Math.ceil($filtered_list.length/mail_per_page);
-$: isTyping = section_height < 400;
+$: isTyping = section_height < 512;
 
 $: mail_list = $filtered_list ? $getPage(mail_per_page) : [];
 
