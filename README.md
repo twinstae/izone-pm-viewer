@@ -1,5 +1,20 @@
 [IZPM-Backup 백업 툴](https://github.com/mdsnins/IZPM-Backup)과 호환되는 뷰어입니다.
 
+기술 스택 : FastAPI, Svelte, TailwindCss, Fuse
+
+## 구현된 기능목록
+- 날짜로 찾기
+- 날짜별 메일 개수 표시
+- 검색 기능
+- 중요 표시 (기존 앱에서 이전해오는 기능은 개발 중)
+- 태그 달기, 수정
+- 카드 뷰, 리스트 뷰
+- Mobile 반응형 UI
+- Desktop <-> Mobile 태그 동기화. 서버에 저장
+- 다크 모드
+- 자동 업데이트 (예정)
+- 백업 툴 내장 (예정)
+
 ## 사용방법
 
 1. [IZ-PM-Viewer-배포.zip 다운 받기](https://github.com/twinstae/izone-pm-viewer/raw/main/IZ-PM-Viewer-%EB%B0%B0%ED%8F%AC.zip)
