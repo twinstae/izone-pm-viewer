@@ -7,7 +7,7 @@ import { selected_tag_value } from "../stores/tag";
 import { now_page, isDesktop, show_list, isMobile, show_tag_list } from '../stores/now';
 import { filtered_list, getPage } from '../stores/search';
 import Search from './Search.svelte';
-import { params, redirect } from '@roxi/routify';
+import { goto, params, redirect } from '@roxi/routify';
 import SelectedTag from './tags/SelectedTag.svelte';
 import ShowTagListInput from './tags/ShowTagListInput.svelte';
 import MailItemList from './MailItemList.svelte';
@@ -127,10 +127,9 @@ id="MailListSection"
 class:hidden={$isMobile && !$show_list}
 bind:clientWidth={section_width}
 bind:clientHeight={section_height}
-style="
-min-height: {min_height}px;"
-class="h-full {$isDesktop ? "w-1/2 lg:w-2/3 xl:w-3/4": "w-full"}
-relative pl-4 pr-4 pt-2">
+style="min-height: {min_height}px;"
+class="{$isDesktop ? "w-1/2 lg:w-2/3 xl:w-3/4": "w-full"}
+relative p-4">
     <div class="ml-2 flex flex-row">
         {#if $isMobile}
             <DarkModeButton />

@@ -144,16 +144,18 @@ async function init(){
 
         if (!$params.dateString){
             $goto("./", {
-                dateString:INIT_DATE,
-                nowPage:1,
-                tag:"",
-                search:"",
-                showList:true,
-                now_pm:$pm_list[0].id
+                dateString:INIT_DATE || $params.dateString,
+                nowPage:1 || $params.nowPgae,
+                tag:"" || $params.tag,
+                search:"" || $params.search,
+                showList:true || $params.showList == "true",
+                now_pm:$pm_list[0].id || $params.now_pm
             })
         };
     });
 }
+
+$: console.log($params);
 
 init().then(()=>{haveInitiated=true});
 
@@ -181,7 +183,7 @@ params.subscribe(p=>{
 })
 
 params.subscribe(p=>{
-    if (!p.tag && $selected_tag_value != EMPTY_TAG) {
+    if (!p.tag && $selected_tag_value) {
         $selected_tag_value = EMPTY_TAG;
     }
     
@@ -189,12 +191,11 @@ params.subscribe(p=>{
         if (!$all_tag_dict.has(p.tag)){
             $redirect("./", { ...$params, tag: ""});
             console.log("redirect to empty tag url");
-
-        } else if ($selected_tag_value != p.tag){
+            return null;
+        }
+        if ($selected_tag_value != p.tag){
             const new_tag = $all_tag_dict.get(p.tag);
-            if(new_tag){
-                $selected_tag_value = new_tag.value;
-            }
+            $selected_tag_value = new_tag.value;
         }
     }
 });

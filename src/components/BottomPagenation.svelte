@@ -1,7 +1,7 @@
 <script lang="ts">
 import { goto, params } from "@roxi/routify";
 import { dateString, date_to_str, INIT_DATE, str_to_date } from "../stores/date";
-import { isMobile, now_page } from "../stores/now";
+import { now_page } from "../stores/now";
 import { dark, dynamic_dark_bg, dynamic_dark_border } from "../stores/preferences";
 import { selected_tag_value } from "../stores/tag";
 import PinkButton from "./buttons/PinkButton.svelte";
@@ -79,6 +79,8 @@ params.subscribe(p=>{
     }
 })
 
+
+$: isMaxPage = maxPage<=$now_page;
 </script>
 
 <PinkButton id="BackPageButton" onClick={goToBackPage}>
@@ -87,17 +89,18 @@ params.subscribe(p=>{
 
 <span
 id="NowPageSpan"
-class="{$dynamic_dark_bg('bg-white')} {$dynamic_dark_border}
+class="{isMaxPage
+    ? ($dark ? "text-gray-300 bg-red-600 " : "bg-red-300 ") + "border-red-700"
+    : $dynamic_dark_bg("bg-white") + " " + $dynamic_dark_border}
     border-2 rounded w-24 p-0.5 pl-2 pr-2"
-class:bg-red-300={!$dark && maxPage<=$now_page}
-class:bg-red-500={$dark &&maxPage<=$now_page}
-class:border-red-700={maxPage<=$now_page}>
+class:border-red-700={isMaxPage}>
     <input
     id="NowPageInput"
     type="number"
-    class="w-9 {$dynamic_dark_bg("bg-white")}"
-    class:bg-red-300={!$dark && maxPage<=$now_page}
-    class:bg-red-500={$dark &&maxPage<=$now_page}
+    class="w-9 
+    {isMaxPage
+        ? ($dark ? "text-gray-300 bg-red-600 " : "bg-red-300 ") + "border-red-700"
+        : $dynamic_dark_bg("bg-white")}"
     bind:value={$now_page}
     min=1 max={maxPage}>
     <span>/ {maxPage}</span>
@@ -117,7 +120,7 @@ class:border-red-700={maxPage<=$now_page}>
 <Datepicker
 on:dateSelected={(e)=>{    
     $now_page = 1;
-    $goto("./", {...$params, nowPage: $now_page, dateString: $dateString});
+    $goto("./", {...$params, nowPage: 1, dateString: $dateString});
 }}
 selected={str_to_date($dateString)}
 bind:formattedSelected={$dateString}

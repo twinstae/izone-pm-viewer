@@ -46,8 +46,8 @@ $: onDeleteTag = async ()=>{
 
 const onSelectTag = (tag: Tag)=>
 ()=>{
-    selected_tag_value.set(tag.value);
-    $goto("./", {...$params, tag: $selected_tag_value, nowPage:1})
+    $selected_tag_value = tag.value;
+    $goto("./", {...$params, tag: tag.value, nowPage:1})
 }
 
 const {open} = getContext("simple-modal");

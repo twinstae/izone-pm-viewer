@@ -8,7 +8,7 @@ import Tag from "./Tag.svelte";
 const remove_selected_tag = ()=>{
     $selected_tag_value = EMPTY_TAG;
     $now_page = 1;
-    $goto("./", {...$params, tag: ""})
+    $goto("./", {...$params, tag: "", nowPage: 1});
 };
 
 </script>

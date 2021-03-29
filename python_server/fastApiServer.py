@@ -12,7 +12,6 @@ import httpx
 
 from ApiRouter import api_router
 
-
 app = FastAPI()
 
 origins = [
@@ -35,7 +34,7 @@ GITHUB_URL = "https://raw.githubusercontent.com/twinstae/izone-pm-viewer/main"
 @app.on_event("startup")
 async def startup_event():
     pass
-
+    
 
 async def check_and_update_build_and_server():
     try:
@@ -210,6 +209,7 @@ def 이미_최신버전인가(old_ver, new_ver):
         if old_n != new_n:
             return old_n >= new_n
     return True
+
 
 @app.get("/")
 async def root():

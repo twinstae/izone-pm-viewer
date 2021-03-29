@@ -121,7 +121,12 @@ const MailTagDict = {
 };
 
 const ping = fetch(API_ROOT+"/ping")
-const load_pm = (token: string)=>post(API_ROOT+"/private-mail/", {token});
+function load_pm(user_id: string, token: string){
+    return post(API_ROOT+"/private-mail/", {
+        user_id: user_id,
+        token: token
+    });
+}
 
 export default {
     AllTagDict,

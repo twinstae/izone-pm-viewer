@@ -18,7 +18,6 @@ export let hidden;
 export let index;
 
 $: onMailSelected = ()=>{
-    console.log("i am here")
     if(pm){
         $now_pm=pm
         $show_list = false;
