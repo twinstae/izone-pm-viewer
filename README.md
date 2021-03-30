@@ -1,6 +1,6 @@
 [IZPM-Backup 백업 툴](https://github.com/mdsnins/IZPM-Backup)과 호환되는 뷰어입니다.
 
-기술 스택 : FastAPI, Svelte, TailwindCss, Fuse
+기술 스택 : FastAPI, httpx, pytest, Svelte, Tailwind CSS, Fuse(검색), cypress
 
 ## 구현된 기능목록
 - 날짜로 찾기
