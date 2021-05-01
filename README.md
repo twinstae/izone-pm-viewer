@@ -1,5 +1,7 @@
 [IZPM-Backup 백업 툴](https://github.com/mdsnins/IZPM-Backup)과 호환되는 뷰어입니다.
 
+[프메 백업 뷰어 상담소 톡방](https://open.kakao.com/o/gPbArZ4c) 에러 나는 분은 와주세요.
+
 기술 스택 : FastAPI, httpx, pytest, Svelte, Tailwind CSS, Fuse(검색), cypress
 
 ## 구현된 기능목록
