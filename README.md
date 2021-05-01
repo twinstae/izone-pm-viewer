@@ -20,7 +20,9 @@
 1. [IZ-PM-Viewer-배포.zip 다운 받기](https://github.com/twinstae/izone-pm-viewer/raw/main/IZ-PM-Viewer-%EB%B0%B0%ED%8F%AC.zip)
 압축 파일을 받아서 img와 mail이 있는 output 폴더에 풀어줍니다.
 
-신형 서버도 받으려면 [여기](https://github.com/twinstae/izone-pm-viewer/raw/main/%EC%84%9C%EB%B2%84-%EB%B0%B0%ED%8F%AC%EC%9A%A9.zip) 신 서버는 절대 output 폴더에 풀면 안 되고. 그 상위 폴더에 풀어줘야합니다.
+신형 서버도 받으려면 [여기](https://github.com/twinstae/izone-pm-viewer/raw/main/%EC%84%9C%EB%B2%84-%EB%B0%B0%ED%8F%AC%EC%9A%A9.zip)
+> - 신 서버는 절대 output 폴더에 풀면 안 되고. 그 상위 폴더에 풀어줘야합니다.
+> - 신 서버를 쓰려면 구 배포.zip에 있는 초기 설정을 해줘야 합니다.
 
 - 최상위 폴더
   - FastAPI 설치.bat
@@ -41,10 +43,14 @@
 
 2. 초기 설정하기.bat 파일을 실행하면 필요한 pm_list.json과 member_name.json을 알아서 생성해줍니다.
 
+> - Mac이나 리눅스 쓰시는 분은 .bat 파일을 메모장으로 열어서, 명령어를 똑같이 쳐주세요. 단 python은 python3 로 바꿔야 합니다.
+> - Mac 자동화 스크립트 (sh파일)도 추가 예정 
+
 3. 이제 서버 시작하기.bat 파일을 실행하면 뷰어가 열릴 겁니다. 아마도...
 
 > 아직 테스트 중 입니다.
 > 에러 나면 알려주세요. F12 누르면 뜨는 개발자 창에서 Console 부분과, 검은 서버 cmd 창 스크린샷 찍어서 보여주시면 됩니다.
+> 이번에 다시 설치하는 분은 F12 개발자도구 네트워크 탭에서 디스크 캐시를 우클릭하고 꼭 지워주세요.
 
 ![](https://raw.githubusercontent.com/twinstae/izone-pm-viewer/main/%EA%B2%80%EC%83%89.png)
 
