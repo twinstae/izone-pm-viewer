@@ -1,4 +1,4 @@
-interface Mail {
+interface MailT {
     id: string;
     member: string;
     time: string;
@@ -9,12 +9,12 @@ interface Mail {
     nick?: string;
 };
 
-interface Tag {
+interface TagT {
     value: string;
     color: string;
 }
 
-interface Profile {
+interface ProfileT {
     path: string;
     name: string;
 }

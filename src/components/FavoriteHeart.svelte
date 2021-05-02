@@ -4,7 +4,6 @@ import {tag_to_mail_dict} from "../stores/tag_to_mail_dict";
 import Icon from 'fa-svelte';
 import {faStar} from '@fortawesome/free-solid-svg-icons/faStar';
 import { faStar as emptyStar} from '@fortawesome/free-regular-svg-icons/faStar';
-import { ping } from "../stores/preferences";
 import api from "../api";
 
 export let pm_id: string;
@@ -20,10 +19,10 @@ $: onFavorite = async ()=>{
     if (favorite_set.has(pm_id)){
         favorite_set.delete(pm_id);
 
-        if($ping) api.MailTagDict.deleteTag(pm_id, "💖");
+        api.MailTagDict.deleteTag(pm_id, "💖");
     } else {
         favorite_set.add(pm_id);
-        if($ping) api.MailTagDict.addTag(pm_id, "💖");
+        api.MailTagDict.addTag(pm_id, "💖");
     }
     $tag_to_mail_dict = $tag_to_mail_dict;
 }

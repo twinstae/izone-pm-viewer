@@ -4,7 +4,7 @@ import api from "../../api";
 
 import { all_tag_dict } from "../../stores/all_tag_dict";
 import { member_color_to_dark_dict } from "../../stores/constants";
-import { dark, ping } from "../../stores/preferences";
+import { dark } from "../../stores/preferences";
 import PinkButton from "../buttons/PinkButton.svelte";
 export let tag: {
     value: string,
@@ -32,9 +32,7 @@ let choices = [
 const {close} = getContext("simple-modal");
 
 $: onClick = ()=>{
-    if($ping){
-        api.AllTagDict.updateTag(tag.value, {value, color});
-    }
+    api.AllTagDict.updateTag(tag.value, {value, color});
 
     const the_tag = $all_tag_dict.get(tag.value);
 

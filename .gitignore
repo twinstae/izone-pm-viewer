@@ -21,3 +21,4 @@ dist/build/*.map
 assets/pm_list.json
 *.ipynb
 cypress/examples
+*.jpg:Zone.Identifier

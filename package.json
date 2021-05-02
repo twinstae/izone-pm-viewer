@@ -71,6 +71,7 @@
       "@fortawesome/free-brands-svg-icons": "^5.15.3",
       "@fortawesome/free-regular-svg-icons": "^5.15.3",
       "@fortawesome/free-solid-svg-icons": "^5.15.3",
-      "fuse.js": "^6.4.6"
+      "fuse.js": "^6.4.6",
+      "timeUtils": "^2.0.0"
    }
 }

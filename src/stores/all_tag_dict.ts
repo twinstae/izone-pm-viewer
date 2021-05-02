@@ -2,9 +2,11 @@ import { writable } from 'svelte/store';
 
 export const EMPTY_TAG: string = null;
 
-export const favorite_tag: Tag = {value: "💖", color: "#fff"};
+export const birthday_tag = {value: "생일", color: "LightPink"};
 
-export const member_tags: Tag[] = [
+export const favorite_tag: TagT = {value: "💖", color: "#fff"};
+
+export const member_tags: TagT[] = [
     {"value":"권은비","color":"#bbb0dc"},
     {"value":"미야와키 사쿠라","color":"#f1d2e7"},
     {"value":"강혜원","color":"#db706c"},
@@ -19,19 +21,21 @@ export const member_tags: Tag[] = [
     {"value":"장원영","color":"#d9598c"},
     {"value":"운영팀","color":"gray"}
 ];
-    
-function init_all_tag_dict(){
-    let result = member_tags.reduce(((acc, tag) => {
+export const default_tag_dict = member_tags.reduce(((acc, tag) => {
         acc.set(tag.value, tag);
         return acc;
     }), new Map([
-        ["💖", favorite_tag],
+      [favorite_tag.value, favorite_tag],
+      [birthday_tag.value, birthday_tag]
     ]));
+
+function init_all_tag_dict(){
+    let result = default_tag_dict;
 
     const all_tag_json = localStorage.getItem("all_tag_dict");
     if (all_tag_json){
         console.log("all tag backup loaded");
-        const data: [string, Tag][] = JSON.parse(all_tag_json);
+        const data: [string, TagT][] = JSON.parse(all_tag_json);
         result = [...result].reduce((acc, entry) => {
             acc.set(entry[0], entry[1]);
             return acc;
@@ -46,6 +50,6 @@ all_tag_dict.subscribe(value=>{
     localStorage.setItem("all_tag_dict", dict_to_json(value));
 })
 
-function dict_to_json(dict: Map<string, Tag>){
+function dict_to_json(dict: Map<string, TagT>){
     return JSON.stringify([...dict]);
 }

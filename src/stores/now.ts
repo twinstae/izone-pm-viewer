@@ -1,7 +1,7 @@
 import { Writable, writable, derived } from "svelte/store";
 
-export let pm_list: Writable<Mail[]> = writable([{"id": "", "member": "", "time": "", "subject": "", "preview": "", "n":1}]);
-export let now_pm: Writable<Mail> = writable({
+export let pm_list: Writable<MailT[]> = writable([{"id": "", "member": "", "time": "", "subject": "", "preview": "", "n":1}]);
+export let now_pm: Writable<MailT> = writable({
     "id": "",
     "member": "광배",
     "time": "2021/03/09 19:23",

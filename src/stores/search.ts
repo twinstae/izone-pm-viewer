@@ -54,16 +54,16 @@ export let filtered_list = derived(
                 $tag_to_mail_dict.set(selected_tag, new Set());
             }
             let selected_tag_mail_set = $tag_to_mail_dict.get(selected_tag);
-            let filterByTag = (mail: Mail) => selected_tag_mail_set.has(mail.id);
+            let filterByTag = (mail: MailT) => selected_tag_mail_set.has(mail.id);
             return $pm_list_after_search.filter(filterByTag);
         }
 
-        const filterByDate = mail => {
+        const filterByDate = (mail: MailT) => {
             const date_str = time_to_dateStr(mail.time);
             return date_str == $dateString;
         };
 
-        const no_filter = (mail)=>true;
+        const no_filter = (mail: MailT)=>true;
 
         const filter_by = 
             ($search_input && no_filter)||

@@ -6,7 +6,7 @@ import { all_tag_dict } from "../../stores/all_tag_dict";
 import { tag_to_mail_dict } from "../../stores/tag_to_mail_dict";
 import { mail_to_tag_dict } from "../../stores/mail_to_tag_dict";
 import api from "../../api";
-import { dark, dynamic_dark_bg, dynamic_dark_border, ping } from "../../stores/preferences";
+import { dynamic_dark_bg, dynamic_dark_border} from "../../stores/preferences";
 
 $: new_tag = {
     value: $tag_input,
@@ -25,9 +25,8 @@ const addTag = async ()=>{
     } else {
         $all_tag_dict.set($tag_input, new_tag)
         $all_tag_dict=$all_tag_dict;
-        if($ping){
-            await api.AllTagDict.addTag(new_tag);
-        }
+ 
+        await api.AllTagDict.addTag(new_tag);
     }
 
     if($tag_to_mail_dict.has(the_tag)){
@@ -47,10 +46,7 @@ const addTag = async ()=>{
     $tag_input ="";
     $color_n = ($color_n+1) % 12;
 
-    if($ping){
-        console.log(the_tag);
-        await api.MailTagDict.addTag($now_pm.id, the_tag.value);
-    }
+    await api.MailTagDict.addTag($now_pm.id, the_tag.value);
 }
 
 </script>

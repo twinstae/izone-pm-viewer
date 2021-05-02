@@ -15,7 +15,7 @@ profile.subscribe((value)=>{
     localStorage.setItem(PROFILE_KEY, value);
 })
 
-export let choices: Writable<Profile[]> = writable([]);
+export let choices: Writable<ProfileT[]> = writable([]);
 
 export let ping = writable(false);
 

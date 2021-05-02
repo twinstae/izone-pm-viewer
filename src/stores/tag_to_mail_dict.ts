@@ -1,9 +1,10 @@
 import { Writable, writable } from 'svelte/store';
-import { all_tag_dict, EMPTY_TAG, favorite_tag, member_tags } from "./all_tag_dict";
+        
+import { all_tag_dict, EMPTY_TAG, favorite_tag, member_tags, birthday_tag } from "./all_tag_dict";
 import { ping } from './preferences';
 import { selected_tag_value } from "./tag";
 
-export let entries_to_tag_to_mail_dict: (entries: [string, string[]][]) => Map<Tag, Set<string>>;
+export let entries_to_tag_to_mail_dict: (entries: [string, string[]][]) => Map<TagT, Set<string>>;
 all_tag_dict.subscribe(dict=>{
     entries_to_tag_to_mail_dict = (entries) => {
         return new Map(
@@ -18,13 +19,17 @@ all_tag_dict.subscribe(dict=>{
     };
 })
 
-function init_tag_to_mail_dict(): Map<Tag, Set<string>> {
+function init_tag_to_mail_dict(): Map<TagT, Set<string>> {
     const create_empty_string_set: ()=>Set<string> = ()=>new Set();
+
     let result = member_tags
         .reduce((acc, tag)=>{
             acc.set(tag, create_empty_string_set());
             return acc;
-        }, new Map([[favorite_tag, create_empty_string_set()]]));
+        }, new Map([
+          [favorite_tag, create_empty_string_set()],
+          [birthday_tag, create_empty_string_set()]
+        ]));
 
     const tag_to_mail_json = localStorage.getItem("tag_to_mail_dict");
     if(tag_to_mail_json){
@@ -38,7 +43,7 @@ function init_tag_to_mail_dict(): Map<Tag, Set<string>> {
     return result
 }
 
-export let tag_to_mail_dict: Writable<Map<Tag, Set<string>>> = writable(init_tag_to_mail_dict());
+export let tag_to_mail_dict: Writable<Map<TagT, Set<string>>> = writable(init_tag_to_mail_dict());
 
 let isPing;
 ping.subscribe((value)=>{
@@ -79,7 +84,7 @@ tag_to_mail_dict.subscribe(value=>{
     localStorage.setItem("tag_to_mail_dict", JSON.stringify(data));
 })
 
-export function tag_to_mail_dict_to_entries(dict: Map<Tag, Set<string>>): [string, string[]][]{
+export function tag_to_mail_dict_to_entries(dict: Map<TagT, Set<string>>): [string, string[]][]{
     return [...dict].map(entry=>{
         const tag = entry[0].value;
         const mail_list = [...entry[1]];

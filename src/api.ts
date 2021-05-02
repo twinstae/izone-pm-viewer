@@ -27,11 +27,11 @@ async function put(url: string, body: any){
     })
 };
 
-async function del(url){
+async function del(url: string){
     return await fetch(url, {method: 'DELETE'});
 };
 
-function postBackup(url: string, body: any){
+async function postBackup(url: string, body: any){
     return post(url, body)
     .then(res=>{ console.log("백업 성공!"); return res;})
     .catch((e)=>{
@@ -39,7 +39,7 @@ function postBackup(url: string, body: any){
         console.error(e)
     })
 }
-const process = (text, i)=>{
+const process = (text: string, i: number)=>{
     try {
         console.log(`${i}+'차 시도`)
         console.log(text.slice(0,10));
@@ -57,7 +57,7 @@ const process = (text, i)=>{
     }
 };
 
-const parse_json = (text) => {
+const parse_json = (text: string) => {
     try {
         return JSON.parse(text);
     } catch (e) {
@@ -75,23 +75,23 @@ const ALL_TAG_DICT_ROOT = API_ROOT+"/all-tag-dict";
 const base_tag_list = member_tags.concat([favorite_tag]);
 const AllTagDict = {
     get: async ()=>{
-        const tag_list: Tag[] = await get(ALL_TAG_DICT_ROOT+"/")
+        const tag_list: TagT[] = await get(ALL_TAG_DICT_ROOT+"/")
             .then(res=>res.text())
             .then(parse_json)
             .then(data=>data.tag_list);
         return base_tag_list.concat(tag_list);
     },
-    save: async (data:Map<string, Tag>)=>{
+    save: async (data:Map<string, TagT>)=>{
         const body = {
             tag_list: [...data].map(entry=>entry[1])
         };
         console.log(body);       
         return postBackup(ALL_TAG_DICT_ROOT+"/", body);
     },
-    addTag: async (new_tag: Tag) => {
+    addTag: async (new_tag: TagT) => {
         return post(ALL_TAG_DICT_ROOT+'/tag', new_tag);
     },
-    updateTag: async (old_tag_value:string, new_tag: Tag)=>{
+    updateTag: async (old_tag_value:string, new_tag: TagT)=>{
         return await put(ALL_TAG_DICT_ROOT+"/tag/"+old_tag_value, new_tag)
     }
 };
@@ -102,7 +102,7 @@ const MailTagDict = {
     get: async ()=>{
         return await get(MAIL_TAG_ROOT+"/").then(res=>res.json());
     },
-    save: async (mail_to_tag_dict: Map<string, Set<Tag>>, tag_to_mail_dict: Map<Tag, Set<string>>)=>{
+    save: async (mail_to_tag_dict: Map<string, Set<TagT>>, tag_to_mail_dict: Map<TagT, Set<string>>)=>{
         const body = {
             mail_to_tag_dict: mail_to_tag_dict_to_json(mail_to_tag_dict),
             tag_to_mail_dict: tag_to_mail_dict_to_entries(tag_to_mail_dict)

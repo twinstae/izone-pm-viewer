@@ -1,10 +1,10 @@
 import { writable, Writable } from 'svelte/store';
 import { all_tag_dict, favorite_tag } from "./all_tag_dict";
 
-export let entries_to_mail_to_tag_dict: (data: [string, string[]][])=> Map<string, Set<Tag>>;
+export let entries_to_mail_to_tag_dict: (data: [string, string[]][])=> Map<string, Set<TagT>>;
 all_tag_dict.subscribe(all_tag_dict=>{
     entries_to_mail_to_tag_dict = (data) => {
-        const entries: [string, Set<Tag>][] = data.map(entry=>{
+        const entries: [string, Set<TagT>][] = data.map(entry=>{
             const mail_id = entry[0];
             const tag_list = entry[1]
                 .filter(v=>all_tag_dict.has(v))
@@ -16,7 +16,7 @@ all_tag_dict.subscribe(all_tag_dict=>{
     }
 })
 
-function init_mail_to_tag_dict(): Map<string, Set<Tag>>{
+function init_mail_to_tag_dict(): Map<string, Set<TagT>>{
     const mail_to_tag_json = localStorage.getItem("mail_to_tag_dict");
     let result = new Map([["m0", new Set([favorite_tag])]]);
     if (mail_to_tag_json){
@@ -26,7 +26,7 @@ function init_mail_to_tag_dict(): Map<string, Set<Tag>>{
     return result;
 }
 
-export let mail_to_tag_dict: Writable<Map<string, Set<Tag>>> = writable(init_mail_to_tag_dict());
+export let mail_to_tag_dict: Writable<Map<string, Set<TagT>>> = writable(init_mail_to_tag_dict());
 
 mail_to_tag_dict.subscribe(dict=>{
     if(!dict) return null;

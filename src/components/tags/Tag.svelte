@@ -14,7 +14,7 @@ import { faFacebook } from '@fortawesome/free-brands-svg-icons/faFacebook';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons/faInstagram';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons/faYoutube';
 import {faStar} from '@fortawesome/free-solid-svg-icons/faStar';
-import { dark, dynamic_dark_border, ping } from "../../stores/preferences";
+import { dark, dynamic_dark_border } from "../../stores/preferences";
 import api from "../../api";
 
 export let tag: {
@@ -27,24 +27,26 @@ export let onRemove = null;
 
 $: onDeleteTag = async ()=>{
     const the_tag = $all_tag_dict.get(tag.value);   
-    
-    if ($tag_to_mail_dict.has(the_tag)){
-        $tag_to_mail_dict.get(the_tag).delete($now_pm.id);
-    }
-    $tag_to_mail_dict=$tag_to_mail_dict;
 
-    if ($mail_to_tag_dict.has($now_pm.id)){
-        $mail_to_tag_dict.get($now_pm.id).delete(the_tag)
-    }
-    $mail_to_tag_dict=$mail_to_tag_dict;
+    tag_to_mail_dict.update(dict=>{
+      if (dict.has(the_tag)){
+          dict.get(the_tag).delete($now_pm.id);
+      }
+      return dict;
+    })
 
-    if($ping){
-        await api.MailTagDict.deleteTag($now_pm.id, tag.value)
-        .then(res=>{console.log("서버에서 태그 삭제 성공")});
-    }
+    mail_to_tag_dict.update(dict=>{
+      if (dict.has($now_pm.id)){
+          dict.get($now_pm.id).delete(the_tag)
+      }
+      return dict;
+    });
+
+    await api.MailTagDict.deleteTag($now_pm.id, tag.value)
+      .then((_)=>{console.log("서버에서 태그 삭제 성공")});
 }
 
-const onSelectTag = (tag: Tag)=>
+const onSelectTag = (tag: TagT)=>
 ()=>{
     $selected_tag_value = tag.value;
     $goto("./", {...$params, tag: tag.value, nowPage:1})
@@ -52,7 +54,8 @@ const onSelectTag = (tag: Tag)=>
 
 const {open} = getContext("simple-modal");
 const openModal = ()=>{open(TagModal, { tag: tag})}
-let timeout;
+
+let timeout: ReturnType<typeof setTimeout>;
 $: onTouchDown = ()=>{
     if(base_tag_set.has(tag.value)){
         timeout = setTimeout(()=>{console.log("기본 태그는 아직 수정할 수 없습니다.")}, 300)
@@ -60,7 +63,7 @@ $: onTouchDown = ()=>{
         timeout = setTimeout(openModal, 300);
     }
 };
-$: onTouchUp = e=>{ clearTimeout(timeout); }
+$: onTouchUp = (_: Event) =>{ clearTimeout(timeout); }
 
 const iconDict = new Map([
     ["트위터", faTwitter],
