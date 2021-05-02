@@ -9,13 +9,13 @@ import MemberProfileImg from './MemberProfileImg.svelte';
 import { goto, params } from '@roxi/routify';
 import { fade } from 'svelte/transition';
 import { all_tag_dict } from '../stores/all_tag_dict';
-import { dynamic_dark_border } from '../stores/preferences';
+import { dynamic_dark_border, oldNick, wizoneNick } from '../stores/preferences';
 import { dateString, date_to_str } from '../stores/date';
 import { getContext } from 'svelte';
-import SyncModal from './SyncModal.svelte';
-export let pm: Mail;
-export let hidden;
-export let index;
+import SyncModal from './modals/SyncModal.svelte';
+export let pm: MailT;
+export let hidden: boolean;
+export let index: number;
 
 $: onMailSelected = ()=>{
     if(pm){
@@ -25,7 +25,7 @@ $: onMailSelected = ()=>{
     }
 }
 
-$: getTags = pm => {
+$: getTags = (pm: MailT) => {
     if($mail_to_tag_dict.has(pm.id)){
         return Array.from($mail_to_tag_dict.get(pm.id)).map(tag=>{
             return $all_tag_dict.get(tag.value);
@@ -37,13 +37,13 @@ $: getTags = pm => {
 const today_str = date_to_str(new Date());
 const {open} = getContext("simple-modal");
 const openModal = ()=>{open(SyncModal)}
-let timeout;
+let timeout: ReturnType<typeof setTimeout>;
 $: onTouchDown = ()=>{
     if (!pm.member && $dateString == today_str){
         timeout = setTimeout(openModal, 300);
     }
 };
-$: onTouchUp = e=>{ 
+$: onTouchUp = (_: Event)=>{ 
     if (!pm.member && $dateString == today_str){
         clearTimeout(timeout);
     }
@@ -70,7 +70,7 @@ class="border-b-2 rounded p-1 w-full leading-relaxed {$dynamic_dark_border}">
             {pm.subject}
         </p>
         <p on:click={onMailSelected} class="ml-1 mt-1 text-sm truncate">
-            {pm.preview || "..."}
+        {pm.preview.replace(new RegExp($oldNick, "g"), $wizoneNick) || "..."}
         </p>
     {/if}
     </div>

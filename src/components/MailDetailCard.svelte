@@ -10,8 +10,11 @@ import MemberProfileImg from './MemberProfileImg.svelte';
 import { fade } from 'svelte/transition';
 import { goto, params } from '@roxi/routify';
 import { all_tag_dict } from '../stores/all_tag_dict';
-import { dark, dynamic_dark_bg } from '../stores/preferences';
-export let show;
+import { dark, dynamic_dark_bg, oldNick, wizoneNick } from '../stores/preferences';
+import { afterUpdate, getContext } from 'svelte';
+import NickModal from './modals/NickModal.svelte';
+
+export let show: boolean;
 
 params.subscribe(p=>{
     if ($now_pm.id != p.now_pm){
@@ -22,7 +25,7 @@ params.subscribe(p=>{
     }
 })
 
-$: getTags = pm => {
+$: getTags = (pm: MailT) => {
     if($mail_to_tag_dict.has(pm.id)){
         return Array.from($mail_to_tag_dict.get(pm.id))
             .map(tag=> $all_tag_dict.get(tag.value));
@@ -32,19 +35,49 @@ $: getTags = pm => {
 
 $: now_tags = getTags($now_pm);
 
+const rainbow = `background-image: linear-gradient(
+    to right,
+    #f1d2e7,#f1c3aa,#e382a9, #e18784,
+    #f3aa51, #fcf695, #fff,#cee5d5,
+    #a7e0e1, #b7d3e9, #bbb0dc, #7592d7);
+    `;
+
 $: html_body = $now_pm.images
     .reduce((body, img)=>
         body.replace(
         "{이미지}",
         `<img src="../${img}" style="max-width:100%;display:block;margin-left:auto;margin-right:auto; margin-top:8px;">`
-    ).replace(/\n\n/g, "<br/>").replace(/\n/g, "<br/>"), $now_pm.body);
+    ), $now_pm.body)
+    .replace(/\n\n/g, "<br/>").replace(/\n/g, "<br/>")
+    .replace(
+      new RegExp($oldNick, "g"),
+      `<span class="wizone rounded p-0.5" style="${rainbow} color: black;">${$wizoneNick}</span>`
+    );
 
 now_pm.subscribe((_)=>{
     const div: HTMLElement = document.getElementById("MailDetailCardContent");
     if(div) div.scrollTo({top: 0, behavior: 'smooth'});
 })
 
+function returnToList(_: Event){
+  $show_list=true;
+  $goto("./", { ...$params, showList: true});
+}
+
+const { open } = getContext('simple-modal');
+
+afterUpdate(() => {
+  const elements = document.getElementsByClassName("wizone");
+
+  [...elements].forEach(element=>{
+    element.addEventListener('click', ()=>{
+      open(NickModal);
+    })
+  })
+});
+
 </script>
+
 
 <div
 id="MailDetailCard"
@@ -82,12 +115,8 @@ flex flex-col">
         {/key}
     </div>
     {#if $isMobile}
-        <button
-        class="shadow rounded p-1 mt-2 {$dark ? "bg-gray-900 text-gray-300" : "bg-red-100"}"
-        on:click={()=>{
-            $show_list=true;
-            $goto("./", { ...$params, showList: true});
-        }}>
+        <button on:click={returnToList}
+        class="shadow rounded p-1 mt-2 {$dark ? "bg-gray-900 text-gray-300" : "bg-red-100"}">
             목록으로 돌아가기📄
         </button>
     {/if}

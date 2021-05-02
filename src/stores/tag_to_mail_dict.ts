@@ -1,7 +1,6 @@
 import { Writable, writable } from 'svelte/store';
         
 import { all_tag_dict, EMPTY_TAG, favorite_tag, member_tags, birthday_tag } from "./all_tag_dict";
-import { ping } from './preferences';
 import { selected_tag_value } from "./tag";
 
 export let entries_to_tag_to_mail_dict: (entries: [string, string[]][]) => Map<TagT, Set<string>>;
@@ -44,11 +43,6 @@ function init_tag_to_mail_dict(): Map<TagT, Set<string>> {
 }
 
 export let tag_to_mail_dict: Writable<Map<TagT, Set<string>>> = writable(init_tag_to_mail_dict());
-
-let isPing;
-ping.subscribe((value)=>{
-    isPing = value;
-})
 
 tag_to_mail_dict.subscribe(value=>{
     [...value].forEach(([tag, mail_set])=>{

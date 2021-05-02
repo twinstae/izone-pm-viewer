@@ -18,7 +18,7 @@
     import * as svelte from 'svelte';
     import { fade } from 'svelte/transition';
     import { createEventDispatcher } from "svelte";
-import { dark, dynamic_dark_bg } from '../stores/preferences';
+    import { dynamic_dark_bg } from '../../stores/preferences';
   
     const dispatch = createEventDispatcher();
   

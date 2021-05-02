@@ -1,17 +1,17 @@
 <script lang="ts">
-import { dark } from "../stores/preferences";
+import { dark } from "../../stores/preferences";
 import Icon from "fa-svelte";
 import {faSync} from "@fortawesome/free-solid-svg-icons/faSync"
-import PinkButton from "./buttons/PinkButton.svelte";
-import api from "../api";
-import { pm_list } from "../stores/now";
-import { member_dict, member_name_dict } from "../stores/constants";
-import { all_tag_dict } from "../stores/all_tag_dict";
-import { tag_to_mail_dict } from "../stores/tag_to_mail_dict";
+import PinkButton from "../buttons/PinkButton.svelte";
+import api from "../../api";
+import { pm_list } from "../../stores/now";
+import { member_dict, member_name_dict } from "../../stores/constants";
+import { all_tag_dict } from "../../stores/all_tag_dict";
+import { tag_to_mail_dict } from "../../stores/tag_to_mail_dict";
 let user_id: string = localStorage.getItem("pm-user-id");
 let token: string = localStorage.getItem("pm-access-token");
 
-function process(text, i){
+function process(text: string, i: number){
     try {
         console.log(`${i}차 시도`)
         console.log(text.slice(0,10));
@@ -54,7 +54,7 @@ $: onSubmit = async ()=>{
     const text = await res.text();
     const data = get_data_from_text(text);
     
-    const new_pm_list_data: Mail[] = data.pm_list;
+    const new_pm_list_data: MailT[] = data.pm_list;
     const mail_body_dict = data.mail_body_dict;
 
     const new_pm_list = new_pm_list_data.map(pm=>{

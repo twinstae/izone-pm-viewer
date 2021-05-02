@@ -4,21 +4,21 @@ import Tag from './tags/Tag.svelte';
 import TimeStampTag from './tags/TimeStampTag.svelte';
 import FavoriteHeart from './FavoriteHeart.svelte';
 import MemberTag from './tags/MemberTag.svelte';
-import { isDesktop, now_mail_index, now_pm, show_list } from '../stores/now';
+import { isDesktop, now_pm, show_list } from '../stores/now';
 import { mail_to_tag_dict } from "../stores/mail_to_tag_dict";
 import MemberProfileImg from "./MemberProfileImg.svelte";
 import { goto, params } from "@roxi/routify";
 import { fade } from "svelte/transition";
 import { all_tag_dict } from "../stores/all_tag_dict";
-import { dynamic_dark_bg } from "../stores/preferences";
+import { dynamic_dark_bg, oldNick, wizoneNick } from "../stores/preferences";
 import { dateString, date_to_str } from "../stores/date";
 import { getContext } from "svelte";
-import SyncModal from "./SyncModal.svelte";
+import SyncModal from "./modals/SyncModal.svelte";
 
-export let pm: Mail;
-export let index;
+export let pm: MailT;
+export let index: number;
 
-$: getTags = (pm) => {
+$: getTags = (pm: MailT) => {
     if($mail_to_tag_dict.has(pm.id)){
         return Array.from($mail_to_tag_dict.get(pm.id))
             .map(tag=>$all_tag_dict.get(tag.value));
@@ -37,9 +37,11 @@ const today_str = date_to_str(new Date());
 const {open} = getContext("simple-modal");
 const openModal = ()=>{open(SyncModal)}
 $: no_mail = !pm.member && $dateString == today_str;
-let timeout;
+
+let timeout: ReturnType<typeof setTimeout>;
 $: onTouchDown = ()=>{if (no_mail) timeout = setTimeout(openModal, 300);};
-$: onTouchUp = e=>{   if (no_mail) clearTimeout(timeout); };
+$: onTouchUp = (_: Event)=>{   if (no_mail) clearTimeout(timeout); };
+
 </script>
 
 {#if $isDesktop}
@@ -77,7 +79,7 @@ shadow-md rounded-md">
                     xlink:href="./{pm.images[0]}"/>
                 </svg>
             {/if}
-            {pm.preview.slice(0, 45)}
+            {pm.preview.slice(0, 45).replace(new RegExp($oldNick, "g"), $wizoneNick)}
         </p>
     {/if}
     </div>

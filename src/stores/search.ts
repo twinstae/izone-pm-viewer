@@ -63,7 +63,7 @@ export let filtered_list = derived(
             return date_str == $dateString;
         };
 
-        const no_filter = (mail: MailT)=>true;
+        const no_filter = (_: MailT)=>true;
 
         const filter_by = 
             ($search_input && no_filter)||

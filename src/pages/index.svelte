@@ -2,38 +2,70 @@
 import { goto, metatags, params, redirect } from '@roxi/routify';
 metatags.title = 'IZ*ONE Private Mail Viewer'
 
-import Modal from '../components/Modal.svelte';
+import Modal from '../components/modals/Modal.svelte';
 import MailDetailSection from "../components/MailDetailSection.svelte";
 import MailListSection from "../components/MailListSection.svelte";
 import { isDesktop, show_list } from '../stores/now';
-import { INIT_DATE } from '../stores/date';
+import { dateString, date_to_str } from '../stores/date';
 import { pm_list } from '../stores/now';
 import { all_tag_dict, EMPTY_TAG} from '../stores/all_tag_dict';
 import { selected_tag_value } from '../stores/tag';
 import Background from '../components/Background.svelte';
 import { initStores } from '../stores/initStores';
+import { date_mail_n_dict } from '../stores/search';
+import DateModal from '../components/modals/DateModal.svelte';
 
 let haveInitiated = false;
 
 initStores().then(()=>{
-  if (!$params.dateString){
-      $goto("./", {
-          dateString: $params.dateString || INIT_DATE,
-          nowPage: $params.nowPage || 1,
-          tag: $params.tag || "",
-          search: $params.search || "",
-          showList: $params.showList || true,
-          now_pm: $params.now_pm || $pm_list[0].id
-      })
-  };
+  haveInitiated=true;
 
-  haveInitiated=true
+  if ($params.dateString){
+    dateString.set($params.dateString)
+    return goToInitPage();
+  }
+
+  const today = new Date();
+
+  function shuffle(array: number[]): number[] {
+      let top = array.length;
+      let current: number;
+      if(top) while(--top) {
+          current = Math.floor(Math.random() * (top + 1));
+          [array[current], array[top]] = [array[top], array[current]];
+      }
+      return array;
+  }
+
+  for (const year of shuffle([2019, 2020, 2021])){
+    const n_years_ago = new Date(year, today.getMonth(), today.getDate());
+    const n_years_ago_str = date_to_str(n_years_ago);
+    console.log(n_years_ago_str);
+
+    if($date_mail_n_dict.has(n_years_ago_str)){
+      dateString.set(n_years_ago_str);
+      show = DateModal;
+      return goToInitPage();
+    }
+  }
 });
+
+let show = null;
+
+function goToInitPage(){
+
+  $goto("./", {
+      dateString: $dateString,
+      nowPage: $params.nowPage || 1,
+      tag: $params.tag || "",
+      search: $params.search || "",
+      showList: $params.showList || true,
+      now_pm: $params.now_pm || $pm_list[0].id
+  });
+}
 
 let width: number;
 $: isDesktop.set(width > 700);
-
-let show = null;
 
 params.subscribe(p=>{   
     if ($show_list != (p.showList == "true")){
@@ -71,7 +103,7 @@ params.subscribe(p=>{
 bind:clientWidth={width}
 class="flex w-screen h-screen relative">
 {#if haveInitiated }
-    <Modal show={show}>
+  <Modal show={show} transitionBgProps={{duration: 500}}>
         <Background />
         <MailDetailSection />
         <MailListSection/>

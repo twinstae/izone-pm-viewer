@@ -2,7 +2,7 @@ import { writable } from 'svelte/store';
 
 export const EMPTY_TAG: string = null;
 
-export const birthday_tag = {value: "생일", color: "LightPink"};
+export const birthday_tag = {value: "생일", color: "rainbow"};
 
 export const favorite_tag: TagT = {value: "💖", color: "#fff"};
 
@@ -21,12 +21,13 @@ export const member_tags: TagT[] = [
     {"value":"장원영","color":"#d9598c"},
     {"value":"운영팀","color":"gray"}
 ];
+
 export const default_tag_dict = member_tags.reduce(((acc, tag) => {
         acc.set(tag.value, tag);
         return acc;
     }), new Map([
       [favorite_tag.value, favorite_tag],
-      [birthday_tag.value, birthday_tag]
+      [birthday_tag.value, birthday_tag],
     ]));
 
 function init_all_tag_dict(){
