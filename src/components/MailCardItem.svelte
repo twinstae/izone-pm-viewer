@@ -4,7 +4,7 @@ import Tag from './tags/Tag.svelte';
 import TimeStampTag from './tags/TimeStampTag.svelte';
 import FavoriteHeart from './FavoriteHeart.svelte';
 import MemberTag from './tags/MemberTag.svelte';
-import { isDesktop, now_pm, show_list } from '../stores/now';
+import { isDesktop, now_mail_index, now_pm, show_list } from '../stores/now';
 import { mail_to_tag_dict } from "../stores/mail_to_tag_dict";
 import MemberProfileImg from "./MemberProfileImg.svelte";
 import { goto, params } from "@roxi/routify";
@@ -42,12 +42,18 @@ $: onTouchDown = ()=>{if (no_mail) timeout = setTimeout(openModal, 300);};
 $: onTouchUp = e=>{   if (no_mail) clearTimeout(timeout); };
 </script>
 
+{#if $isDesktop}
 <div
 id="MailCard-{index}"
-style="width: 276px; height:156px"
+style="width: 276px; height:156px;
+{pm.member ? "" : `
+background-image: url(${image_root}izone-logo-card.png);
+background-repeat: no-repeat;
+background-size: contain;
+background-position: center;`}"
 on:pointerdown={onTouchDown}
 on:pointerup={onTouchUp}
-class="m-2 p-2
+class="m-2 p-1
 relative overflow-y-auto
 {$dynamic_dark_bg("bg-white")}
 shadow-md rounded-md">
@@ -64,12 +70,54 @@ shadow-md rounded-md">
         {/each}
     
         <p on:click={onMailSelected} class="text-sm">
-            {pm.preview}
+            {#if pm.images.length > 0}
+                <svg class="w-16 h-16 m-1 float-left rounded">
+                    <image width="100%" height="100%"
+                    preserveAspectRatio="xMidYMid slice"
+                    xlink:href="./{pm.images[0]}"/>
+                </svg>
+            {/if}
+            {pm.preview.slice(0, 45)}
         </p>
-    {:else}
-        <img class="ml-5 mt-2 w-10/12"
-        alt="no mail" src="{image_root}izone-logo-card.png"/>
     {/if}
     </div>
     {/key}
 </div>
+{:else}
+<div
+id="MailCard-{index}"
+style="height:100px;
+{pm.member ? "" : `
+background-image: url(${image_root}izone-logo-card.png);
+background-repeat: no-repeat;
+background-size: contain;
+background-position: center;`}"
+on:pointerdown={onTouchDown}
+on:pointerup={onTouchUp}
+class="m-1 p-1 w-full
+relative overflow-y-auto
+{$dynamic_dark_bg("bg-white")}
+shadow-md rounded-md">
+    {#key pm}
+    <div in:fade={{ duration: 500 }} class="leading-relaxed">
+    {#if pm.member}
+        {#if pm.images.length > 0}
+            <img src="./{pm.images[0]}" alt=""
+            class="w-14 m-1 float-left rounded">
+        {/if}
+        <FavoriteHeart pm_id={pm.id}/>
+        <h4 on:click={onMailSelected}>{pm.subject}</h4>
+        <MemberTag pm={pm}/>
+        <TimeStampTag time={pm.time} />
+        {#each getTags(pm) as tag_item}
+            <Tag tag={tag_item} />
+        {/each}
+    
+        <p on:click={onMailSelected} class="text-xs mt-1">
+            {pm.preview.slice(0, 45)}
+        </p>
+    {/if}
+    </div>
+    {/key}
+</div>
+{/if}

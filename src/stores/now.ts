@@ -27,3 +27,5 @@ export let isMobile = derived(
     isDesktop,
     $isDesktop=> !$isDesktop
 );
+
+export let now_mail_index: Writable<number|null> = writable(0);

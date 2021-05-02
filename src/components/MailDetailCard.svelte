@@ -88,7 +88,7 @@ flex flex-col">
             $show_list=true;
             $goto("./", { ...$params, showList: true});
         }}>
-            목록으로 돌아가기🗃️
+            목록으로 돌아가기📄
         </button>
     {/if}
 </div>

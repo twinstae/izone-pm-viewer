@@ -155,8 +155,6 @@ async function init(){
     });
 }
 
-$: console.log($params);
-
 init().then(()=>{haveInitiated=true});
 
 api.ping.then(res=>res.status == 200)

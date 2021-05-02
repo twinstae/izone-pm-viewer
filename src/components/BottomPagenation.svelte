@@ -25,7 +25,7 @@ function toYesterday(){
     
     $dateString = date_to_str(yesterday);
     $now_page = 1;
-    $goto("./", {...$params, nowPage: $now_page, dateString: $dateString});
+    $goto("./", {...$params, nowPage: 1, dateString: $dateString});
 };
 
 function toTomorrow(){
@@ -38,7 +38,7 @@ function toTomorrow(){
     
     $dateString = date_to_str(tomorrow);
     $now_page = 1;
-    $goto("./", {...$params, nowPage: $now_page, dateString: $dateString});
+    $goto("./", {...$params, nowPage: 1, dateString: $dateString});
 }
 
 function goToNextPage(){
@@ -79,9 +79,23 @@ params.subscribe(p=>{
     }
 })
 
-
 $: isMaxPage = maxPage<=$now_page;
+
+
+const onKeydown = (e)=>{
+    if (e.key == "PageDown"){
+        if(isMaxPage){ toTomorrow(); }
+        else { goToNextPage();}
+    }
+    if (e.key == "PageUp"){
+        if($now_page == 1){ toYesterday(); }
+        else { goToBackPage(); }
+    }
+};
+
 </script>
+
+<svelte:body on:keydown={onKeydown} />
 
 <PinkButton id="BackPageButton" onClick={goToBackPage}>
     <Icon icon={faArrowLeft} />

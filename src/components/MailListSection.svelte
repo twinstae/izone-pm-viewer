@@ -130,23 +130,20 @@ bind:clientHeight={section_height}
 style="min-height: {min_height}px;"
 class="h-full {$isDesktop ? "w-1/2 lg:w-2/3 xl:w-3/4": "w-full"}
 relative p-4">
-    <div class="ml-2 flex flex-row">
-        {#if $isMobile}
-            <DarkModeButton />
-            <ShowTagListInput /> 
-        {:else}
-            <label class="p-1 rounded {$dynamic_dark_bg("bg-red-100")}" for="isListViewInput">
-                리스트뷰 {isListView ? "on": "off"}
-                <input id="isListViewInput" type=checkbox bind:checked={isListView}>
-            </label>
-        {/if}
+    <div class="ml-2 flex flex-wrap">
+        <DarkModeButton />
+        <button class="p-1 mr-1 rounded {$dynamic_dark_bg("bg-red-100")}"
+        on:click={()=>{isListView=!isListView}}>
+            {isListView ? "List": "Card"}
+        </button>
+        <ShowTagListInput /> 
         {#if $selected_tag_value} <SelectedTag /> {/if}
     </div>
     <AllTagList hidden={!($isMobile && $show_tag_list)} />
-    {#if !isListView && $isDesktop}
-        <MailCardView mail_list={mail_list} />
-    {:else}
+    {#if isListView}
         <MailItemList mail_list={mail_list} isTyping={isTyping} />
+    {:else}
+        <MailCardView mail_list={mail_list} />
     {/if}
     <BottomPagenation maxPage={maxPage} parent_width={section_width}/>
     {#if section_width < 600}<br>{/if}

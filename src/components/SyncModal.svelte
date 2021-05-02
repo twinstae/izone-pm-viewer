@@ -89,18 +89,18 @@ $: onSubmit = async ()=>{
         최신 Private Mail을 불러옵니다.<Icon icon={faSync}/>
     </h3>
     
-    <p>Private Mail 앱 id와 보안 토큰을 등록해주세요.</p>
+    <p>Id와 보안 토큰을 등록해주세요.</p>
     <p class="text-sm">값은 브라우저에 저장됩니다.</p>
-    <p class="text-sm">핸드폰 앱에서 이어받으면 토큰이 초기화됩니다.</p>
+    <p class="text-sm">기존 앱에서 이어받으면 토큰이 초기화됩니다.</p>
     <p class="text-sm">초기화된 경우 다시 토큰을 받아주세요.</p>
-    <div class="flex justify-center mt-4">
+    <div class="flex flex-wrap mt-4 justify-center">
         <input
         bind:value={user_id}
-        class="w-32 rounded m-1 p-1 {$dark ? "bg-gray-900": "text-white"}"
+        class="w-32 rounded m-1 p-1 {$dark ? "bg-gray-900": "border-gray-200 border-2"}"
         placeholder="User Id"/>
         <input
         bind:value={token}
-        class="w-64 rounded m-1 p-1 {$dark ? "bg-gray-900": "text-white"}"
+        class="w-64 rounded m-1 p-1 {$dark ? "bg-gray-900": "border-gray-200 border-2"}"
         placeholder="Access Token"/>
         
         <PinkButton onClick={onSubmit} strong={true}>
