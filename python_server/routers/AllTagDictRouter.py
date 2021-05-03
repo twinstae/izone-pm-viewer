@@ -1,8 +1,8 @@
 from fastapi import APIRouter
-import AllTagDict
-from AllTagDict import AllTagList, Tag
-from MailToTagDict import mail_to_tag_dict
-from TagToMailDict import tag_to_mail_dict
+from services import AllTagDict
+from services.AllTagDict import AllTagList, Tag
+from services.MailToTagDict import mail_to_tag_dict
+from services.TagToMailDict import tag_to_mail_dict
 ROOT_URL = "/all-tag-dict"
 
 router = APIRouter(

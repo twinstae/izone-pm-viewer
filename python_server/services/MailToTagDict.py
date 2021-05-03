@@ -1,8 +1,8 @@
 import json
 from typing import Dict, List, Tuple, Set, Optional
 
-from AllTagDict import Tag
-import AllTagDict
+from services.AllTagDict import Tag
+from services import AllTagDict
 from constants import OUTPUT_DIR
 
 FILE_NAME = "mail_to_tag_dict.json"
@@ -52,6 +52,9 @@ class MailToTagDict:
         return self.mail_to_tag_dict.get(mail_id)
 
     def add_tag(self, mail_id: str, tag_value: str):
+        if tag_value == "💖":
+            return None
+
         if mail_id not in self.mail_to_tag_dict:
             self.mail_to_tag_dict[mail_id] = set()
 
@@ -61,6 +64,9 @@ class MailToTagDict:
         self.save()
 
     def remove_tag(self, mail_id: str, tag_value: str):
+        if tag_value == "💖":
+            return None
+
         tag_set: Set[Tag] = self.mail_to_tag_dict.get(mail_id)
         tag = AllTagDict.get(tag_value)
         tag_set.remove(tag)

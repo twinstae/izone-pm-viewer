@@ -2,9 +2,9 @@ from typing import List, Tuple
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
-import AllTagDict
-from TagToMailDict import tag_to_mail_dict
-from MailToTagDict import mail_to_tag_dict
+from services import AllTagDict
+from services.TagToMailDict import tag_to_mail_dict
+from services.MailToTagDict import mail_to_tag_dict
 
 
 class MailTagDictEntries(BaseModel):
@@ -37,17 +37,19 @@ def save_mail_tag_dict(req_body: MailTagDictEntries):
 def add_tag_to_mail(mail_id: str, tag_value: str):
     tag_value_가_all_tag_dict_에_있는지_체크(tag_value)
 
-    mail_to_tag_dict.add_tag(mail_id=mail_id, tag_value=tag_value)
+    if tag_value != "💖":
+        mail_to_tag_dict.add_tag(mail_id=mail_id, tag_value=tag_value)
     tag_to_mail_dict.add_mail(mail_id=mail_id, tag_value=tag_value)
 
 
 @router.delete("/mail/{mail_id}/tag/{tag_value}")
 def delete_tag_from_mail(mail_id: str, tag_value: str):
     tag_value_가_all_tag_dict_에_있는지_체크(tag_value)
-    mail_tag_dict_에_mail_id_가_있는지_체크(mail_id)
-    tag_가_tag_to_mail_dict에_있는지_체크(tag_value)
 
-    mail_to_tag_dict.remove_tag(mail_id=mail_id, tag_value=tag_value)
+    if tag_value != "💖":
+        mail_tag_dict_에_mail_id_가_있는지_체크(mail_id)
+        mail_to_tag_dict.remove_tag(mail_id=mail_id, tag_value=tag_value)
+    tag_가_tag_to_mail_dict에_있는지_체크(tag_value)
     tag_to_mail_dict.remove_mail(mail_id=mail_id, tag_value=tag_value)
 
 

@@ -1,7 +1,7 @@
 import json
 from typing import Dict, List, Set, Tuple, Optional
-from AllTagDict import Tag
-import AllTagDict
+from services.AllTagDict import Tag
+from services import AllTagDict
 from constants import OUTPUT_DIR, BASE_TAGS
 
 FILE_NAME = "tag_to_mail_dict.json"
