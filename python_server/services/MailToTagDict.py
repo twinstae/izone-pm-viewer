@@ -27,7 +27,7 @@ class MailToTagDict:
                 raw_dict: Dict[str, List[str]] = json.loads(json_str)
                 return {
                     mail_id: set([
-                            AllTagDict.get(tag_value)
+                            AllTagDict.all_tag_dict[tag_value]
                             for tag_value in tag_value_list
                             if AllTagDict.has(tag_value)
                         ])
@@ -60,16 +60,18 @@ class MailToTagDict:
 
         tag_set: Set[Tag] = self.mail_to_tag_dict[mail_id]
         tag = AllTagDict.get(tag_value)
-        tag_set.add(tag)
+        if tag:
+            tag_set.add(tag)
         self.save()
 
     def remove_tag(self, mail_id: str, tag_value: str):
         if tag_value == "💖":
             return None
 
-        tag_set: Set[Tag] = self.mail_to_tag_dict.get(mail_id)
+        tag_set: Set[Tag] = self.mail_to_tag_dict[mail_id]
         tag = AllTagDict.get(tag_value)
-        tag_set.remove(tag)
+        if tag in tag_set:
+            tag_set.remove(tag)
         if len(tag_set) == 0:
             del self.mail_to_tag_dict[mail_id]
         self.save()
@@ -81,7 +83,7 @@ class MailToTagDict:
     def save_from_entries(self, entries: List[Tuple[str, List[str]]]):
         def tag_list_to_tag_set(tag_value_list: List[str]) -> Set[Tag]:
             return {
-                AllTagDict.get(tag_value)
+                AllTagDict.all_tag_dict[tag_value]
                 for tag_value in tag_value_list
                 if AllTagDict.has(tag_value)
             }

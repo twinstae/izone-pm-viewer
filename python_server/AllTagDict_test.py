@@ -1,10 +1,19 @@
 import json
 from unittest import TestCase
-import AllTagDict
-import AllTagDictRouter
-from TestingUtil import client, 최예나, 히토미, status_code_는_200_ok, 예나만_있는_TAG_LIST_JSON, 예나_토미_TAG_LIST, 히토미_태그, \
-    예나만_있는_TAG_LIST
-from constants import OUTPUT_DIR, API_ROOT
+
+from routers import AllTagDictRouter
+from services import AllTagDict
+from TestingUtil import (
+    client,
+    status_code_는_200_ok,
+    예나_토미_TAG_LIST,
+    예나만_있는_TAG_LIST,
+    예나만_있는_TAG_LIST_JSON,
+    최예나,
+    히토미,
+    히토미_태그,
+)
+from constants import API_ROOT, OUTPUT_DIR
 
 BASE_URL = AllTagDictRouter.ROOT_URL+"/"
 

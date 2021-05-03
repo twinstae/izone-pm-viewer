@@ -41,7 +41,7 @@ async def download_latest_pm(
 
 
 @api_router.post("/private-mail/restore-birthday-images")
-async def download_latest_pm(
+async def restore_birthday_pm(
     service: MailLoadService = Depends(MailLoadService)
 ):
     await service.restore_birthday_pm()

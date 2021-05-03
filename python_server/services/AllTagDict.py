@@ -1,5 +1,5 @@
 import json
-from typing import Dict, List
+from typing import Dict, List, Optional
 from pydantic import BaseModel
 from constants import OUTPUT_DIR
 
@@ -46,7 +46,7 @@ def has(tag_value: str) -> bool:
     return tag_value in all_tag_dict
 
 
-def get(tag_value: str) -> Tag:
+def get(tag_value: str) -> Optional[Tag]:
     return all_tag_dict.get(tag_value)
 
 

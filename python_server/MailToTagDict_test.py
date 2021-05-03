@@ -1,12 +1,9 @@
 import json
 from unittest import TestCase
-from typing import Set, List, Dict
-import AllTagDict
-import AllTagDictRouter
-import MailTagRouter
-import MailToTagDict
-import TagToMailDict
-from MailToTagDict import mail_to_tag_dict
+from typing import Set, Dict
+from services import AllTagDict, MailToTagDict, TagToMailDict
+from routers import AllTagDictRouter, MailTagRouter
+from services.MailToTagDict import mail_to_tag_dict
 from TestingUtil import client, status_code_는_200_ok, 최예나, 히토미, MAIL_ID, 예나만_있는_ENTRIES, 예나_토미_ENTRIES, \
     예나_토미_TAG_LIST, 히토미_태그, status_code_는_404_not_found
 from constants import OUTPUT_DIR, API_ROOT
@@ -36,7 +33,7 @@ class TestMailToTagDict(TestCase):
 
     def test_get_backup(self):
         backup = mail_to_tag_dict.get_backup()
-        tag_set: Set[str] = backup[MAIL_ID]
+        tag_set: Set[AllTagDict.Tag] = backup[MAIL_ID]
         최예나_Tag = AllTagDict.get(최예나)
         assert 최예나_Tag in tag_set
 
@@ -96,7 +93,7 @@ class TestMailToTagDict(TestCase):
         assert response.json()["mail_to_tag_dict"] == [[MAIL_ID, [히토미]]]
 
     @staticmethod
-    def 파일에는_저장되어있다(expected: Dict[str, Set[AllTagDict.Tag]]):
+    def 파일에는_저장되어있다(expected: Dict[str, Set[str]]):
         with open(mail_to_tag_dict.get_file_name(), "r", encoding="UTF-8") as f:
             raw_actual = json.loads(f.read())
             actual: Dict[str, Set[AllTagDict.Tag]] = {key: set(tag_list) for key, tag_list in raw_actual.items()}

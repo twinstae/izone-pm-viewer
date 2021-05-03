@@ -50,6 +50,7 @@ def delete_tag_from_mail(mail_id: str, tag_value: str):
         mail_tag_dict_에_mail_id_가_있는지_체크(mail_id)
         mail_to_tag_dict.remove_tag(mail_id=mail_id, tag_value=tag_value)
     tag_가_tag_to_mail_dict에_있는지_체크(tag_value)
+
     tag_to_mail_dict.remove_mail(mail_id=mail_id, tag_value=tag_value)
 
 

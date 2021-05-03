@@ -1,12 +1,9 @@
 import json
 from unittest import TestCase
 from typing import Set, List, Dict
-import AllTagDict
-import AllTagDictRouter
-import MailTagRouter
-import MailToTagDict
-import TagToMailDict
-from TagToMailDict import tag_to_mail_dict
+from routers import AllTagDictRouter, MailTagRouter
+from services import AllTagDict, MailToTagDict, TagToMailDict
+from services.TagToMailDict import tag_to_mail_dict
 from TestingUtil import client, status_code_는_200_ok, 최예나, 히토미, MAIL_ID, 예나만_있는_ENTRIES, 예나_토미_ENTRIES, \
     예나_토미_TAG_LIST, 히토미_태그, status_code_는_404_not_found
 from constants import OUTPUT_DIR, API_ROOT

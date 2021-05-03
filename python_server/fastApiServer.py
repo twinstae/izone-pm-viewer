@@ -5,6 +5,7 @@ from fastapi.staticfiles import StaticFiles
 from httpx import AsyncClient
 from starlette.responses import FileResponse
 from routers.ApiRouter import api_router
+
 import httpx
 
 app = FastAPI()
