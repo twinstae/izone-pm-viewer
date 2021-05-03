@@ -3,7 +3,8 @@ import { goto, params } from '@roxi/routify'
 import { now_page, show_list } from "../stores/now";
 import { dynamic_dark_bg, dynamic_dark_border } from '../stores/preferences';
 import { search_input } from "../stores/search";
-export let search_length;
+
+export let search_length: number;
 
 params.subscribe(p=>{
     if ($search_input != p.search){
@@ -13,7 +14,7 @@ params.subscribe(p=>{
 
 let now_input = $search_input;
 
-let timeout;
+let timeout: ReturnType<typeof setTimeout>;
 $: search = ()=>{
     $now_page=1;
     $search_input = now_input;

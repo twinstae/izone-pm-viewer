@@ -5,7 +5,7 @@ import { afterUpdate } from "svelte";
 import { dateString, date_to_str, str_to_date, time_to_dateStr } from "../stores/date";
 import { selected_tag_value } from "../stores/tag";
 import { now_page, isDesktop, show_list, isMobile, show_tag_list} from '../stores/now';
-import { filtered_list, getPage, EMPTY_MAIL } from '../stores/search';
+import { filtered_list, getPage, EMPTY_MAIL, search_input } from '../stores/search';
 import Search from './Search.svelte';
 import { params, redirect } from '@roxi/routify';
 import SelectedTag from './tags/SelectedTag.svelte';
@@ -38,8 +38,6 @@ let last_mail_per_page = mail_per_page;
 afterUpdate(() => {
     // 미래로 갈 수는 없다.
     if (now_date > new Date()){
-      console.error("미래로 갈 수 없습니다.")
-
       dateString.set(date_to_str(new Date()));
       $redirect("./", {...$params, dateString: $dateString});
       return null;
@@ -58,6 +56,7 @@ afterUpdate(() => {
     // 화면 크기를 바꿔도 anchor 메일에 머무른다.
     if (last_mail_per_page != mail_per_page){
       const anchor_page = Math.floor(anchor_mail_index / mail_per_page) + 1;
+
       now_page.set(anchor_page);
       last_mail_per_page = mail_per_page;
       $redirect("./", { ...$params, nowPage: anchor_page})
@@ -70,14 +69,13 @@ afterUpdate(() => {
     if (anchor_mail_index < first_mail_index || last_mail_index <= anchor_mail_index ){
       anchor_mail_index = first_mail_index;
     }
-    
-    // 페이지가 바뀌면 첫 메일의 날짜로 이동한다.
-    if (time_to_dateStr(first_mail.time) != $dateString){
-      dateString.set(time_to_dateStr(first_mail.time));
-    }
 
-    // 날짜가 바뀌면 page도 바뀐다.
-    
+    if ($selected_tag_value == "") return null; // 태그 선택 중이고
+    if (mail_list.length == 0) return null; // 리스트에 메일이 있고
+
+    const page_head = mail_list[0];   
+    // 페이지가 바뀌면 첫 메일의 날짜로 이동한다.
+    dateString.set(time_to_dateStr(page_head.time));
 });
 
 let isListView = false;
@@ -103,16 +101,14 @@ class="h-full {$isDesktop ? "w-1/2 lg:w-2/3 xl:w-3/4": "w-full"}
 relative p-4">
     <div class="ml-2 flex flex-wrap">
         <DarkModeButton />
-        <button class="p-1 mr-1 rounded {$dynamic_dark_bg('bg-red-100')}"
-        on:click={()=>{isListView=!isListView}}>
+        <button class="p-1 mr-1 rounded {$dynamic_dark_bg('bg-red-100')}" on:click={()=>{isListView=!isListView}}>
             {isListView ? "List": "Card"}
         </button>
         {#if $isMobile }<ShowTagListInput /> {/if}
-        {#if $selected_tag_value} <SelectedTag /> {/if}
-        <button class="p-1 rounded {$dynamic_dark_bg('bg-red-100')}"
-        on:click={()=>{alert("백업")}}>
+        <button class="p-1 rounded {$dynamic_dark_bg('bg-red-100')}" on:click={()=>{alert("백업")}}>
             백업
         </button>
+        {#if $selected_tag_value} <SelectedTag /> {/if}
     </div>
     <AllTagList hidden={!($isMobile && $show_tag_list)} />
     {#if isListView}
@@ -120,7 +116,7 @@ relative p-4">
     {:else}
         <MailCardView mail_list={mail_list} />
     {/if}
-    <BottomPagenation maxPage={maxPage} parent_width={section_width}/>
+    <BottomPagenation maxPage={maxPage} parent_width={section_width} mail_per_page={mail_per_page}/>
     {#if section_width < 600}<br>{/if}
     <Search search_length={$filtered_list.length} />
 </section>

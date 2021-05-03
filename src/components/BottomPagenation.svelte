@@ -1,6 +1,6 @@
 <script lang="ts">
 import { goto, params } from "@roxi/routify";
-import { dateString, date_to_str, str_to_date } from "../stores/date";
+import { dateString, date_to_str, str_to_date, time_to_dateStr } from "../stores/date";
 import { now_page } from "../stores/now";
 import { dark, dynamic_dark_bg, dynamic_dark_border } from "../stores/preferences";
 import { selected_tag_value } from "../stores/tag";
@@ -9,9 +9,11 @@ import Datepicker from "./datepicker/Datepicker.svelte";
 import Icon from 'fa-svelte';
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons/faArrowRight";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons/faArrowLeft";
+import { filtered_list, search_input } from "../stores/search";
 
 export let maxPage: number;
 export let parent_width: number;
+export let mail_per_page: number;
 
 $: overflow = parent_width < 400;
 
@@ -79,15 +81,38 @@ $: isMaxPage = maxPage<=$now_page;
 
 
 const onKeydown = (e: KeyboardEvent)=>{
-    if (e.key == "PageDown"){
-      goToNextPage();
-    }
-    if (e.key == "PageUp"){
-      goToBackPage();
-    }
+    if (e.key == "PageDown") goToNextPage();
+    if (e.key == "PageUp") goToBackPage();
 };
 
+function onDateSelected(e: CustomEvent){
+  const new_date = e.detail.date;
 
+  if ($selected_tag_value == ""){
+    now_page.set(1);
+    $goto("./", {...$params, dateString: date_to_str(new_date), nowPage: 1});
+    return null;
+  }
+
+  let result = false;
+  $filtered_list.forEach((mail, i)=>{
+      if (result || !mail) return null;
+
+      const mail_date_str = time_to_dateStr(mail.time);
+      const mail_date = str_to_date(mail_date_str);
+      if (mail_date <= new_date){
+          now_page.set(Math.ceil((i+1) / mail_per_page));
+          dateString.set(mail_date_str);
+          result = true;
+      }
+  })
+  if (result==false && $filtered_list.length > 0){
+      now_page.set(maxPage);
+      const last_mail = $filtered_list[$filtered_list.length-1];
+      dateString.set(time_to_dateStr(last_mail.time));
+  }
+  $goto("./", {...$params, dateString: $dateString, nowPage: $now_page});
+}
 </script>
 
 <svelte:body on:keydown={onKeydown} />
@@ -127,10 +152,7 @@ class:border-red-700={isMaxPage}>
 
 {#key $dark}
 <Datepicker
-   on:dateSelected={(e)=>{    
-   now_page.set(1);
-   $goto("./", {...$params, nowPage: 1, dateString: $dateString});
-}}
+   on:dateSelected={onDateSelected}
 selected={str_to_date($dateString)}
 bind:formattedSelected={$dateString}
 format={"#{Y}-#{m}-#{d}"}

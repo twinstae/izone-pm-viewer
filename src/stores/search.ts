@@ -41,7 +41,7 @@ export let pm_list_after_search = derived(
             return $pm_list
         }
         return $fuse.search("'" + $search_input)
-            .map(r=>r.item)
+            .map(r=>r.item).sort((a,b)=>(a.time < b.time ? 1 : -1));
     }
 );
 
