@@ -20,7 +20,7 @@ let haveInitiated = false;
 initStores().then(()=>{
   haveInitiated=true;
 
-  if ($params.dateString){
+  if ($params.dateString && $params.dateString.slice(0,2) == "20"){
     dateString.set($params.dateString)
     return goToInitPage();
   }

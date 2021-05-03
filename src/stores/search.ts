@@ -74,7 +74,7 @@ export let filtered_list = derived(
     }
 )
 
-const EMPTY_MAIL = {"id": "", "member": "", "time": "", "subject": "", "preview": ""};
+export const EMPTY_MAIL = {"id": "", "member": "", "time": "", "subject": "", "preview": ""};
 export let getPage = derived(
     [filtered_list, now_page],
     ([$filtered_list, $now_page]) => {

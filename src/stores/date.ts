@@ -1,8 +1,8 @@
-import { writable } from 'svelte/store';
+import { writable, Writable } from 'svelte/store';
 
 export const INIT_DATE = date_to_str(new Date(2021,4-1,28));
 
-export let dateString = writable(INIT_DATE);
+export let dateString: Writable<string> = writable(INIT_DATE);
 
 export function date_to_str(date: Date): string{
     let month = '' + (date.getMonth() + 1);

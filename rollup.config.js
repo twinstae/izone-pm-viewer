@@ -76,8 +76,8 @@ export default {
         }),
         commonjs(),
 		typescript({
-			sourceMap: !production,
-			inlineSources: !production
+			sourceMap: true,
+			inlineSources: true
 		}),
 
         production && terser(),
