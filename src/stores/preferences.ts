@@ -16,8 +16,6 @@ profile.subscribe((value: string)=>{
     localStorage.setItem(PROFILE_KEY, value);
 })
 
-export let choices: Writable<ProfileT[]> = writable([]);
-
 const OLD_NICK_KEY = "old-nick";
 export let oldNick: Writable<string> = writable(initStrPref(OLD_NICK_KEY, "위즈원"));
 oldNick.subscribe((value: string)=>{

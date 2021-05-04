@@ -65,7 +65,7 @@ shadow-md rounded-md">
         <FavoriteHeart pm_id={pm.id}/>
         <MemberProfileImg member={pm.member}/>
         <h4 class="text-lg" on:click={onMailSelected}>{pm.subject}</h4>
-        <MemberTag pm={pm}/>
+        <MemberTag member_name={pm.member}/>
         <TimeStampTag time={pm.time} />
         {#each getTags(pm) as tag_item}
             <Tag tag={tag_item} />
@@ -109,7 +109,7 @@ shadow-md rounded-md">
         {/if}
         <FavoriteHeart pm_id={pm.id}/>
         <h4 on:click={onMailSelected}>{pm.subject}</h4>
-        <MemberTag pm={pm}/>
+        <MemberTag member_name={pm.member}/>
         <TimeStampTag time={pm.time} />
         {#each getTags(pm) as tag_item}
             <Tag tag={tag_item} />

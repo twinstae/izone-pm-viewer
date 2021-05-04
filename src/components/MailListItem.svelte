@@ -63,7 +63,7 @@ class="border-b-2 rounded p-1 w-full leading-relaxed {$dynamic_dark_border}">
         <MemberProfileImg member={pm.member}/>
         <FavoriteHeart pm_id={pm.id} float="left mt-0.5"/>
         <p class="truncate" on:click={onMailSelected} >
-            <MemberTag pm={pm}/>
+            <MemberTag member_name={pm.member}/>
             <TimeStampTag time={pm.time}/>
             {#if $isMobile }<br/>{/if}
             {#each getTags(pm) as tag} <Tag tag={tag}/> {/each}
@@ -82,7 +82,7 @@ class="border-b-2 rounded p-1 w-full leading-relaxed {$dynamic_dark_border}">
     style="font-size:10px; height: 20px;"
     in:fade={{ duration: 300}}>
     {#if pm.member}
-    <MemberTag pm={pm} size=""/>
+    <MemberTag member_name={pm.member} size=""/>
     <TimeStampTag time={pm.time} size=""/>
     <strong>{pm.subject}</strong>{" "+pm.preview}
     {/if}

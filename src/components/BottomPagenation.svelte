@@ -87,8 +87,7 @@ const onKeydown = (e: KeyboardEvent)=>{
 
 function onDateSelected(e: CustomEvent){
   const new_date = e.detail.date;
-
-  if ($selected_tag_value == ""){
+  if ($selected_tag_value == null || $selected_tag_value == ""){
     now_page.set(1);
     $goto("./", {...$params, dateString: date_to_str(new_date), nowPage: 1});
     return null;
@@ -96,22 +95,27 @@ function onDateSelected(e: CustomEvent){
 
   let result = false;
   $filtered_list.forEach((mail, i)=>{
-      if (result || !mail) return null;
+      if (result) return null;
 
       const mail_date_str = time_to_dateStr(mail.time);
       const mail_date = str_to_date(mail_date_str);
       if (mail_date <= new_date){
-          now_page.set(Math.ceil((i+1) / mail_per_page));
+          const new_page = Math.ceil((i+1) / mail_per_page)
+          now_page.set(new_page);
           dateString.set(mail_date_str);
+          $goto("./", {...$params, dateString: mail_date_str, nowPage: new_page});
+
           result = true;
       }
   })
-  if (result==false && $filtered_list.length > 0){
+  
+  if (! result && $filtered_list.length > 0){
       now_page.set(maxPage);
       const last_mail = $filtered_list[$filtered_list.length-1];
-      dateString.set(time_to_dateStr(last_mail.time));
+      const newDateString = time_to_dateStr(last_mail.time)
+      dateString.set(newDateString);
+      $goto("./", {...$params, dateString: newDateString, nowPage: maxPage});
   }
-  $goto("./", {...$params, dateString: $dateString, nowPage: $now_page});
 }
 </script>
 

@@ -93,7 +93,7 @@ flex flex-col">
         <FavoriteHeart pm_id={$now_pm.id}/>
         <MemberProfileImg member={$now_pm.member}/>
         <h4 class="text-xl w-4/5">{$now_pm.subject}</h4>
-        <MemberTag pm={$now_pm}  size="sm"/>
+        <MemberTag member_name={$now_pm.member}  size="sm"/>
         <TimeStampTag time={$now_pm.time} size="sm"/>
         <br/>
         {#each now_tags as tag}
