@@ -58,8 +58,8 @@ async function get_data(path: string){
     }
 }
 
-export async function initStores(){
-    await Promise.all([
+export async function initStores(): Promise<MailT[]>{
+    return await Promise.all([
         get_data('./pm_list.json'),
         get_data("./member_name.json"),
         get_data("./mail_to_num_dict.json"),
@@ -124,7 +124,9 @@ export async function initStores(){
             if(pm.id.slice(0,1) == "b"){
                 addTag(birthday_tag, pm);
             }
-        })
+        });
+
+        return new_list;
     });
 }
 

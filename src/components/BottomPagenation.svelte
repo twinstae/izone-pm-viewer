@@ -1,7 +1,7 @@
 <script lang="ts">
 import { goto, params } from "@roxi/routify";
 import { dateString, date_to_str, str_to_date, time_to_dateStr } from "../stores/date";
-import { now_page } from "../stores/now";
+import { now_page, now_pm, pm_list, show_list } from "../stores/now";
 import { dark, dynamic_dark_bg, dynamic_dark_border } from "../stores/preferences";
 import { selected_tag_value } from "../stores/tag";
 import PinkButton from "./buttons/PinkButton.svelte";
@@ -9,13 +9,13 @@ import Datepicker from "./datepicker/Datepicker.svelte";
 import Icon from 'fa-svelte';
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons/faArrowRight";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons/faArrowLeft";
-import { filtered_list, search_input } from "../stores/search";
+import { filtered_list } from "../stores/search";
 
 export let maxPage: number;
 export let parent_width: number;
 export let mail_per_page: number;
 
-$: overflow = parent_width < 400;
+$: overflow = parent_width < 450;
 
 function toYesterday(){
     if ($selected_tag_value){
@@ -85,6 +85,18 @@ const onKeydown = (e: KeyboardEvent)=>{
     if (e.key == "PageUp") goToBackPage();
 };
 
+function goToRandomMail(_: Event){
+  const random_pm = getRandomMail();
+  now_pm.set(random_pm);
+  show_list.set(false);
+  $goto("./", {...$params, now_pm: random_pm.id, showList: false});
+}
+
+function getRandomMail(): MailT{
+  const result = $pm_list[Math.floor(Math.random() * $pm_list.length)];
+  return result.member != "운영팀" ? result : getRandomMail();
+}
+
 function onDateSelected(e: CustomEvent){
   const new_date = e.detail.date;
   if ($selected_tag_value == null || $selected_tag_value == ""){
@@ -145,7 +157,11 @@ class:border-red-700={isMaxPage}>
 </span>
 
 <PinkButton id="NextPageButton" onClick={goToNextPage}>
-    <Icon icon={faArrowRight} />
+  <Icon icon={faArrowRight} />
+</PinkButton>
+
+<PinkButton id="RandomMailButton" onClick={goToRandomMail}>
+  <span>🔀</span>
 </PinkButton>
 
 {#if overflow}<br/>{/if}

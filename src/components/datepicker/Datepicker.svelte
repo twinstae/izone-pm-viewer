@@ -286,8 +286,8 @@ import { dynamic_dark_bg } from '../../stores/preferences';
     bind:shrink="{isClosing}"
     {trigger}
     on:opened="{registerOpen}"
-    on:closed="{registerClose}"
-  >
+    on:closed="{registerClose}">
+
     <div slot="trigger">
       <slot {selected} {formattedSelected}>
         {#if !trigger}

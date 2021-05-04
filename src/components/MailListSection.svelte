@@ -15,10 +15,33 @@ import MailCardView from './MailCardView.svelte';
 import { dynamic_dark_bg } from '../stores/preferences';
 import DarkModeButton from './buttons/DarkModeButton.svelte';
 
+function requestNotificationPermission(){
+  if (window.Notification) {
+    Notification.requestPermission();
+  }
+}
+
+function notify(mail: MailT){
+  if (Notification.permission !== 'granted'){
+    alert('알람 설정이 되어 있지 않습니다.');
+    return null;
+  }
+
+  const notification = new Notification(`${mail.member} ${mail.subject}`, {
+    icon: `http://127.0.0.1:5000/img/profile/latest/${mail.member}.jpg`,
+    body: `[${mail.time}] ${mail.preview}`
+  });
+
+  notification.onclick = function () {
+    window.open(`http://127.0.0.1:5000/?dateString=${time_to_dateStr(mail.time)}&nowPage=1&tag=&search=&showList=false&now_pm=${mail.id}`);
+  }
+}
+
+
 let section_width: number;
 let section_height: number;
 $: mail_per_width =  Math.floor((section_width - 32) / 292)
-$: mail_per_height = Math.floor((section_height - 220) / 164);
+$: mail_per_height = Math.floor((section_height - 200) / 164);
 $: mail_per_page = $isMobile
     ? 5
     : isListView
@@ -106,8 +129,13 @@ relative p-4">
             {isListView ? "List": "Card"}
         </button>
         {#if $isMobile }<ShowTagListInput /> {/if}
-        <button class="p-1 rounded {$dynamic_dark_bg('bg-red-100')}" on:click={()=>{alert("백업")}}>
-            백업
+        <button class="p-1 rounded {$dynamic_dark_bg('bg-red-100')}"
+            on:click={()=>{requestNotificationPermission();}}>
+            알림 허용
+        </button>
+        <button class="p-1 rounded {$dynamic_dark_bg('bg-red-100')}"
+          on:click={()=>{notify(mail_list[0]);}}>
+            알림
         </button>
         {#if $selected_tag_value} <SelectedTag /> {/if}
     </div>
