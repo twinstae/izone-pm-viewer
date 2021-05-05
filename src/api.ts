@@ -127,8 +127,18 @@ function load_pm(user_id: string, token: string){
     });
 }
 
+function notify_server(mail: MailT, profile: string){
+  const time = mail.time;
+  const hour_minute = time.slice(time.length - 5);
+  const now = new Date();
+  if (hour_minute < (now.getHours()+":"+now.getMinutes())) return null;
+
+  return fetch(API_ROOT + "/notification/" + profile, {method: 'POST', body: JSON.stringify(mail)})
+}
+
 export default {
     AllTagDict,
     MailTagDict,
-    load_pm
+    load_pm,
+    notify_server
 }

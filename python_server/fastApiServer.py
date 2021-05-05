@@ -1,11 +1,11 @@
 import os
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from httpx import AsyncClient
 from starlette.responses import FileResponse
 from routers.ApiRouter import api_router
-
+import schedule
 import httpx
 
 app = FastAPI()
@@ -31,7 +31,9 @@ async def startup_event():
     
 
 @app.on_event("shutdown")
-async def shutdown_event():
+async def shutdown_event(bg_tasks: BackgroundTasks):
+    schedule.clear()
+    print("예정 중인 알림이 있습니다. CTRL - C 를 누르면 서버를 완전히 종료합니다.")
     await app.state.client.aclose()
 
 

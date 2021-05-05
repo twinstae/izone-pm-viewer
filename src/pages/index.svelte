@@ -6,15 +6,16 @@ import Modal from '../components/modals/Modal.svelte';
 import MailDetailSection from "../components/MailDetailSection.svelte";
 import MailListSection from "../components/MailListSection.svelte";
 import { isDesktop, show_list } from '../stores/now';
-import { dateString, date_to_str, str_to_date, time_to_dateStr } from '../stores/date';
+import { dateString, date_to_str, time_to_dateStr } from '../stores/date';
 import { pm_list } from '../stores/now';
 import { all_tag_dict, EMPTY_TAG} from '../stores/all_tag_dict';
 import { selected_tag_value } from '../stores/tag';
 import Background from '../components/Background.svelte';
 import { initStores } from '../stores/initStores';
-import { date_mail_n_dict, filtered_list } from '../stores/search';
+import { date_mail_n_dict } from '../stores/search';
 import DateModal from '../components/modals/DateModal.svelte';
-import { notify } from '../notifiaction';
+import api from '../api';
+import { profile } from '../stores/preferences';
 
 let haveInitiated = false;
 
@@ -45,21 +46,7 @@ initStores().then((new_list: MailT[])=>{
     new_list.forEach((mail: MailT)=>{
       const mail_date_str = time_to_dateStr(mail.time);
       if (mail_date_str == n_years_ago_str){
-        const nowDateTime = new Date();
-        const execDateTime = new Date(
-            nowDateTime.getFullYear(),
-            Number(mail.time.slice(5,6+1)) - 1,// month
-            Number(mail.time.slice(8, 9+1)),// day
-            Number(mail.time.slice(11, 12+1)), // hours
-            Number(mail.time.slice(14, 15+1)), // minutes
-          );
-
-        const timeout = execDateTime.getTime() - nowDateTime.getTime();
-        if (timeout < 0){
-          return null;
-        }
-
-        setTimeout(()=>{notify(mail)}, timeout);
+        api.notify_server(mail, $profile);
       }
     })
 
