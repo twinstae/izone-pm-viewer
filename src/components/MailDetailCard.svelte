@@ -10,9 +10,10 @@ import MemberProfileImg from './MemberProfileImg.svelte';
 import { fade } from 'svelte/transition';
 import { goto, params } from '@roxi/routify';
 import { all_tag_dict } from '../stores/all_tag_dict';
-import { dark, dynamic_dark_bg, oldNick, wizoneNick } from '../stores/preferences';
+import { dynamic_dark_bg, oldNick, wizoneNick } from '../stores/preferences';
 import { afterUpdate, getContext } from 'svelte';
 import NickModal from './modals/NickModal.svelte';
+import PinkButton from './buttons/PinkButton.svelte';
 
 export let show: boolean;
 
@@ -77,11 +78,16 @@ afterUpdate(() => {
 });
 
 </script>
-
+<style>
+  div#MailDetailCardContent {
+    color: transparent;
+    text-shadow: 0 0 6px rgba(255,255,255,0.5);
+  }
+</style>
 
 <div
 id="MailDetailCard"
-style="max-height: {$isDesktop && show ? "70%" : "90%"}; min-height:300px;"
+   style="max-height: {$isDesktop && show ? "70%" : "90%"}; min-height:300px;"
 class="
 shadow-2xl rounded-md
 {$dynamic_dark_bg("bg-white")}
@@ -102,7 +108,7 @@ flex flex-col">
         <TagInput/>    
     </div>
     <div
-    id="MailDetailCardContent"
+      id="MailDetailCardContent"
     class="h-5/6 overflow-y-auto p-1">
         {#key $now_pm}
             <div
@@ -114,10 +120,11 @@ flex flex-col">
             </div>
         {/key}
     </div>
-    {#if $isMobile}
-        <button on:click={returnToList}
-        class="shadow rounded p-1 mt-2 {$dark ? "bg-gray-900 text-gray-300" : "bg-red-100"}">
-            목록으로 돌아가기📄
-        </button>
-    {/if}
+    <div class="text-center w-full">
+      {#if $isMobile}
+        <PinkButton id="ReturnToListButton" onClick={returnToList} strong={true}>
+          목록으로 돌아가기📄
+        </PinkButton>
+      {/if}
+    </div>
 </div>

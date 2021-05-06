@@ -1,7 +1,7 @@
 import { Writable, writable } from 'svelte/store';
-        
 import { all_tag_dict, EMPTY_TAG, favorite_tag, member_tags, birthday_tag } from "./all_tag_dict";
 import { selected_tag_value } from "./tag";
+import api from '../api';
 
 export let entries_to_tag_to_mail_dict: (entries: [string, string[]][]) => Map<TagT, Set<string>>;
 all_tag_dict.subscribe(dict=>{
@@ -83,5 +83,21 @@ export function tag_to_mail_dict_to_entries(dict: Map<TagT, Set<string>>): [stri
         const tag = entry[0].value;
         const mail_list = [...entry[1]];
         return [tag, mail_list];
+    })
+}
+
+
+export async function favorite(pm_id: string){
+    tag_to_mail_dict.update(dict=>{
+      const favorite_set = dict.get(favorite_tag);
+      if (favorite_set.has(pm_id)){
+          favorite_set.delete(pm_id);
+
+          api.MailTagDict.deleteTag(pm_id, "💖");
+      } else {
+          favorite_set.add(pm_id);
+          api.MailTagDict.addTag(pm_id, "💖");
+      }
+      return dict;
     })
 }

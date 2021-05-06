@@ -9,7 +9,7 @@ import MemberProfileImg from './MemberProfileImg.svelte';
 import { goto, params } from '@roxi/routify';
 import { fade } from 'svelte/transition';
 import { all_tag_dict } from '../stores/all_tag_dict';
-import { dynamic_dark_border, oldNick, wizoneNick } from '../stores/preferences';
+import { dark, dynamic_dark_border, oldNick, wizoneNick } from '../stores/preferences';
 import { dateString, date_to_str } from '../stores/date';
 import { getContext } from 'svelte';
 import SyncModal from './modals/SyncModal.svelte';
@@ -34,29 +34,16 @@ $: getTags = (pm: MailT) => {
     return [];
 };
 
-const today_str = date_to_str(new Date());
-const {open} = getContext("simple-modal");
-const openModal = ()=>{open(SyncModal)}
-let timeout: ReturnType<typeof setTimeout>;
-$: onTouchDown = ()=>{
-    if (!pm.member && $dateString == today_str){
-        timeout = setTimeout(openModal, 300);
-    }
-};
-$: onTouchUp = (_: Event)=>{ 
-    if (!pm.member && $dateString == today_str){
-        clearTimeout(timeout);
-    }
-}
 </script>
 
 <li
-id="MailItem-{index}"
-style="height: {$isDesktop ? '62px' : '84px'};"
-class:hidden={hidden}
-on:pointerdown={onTouchDown}
-on:pointerup={onTouchUp}
-class="border-b-2 rounded p-1 w-full leading-relaxed {$dynamic_dark_border}">
+  id="MailItem-{index}"
+  style="height: {$isDesktop ? '62px' : '84px'};"
+  class:hidden={hidden}
+  class="rounded p-1 w-full leading-relaxed 
+         {pm.id == $now_pm.id
+           ? 'border-2 ' + ($dark ? 'border-gray-500' : 'border-red-200')
+           : 'border-b-2 ' + $dynamic_dark_border}">
     {#key pm.id}
     <div in:fade={{ duration: 500 }}>
     {#if pm.member}

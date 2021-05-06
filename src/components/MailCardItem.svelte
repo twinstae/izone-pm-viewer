@@ -10,10 +10,7 @@ import MemberProfileImg from "./MemberProfileImg.svelte";
 import { goto, params } from "@roxi/routify";
 import { fade } from "svelte/transition";
 import { all_tag_dict } from "../stores/all_tag_dict";
-import { dynamic_dark_bg, oldNick, wizoneNick } from "../stores/preferences";
-import { dateString, date_to_str } from "../stores/date";
-import { getContext } from "svelte";
-import SyncModal from "./modals/SyncModal.svelte";
+import { dark, dynamic_dark_bg, oldNick, wizoneNick } from "../stores/preferences";
 
 export let pm: MailT;
 export let index: number;
@@ -33,32 +30,23 @@ $: onMailSelected = ()=>{
         $goto("./", { ...$params, showList: $show_list, now_pm: $now_pm.id});
     }
 }
-const today_str = date_to_str(new Date());
-const {open} = getContext("simple-modal");
-const openModal = ()=>{open(SyncModal)}
-$: no_mail = !pm.member && $dateString == today_str;
-
-let timeout: ReturnType<typeof setTimeout>;
-$: onTouchDown = ()=>{if (no_mail) timeout = setTimeout(openModal, 300);};
-$: onTouchUp = (_: Event)=>{   if (no_mail) clearTimeout(timeout); };
 
 </script>
 
 {#if $isDesktop}
 <div
-id="MailCard-{index}"
-style="width: 276px; height:156px;
-{pm.member ? "" : `
-background-image: url(${image_root}izone-logo-card.png);
-background-repeat: no-repeat;
-background-size: contain;
-background-position: center;`}"
-on:pointerdown={onTouchDown}
-on:pointerup={onTouchUp}
-class="m-2 p-1
-relative overflow-y-auto
-{$dynamic_dark_bg("bg-white")}
-shadow-md rounded-md">
+  id="MailCard-{index}"
+  style="width: 276px; height:156px;
+  {pm.member ? "" : `
+  background-image: url(${image_root}izone-logo-card.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;`}"
+  class="m-2 p-1
+         relative overflow-y-auto
+         {$dynamic_dark_bg('bg-white')}
+         {pm.id == $now_pm.id ? 'border-2 ' + ($dark ? 'border-gray-500' : 'border-red-200') : ''}
+         shadow-md rounded-md">
     {#key pm}
     <div in:fade={{ duration: 500 }} class="leading-relaxed">
     {#if pm.member}
@@ -87,19 +75,20 @@ shadow-md rounded-md">
 </div>
 {:else}
 <div
-id="MailCard-{index}"
-style="height:100px;
-{pm.member ? "" : `
-background-image: url(${image_root}izone-logo-card.png);
-background-repeat: no-repeat;
-background-size: contain;
-background-position: center;`}"
-on:pointerdown={onTouchDown}
-on:pointerup={onTouchUp}
-class="m-1 p-1 w-full
-relative overflow-y-auto
-{$dynamic_dark_bg("bg-white")}
-shadow-md rounded-md">
+  id="MailCard-{index}"
+  style="height:100px;
+          color: transparent;
+         text-shadow: 0 0 6px rgba(255,255,255,0.5);
+        {pm.member ? "" : `
+    background-image: url(${image_root}izone-logo-card.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;`}"
+  class="m-1 p-1 w-full
+                 relative overflow-y-auto
+          {pm.id == $now_pm.id ? 'border-2 ' + ($dark ? 'border-gray-500' : 'border-red-200') : ''}
+          {$dynamic_dark_bg("bg-white")}
+          shadow-md rounded-md">
     {#key pm}
     <div in:fade={{ duration: 500 }} class="leading-relaxed">
     {#if pm.member}

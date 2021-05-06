@@ -1,7 +1,7 @@
 <script lang="ts">
 import { goto, params } from "@roxi/routify";
 import { dateString, date_to_str, str_to_date, time_to_dateStr } from "../stores/date";
-import { now_page, now_pm, pm_list, show_list } from "../stores/now";
+import { isMobile, now_page, now_pm, pm_list, show_list } from "../stores/now";
 import { dark, dynamic_dark_bg, dynamic_dark_border } from "../stores/preferences";
 import { selected_tag_value } from "../stores/tag";
 import PinkButton from "./buttons/PinkButton.svelte";
@@ -10,6 +10,7 @@ import Icon from 'fa-svelte';
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons/faArrowRight";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons/faArrowLeft";
 import { filtered_list } from "../stores/search";
+import { favorite } from "../stores/tag_to_mail_dict";
 
 export let maxPage: number;
 export let parent_width: number;
@@ -57,7 +58,7 @@ function goToNextPage(){
     }
 }
 
-function goToBackPage(){
+function goToPreviousPage(){
     if($now_page>1) {
         $now_page-=1
         $goto("./", {...$params, nowPage: $now_page});
@@ -80,12 +81,68 @@ params.subscribe(p=>{
 $: isMaxPage = maxPage<=$now_page;
 
 
-const onKeydown = (e: KeyboardEvent)=>{
-    if (e.key == "PageDown") goToNextPage();
-    if (e.key == "PageUp") goToBackPage();
-};
+function onKeydown(e: KeyboardEvent){
+  if (e.key == "PageDown") return goToNextPage();
+  if (e.key == "PageUp") return goToPreviousPage();
+  if (e.key == "ArrowRight" || e.key == "l") return toTomorrow();
+  if (e.key == "ArrowLeft" || e.key == "h") return toYesterday();
+  if (e.key == "r") return goToRandomMail();
+  if (e.key == "c") {
+    const calendarButton: HTMLButtonElement = document.querySelector("button.calendar-button");
+    return calendarButton.click();
+  }
+  if (e.key == "m") {
+  }
+  if (e.key == "d"){ $dark = !$dark }
+  if (e.key == "ArrowDown" || e.key == "j") return goToNextMail();
+  if (e.key == "ArrowUp" || e.key == "k") return goToPreviousMail();
+  if (e.key == "Enter" && $isMobile && $show_list){
+    show_list.set(false);
+    $goto("./", {...$params, showList: false})
+  }
+  if (e.key == "Escape" && $isMobile && !$show_list){
+    show_list.set(true);
+    $goto("./", {...$params, showList: true})
+  }
+  if (e.key == "f") return favorite($now_pm.id);
 
-function goToRandomMail(_: Event){
+  console.log(e.key, e.code);
+}
+
+
+function goToNextMail(){
+  const now_index = getNowMailIndex();
+  if(now_index + 1 >= $filtered_list.length) return alert("마지막 메일입니다.");
+
+  $now_pm = $filtered_list[now_index + 1];
+
+  if ($now_page + 1 <= maxPage && now_index + 1 >= mail_per_page * $now_page){
+    $now_page+=1
+    $goto("./", {...$params, now_pm: $now_pm.id, nowPage: $now_page});
+  } else {
+    $goto("./", { ...$params, now_pm: $now_pm.id });
+  }
+}
+
+function goToPreviousMail(){
+  const now_index = getNowMailIndex();
+  if(now_index - 1 < 0) return alert("첫 번째 메일입니다.");
+
+  $now_pm = $filtered_list[now_index - 1];
+
+  if ($now_page - 1 > 0 && now_index <= mail_per_page * ($now_page-1)){
+    $now_page-=1
+    $goto("./", {...$params, now_pm: $now_pm.id, nowPage: $now_page});
+  } else {
+    $goto("./", { ...$params, now_pm: $now_pm.id });
+  }
+}
+
+function getNowMailIndex(){
+  return $filtered_list.map(pm=>pm.id).indexOf($now_pm.id);
+}
+
+function goToRandomMail(){
   const random_pm = getRandomMail();
   now_pm.set(random_pm);
   show_list.set(false);
@@ -133,7 +190,7 @@ function onDateSelected(e: CustomEvent){
 
 <svelte:body on:keydown={onKeydown} />
 
-<PinkButton id="BackPageButton" onClick={goToBackPage}>
+<PinkButton id="BackPageButton" onClick={goToPreviousPage} tooltip="PageUp">
     <Icon icon={faArrowLeft} />
 </PinkButton>
 
@@ -156,37 +213,37 @@ class:border-red-700={isMaxPage}>
     <span>/ {maxPage}</span>
 </span>
 
-<PinkButton id="NextPageButton" onClick={goToNextPage}>
+<PinkButton id="NextPageButton" onClick={goToNextPage} tooltip="PageDown">
   <Icon icon={faArrowRight} />
 </PinkButton>
 
-<PinkButton id="RandomMailButton" onClick={goToRandomMail}>
+<PinkButton id="RandomMailButton" onClick={goToRandomMail} tooltip="r">
   <span>🔀</span>
 </PinkButton>
 
 {#if overflow}<br/>{/if}
 
-<PinkButton id="toYesterdayButton" onClick={toYesterday}>
+<PinkButton id="toYesterdayButton" onClick={toYesterday} tooltip="h 또는 ←">
     <Icon icon={faArrowLeft} />
 </PinkButton>
 
 {#key $dark}
 <Datepicker
-   on:dateSelected={onDateSelected}
-selected={str_to_date($dateString)}
-bind:formattedSelected={$dateString}
-format={"#{Y}-#{m}-#{d}"}
-start={new Date(2019 , 1 -1, 18)} end={new Date()}
-buttonTextColor={$dark ? "#ddd" : "black"}
-dayTextColor={$dark ? "#ddd" : "white"}
-buttonBorderColor={$dark ? "rgb(55, 65, 81)" : "rgb(243, 244, 246)"}
-buttonBackgroundColor={$dark ? "rgb(31, 41, 55)" : "white"}
-dayBackgroundColor={$dark ? "rgb(31, 41, 55)" : "white"}
-daysOfWeek={['일','월','화','수','목','금','토'].map(d=>[d+"요일", d])}
-monthsOfYear={[...Array(12).keys()].map(n=>[`${n+1}월`, `${n+1}월`])}
+  on:dateSelected={onDateSelected}
+  selected={str_to_date($dateString)}
+  bind:formattedSelected={$dateString}
+  format={"#{Y}-#{m}-#{d}"}
+  start={new Date(2019 , 1 -1, 18)} end={new Date()}
+  buttonTextColor={$dark ? "#ddd" : "black"}
+  dayTextColor={$dark ? "#ddd" : "white"}
+  buttonBorderColor={$dark ? "rgb(55, 65, 81)" : "rgb(243, 244, 246)"}
+  buttonBackgroundColor={$dark ? "rgb(31, 41, 55)" : "white"}
+  dayBackgroundColor={$dark ? "rgb(31, 41, 55)" : "white"}
+  daysOfWeek={['일','월','화','수','목','금','토'].map(d=>[d+"요일", d])}
+  monthsOfYear={[...Array(12).keys()].map(n=>[`${n+1}월`, `${n+1}월`])}
 />
 {/key}
 
-<PinkButton id="toTomorrowButton" onClick={toTomorrow}>
+<PinkButton id="toTomorrowButton" onClick={toTomorrow} tooltip="l 또는 →">
     <Icon icon={faArrowRight} />
 </PinkButton>
