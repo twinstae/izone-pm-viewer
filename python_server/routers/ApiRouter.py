@@ -12,6 +12,7 @@ from models.mail import BodyDictDto, MailDto
 from routers.AllTagDictRouter import router as all_tag_router
 from routers.MailTagRouter import router as mail_tag_router
 from services.MailLoadService import MailLoadService
+from services.TagToMailDict import tag_to_mail_dict
 
 api_router = APIRouter(
     prefix=API_ROOT,
@@ -78,6 +79,15 @@ async def restore_birthday_pm(
     await service.restore_birthday_pm()
     return {"msg": "birthday images are restored without error"}
 
+
+@api_router.post("/private-mail/favorite-list")
+async def load_favorite_list(
+        service: MailLoadService = Depends(MailLoadService)
+):
+    favorite_list = await service.download_favorite_list()
+    for mail_id in favorite_list:
+        tag_to_mail_dict.add_mail(mail_id=mail_id, tag_value="💖")
+  
 
 api_router.include_router(all_tag_router)
 api_router.include_router(mail_tag_router)

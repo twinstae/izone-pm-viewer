@@ -152,10 +152,12 @@ def 현재_서버_파일을_지우고_새_서버를_가져온다() -> bool:
     return True
 
 
-def get_server_version(file_list):
+def get_server_version(file_list) -> List[str]:
     for file_name in file_list:
         if "버전" in file_name:
             return file_name.replace("버전", "").split(".")
+
+    return []
 
 
 def 이미_최신버전인가(old_ver, new_ver):

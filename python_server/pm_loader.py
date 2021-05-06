@@ -23,11 +23,16 @@ router = APIRouter(
 
 
 class PmRequest(BaseModel):
+    user_id: str
     token: str
 
 
 @router.post("/")
-def download_latest_pm_with_token():
+def download_latest_pm_with_token(auth: PmRequest):
+    global PM_USERID, PM_ACCESS_TOKEN
+    PM_USERID = auth.user_id
+    PM_ACCESS_TOKEN = auth.token
+
     pm_list, mail_to_body_dict = download_latest_pm()
     return {
         "pm_list": pm_list,

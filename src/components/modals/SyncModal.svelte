@@ -8,6 +8,7 @@ import { pm_list } from "../../stores/now";
 import { member_dict, member_name_dict } from "../../stores/constants";
 import { all_tag_dict } from "../../stores/all_tag_dict";
 import { tag_to_mail_dict } from "../../stores/tag_to_mail_dict";
+
 let user_id: string = localStorage.getItem("pm-user-id");
 let token: string = localStorage.getItem("pm-access-token");
 
@@ -46,7 +47,7 @@ function get_data_from_text(text: string){
     }
 }
 
-$: onSubmit = async ()=>{
+$: load_pm_list = async ()=>{
     localStorage.setItem("pm-user-id", user_id);
     localStorage.setItem("pm-access-token", token);
     console.log(user_id, token);
@@ -76,12 +77,34 @@ $: onSubmit = async ()=>{
     $tag_to_mail_dict = $tag_to_mail_dict;
     $pm_list = new_pm_list.concat($pm_list);
 }
+
+async function restore_birthday_pm(){
+  
+}
+
+async function load_favorite_list(){
+  
+}
+
+async function load_unread_list(){
+
+}
+
+async function one_click(){
+}
 </script>
 
 
 <style>
     h3 {font-size: 1.5rem;}
     h3, p, input {text-align: center;}
+
+    div.SyncBody {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 1rem;
+    }
 </style>
 <div class="{$dark ? "text-gray-300": "text-black"}">
 
@@ -93,18 +116,38 @@ $: onSubmit = async ()=>{
     <p class="text-sm">값은 브라우저에 저장됩니다.</p>
     <p class="text-sm">기존 앱에서 이어받으면 토큰이 초기화됩니다.</p>
     <p class="text-sm">초기화된 경우 다시 토큰을 받아주세요.</p>
-    <div class="flex flex-wrap mt-4 justify-center">
+    <div class="SyncBody">
+      <label for="UserIdInput">
+        User Id
         <input
-        bind:value={user_id}
-        class="w-32 rounded m-1 p-1 {$dark ? "bg-gray-900": "border-gray-200 border-2"}"
-        placeholder="User Id"/>
+          bind:value={user_id}
+          id="UserIdInput"
+          class="w-32 rounded m-1 p-1 {$dark ? "bg-gray-900": "border-gray-200 border-2"}"
+          placeholder="User Id"/>
+      </label>
+      
+      <label for="AccessTokenInput">
+        Access Token
         <input
-        bind:value={token}
-        class="w-64 rounded m-1 p-1 {$dark ? "bg-gray-900": "border-gray-200 border-2"}"
-        placeholder="Access Token"/>
-        
-        <PinkButton onClick={onSubmit} strong={true}>
-            불러오기
-        </PinkButton>
-    </div>
+          id="AccessTokenInput"
+          bind:value={token}
+          class="w-64 rounded m-1 p-1 {$dark ? "bg-gray-900": "border-gray-200 border-2"}"
+          placeholder="Access Token"/>
+      </label>
+      <PinkButton onClick={load_pm_list} strong={true}>
+        📧 남은 메일 불러오기
+      </PinkButton>
+      <PinkButton onClick={restore_birthday_pm} strong={true}>
+        🎂 생일 프메 사진 복구
+      </PinkButton>
+      <PinkButton onClick={load_favorite_list} strong={true}>
+        ⭐ 중요 메일 가져오기
+      </PinkButton>
+      <PinkButton onClick={load_unread_list} strong={true}>
+        안 읽은 메일 가져오기
+      </PinkButton>
+      <PinkButton onClick={one_click} strong={true}>
+        ⚠️ ONE CLICK ⚠️ 
+      </PinkButton>
+  </div>
 </div> 

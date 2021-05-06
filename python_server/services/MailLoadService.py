@@ -2,12 +2,11 @@ import re
 import os
 import json
 from collections import namedtuple
-from typing import Coroutine, Any, List, Dict, Tuple
+from typing import Coroutine, Any, List, Optional
 from fastapi import Depends
 from httpx import Response
 from models.mail import Mail, BodyDictDto
 from services.ClientUtil import ClientUtil
-from datetime import datetime
 
 PM_APP_VER = "1.4.5"
 PM_DEVICE = "star2ltexx"
@@ -160,7 +159,10 @@ class MailLoadService:
 
         # 생일 프메 html 파일을 연다.
         for pm in birthday_pm_list:
-            pm_html: str = load_html(pm.id)
+            pm_html: Optional[str] = load_html(pm.id)
+            if pm_html == None:
+                print(f"id: {pm.id} 생일 프메의 html을 찾지 못했습니다")
+                continue
 
             new_html = pm_html
 
@@ -198,6 +200,32 @@ class MailLoadService:
             resp = await self.client_util.client.get(img_url)
             f.write(resp.content)
 
+    async def download_favorite_list(self):
+        if self.PM_ACCESS_TOKEN == "":
+            raise NoTokenException()
+        print("중요 표시한 메일 목록을 가져옵니다.")
+
+        target = "https://app-api.izone-mail.com/v1/inbox?is_star=1&is_unread=0&page=%d"
+        page = 1
+        flag = True
+
+        favorite_list = []
+
+        while flag:
+            whole_data = await self.pm_get_json(target % page)
+            new_page = [raw_pm["id"] for raw_pm in whole_data["mails"]]
+
+            print(new_page)
+            favorite_list += new_page
+
+            if not whole_data["has_next_page"]:
+                print("마지막 페이지입니다")
+                flag = False
+                break
+
+            page += 1
+        print("중요 표시한 메일 목록을 모두 가져왔습니다.")
+        return favorite_list
 
 def check_and_save_to_old(pm_list, mail_to_body_dict):
     pm_list_old = load_json("pm_list_old.json") or []
@@ -220,7 +248,7 @@ def load_birthday_pm_list() -> List[PmTuple]:
     ]
 
 
-def load_html(mail_file_name):
+def load_html(mail_file_name) -> Optional[str]:
     if not os.path.exists("output/mail/" + mail_file_name+".html"):
         return None
     with open("output/mail/" + mail_file_name+".html", "r", encoding="UTF-8") as f:

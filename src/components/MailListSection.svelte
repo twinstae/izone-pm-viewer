@@ -4,8 +4,8 @@ import AllTagList from './tags/AllTagList.svelte';
 import { afterUpdate } from "svelte";
 import { dateString, date_to_str, str_to_date, time_to_dateStr } from "../stores/date";
 import { selected_tag_value } from "../stores/tag";
-import { now_page, isDesktop, show_list, isMobile, show_tag_list} from '../stores/now';
-import { filtered_list, getPage, EMPTY_MAIL, search_input } from '../stores/search';
+import { now_page, isDesktop, show_list, isMobile, show_tag_list } from '../stores/now';
+import { filtered_list, getPage, EMPTY_MAIL } from '../stores/search';
 import Search from './Search.svelte';
 import { params, redirect } from '@roxi/routify';
 import SelectedTag from './tags/SelectedTag.svelte';
@@ -14,28 +14,6 @@ import MailItemList from './MailItemList.svelte';
 import MailCardView from './MailCardView.svelte';
 import { dynamic_dark_bg } from '../stores/preferences';
 import DarkModeButton from './buttons/DarkModeButton.svelte';
-
-function requestNotificationPermission(){
-  if (window.Notification) {
-    Notification.requestPermission();
-  }
-}
-
-function notify(mail: MailT){
-  if (Notification.permission !== 'granted'){
-    alert('알람 설정이 되어 있지 않습니다.');
-    return null;
-  }
-
-  const notification = new Notification(`${mail.member} ${mail.subject}`, {
-    icon: `http://127.0.0.1:5000/img/profile/latest/${mail.member}.jpg`,
-    body: `[${mail.time}] ${mail.preview}`
-  });
-
-  notification.onclick = function () {
-    window.open(`http://127.0.0.1:5000/?dateString=${time_to_dateStr(mail.time)}&nowPage=1&tag=&search=&showList=false&now_pm=${mail.id}`);
-  }
-}
 
 
 let section_width: number;
@@ -129,14 +107,6 @@ relative p-4">
             {isListView ? "List": "Card"}
         </button>
         {#if $isMobile }<ShowTagListInput /> {/if}
-        <button class="p-1 rounded {$dynamic_dark_bg('bg-red-100')}"
-            on:click={()=>{requestNotificationPermission();}}>
-            알림 허용
-        </button>
-        <button class="p-1 rounded {$dynamic_dark_bg('bg-red-100')}"
-          on:click={()=>{notify(mail_list[0]);}}>
-            알림
-        </button>
         {#if $selected_tag_value} <SelectedTag /> {/if}
     </div>
     <AllTagList hidden={!($isMobile && $show_tag_list)} />

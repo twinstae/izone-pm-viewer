@@ -131,7 +131,8 @@ function notify_server(mail: MailT, profile: string){
   const time = mail.time;
   const hour_minute = time.slice(time.length - 5);
   const now = new Date();
-  if (hour_minute < (now.getHours()+":"+now.getMinutes())) return null;
+
+  if (hour_minute < now.toTimeString().slice(0,5)) return null;
 
   return fetch(API_ROOT + "/notification/" + profile, {method: 'POST', body: JSON.stringify(mail)})
 }
