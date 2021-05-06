@@ -1,4 +1,4 @@
-import { favorite_tag, member_tags } from "./stores/all_tag_dict";
+import { favorite_tag, member_tags, unread_tag } from "./stores/all_tag_dict";
 import {mail_to_tag_dict_to_json } from "./stores/mail_to_tag_dict";
 import {tag_to_mail_dict_to_entries } from "./stores/tag_to_mail_dict";
 
@@ -13,7 +13,6 @@ async function post(url: string, body:any =""){
     if(body){
         return fetch(url, {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(body)
         });
     }
@@ -22,7 +21,6 @@ async function post(url: string, body:any =""){
 async function put(url: string, body: any){
     fetch(url, {
         method: 'PUT',
-        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(body)
     })
 };

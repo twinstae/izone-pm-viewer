@@ -1,5 +1,5 @@
 import { derived, writable, Writable } from "svelte/store";
-
+import Josa from 'josa-js';
 const PROFILE_KEY = "preferences-profile";
 
 function initStrPref(key: string, default_value: string){
@@ -28,6 +28,32 @@ wizoneNick.subscribe((value: string)=>{
     localStorage.setItem(WIZONE_KEY, value);
 });
 
+let replaceJosa = derived(
+  [oldNick, wizoneNick],
+  ([$oldNick, $wizoneNick])=>function(josa: string){
+    if ($wizoneNick == "") return (a: string)=>a;
+
+    if (josa == "") return (a:string) => a.replace(new RegExp($oldNick, "g"), $wizoneNick);
+
+    const wizJosa = Josa.c($wizoneNick, josa);
+
+    const [oldJosa1, oldJosa2] = josa.split("/");
+    return (a: string) => a.replace(new RegExp($oldNick + oldJosa1, "g"), $wizoneNick + wizJosa)
+      .replace(new RegExp($oldNick + oldJosa2, "g"), $wizoneNick + wizJosa);
+  }
+)
+
+export let replaceWizone = derived(
+  [replaceJosa],
+  ([$replaceJosa])=>function replaceWizone(content: string){
+    let result = $replaceJosa("이/가")(content);
+    result = $replaceJosa("을/를")(result);
+    result = $replaceJosa("은/는")(result);
+    result = $replaceJosa("")(result);
+
+    return result;
+  }
+)
 
 const DARK_KEY = "dark-mode";
 function initBooleanPref(key: string, default_value: boolean){
