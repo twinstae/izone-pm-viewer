@@ -10,7 +10,7 @@ import MemberProfileImg from './MemberProfileImg.svelte';
 import { fade } from 'svelte/transition';
 import { goto, params } from '@roxi/routify';
 import { all_tag_dict } from '../stores/all_tag_dict';
-import { dynamic_dark_bg, oldNick, wizoneNick } from '../stores/preferences';
+import { dynamic_dark_bg, wizoneNick, replaceWizone } from '../stores/preferences';
 import { afterUpdate, getContext } from 'svelte';
 import NickModal from './modals/NickModal.svelte';
 import PinkButton from './buttons/PinkButton.svelte';
@@ -29,6 +29,7 @@ params.subscribe(p=>{
 $: getTags = (pm: MailT) => {
     if($mail_to_tag_dict.has(pm.id)){
         return Array.from($mail_to_tag_dict.get(pm.id))
+            .filter(tag => tag.value != "읽지 않음")
             .map(tag=> $all_tag_dict.get(tag.value));
     }
     return [];
@@ -43,17 +44,20 @@ const rainbow = `background-image: linear-gradient(
     #a7e0e1, #b7d3e9, #bbb0dc, #7592d7);
     `;
 
-$: html_body = $now_pm.images
+$: html_old = $now_pm.images
     .reduce((body, img)=>
         body.replace(
         "{이미지}",
         `<img src="../${img}" style="max-width:100%;display:block;margin-left:auto;margin-right:auto; margin-top:8px;">`
     ), $now_pm.body)
-    .replace(/\n\n/g, "<br/>").replace(/\n/g, "<br/>")
-    .replace(
-      new RegExp($oldNick, "g"),
-      `<span class="wizone rounded p-0.5" style="${rainbow} color: black;">${$wizoneNick}</span>`
-    );
+    .replace(/\n\n/g, "<br/>").replace(/\n/g, "<br/>");
+
+$: html_body = $wizoneNick
+    ? $replaceWizone(html_old).replace(
+        new RegExp($wizoneNick, "g"),
+        `<span class="wizone rounded p-0.5" style="${rainbow} color: black;">${$wizoneNick}</span>`
+      )
+    : html_old;
 
 now_pm.subscribe((_)=>{
     const div: HTMLElement = document.getElementById("MailDetailCardContent");
@@ -76,15 +80,16 @@ afterUpdate(() => {
     })
   })
 });
-
-</script>
-<style>
+/*
   div#MailDetailCardContent {
     color: transparent;
-    text-shadow: 0 0 6px rgba(255,255,255,0.5);
+    text-shadow: 0 0 6px rgba(128,128,128,0.5);
   }
-</style>
+*/
+</script>
+<style>
 
+</style>
 <div
 id="MailDetailCard"
    style="max-height: {$isDesktop && show ? "70%" : "90%"}; min-height:300px;"

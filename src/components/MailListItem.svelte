@@ -10,9 +10,9 @@ import { goto, params } from '@roxi/routify';
 import { fade } from 'svelte/transition';
 import { all_tag_dict } from '../stores/all_tag_dict';
 import { dark, dynamic_dark_border, oldNick, wizoneNick } from '../stores/preferences';
-import { dateString, date_to_str } from '../stores/date';
-import { getContext } from 'svelte';
-import SyncModal from './modals/SyncModal.svelte';
+import { is_unread } from '../stores/tag_to_mail_dict';
+import { image_root } from '../stores/constants';
+
 export let pm: MailT;
 export let hidden: boolean;
 export let index: number;
@@ -27,26 +27,44 @@ $: onMailSelected = ()=>{
 
 $: getTags = (pm: MailT) => {
     if($mail_to_tag_dict.has(pm.id)){
-        return Array.from($mail_to_tag_dict.get(pm.id)).map(tag=>{
+        return Array.from($mail_to_tag_dict.get(pm.id))
+        .filter(tag => tag.value != "읽지 않음")
+        .map(tag=>{
             return $all_tag_dict.get(tag.value);
         })
     }
     return [];
 };
-
 </script>
+
+<style>
+  li.Unread::before {
+    content: "●";
+    color: #f06d9c;
+    position: absolute;
+    margin-top: -8px;
+    text-shadow: 1px 1px 5px gray;
+  }
+  .blur {
+    color: transparent;
+    text-shadow: 1px 1px 5px gray;
+  }
+</style>
 
 <li
   id="MailItem-{index}"
   style="height: {$isDesktop ? '62px' : '84px'};"
   class:hidden={hidden}
-  class="rounded p-1 w-full leading-relaxed 
+  class:Unread={$is_unread(pm.id)}
+  class="rounded p-1 w-full leading-relaxed blur
          {pm.id == $now_pm.id
            ? 'border-2 ' + ($dark ? 'border-gray-500' : 'border-red-200')
            : 'border-b-2 ' + $dynamic_dark_border}">
+
     {#key pm.id}
     <div in:fade={{ duration: 500 }}>
-    {#if pm.member}
+      {#if pm.member}
+
         <MemberProfileImg member={pm.member}/>
         <FavoriteHeart pm_id={pm.id} float="left mt-0.5"/>
         <p class="truncate" on:click={onMailSelected} >
@@ -59,10 +77,15 @@ $: getTags = (pm: MailT) => {
         <p on:click={onMailSelected} class="ml-1 mt-1 text-sm truncate">
         {pm.preview.replace(new RegExp($oldNick, "g"), $wizoneNick) || "..."}
         </p>
-    {/if}
+      {:else}
+        <img class="h-14 ml-auto mr-auto block" src="{image_root}/izone-logo-card.png" alt="empty">
+      {/if}
+
     </div>
     {/key}
+
 </li>
+
 {#if hidden}
 {#key pm}
 <li class="{$dynamic_dark_border} border-b-2 rounded w-full text-gray-300 truncate "

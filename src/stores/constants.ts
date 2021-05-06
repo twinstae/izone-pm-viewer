@@ -30,7 +30,8 @@ export const member_color_to_dark_dict = {
     "#fff"   :"#ddd",
     "#a7e0e1":"#41bcbe",
     "gray"   :"#595959",
-    "LightPink": "#ff3352"
+    "LightPink": "#ff3352",
+    "#f06d9c":"#f06d9c"
 }
 
 export let member_dict = writable({});

@@ -18,6 +18,7 @@ class AllTagList(BaseModel):
 
 FILE_NAME: str = "all_tag_list.json"
 is_test: bool = False
+UNREAD_TAG = Tag(value="읽지 않음", color="#f06d9c")
 
 
 def get_file_name() -> str:
@@ -31,12 +32,16 @@ def get_backup() -> Dict[str, Tag]:
         with open(get_file_name(), "r", encoding="UTF-8") as f:
             json_str = f.read()
             raw_tag_list: List[Dict[str, str]] = json.loads(json_str)
-            return {
+            result = {
                 tag["value"]: Tag(**tag)
                 for tag in raw_tag_list
             }
+            if UNREAD_TAG.value not in result:
+                result[UNREAD_TAG.value] = UNREAD_TAG
+            return result
+
     except FileNotFoundError:
-        return {}
+        return dict()
 
 
 all_tag_dict: Dict[str, Tag] = get_backup()

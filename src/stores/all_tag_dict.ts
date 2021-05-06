@@ -2,9 +2,9 @@ import { writable } from 'svelte/store';
 
 export const EMPTY_TAG: string = null;
 
-export const birthday_tag = {value: "생일", color: "rainbow"};
-
+export const birthday_tag: TagT = {value: "생일", color: "rainbow"};
 export const favorite_tag: TagT = {value: "💖", color: "#fff"};
+export const unread_tag: TagT = {value: "읽지 않음", color: "#f06d9c"}
 
 export const member_tags: TagT[] = [
     {"value":"권은비","color":"#bbb0dc"},
@@ -28,6 +28,7 @@ export const default_tag_dict = member_tags.reduce(((acc, tag) => {
     }), new Map([
       [favorite_tag.value, favorite_tag],
       [birthday_tag.value, birthday_tag],
+      [unread_tag.value, unread_tag]
     ]));
 
 function init_all_tag_dict(){
@@ -37,6 +38,7 @@ function init_all_tag_dict(){
     if (all_tag_json){
         console.log("all tag backup loaded");
         const data: [string, TagT][] = JSON.parse(all_tag_json);
+
         result = [...result].reduce((acc, entry) => {
             acc.set(entry[0], entry[1]);
             return acc;

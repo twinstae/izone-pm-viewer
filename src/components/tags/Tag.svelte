@@ -1,8 +1,5 @@
 <script lang="ts">
-import { all_tag_dict } from "../../stores/all_tag_dict";
-import { mail_to_tag_dict } from "../../stores/mail_to_tag_dict";
-import { tag_to_mail_dict } from "../../stores/tag_to_mail_dict";
-import { now_pm } from "../../stores/now";
+import { onDeleteTag } from "../../stores/tag_to_mail_dict";
 import { selected_tag_value } from "../../stores/tag";
 import { goto, params } from "@roxi/routify";
 import { getContext } from "svelte";
@@ -16,7 +13,6 @@ import { faInstagram } from '@fortawesome/free-brands-svg-icons/faInstagram';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons/faYoutube';
 import {faStar} from '@fortawesome/free-solid-svg-icons/faStar';
 import { dark, dynamic_dark_border } from "../../stores/preferences";
-import api from "../../api";
 
 export let tag: {
     value: string,
@@ -26,26 +22,7 @@ export let canDelete = false;
 export let size = "xs";
 export let onRemove = null;
 
-$: onDeleteTag = async ()=>{
-    const the_tag = $all_tag_dict.get(tag.value);   
 
-    tag_to_mail_dict.update(dict=>{
-      if (dict.has(the_tag)){
-          dict.get(the_tag).delete($now_pm.id);
-      }
-      return dict;
-    })
-
-    mail_to_tag_dict.update(dict=>{
-      if (dict.has($now_pm.id)){
-          dict.get($now_pm.id).delete(the_tag)
-      }
-      return dict;
-    });
-
-    await api.MailTagDict.deleteTag($now_pm.id, tag.value)
-      .then((_)=>{console.log("서버에서 태그 삭제 성공")});
-}
 
 const onSelectTag = (tag: TagT)=>
 ()=>{
@@ -151,7 +128,7 @@ class="Tag-{tag.value.replace(" ", "-")}  text-{size}
 
 {#if onRemove || (canDelete && tag.value!="생일")}
 <span
-on:click={onRemove ? onRemove : onDeleteTag}
+on:click={onRemove ? onRemove : $onDeleteTag}
 class="{onRemove ? 'Remove' : 'Delete'}Tag-{tag.value.replace(' ', '-')}">
 
 X</span>

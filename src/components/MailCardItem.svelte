@@ -6,11 +6,12 @@ import FavoriteHeart from './FavoriteHeart.svelte';
 import MemberTag from './tags/MemberTag.svelte';
 import { isDesktop, now_pm, show_list } from '../stores/now';
 import { mail_to_tag_dict } from "../stores/mail_to_tag_dict";
+import { is_unread } from "../stores/tag_to_mail_dict";
 import MemberProfileImg from "./MemberProfileImg.svelte";
 import { goto, params } from "@roxi/routify";
 import { fade } from "svelte/transition";
 import { all_tag_dict } from "../stores/all_tag_dict";
-import { dark, dynamic_dark_bg, oldNick, wizoneNick } from "../stores/preferences";
+import { dark, dynamic_dark_bg, replaceWizone } from "../stores/preferences";
 
 export let pm: MailT;
 export let index: number;
@@ -18,6 +19,7 @@ export let index: number;
 $: getTags = (pm: MailT) => {
     if($mail_to_tag_dict.has(pm.id)){
         return Array.from($mail_to_tag_dict.get(pm.id))
+            .filter(tag=>tag.value != "읽지 않음")
             .map(tag=>$all_tag_dict.get(tag.value));
     }
     return [];
@@ -32,17 +34,39 @@ $: onMailSelected = ()=>{
 }
 
 </script>
+<style>
+  div.EmptyCard {
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+  }
+  div.Unread::before {
+    content: "●";
+    color: #f06d9c;
+    position: absolute;
+    top: -1px;
+    text-shadow: 1px 1px 5px gray;
+  }
+  div.MailCard {
+    width: 276px;
+    height:156px;
+  }
+
+  .blur {
+    color: transparent;
+    text-shadow: 1px 1px 5px gray;
+  }
+</style>
+
 
 {#if $isDesktop}
 <div
-  id="MailCard-{index}"
-  style="width: 276px; height:156px;
-  {pm.member ? "" : `
-  background-image: url(${image_root}izone-logo-card.png);
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;`}"
-  class="m-2 p-1
+     id="MailCard-{index}"
+     style="{!pm.member ? `background-image: url(${image_root}izone-logo-card.png);`:''}"
+  class:EmptyCard={!pm.member}
+  class:Unread={$is_unread(pm.id)}
+  class="MailCard blur
+         m-2 p-1
          relative overflow-y-auto
          {$dynamic_dark_bg('bg-white')}
          {pm.id == $now_pm.id ? 'border-2 ' + ($dark ? 'border-gray-500' : 'border-red-200') : ''}
@@ -67,7 +91,7 @@ $: onMailSelected = ()=>{
                     xlink:href="./{pm.images[0]}"/>
                 </svg>
             {/if}
-            {pm.preview.slice(0, 45).replace(new RegExp($oldNick, "g"), $wizoneNick)}
+            {$replaceWizone(pm.preview.slice(0, 45))}
         </p>
     {/if}
     </div>
@@ -76,16 +100,10 @@ $: onMailSelected = ()=>{
 {:else}
 <div
   id="MailCard-{index}"
-  style="height:100px;
-          color: transparent;
-         text-shadow: 0 0 6px rgba(255,255,255,0.5);
-        {pm.member ? "" : `
-    background-image: url(${image_root}izone-logo-card.png);
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;`}"
-  class="m-1 p-1 w-full
-                 relative overflow-y-auto
+  style="height:100px;"
+  class:EmptyCard={!pm.member}
+  class:Unread={$is_unread(pm.id)}
+  class="m-1 p-1 w-full relative overflow-y-auto blur
           {pm.id == $now_pm.id ? 'border-2 ' + ($dark ? 'border-gray-500' : 'border-red-200') : ''}
           {$dynamic_dark_bg("bg-white")}
           shadow-md rounded-md">
