@@ -76,7 +76,6 @@ afterUpdate(() => {
     const page_head = mail_list[0];   
     if (time_to_dateStr(page_head.time) == $dateString) return null;
     // 페이지가 바뀌면 첫 메일의 날짜로 이동한다.
-    console.log("i am here", $dateString, time_to_dateStr(page_head.time));
     dateString.set(time_to_dateStr(page_head.time));
 });
 

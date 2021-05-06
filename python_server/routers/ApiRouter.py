@@ -1,5 +1,5 @@
 import asyncio
-from typing import Dict, List
+from typing import Dict, List, Set
 import webbrowser
 
 from fastapi import APIRouter, BackgroundTasks, Depends
@@ -44,8 +44,16 @@ async def pend_notification(mail: MailDto, profile: str):
     print(mail.member, mail.time, mail.subject)
 
 
+notification_set: Set[str] = set()
+
+
 @api_router.post("/notification/{profile}")
 async def notify(mail: MailDto, profile: str, bg_tasks: BackgroundTasks):
+    if mail.id in notification_set:
+        print("이미 설정된 알림입니다.")
+        return None
+
+    notification_set.add(mail.id)
     bg_tasks.add_task(pend_notification, mail=mail, profile=profile)
 
 

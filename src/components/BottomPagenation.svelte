@@ -82,18 +82,18 @@ $: isMaxPage = maxPage<=$now_page;
 
 
 function onKeydown(e: KeyboardEvent){
-  if (e.key == "PageDown") return goToNextPage();
-  if (e.key == "PageUp") return goToPreviousPage();
-  if (e.key == "ArrowRight" || e.key == "l") return toTomorrow();
-  if (e.key == "ArrowLeft" || e.key == "h") return toYesterday();
+  if (e.key == "Process") return null;
+  if (e.key == "ArrowRight" || e.key == "l") return goToNextPage();
+  if (e.key == "ArrowLeft" || e.key == "h") return goToPreviousPage();
   if (e.key == "r") return goToRandomMail();
   if (e.key == "c") {
     const calendarButton: HTMLButtonElement = document.querySelector("button.calendar-button");
     return calendarButton.click();
   }
-  if (e.key == "m") {
-  }
-  if (e.key == "d"){ $dark = !$dark }
+  if (e.key == "m") {}
+  if (e.key == "d"){ $dark = !$dark; return null;}
+  if (e.key == "t") return toTomorrow();
+  if (e.key == "y") return toYesterday();
   if (e.key == "ArrowDown" || e.key == "j") return goToNextMail();
   if (e.key == "ArrowUp" || e.key == "k") return goToPreviousMail();
   if (e.key == "Enter" && $isMobile && $show_list){
@@ -190,7 +190,7 @@ function onDateSelected(e: CustomEvent){
 
 <svelte:body on:keydown={onKeydown} />
 
-<PinkButton id="BackPageButton" onClick={goToPreviousPage} tooltip="PageUp">
+<PinkButton id="BackPageButton" onClick={goToPreviousPage} tooltip="h 또는 ←">
     <Icon icon={faArrowLeft} />
 </PinkButton>
 
@@ -213,7 +213,7 @@ class:border-red-700={isMaxPage}>
     <span>/ {maxPage}</span>
 </span>
 
-<PinkButton id="NextPageButton" onClick={goToNextPage} tooltip="PageDown">
+<PinkButton id="NextPageButton" onClick={goToNextPage} tooltip="l 또는 →">
   <Icon icon={faArrowRight} />
 </PinkButton>
 
@@ -223,7 +223,7 @@ class:border-red-700={isMaxPage}>
 
 {#if overflow}<br/>{/if}
 
-<PinkButton id="toYesterdayButton" onClick={toYesterday} tooltip="h 또는 ←">
+<PinkButton id="toYesterdayButton" onClick={toYesterday} tooltip="y">
     <Icon icon={faArrowLeft} />
 </PinkButton>
 
@@ -244,6 +244,6 @@ class:border-red-700={isMaxPage}>
 />
 {/key}
 
-<PinkButton id="toTomorrowButton" onClick={toTomorrow} tooltip="l 또는 →">
+<PinkButton id="toTomorrowButton" onClick={toTomorrow} tooltip="t">
     <Icon icon={faArrowRight} />
 </PinkButton>

@@ -47,7 +47,7 @@ $: onMailSelected = ()=>{
          {$dynamic_dark_bg('bg-white')}
          {pm.id == $now_pm.id ? 'border-2 ' + ($dark ? 'border-gray-500' : 'border-red-200') : ''}
          shadow-md rounded-md">
-    {#key pm}
+    {#key pm.id}
     <div in:fade={{ duration: 500 }} class="leading-relaxed">
     {#if pm.member}
         <FavoriteHeart pm_id={pm.id}/>
@@ -89,7 +89,7 @@ $: onMailSelected = ()=>{
           {pm.id == $now_pm.id ? 'border-2 ' + ($dark ? 'border-gray-500' : 'border-red-200') : ''}
           {$dynamic_dark_bg("bg-white")}
           shadow-md rounded-md">
-    {#key pm}
+    {#key pm.id}
     <div in:fade={{ duration: 500 }} class="leading-relaxed">
     {#if pm.member}
         {#if pm.images.length > 0}

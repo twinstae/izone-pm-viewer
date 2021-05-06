@@ -45,19 +45,21 @@ export let pm_list_after_search = derived(
     }
 );
 
-export let filtered_list = derived(
-    [pm_list_after_search, all_tag_dict, selected_tag_value, tag_to_mail_dict, search_input, dateString],
-    ([$pm_list_after_search, $all_tag_dict, $selected_tag_value, $tag_to_mail_dict, $search_input, $dateString])=>{
-        if($selected_tag_value){
-            let selected_tag = $all_tag_dict.get($selected_tag_value);
-            if (!$tag_to_mail_dict.has(selected_tag)){
-                $tag_to_mail_dict.set(selected_tag, new Set());
-            }
-            let selected_tag_mail_set = $tag_to_mail_dict.get(selected_tag);
-            let filterByTag = (mail: MailT) => selected_tag_mail_set.has(mail.id);
-            return $pm_list_after_search.filter(filterByTag);
-        }
+let filterByTag = derived(
+  [all_tag_dict, selected_tag_value, tag_to_mail_dict],
+  ([$all_tag_dict, $selected_tag_value, $tag_to_mail_dict])=>{
+      let selected_tag = $all_tag_dict.get($selected_tag_value);
+      if (!$tag_to_mail_dict.has(selected_tag)){
+          $tag_to_mail_dict.set(selected_tag, new Set());
+      }
+      let selected_tag_mail_set = $tag_to_mail_dict.get(selected_tag);
+      return (mail: MailT) => selected_tag_mail_set.has(mail.id);
+  }
+) 
 
+export let filtered_list = derived(
+    [pm_list_after_search, selected_tag_value, search_input, dateString, filterByTag],
+    ([$pm_list_after_search, $selected_tag_value, $search_input, $dateString, $filterByTag])=>{
         const filterByDate = (mail: MailT) => {
             const date_str = time_to_dateStr(mail.time);
             return date_str == $dateString;
@@ -66,10 +68,10 @@ export let filtered_list = derived(
         const no_filter = (_: MailT)=>true;
 
         const filter_by = 
+            ($selected_tag_value && $filterByTag) ||
             ($search_input && no_filter)||
             ($dateString && filterByDate) || 
             no_filter;
-
         return $pm_list_after_search.filter(filter_by);
     }
 )
