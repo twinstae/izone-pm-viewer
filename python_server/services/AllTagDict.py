@@ -32,13 +32,10 @@ def get_backup() -> Dict[str, Tag]:
         with open(get_file_name(), "r", encoding="UTF-8") as f:
             json_str = f.read()
             raw_tag_list: List[Dict[str, str]] = json.loads(json_str)
-            result = {
+            return {
                 tag["value"]: Tag(**tag)
-                for tag in raw_tag_list
+                for tag in raw_tag_list + [UNREAD_TAG.dict()]
             }
-            if UNREAD_TAG.value not in result:
-                result[UNREAD_TAG.value] = UNREAD_TAG
-            return result
 
     except FileNotFoundError:
         return dict()
@@ -64,7 +61,7 @@ def save():
 
 def save_from_list(tag_list: List[Tag]):
     global all_tag_dict
-    all_tag_dict = {tag.value: tag for tag in tag_list}
+    all_tag_dict = {tag.value: tag for tag in tag_list + [UNREAD_TAG]}
     save()
 
 

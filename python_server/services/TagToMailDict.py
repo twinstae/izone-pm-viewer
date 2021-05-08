@@ -20,12 +20,19 @@ class TagToMailDict:
         return OUTPUT_DIR + FILE_NAME
 
     def get_backup(self) -> Dict[Tag, Set[str]]:
+
+        def get_tag(tag_value) -> Tag:
+            the_tag = AllTagDict.get(tag_value)
+            assert the_tag != None
+            return the_tag
+
         try:
             with open(self.get_file_name(), "r", encoding="UTF-8") as f:
                 json_str: str = f.read()
                 raw_dict: Dict[str, List[str]] = json.loads(json_str)
+
                 return {
-                    all_tag_dict[tag_value]: set(mail_list)
+                    get_tag(tag_value): set(mail_list)
                     for tag_value, mail_list in raw_dict.items()
                     if AllTagDict.has(tag_value)
                 }
@@ -46,7 +53,8 @@ class TagToMailDict:
             f.write(json_str)
 
     def add_mail(self, mail_id: str, tag_value: str) -> None:
-        tag = all_tag_dict[tag_value]
+        tag: Optional[Tag] = AllTagDict.get(tag_value)
+        assert tag != None
         if tag not in self.tag_to_mail_dict:
             self.tag_to_mail_dict[tag] = set()
 
@@ -55,7 +63,8 @@ class TagToMailDict:
         self.save()
 
     def remove_mail(self, mail_id: str, tag_value: str) -> None:
-        tag = all_tag_dict[tag_value]
+        tag = AllTagDict.get(tag_value)
+        assert tag != None
         mail_set: Set[str] = self.tag_to_mail_dict[tag]
         mail_set.remove(mail_id)
         if len(mail_set) == 0 and tag_value not in BASE_TAGS:
@@ -69,14 +78,21 @@ class TagToMailDict:
                 for tag, mail_set in self.tag_to_mail_dict.items()]
 
     def save_from_entries(self, entries: List[Tuple[str, List[str]]]):
+        def get_tag(tag_value: str) -> Tag:
+            the_tag = AllTagDict.get(tag_value)
+            assert the_tag != None
+            return the_tag
+
         self.tag_to_mail_dict = {
-                all_tag_dict[tag_value]: set(mail_list)
+            get_tag(tag_value): set(mail_list)
             for tag_value, mail_list in entries
+            if AllTagDict.has(tag_value)
         }
         self.save()
         
     def pop_mail_set_by_tag_value(self, tag_value: str) -> Optional[Set[str]]:
-        tag = all_tag_dict[tag_value]
+        tag = AllTagDict.get(tag_value)
+        assert tag != None
         mail_set = self.tag_to_mail_dict.get(tag)
         if mail_set:
             del self.tag_to_mail_dict[tag]
@@ -84,7 +100,8 @@ class TagToMailDict:
         return None
         
     def insert_mail_set_by_tag_value(self, tag_value: str, mail_set: Set[str]) -> None:
-        tag = all_tag_dict[tag_value]
+        tag = AllTagDict.get(tag_value)
+        assert tag != None
         self.tag_to_mail_dict[tag] = mail_set
 
 

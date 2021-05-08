@@ -37,7 +37,7 @@ def save_mail_tag_dict(req_body: MailTagDictEntries):
 def add_tag_to_mail(mail_id: str, tag_value: str):
     tag_value_가_all_tag_dict_에_있는지_체크(tag_value)
 
-    if tag_value != "💖":
+    if tag_value != ["💖", "읽지 않음"]:
         mail_to_tag_dict.add_tag(mail_id=mail_id, tag_value=tag_value)
     tag_to_mail_dict.add_mail(mail_id=mail_id, tag_value=tag_value)
 
@@ -46,7 +46,7 @@ def add_tag_to_mail(mail_id: str, tag_value: str):
 def delete_tag_from_mail(mail_id: str, tag_value: str):
     tag_value_가_all_tag_dict_에_있는지_체크(tag_value)
 
-    if tag_value != "💖":
+    if tag_value not in ["💖", "읽지 않음"] :
         mail_tag_dict_에_mail_id_가_있는지_체크(mail_id)
         mail_to_tag_dict.remove_tag(mail_id=mail_id, tag_value=tag_value)
     tag_가_tag_to_mail_dict에_있는지_체크(tag_value)

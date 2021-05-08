@@ -16,7 +16,7 @@ from TestingUtil import (
 from constants import API_ROOT, OUTPUT_DIR
 
 BASE_URL = AllTagDictRouter.ROOT_URL+"/"
-
+읽지않음_태그_LIST = [AllTagDict.UNREAD_TAG.dict()]
 
 class TestAllTagDict(TestCase):
     def setUp(self) -> None:
@@ -25,9 +25,14 @@ class TestAllTagDict(TestCase):
         status_code_는_200_ok(response)
 
     def test_init(self):
-        assert len(AllTagDict.all_tag_dict) == 1
+        assert len(AllTagDict.all_tag_dict) == 2
         예나_태그 = AllTagDict.all_tag_dict.get("최예나")
         assert 예나_태그.value == 최예나, 예나_태그.dict()
+
+    def test_unread(self):
+        assert len(AllTagDict.all_tag_dict) == 2
+        읽지않음_태그 = AllTagDict.get(AllTagDict.UNREAD_TAG.value)
+        assert 읽지않음_태그.value == AllTagDict.UNREAD_TAG.value
 
     def test_file_name(self):
         assert AllTagDict.get_file_name() == OUTPUT_DIR + "test_all_tag_list.json"
@@ -40,24 +45,27 @@ class TestAllTagDict(TestCase):
     def test_read_all_tags_dict(self):
         response = client.get(API_ROOT+BASE_URL)
         status_code_는_200_ok(response)
-        assert response.json() == 예나만_있는_TAG_LIST_JSON, response.json()
+        expected =  {
+            "tag_list": 예나만_있는_TAG_LIST + 읽지않음_태그_LIST
+        }
+        assert response.json() == expected, response.json()
 
     def test_save_all_tag_dict(self):
-        self.파일에는_저장되어있다(예나만_있는_TAG_LIST)
+        self.파일에는_저장되어있다(예나만_있는_TAG_LIST + 읽지않음_태그_LIST)
 
         req_json = {
             "tag_list": 예나_토미_TAG_LIST
         }
         response = client.post(API_ROOT+BASE_URL, json=req_json)
         status_code_는_200_ok(response)
-        self.파일에는_저장되어있다(예나_토미_TAG_LIST)
+        self.파일에는_저장되어있다(예나_토미_TAG_LIST + 읽지않음_태그_LIST)
 
     def test_add_tag(self):
-        self.파일에는_저장되어있다(예나만_있는_TAG_LIST)
+        self.파일에는_저장되어있다(예나만_있는_TAG_LIST + 읽지않음_태그_LIST)
 
         response = client.post(API_ROOT+BASE_URL+"tag", json=히토미_태그)
         status_code_는_200_ok(response)
-        self.파일에는_저장되어있다(예나_토미_TAG_LIST)
+        self.파일에는_저장되어있다(예나만_있는_TAG_LIST+ 읽지않음_태그_LIST + [히토미_태그])
 
     def test_update_tag(self):
         assert AllTagDict.has(최예나)

@@ -1,6 +1,7 @@
 import re
 import os
 import json
+import aiofiles
 from collections import namedtuple
 from typing import Coroutine, Any, List, Optional
 from fastapi import Depends
@@ -137,8 +138,8 @@ class MailLoadService:
 
             res = res.replace("https://img.izone-mail.com/upload/", "../")
 
-        with open("output/mail/%s.html" % mail.id, "w", encoding="UTF-8") as f:
-            f.write(res)
+        async with aiofiles.open("output/mail/%s.html" % mail.id, "w", encoding="UTF-8") as f:
+            await f.write(res)
 
         return res
 
@@ -148,9 +149,9 @@ class MailLoadService:
         if not os.path.exists(os.path.dirname(output_path)):
             os.makedirs(os.path.dirname(output_path))
 
-        with open(output_path, "wb") as f:
+        async with aiofiles.open(output_path, "wb") as f:
             resp = await self.pm_get(remote_path)
-            f.write(resp.content)
+            await f.write(resp.content)
 
     async def restore_birthday_pm(self):
         # 생일 프메 목록을 가져온다
@@ -196,9 +197,9 @@ class MailLoadService:
         if not os.path.exists(os.path.dirname(output_path)):
             os.makedirs(os.path.dirname(output_path))
 
-        with open(output_path, "wb") as f:
+        async with aiofiles.open(output_path, "wb") as f:
             resp = await self.client_util.client.get(img_url)
-            f.write(resp.content)
+            await f.write(resp.content)
 
     async def download_favorite_list(self):
         if self.PM_ACCESS_TOKEN == "":
@@ -226,6 +227,33 @@ class MailLoadService:
             page += 1
         print("중요 표시한 메일 목록을 모두 가져왔습니다.")
         return favorite_list
+
+    async def download_unread_list(self):
+        if self.PM_ACCESS_TOKEN == "":
+            raise NoTokenException()
+        print("읽지 않은 메일 목록을 가져옵니다.")
+
+        target = "https://app-api.izone-mail.com/v1/inbox?is_star=0&is_unread=1&page=%d"
+        page = 1
+        flag = True
+
+        unread_list = []
+
+        while flag:
+            whole_data = await self.pm_get_json(target % page)
+            new_page = [raw_pm["id"] for raw_pm in whole_data["mails"]]
+
+            print(new_page)
+            unread_list += new_page
+
+            if not whole_data["has_next_page"]:
+                print("마지막 페이지입니다")
+                flag = False
+                break
+
+            page += 1
+        print("읽지 않은 메일 목록을 모두 가져왔습니다.")
+        return unread_list
 
 def check_and_save_to_old(pm_list, mail_to_body_dict):
     pm_list_old = load_json("pm_list_old.json") or []

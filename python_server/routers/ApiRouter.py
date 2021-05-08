@@ -1,6 +1,10 @@
+import os
 import asyncio
+import json
+
+import aiofiles
+from services.AllTagDict import UNREAD_TAG
 from typing import Dict, List, Set
-import webbrowser
 
 from fastapi import APIRouter, BackgroundTasks, Depends
 from notifypy import Notify
@@ -13,6 +17,7 @@ from routers.AllTagDictRouter import router as all_tag_router
 from routers.MailTagRouter import router as mail_tag_router
 from services.MailLoadService import MailLoadService
 from services.TagToMailDict import tag_to_mail_dict
+from services import AllTagDict
 
 api_router = APIRouter(
     prefix=API_ROOT,
@@ -30,7 +35,7 @@ async def pend_notification(mail: MailDto, profile: str):
         notification.icon = f"./output/img/profile/{profile}/{mail.member}.jpg"
         notification.application_name = "IZ*ONE Private Mail Viewer"
         notification.audio = "./output/audio/notification_simple-02.wav"
-        notification.url = f"http://127.0.0.1:8000/?now_pm={mail.id}"
+        notification.url = f"http://127.0.0.1:8000/?now_pm={mail.id}&dateString={mail.time[:10]}"
         notification.send()
 
         end = True
@@ -88,14 +93,59 @@ async def restore_birthday_pm(
     return {"msg": "birthday images are restored without error"}
 
 
-@api_router.post("/private-mail/favorite-list")
+@api_router.post("/private-mail/favorite")
 async def load_favorite_list(
+        req: MailBackupRequest,
         service: MailLoadService = Depends(MailLoadService)
 ):
+    service.set_id_and_token(user_id=req.user_id, access_token=req.token)
     favorite_list = await service.download_favorite_list()
     for mail_id in favorite_list:
         tag_to_mail_dict.add_mail(mail_id=mail_id, tag_value="💖")
-  
+
+    return favorite_list
+ 
+
+@api_router.post("/private-mail/unread")
+async def load_unread_list(
+        req: MailBackupRequest,
+        service: MailLoadService = Depends(MailLoadService)
+):
+    assert AllTagDict.has(UNREAD_TAG.value)
+    service.set_id_and_token(user_id=req.user_id, access_token=req.token)
+    unread_list = await service.download_unread_list()
+    for mail_id in unread_list:
+        tag_to_mail_dict.add_mail(mail_id=mail_id, tag_value=UNREAD_TAG.value)
+
+    return unread_list
+
+
+@api_router.post("/profile/{theme}/name/{name}")
+async def add_profile_theme(theme: str, name: str):
+    프로필_사진_목록 = [
+        {"path": "la-vie-en-rose", "name":"라비앙 로즈"},
+        {"path": "violeta", "name":"비올레타"},
+        {"path": "fiesta", "name":"피에스타"},
+        {"path": "the-secret-story-of-swan", "name":"환상동화"},
+        {"path": "panorama", "name":"파노라마"},
+        {"path": "one-the-story", "name":"One The Story 포스터"},
+        {"path": "one-the-story-appreciation", "name":"One The Story 소감"},
+        {"path": "eating-trip-3", "name":"잇힝 트립 3"},
+        {"path": "birthday", "name":"생일 축하해"},
+        {"path": "latest", "name":"최신 프메"}
+    ]
+
+    if os.path.exists("./output/프로필_사진_목록.json"):
+        async with aiofiles.open("./output/프로필_사진_목록.json", "r", encoding="UTF-8")as f:
+            old_content = await f.read()
+            프로필_사진_목록 = json.loads(old_content)
+
+    프로필_사진_목록.append({"path": theme, "name": name})
+
+    async with aiofiles.open("./output/프로필_사진_목록.json", "w", encoding="UTF-8")as f:
+        new_content = json.dumps(프로필_사진_목록)
+        await f.write(new_content)
+
 
 api_router.include_router(all_tag_router)
 api_router.include_router(mail_tag_router)
