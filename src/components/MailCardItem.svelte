@@ -51,10 +51,14 @@ $: onMailSelected = ()=>{
     width: 276px;
     height:156px;
   }
+  
+  @keyframes blink {
+    0% {transform: none;}
+    100% {transform: scale(0.99, 0.99);}
+  }
 
-  .blur {
-    color: transparent;
-    text-shadow: 1px 1px 5px gray;
+  .selected {
+    animation: blink 1s linear infinite alternate;
   }
 </style>
 
@@ -65,14 +69,14 @@ $: onMailSelected = ()=>{
      style="{!pm.member ? `background-image: url(${image_root}izone-logo-card.png);`:''}"
   class:EmptyCard={!pm.member}
   class:Unread={$is_unread(pm.id)}
-  class="MailCard blur
+  class="MailCard
          m-2 p-1
          relative overflow-y-auto
          {$dynamic_dark_bg('bg-white')}
-         {pm.id == $now_pm.id ? 'border-2 ' + ($dark ? 'border-gray-500' : 'border-red-200') : ''}
+         {pm.id == $now_pm.id ? 'selected border-2 ' + ($dark ? 'border-gray-500' : 'border-red-200') : ''}
          shadow-md rounded-md">
     {#key pm.id}
-    <div in:fade={{ duration: 500 }} class="leading-relaxed">
+    <div in:fade={{ duration: 500 }} class="leading-relaxed blur">
     {#if pm.member}
         <FavoriteHeart pm_id={pm.id}/>
         <MemberProfileImg member={pm.member}/>

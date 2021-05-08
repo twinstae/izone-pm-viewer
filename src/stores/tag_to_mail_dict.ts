@@ -38,6 +38,8 @@ function init_tag_to_mail_dict(): Map<TagT, Set<string>> {
         const entries: [string, string[]][] = JSON.parse(tag_to_mail_json);
         result = [...entries_to_tag_to_mail_dict(entries)]
             .reduce((acc, entry)=>{
+                if(entry[0] == undefined) return acc;
+
                 acc.set(entry[0], entry[1]);
                 return acc;
             }, result);
@@ -96,6 +98,21 @@ export function tag_to_mail_dict_to_entries(dict: Map<TagT, Set<string>>): [stri
     })
 }
 
+export let addTag = derived(
+  [all_tag_dict],
+  ([$all_tag_dict])=> async (pm_id: string, tag: TagT) => {
+    const the_tag = $all_tag_dict.get(tag.value);
+
+    tag_to_mail_dict.update(dict=>{
+      dict.get(the_tag).add(pm_id);
+      return dict;
+    });
+
+    mail_to_tag_dict.update(dict=>{
+      dict.get(pm_id).add(the_tag);
+      return dict;
+    })
+})
 
 export async function favorite(pm_id: string){
     tag_to_mail_dict.update(dict=>{
@@ -103,10 +120,10 @@ export async function favorite(pm_id: string){
       if (favorite_set.has(pm_id)){
           favorite_set.delete(pm_id);
 
-          api.MailTagDict.deleteTag(pm_id, "💖");
+          api.MailTagDict.deleteTag(pm_id, favorite_tag.value);
       } else {
           favorite_set.add(pm_id);
-          api.MailTagDict.addTag(pm_id, "💖");
+          api.MailTagDict.addTag(pm_id, favorite_tag.value);
       }
       return dict;
     })
@@ -121,7 +138,7 @@ export let is_unread = derived(
 
 export let onDeleteTag = derived(
   [all_tag_dict, now_pm],
-  ([$all_tag_dict, $now_pm])=>async (tag: TagT)=>{
+  ([$all_tag_dict, $now_pm])=> async (tag: TagT)=>{
     const the_tag = $all_tag_dict.get(tag.value);   
 
     tag_to_mail_dict.update(dict=>{

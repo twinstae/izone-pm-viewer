@@ -6,8 +6,8 @@ import PinkButton from "../buttons/PinkButton.svelte";
 import api from "../../api";
 import { pm_list } from "../../stores/now";
 import { member_dict, member_name_dict } from "../../stores/constants";
-import { all_tag_dict } from "../../stores/all_tag_dict";
-import { tag_to_mail_dict } from "../../stores/tag_to_mail_dict";
+import { all_tag_dict, favorite_tag, unread_tag } from "../../stores/all_tag_dict";
+import { tag_to_mail_dict, addTag, favorite } from "../../stores/tag_to_mail_dict";
 
 let user_id: string = localStorage.getItem("pm-user-id");
 let token: string = localStorage.getItem("pm-access-token");
@@ -47,10 +47,14 @@ function get_data_from_text(text: string){
     }
 }
 
-$: load_pm_list = async ()=>{
+function save_auth(){
     localStorage.setItem("pm-user-id", user_id);
     localStorage.setItem("pm-access-token", token);
     console.log(user_id, token);
+}
+
+$: load_pm_list = async ()=>{
+    save_auth();
     const res = await api.load_pm(user_id, token);
     const text = await res.text();
     const data = get_data_from_text(text);
@@ -79,18 +83,32 @@ $: load_pm_list = async ()=>{
 }
 
 async function restore_birthday_pm(){
-  
+  api.restore_birthday_pm();
 }
 
 async function load_favorite_list(){
-  
+  save_auth();
+
+  const mail_id_list: string[] = await api.load_favorite(user_id, token);
+  tag_to_mail_dict.update(dict=>{
+    const favorite_set = dict.get(favorite_tag);
+    mail_id_list.forEach(mail_id => favorite_set.add(mail_id));
+    return dict;
+  });
 }
 
 async function load_unread_list(){
-
+  save_auth();
+  
+  const mail_id_list: string[] = await api.load_unread(user_id, token);
+  mail_id_list.forEach(mail_id => $addTag(mail_id, unread_tag));
 }
 
 async function one_click(){
+  load_pm_list();
+  restore_birthday_pm();
+  load_favorite_list();
+  load_unread_list();
 }
 </script>
 
@@ -116,6 +134,12 @@ async function one_click(){
     <p class="text-sm">값은 브라우저에 저장됩니다.</p>
     <p class="text-sm">기존 앱에서 이어받으면 토큰이 초기화됩니다.</p>
     <p class="text-sm">초기화된 경우 다시 토큰을 받아주세요.</p>
+    <br>
+    <p class="text-sm">
+      에러가 있으면
+      <a class="bg-black p-0.5 rounded" href="https://open.kakao.com/o/gPbArZ4c">상담소</a>
+      에 문의해주세요.
+    </p>
     <div class="SyncBody">
       <label for="UserIdInput">
         User Id

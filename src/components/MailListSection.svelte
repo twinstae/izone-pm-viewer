@@ -14,7 +14,9 @@ import MailItemList from './MailItemList.svelte';
 import MailCardView from './MailCardView.svelte';
 import { dynamic_dark_bg } from '../stores/preferences';
 import DarkModeButton from './buttons/DarkModeButton.svelte';
-
+import SyncModal from './modals/SyncModal.svelte';
+import { getContext } from 'svelte';
+import PinkButton from './buttons/PinkButton.svelte';
 
 let section_width: number;
 let section_height: number;
@@ -84,6 +86,14 @@ $: min_height = isListView || $isMobile
     ? ($show_tag_list ? 520:360)
     : 490;
 
+function onListModeButtonClick(){
+  isListView=!isListView;
+}
+
+
+const { open } = getContext('simple-modal');
+const openSyncModal = () => open(SyncModal);
+
 </script>
 <style>
     #MailListSection {
@@ -101,10 +111,20 @@ style="min-height: {min_height}px;"
 class="h-full {$isDesktop ? "w-1/2 lg:w-2/3 xl:w-3/4": "w-full"}
 relative p-4">
     <div class="ml-2 flex flex-wrap">
-        <DarkModeButton />
-        <button class="p-1 mr-1 rounded {$dynamic_dark_bg('bg-red-100')}" on:click={()=>{isListView=!isListView}}>
-            {isListView ? "List": "Card"}
+      {#if $isMobile}<DarkModeButton />{/if}
+        <button
+          id="ListModeButton"
+          class="tooltip p-1 mr-1 rounded {$dynamic_dark_bg('bg-red-100')}"
+          on:click={onListModeButtonClick}>
+          {isListView ? "List": "Card"}
+          <span class="tooltiptext">m (List 'M'ode)</span>
         </button>
+        <button
+          id="SyncModalButton" on:click="{openSyncModal}"
+          class="p-1 mr-1 rounded {$dynamic_dark_bg('bg-red-100')}">
+          백업🔄
+        </button>
+
         {#if $isMobile }<ShowTagListInput /> {/if}
         {#if $selected_tag_value} <SelectedTag /> {/if}
     </div>

@@ -48,8 +48,10 @@ export let pm_list_after_search = derived(
 let filterByTag = derived(
   [all_tag_dict, selected_tag_value, tag_to_mail_dict],
   ([$all_tag_dict, $selected_tag_value, $tag_to_mail_dict])=>{
+      if (!$selected_tag_value) return ()=>true;
       let selected_tag = $all_tag_dict.get($selected_tag_value);
       if (!$tag_to_mail_dict.has(selected_tag)){
+        console.log("i am here", selected_tag);
           $tag_to_mail_dict.set(selected_tag, new Set());
       }
       let selected_tag_mail_set = $tag_to_mail_dict.get(selected_tag);

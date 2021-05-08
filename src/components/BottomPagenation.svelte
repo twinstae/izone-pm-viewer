@@ -10,7 +10,7 @@ import Icon from 'fa-svelte';
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons/faArrowRight";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons/faArrowLeft";
 import { filtered_list } from "../stores/search";
-import { favorite } from "../stores/tag_to_mail_dict";
+import { favorite, is_unread } from "../stores/tag_to_mail_dict";
 
 export let maxPage: number;
 export let parent_width: number;
@@ -82,33 +82,64 @@ $: isMaxPage = maxPage<=$now_page;
 
 
 function onKeydown(e: KeyboardEvent){
-  if (e.key == "Process") return null;
-  if (e.key == "ArrowRight" || e.key == "l") return goToNextPage();
-  if (e.key == "ArrowLeft" || e.key == "h") return goToPreviousPage();
-  if (e.key == "r") return goToRandomMail();
-  if (e.key == "c") {
-    const calendarButton: HTMLButtonElement = document.querySelector("button.calendar-button");
-    return calendarButton.click();
-  }
-  if (e.key == "m") {}
-  if (e.key == "d"){ $dark = !$dark; return null;}
+  console.log(e.key, e.code);
+  if (e.key == "Escape" || e.key == "q") return document.activeElement.blur();
+  if(document.activeElement.className.includes("calendar-button")) return null;
+  if(document.activeElement.tagName == "INPUT") return null;
+  if (e.key == "ArrowRight" || e.key == "l") return goToNextMail();
+  if (e.key == "ArrowLeft" || e.key == "h") return goToPreviousMail();
+  if (e.key == "ArrowDown" || e.key == "j") return scrollUpDown(200);
+  if (e.key == "ArrowUp" || e.key == "k") return scrollUpDown(-200);
   if (e.key == "t") return toTomorrow();
   if (e.key == "y") return toYesterday();
-  if (e.key == "ArrowDown" || e.key == "j") return goToNextMail();
-  if (e.key == "ArrowUp" || e.key == "k") return goToPreviousMail();
-  if (e.key == "Enter" && $isMobile && $show_list){
-    show_list.set(false);
-    $goto("./", {...$params, showList: false})
+  if (e.key == "PageDown" || e.key == "o") return goToNextPage();
+  if (e.key == "PageUp" || e.key == "u") return goToPreviousPage();
+  if (e.key == "F1") return null; // open help
+  if (e.key == "r") return goToRandomMail();
+  if (e.key == "p") return click_button("PapagoLink");
+  if (e.key == "c") {
+    const calendarButton: HTMLButtonElement = document.querySelector("button.calendar-button");
+    calendarButton.focus();
+    return calendarButton.click();
   }
-  if (e.key == "Escape" && $isMobile && !$show_list){
-    show_list.set(true);
-    $goto("./", {...$params, showList: true})
-  }
+  if (e.key == "a") return focusById('TagInput');
+  if (e.key == "/") return focusById('SearchInput');
+  if (e.key == "m") return click_button("ListModeButton");
+  if (e.key == "d"){ $dark = !$dark; return null;}
+  if ((e.key == "Enter" || e.key == "i") && $isMobile && $show_list) return show_mail();
+  if ((e.key == "Escape" || e.key == "q") && $isMobile && !$show_list) return back_to_list();
+  if (e.code == "Space" && $is_unread($now_pm.id)) return click_button("ReadButton");
   if (e.key == "f") return favorite($now_pm.id);
-
-  console.log(e.key, e.code);
 }
 
+function show_mail(){
+  show_list.set(false);
+  $goto("./", {...$params, showList: false})
+}
+
+function back_to_list(){
+  show_list.set(true);
+  $goto("./", {...$params, showList: true});
+}
+
+function scrollUpDown(delta: number){
+  const el = document.getElementById('MailDetailCardContent');
+  el.scrollTo({
+    left: 0,
+    top: el.scrollTop + delta,
+    behavior: 'smooth'
+  });
+}
+
+function click_button(element_id: string){
+  const el = document.getElementById(element_id);
+  el.click();
+}
+
+function focusById(element_id: string){
+  const el = document.getElementById(element_id);
+  setTimeout(()=>el.focus(), 100);
+}
 
 function goToNextMail(){
   const now_index = getNowMailIndex();
@@ -146,7 +177,13 @@ function goToRandomMail(){
   const random_pm = getRandomMail();
   now_pm.set(random_pm);
   show_list.set(false);
-  $goto("./", {...$params, now_pm: random_pm.id, showList: false});
+  $goto("./", {
+    ...$params,
+    now_pm: random_pm.id,
+    dateString: time_to_dateStr(random_pm.time),
+    nowPage:1,
+    showList: false
+  });
 }
 
 function getRandomMail(): MailT{
@@ -190,7 +227,7 @@ function onDateSelected(e: CustomEvent){
 
 <svelte:body on:keydown={onKeydown} />
 
-<PinkButton id="BackPageButton" onClick={goToPreviousPage} tooltip="h 또는 ←">
+<PinkButton id="BackPageButton" onClick={goToPreviousPage} tooltip="PageUp 또는 u (page'U'p)">
     <Icon icon={faArrowLeft} />
 </PinkButton>
 
@@ -213,18 +250,18 @@ class:border-red-700={isMaxPage}>
     <span>/ {maxPage}</span>
 </span>
 
-<PinkButton id="NextPageButton" onClick={goToNextPage} tooltip="l 또는 →">
+<PinkButton id="NextPageButton" onClick={goToNextPage} tooltip="PageDown 또는 o (paged'o'wn)">
   <Icon icon={faArrowRight} />
 </PinkButton>
 
-<PinkButton id="RandomMailButton" onClick={goToRandomMail} tooltip="r">
+<PinkButton id="RandomMailButton" onClick={goToRandomMail} tooltip="r ('R'andom)">
   <span>🔀</span>
 </PinkButton>
 
 {#if overflow}<br/>{/if}
 
-<PinkButton id="toYesterdayButton" onClick={toYesterday} tooltip="y">
-    <Icon icon={faArrowLeft} />
+<PinkButton id="toYesterdayButton" onClick={toYesterday} tooltip="y ('Y'esterday)">
+  <Icon icon={faArrowLeft} />
 </PinkButton>
 
 {#key $dark}
@@ -244,6 +281,6 @@ class:border-red-700={isMaxPage}>
 />
 {/key}
 
-<PinkButton id="toTomorrowButton" onClick={toTomorrow} tooltip="t">
+<PinkButton id="toTomorrowButton" onClick={toTomorrow} tooltip="t ('T'omorrow)">
     <Icon icon={faArrowRight} />
 </PinkButton>

@@ -1,7 +1,8 @@
 <script lang="ts">
     import { image_root, member_name_dict } from "../../stores/constants";
-    import { profile, dark, dynamic_dark_bg, dynamic_dark_border } from "../../stores/preferences";
+    import { profile, dark, dynamic_dark_border } from "../../stores/preferences";
     import Dropzone from 'svelte-dropzone';
+    import api from "../../api";
 
     const base = [
         {"path": "la-vie-en-rose", "name":"라비앙 로즈"},
@@ -18,7 +19,7 @@
     let choices = [];
 
     if (choices.length == 0){
-      fetch("./프로필_사진_목록.json")
+      fetch("./프로필_사진_목록.json", {cache: "no-cache"})
         .then(res=>res.json())
         .then(profile_list=>{
             choices = profile_list;
@@ -43,13 +44,48 @@
     }
 
     let width: number;
-    $: console.log(width);
     $: max_n = Math.floor((width - 36) / 36);
 
     $: member_n_list = shuffle([...Array(12).keys()]).slice(0,max_n);
 
-    const addedfile = (file: File) => console.log(file);
-    const drop = (event: Event) => console.log(event.target);
+    let new_file_dict: Map<string, boolean> = [
+      "권은비", "미야와키 사쿠라", "최예나", "강혜원",
+      "이채연", "김채원", "김민주", "야부키 나코",
+      "혼다 히토미", "조유리", "안유진", "장원영"
+    ].reduce((acc, member)=>{
+      acc.set(member + ".jpg", false)
+      return acc;
+    }, new Map())
+
+    const addedfile = (file: File) => {
+      setTimeout(()=>{
+        if (new_file_dict.has(file.name)){
+          new_file_dict.set(file.name, true)
+          new_file_dict = new_file_dict;
+        }
+
+        if (! [...new_file_dict.values()].every(b=>b)) return null;
+        if (choices.some(choice=> choice.path == theme)) return null;
+
+        choices.push({
+          path: theme,
+          name: new_name
+        });
+        choices = choices;
+        setTimeout(()=>alert("새 프로필 테마 추가 완료!"), 500);
+
+        api.add_profile_theme(theme, new_name);
+      }, 200);
+    };
+
+    const drop = (e) => console.log(e.target);
+
+    let theme: string;
+    let new_name: string;
+
+    const theme_input_rule = new RegExp("^[a-zA-Z0-9\-]+$");
+
+    $: is_valid = theme_input_rule.test(theme) && new_name
 </script>
 
 <style>
@@ -61,34 +97,89 @@ h3 {
     font-size: 1.5rem;
     text-align: center;
 }
+
+input#ThemeInput:invalid {
+  border-color: tomato;
+  color: tomato
+}
+
 </style>
+<div class={$dark ? 'text-gray-300': 'text-black'}>
+  <h3>
+    프로필 사진 바꾸기
+  </h3>
+  <section id="UploadProfile" class="pl-4 mt-4">
+    <label for="ThemeInput">
+      새 테마 폴더 이름 (알파벳과 숫자, - 만 허용)<br>
+      <input type="text"
+             id="ThemeInput"
+             class="{$dynamic_dark_border} {$dark ? 'bg-gray-700' : '' } border-2 rounded"
+             placeholder="ex) one-the-story"
+             pattern="^[a-zA-Z0-9\-]+$"
+             bind:value={theme}>
+    </label>
+    <br>
+    <label for="NameInput">
+      새 테마 이름 (목록에서 표시)<br>
+      <input type="text"
+             id="NameInput"
+             class="{$dynamic_dark_border} {$dark ? 'bg-gray-700' : '' } border-2 rounded"
+             placeholder="ex) 원, 더 스토리"
+             bind:value={new_name}>
+    </label>
+    {#if is_valid}
+      <Dropzone
+        options={{
+          url: "http://127.0.0.1:8000/upload/profile/" + theme +"/",
+          acceptedFiles: 'image/jpeg'
 
-<h3 class="{$dark ? 'text-gray-300': 'text-black'}">
-  프로필 사진 바꾸기
-</h3>
-<Dropzone
-  dropzoneEvents={{addedfile, drop}}>
-  <span class="{$dark ? 'text-gray-300' : 'text-black'}">
-  새 프로필 사진 올리기
-  </span>
-</Dropzone>
+        }}
+        dropzoneClass="border-4 border-dashed 
+                       {$dark ? 'bg-gray-500 border-gray-600' : 'bg-gray-200 border-gray-300'}
+                      rounded-lg text-center p-5 m-1"
+        dropzoneEvents={{addedfile, drop}}>
+        여기에 사진을 드래그
+      </Dropzone>
+      <ul class="flex flex-wrap">
+        {#each [...new_file_dict.entries()] as [file_name, uploaded], i}
+          <li>
+            <figure>
+              {#if uploaded}
+              <img class="w-12 h-12 rounded-full m-1"
+                src="http://127.0.0.1:8000/img/profile/{theme}/{file_name}"
+                alt="{file_name}">
+              {:else}
+                <div class="p-3 w-12 h-12 rounded-full m-1 bg-gray-300 text-center border-2 {$dynamic_dark_border}">
+                ?
+                </div>
+              {/if}
+              <figcaption class="text-xs w-14 text-center" style="word-break: keep-all;">
+                {file_name.replace(".jpg", "")}
+              </figcaption>
+            </figure>
+          </li>
+        {/each}
+      </ul>
+    {/if}
+  </section>
 
-<div id="ProfileChoiceList"
-  class="flex flex-col p-4 w-full"
-  bind:clientWidth={width}>
-    {#each choices as choice}
-        <label class="{$dark ? 'text-gray-300': 'text-black'}">
-            <input type="radio" bind:group={$profile} value={choice.path}>
-            {choice.name}
-            <br/>
-            <div class="h-9">
-                {#each member_n_list as n}
-                  <img
-                  src="{image_root}profile/{choice.path}/{member_name_dict[n]}.jpg"
-                  class="w-9 h-9 rounded-full border-gray-{$dark ? '700' : '100'}  border-2
-                  float-left" alt=""/>
-                {/each}
-            </div>
-        </label>
-    {/each}
+  <div id="ProfileChoiceList"
+    class="flex flex-col p-4 w-full"
+    bind:clientWidth={width}>
+      {#each choices as choice}
+          <label class="{$dark ? 'text-gray-300': 'text-black'}">
+              <input type="radio" bind:group={$profile} value={choice.path}>
+              {choice.name}
+              <br/>
+              <div class="h-9">
+                  {#each member_n_list as n}
+                    <img
+                    src="{image_root}/profile/{choice.path}/{member_name_dict[n]}.jpg"
+                    class="w-9 h-9 rounded-full border-gray-{$dark ? '700' : '100'}  border-2
+                    float-left" alt=""/>
+                  {/each}
+              </div>
+          </label>
+      {/each}
+  </div>
 </div>

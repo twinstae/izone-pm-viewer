@@ -45,10 +45,6 @@ $: getTags = (pm: MailT) => {
     margin-top: -8px;
     text-shadow: 1px 1px 5px gray;
   }
-  .blur {
-    color: transparent;
-    text-shadow: 1px 1px 5px gray;
-  }
 </style>
 
 <li
@@ -78,7 +74,8 @@ $: getTags = (pm: MailT) => {
         {pm.preview.replace(new RegExp($oldNick, "g"), $wizoneNick) || "..."}
         </p>
       {:else}
-        <img class="h-14 ml-auto mr-auto block" src="{image_root}/izone-logo-card.png" alt="empty">
+        <img class="{$isDesktop ? 'h-14' : 'h-20'} ml-auto mr-auto block"
+          src="{image_root}/izone-logo-card.png" alt="empty">
       {/if}
 
     </div>

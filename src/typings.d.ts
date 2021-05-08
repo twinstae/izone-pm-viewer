@@ -7,6 +7,7 @@ interface MailT {
     body?: string;
     images?: string[];
     nick?: string;
+    videos?: string[];
 };
 
 interface TagT {

@@ -21,22 +21,25 @@ $: search = ()=>{
     $show_list = true;
     $goto("./", {...$params, showList:true, search: now_input});
 }
+
+function onKeydown(event: KeyboardEvent){
+  clearTimeout(timeout);
+  if (event.key == "Enter") return search();
+  timeout = setTimeout(search, 500);
+}
 </script>
 
-<span id="MailCounter"
-class="m-1 rounded p-1
-{$dynamic_dark_bg("bg-red-100")}">
-    {search_length}건
-</span>
-<input
-id="SearchInput"
-class="w-28 p-0.5 rounded border-2
-{$dynamic_dark_border} {$dynamic_dark_bg("bg-white")}"
-on:keydown={event=>{
-    clearTimeout(timeout);
-    if (event.key == "Enter"){
-        return search();
-    }
-    timeout = setTimeout(search, 500);
-}}
-type="text" bind:value={now_input} placeholder="검색어 입력"/>
+<div class="tooltip">
+  <span id="MailCounter"
+  class="m-1 rounded p-1 {$dynamic_dark_bg('bg-red-100')}">
+      {search_length}건
+  </span>
+  <input
+  id="SearchInput"
+  class="w-28 p-0.5 rounded border-2 {$dynamic_dark_border} {$dynamic_dark_bg('bg-white')}"
+  on:keydown={onKeydown}
+  type="text" bind:value={now_input} placeholder="검색어 입력"/>
+
+  <span class="tooltiptext">/ (나오려면 Esc)</span>
+</div>
+

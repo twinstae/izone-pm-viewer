@@ -6,10 +6,11 @@ import FavoriteHeart from './FavoriteHeart.svelte';
 import MemberTag from './tags/MemberTag.svelte';
 import { now_pm, isDesktop, show_list, isMobile, pm_list } from '../stores/now';
 import { mail_to_tag_dict } from "../stores/mail_to_tag_dict";
+import { is_unread, onDeleteTag } from "../stores/tag_to_mail_dict";
 import MemberProfileImg from './MemberProfileImg.svelte';
 import { fade } from 'svelte/transition';
 import { goto, params } from '@roxi/routify';
-import { all_tag_dict } from '../stores/all_tag_dict';
+import { all_tag_dict, unread_tag } from '../stores/all_tag_dict';
 import { dynamic_dark_bg, wizoneNick, replaceWizone } from '../stores/preferences';
 import { afterUpdate, getContext } from 'svelte';
 import NickModal from './modals/NickModal.svelte';
@@ -44,7 +45,7 @@ const rainbow = `background-image: linear-gradient(
     #a7e0e1, #b7d3e9, #bbb0dc, #7592d7);
     `;
 
-$: html_old = $now_pm.images
+$: html_with_images = $now_pm.images
     .reduce((body, img)=>
         body.replace(
         "{이미지}",
@@ -52,12 +53,22 @@ $: html_old = $now_pm.images
     ), $now_pm.body)
     .replace(/\n\n/g, "<br/>").replace(/\n/g, "<br/>");
 
+$: html_with_images_and_videos = $now_pm.videos
+  ? $now_pm.videos
+    .reduce((body, video)=>
+      body.replace(
+        "{비디오}",
+        `<video controls><source src="http://127.0.0.1:8000/${video}" type="video/mp4"> </video>`
+      )
+    , html_with_images)
+  : html_with_images;
+
 $: html_body = $wizoneNick
-    ? $replaceWizone(html_old).replace(
+    ? $replaceWizone(html_with_images_and_videos).replace(
         new RegExp($wizoneNick, "g"),
         `<span class="wizone rounded p-0.5" style="${rainbow} color: black;">${$wizoneNick}</span>`
       )
-    : html_old;
+    : html_with_images_and_videos;
 
 now_pm.subscribe((_)=>{
     const div: HTMLElement = document.getElementById("MailDetailCardContent");
@@ -80,12 +91,11 @@ afterUpdate(() => {
     })
   })
 });
-/*
-  div#MailDetailCardContent {
-    color: transparent;
-    text-shadow: 0 0 6px rgba(128,128,128,0.5);
-  }
-*/
+
+function readMail(){
+  $onDeleteTag(unread_tag);
+}
+
 </script>
 <style>
 
@@ -94,7 +104,7 @@ afterUpdate(() => {
 id="MailDetailCard"
    style="max-height: {$isDesktop && show ? "70%" : "90%"}; min-height:300px;"
 class="
-shadow-2xl rounded-md
+shadow-2xl rounded-md blur
 {$dynamic_dark_bg("bg-white")}
 w-full m-1 p-2
 flex flex-col">
@@ -114,22 +124,32 @@ flex flex-col">
     </div>
     <div
       id="MailDetailCardContent"
-    class="h-5/6 overflow-y-auto p-1">
-        {#key $now_pm}
-            <div
-            class="leading-relaxed"
-            in:fade={{ duration: 300 }}
-            contenteditable=false
-            bind:innerHTML={html_body}>
-                <p>로딩 중</p>
-            </div>
-        {/key}
+      class="h-5/6 overflow-y-auto p-1">
+      {#key $now_pm}
+      <div
+        class="leading-relaxed"
+        in:fade={{ duration: 300 }}
+        contenteditable=false
+        bind:innerHTML={html_body}>
+        <p>로딩 중</p>
+      </div>
+      {/key}
+      {#if $is_unread($now_pm.id)}
+        <br>
+        <div class="tooltip">
+          <PinkButton id="ReadButton" onClick={readMail} strong={true}>
+            ✔️ 읽었어요!
+          </PinkButton>
+          <span class="tooltiptext">Space</span>
+        </div>
+      {/if}
     </div>
-    <div class="text-center w-full">
+    <div class="text-center w-full tooltip">
       {#if $isMobile}
         <PinkButton id="ReturnToListButton" onClick={returnToList} strong={true}>
           목록으로 돌아가기📄
         </PinkButton>
+        <span class="tooltiptext">Backspace ← 뒤로가기</span>
       {/if}
     </div>
 </div>

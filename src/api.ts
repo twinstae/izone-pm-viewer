@@ -125,6 +125,10 @@ function load_pm(user_id: string, token: string){
     });
 }
 
+function restore_birthday_pm(){
+  post("/private-mail/restore-birthday-images");
+}
+
 function notify_server(mail: MailT, profile: string){
   const time = mail.time;
   const hour_minute = time.slice(time.length - 5);
@@ -135,9 +139,34 @@ function notify_server(mail: MailT, profile: string){
   return fetch(API_ROOT + "/notification/" + profile, {method: 'POST', body: JSON.stringify(mail)})
 }
 
+async function load_favorite(user_id: string, token: string): Promise<string[]>{
+  const response = await post(API_ROOT+"/private-mail/favorite", {
+        user_id: user_id,
+        token: token
+    })
+  return await response.json();
+}
+
+async function load_unread(user_id: string, token: string): Promise<string[]>{
+  const response = await post(API_ROOT+"/private-mail/unread", {
+        user_id: user_id,
+        token: token
+    })
+  return await response.json();
+}
+
+async function add_profile_theme(theme: string, name: string){
+  const response = await post(API_ROOT + `/profile/${theme}/name/${name}`);
+  return response.status;
+}
+
 export default {
     AllTagDict,
     MailTagDict,
     load_pm,
-    notify_server
+    load_favorite,
+    load_unread,
+    restore_birthday_pm,
+    notify_server,
+    add_profile_theme
 }

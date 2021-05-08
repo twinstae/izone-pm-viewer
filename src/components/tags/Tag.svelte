@@ -12,16 +12,12 @@ import { faFacebook } from '@fortawesome/free-brands-svg-icons/faFacebook';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons/faInstagram';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons/faYoutube';
 import {faStar} from '@fortawesome/free-solid-svg-icons/faStar';
-import { dark, dynamic_dark_border } from "../../stores/preferences";
+import { dark } from "../../stores/preferences";
 
-export let tag: {
-    value: string,
-    color: string
-};
+export let tag: TagT;
 export let canDelete = false;
 export let size = "xs";
 export let onRemove = null;
-
 
 
 const onSelectTag = (tag: TagT)=>
@@ -54,10 +50,7 @@ const iconDict = new Map([
     ["유튜브", faYoutube],
 ]);
 
-$: padding = tag.color=="#fff" || tag.color == "rainbow" ? "border-2 p-0.5" : "p-1";
-$: border = onRemove || (canDelete && tag.value!="생일")
-    ? "rounded-l border-r-0"
-    : "rounded";
+$: padding = tag.color=="#fff" ? "border-gray-300 border-2 p-0.5" : "p-1";
 
 $: backgroud_color = tag.value=="타임캡슐" ? "#555" : tag.color;
 $: dark_bg_color = member_color_to_dark_dict[backgroud_color];
@@ -79,7 +72,7 @@ $: get_dark_text_color = ()=>{
     if (tag.value == "김민주" || tag.value == "최예나"){
         return "#333";
     }
-    return "#eee"
+    return "white"
 };
 
 $: icon = iconDict.get(tag.value);
@@ -102,36 +95,31 @@ $: style = tag.color=="rainbow"
 </style>
 
 <span
-style={style}
-   class="
-{$dynamic_dark_border} {padding} {border}
-{tag.color=='#fff' ? 'border-2 p-0.5' : 'p-1'}
-rounded m-0.5 text-{size}">
+  style={style}
+  class="{padding} rounded p-1 m-0.5 text-{size}">
+  <span
+  on:pointerdown={onTouchDown}
+  on:pointerup={onTouchUp}
+  on:click={onSelectTag(tag)}
+  class="Tag-{tag.value.replace(' ', '-')} text-{size}">
+      {#if tag.value=="💖"}
+          <Icon icon={faStar} />
+      {:else}
+          {#if iconDict.has(tag.value)}
+          <Icon
+          class="mb-1 text-white"
+          icon={icon} />
+          {/if}
+      {tag.value}
+      {/if}
+  </span>
 
-<span
-on:pointerdown={onTouchDown}
-on:pointerup={onTouchUp}
-on:click={onSelectTag(tag)}
-class="Tag-{tag.value.replace(" ", "-")}  text-{size}
-{tag.value=="💖" ? "pt-0" : ""}">
-    {#if tag.value=="💖"}
-        <Icon icon={faStar} />
-    {:else}
-        {#if iconDict.has(tag.value)}
-        <Icon
-        class="mb-1 text-white"
-        icon={icon} />
-        {/if}
-    {tag.value}
-    {/if}
-</span>
-
-{#if onRemove || (canDelete && tag.value!="생일")}
-<span
-on:click={onRemove ? onRemove : $onDeleteTag}
-class="{onRemove ? 'Remove' : 'Delete'}Tag-{tag.value.replace(' ', '-')}">
-
-X</span>
-{/if}
+  {#if onRemove || (canDelete && tag.value!="생일")}
+    <span
+      on:click={onRemove ? onRemove : () => $onDeleteTag(tag)}
+      class="{onRemove ? 'Remove' : 'Delete'}Tag-{tag.value.replace(' ', '-')}">
+    X
+    </span>
+  {/if}
 
 </span>

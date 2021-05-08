@@ -8,7 +8,11 @@ import { mail_to_tag_dict } from '../stores/mail_to_tag_dict';
 
 function addTag(the_tag: TagT, the_pm: MailT){
     tag_to_mail_dict.update((dict)=>{
-        dict.get(the_tag).add(the_pm.id)
+        if (!dict.has(the_tag)){
+          dict.set(the_tag, new Set([]))
+        }
+        const tag_set = dict.get(the_tag)
+        tag_set.add(the_pm.id)
         return dict;
       });
 
@@ -74,7 +78,7 @@ export async function initStores(): Promise<MailT[]>{
         const member_to_n_dict = values[1];
 
         const mail_to_num_dict: Map<string, number> = new Map(Object.entries(values[2]));
-        const mail_body_dict: Map<string, {body: string, images: string}> = values[3];
+        const mail_body_dict: Map<string, {body: string, images: string[], videos?: string[]}> = values[3];
 
         const new_list: MailT[] = mail_list_data.map((pm: MailT, i: number)=>{
             if (i==0){now_pm.set(pm);} // 메일 초기화
@@ -94,9 +98,10 @@ export async function initStores(): Promise<MailT[]>{
                 console.log(pm.nick, pm.member);
             }
             if (mail_body_dict){
-                const {body, images} = mail_body_dict[pm.id];
+                const {body, images, videos} = mail_body_dict[pm.id];
                 pm.body = body;
-                pm.images = images;
+                pm.images = images || [];
+                pm.videos = videos || [];
             }
             return pm;
           }).sort((pm: MailT)=>str_to_date(time_to_dateStr(pm.time)));

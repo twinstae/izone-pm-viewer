@@ -22,6 +22,7 @@ const addTag = async ()=>{
 
     if ($all_tag_dict.has($tag_input)){
         the_tag = $all_tag_dict.get($tag_input);
+        console.log(the_tag);
     } else {
         $all_tag_dict.set($tag_input, new_tag)
         $all_tag_dict=$all_tag_dict;
@@ -48,15 +49,21 @@ const addTag = async ()=>{
 
     console.log(the_tag);
     await api.MailTagDict.addTag($now_pm.id, the_tag.value);
+
+    document.activeElement.blur();
 }
-
+function onKeyPress(e:KeyboardEvent){
+  if(e.code==="Enter") addTag();
+}
 </script>
-
-<input type="text" id="TagInput"
-class="border-2 p-1 rounded w-16 text-xs {$dynamic_dark_bg("bg-white")} {$dynamic_dark_border}"
-placeholder="새 태그"
-bind:value={$tag_input}
-on:keypress={e=>{if(e.code==="Enter")addTag();}}>
+<span class="tooltip">
+  <input type="text" id="TagInput"
+  class="border-2 p-1 rounded w-16 text-xs {$dynamic_dark_bg("bg-white")} {$dynamic_dark_border}"
+  placeholder="새 태그"
+  bind:value={$tag_input}
+  on:keypress={onKeyPress}>
+  <span class="tooltiptext">a ("A"dd tag)</span>
+</span>
 
 <button id="AddTagButton"
 on:click={addTag}

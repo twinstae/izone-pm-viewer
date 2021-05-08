@@ -249,6 +249,7 @@ import { dynamic_dark_bg } from '../../stores/preferences';
         break;
       case keyCodes.enter:
         registerSelection(highlighted);
+        document.activeElement.blur();
         break;
       default:
         break;
