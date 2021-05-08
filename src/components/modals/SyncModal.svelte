@@ -1,5 +1,5 @@
 <script lang="ts">
-import { dark } from "../../stores/preferences";
+import { dark, dynamic_dark_bg } from "../../stores/preferences";
 import Icon from "fa-svelte";
 import {faSync} from "@fortawesome/free-solid-svg-icons/faSync"
 import PinkButton from "../buttons/PinkButton.svelte";
@@ -137,7 +137,7 @@ async function one_click(){
     <br>
     <p class="text-sm">
       에러가 있으면
-      <a class="bg-black p-0.5 rounded" href="https://open.kakao.com/o/gPbArZ4c">상담소</a>
+      <a class="p-0.5 {$dynamic_dark_bg('bg-white')} rounded" href="https://open.kakao.com/o/gPbArZ4c">상담소</a>
       에 문의해주세요.
     </p>
     <div class="SyncBody">
