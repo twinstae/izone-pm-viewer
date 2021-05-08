@@ -126,7 +126,7 @@ function load_pm(user_id: string, token: string){
 }
 
 function restore_birthday_pm(){
-  post("/private-mail/restore-birthday-images");
+  post(API_ROOT+"/private-mail/restore-birthday-images");
 }
 
 function notify_server(mail: MailT, profile: string){

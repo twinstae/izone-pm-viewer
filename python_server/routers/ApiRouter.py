@@ -61,8 +61,7 @@ async def notify(mail: MailDto, profile: str, bg_tasks: BackgroundTasks):
         return None
 
     notification_set.add(mail.id)
-    send_notification(mail=mail,profile=profile)
-    #bg_tasks.add_task(pend_notification, mail=mail, profile=profile)
+    bg_tasks.add_task(pend_notification, mail=mail, profile=profile)
 
 
 class MailBackupRequest(BaseModel):
