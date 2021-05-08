@@ -7,7 +7,6 @@ from services.AllTagDict import UNREAD_TAG
 from typing import Dict, List, Set
 
 from fastapi import APIRouter, BackgroundTasks, Depends
-from notifypy import Notify
 from pydantic import BaseModel
 import schedule
 
@@ -18,30 +17,33 @@ from routers.MailTagRouter import router as mail_tag_router
 from services.MailLoadService import MailLoadService
 from services.TagToMailDict import tag_to_mail_dict
 from services import AllTagDict
+from notifypy.notify import Notify
 
 api_router = APIRouter(
     prefix=API_ROOT,
 )
 
 
+def send_notification(mail: MailDto, profile: str):
+    notification = Notify()
+    notification.title = f"{mail.member} {mail.subject}"
+    notification.message = f"[{mail.time}] {mail.preview}"
+    notification.icon = f"./output/img/profile/{profile}/{mail.member}.jpg"
+    notification.application_name = "IZ*ONE Private Mail Viewer"
+    notification.audio = "./output/audio/notification_simple-02.wav"
+    notification.url = f"http://127.0.0.1:8000/?now_pm={mail.id}"
+    notification.send()
+
 async def pend_notification(mail: MailDto, profile: str):
     end = False
 
-    def send_notification():
+    def invoke():
         nonlocal end
-        notification = Notify()
-        notification.title = f"{mail.member} {mail.subject}"
-        notification.message = f"[{mail.time}] {mail.preview}"
-        notification.icon = f"./output/img/profile/{profile}/{mail.member}.jpg"
-        notification.application_name = "IZ*ONE Private Mail Viewer"
-        notification.audio = "./output/audio/notification_simple-02.wav"
-        notification.url = f"http://127.0.0.1:8000/?now_pm={mail.id}&dateString={mail.time[:10]}"
-        notification.send()
-
+        send_notification(mail, profile)
         end = True
         return schedule.CancelJob
 
-    schedule.every().day.at(mail.time[-5:]).do(send_notification)
+    schedule.every().day.at(mail.time[-5:]).do(invoke)
     while not end:
         await asyncio.sleep(10)
         schedule.run_pending()
@@ -59,7 +61,8 @@ async def notify(mail: MailDto, profile: str, bg_tasks: BackgroundTasks):
         return None
 
     notification_set.add(mail.id)
-    bg_tasks.add_task(pend_notification, mail=mail, profile=profile)
+    send_notification(mail=mail,profile=profile)
+    #bg_tasks.add_task(pend_notification, mail=mail, profile=profile)
 
 
 class MailBackupRequest(BaseModel):
