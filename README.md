@@ -22,11 +22,10 @@
 ## 사용방법
 
 1. [IZ-PM-Viewer-배포.zip 다운 받기](https://github.com/twinstae/izone-pm-viewer/raw/main/IZ-PM-Viewer-%EB%B0%B0%ED%8F%AC.zip)
-압축 파일을 받아서 img와 mail이 있는 output 폴더에 풀어줍니다.
-
-신형 서버도 받으려면 [여기](https://github.com/twinstae/izone-pm-viewer/raw/main/%EC%84%9C%EB%B2%84-%EB%B0%B0%ED%8F%AC%EC%9A%A9.zip)
+압축 파일을 받아서 img와 mail이 있는 output 폴더에 풀어줍니다. 신형 서버도 받아서 output 폴더의 **위쪽** 폴더에 풀어줍니다. [여기](https://github.com/twinstae/izone-pm-viewer/raw/main/%EC%84%9C%EB%B2%84-%EB%B0%B0%ED%8F%AC%EC%9A%A9.zip)
+> - 구 서버는 이제 없습니다. 신형 서버 시작하기를 이용하세요.
 > - 신 서버는 절대 output 폴더에 풀면 안 되고. 그 상위 폴더에 풀어줘야합니다.
-> - 신 서버를 쓰려면 구 배포.zip에 있는 초기 설정을 해줘야 합니다.
+> - 신 서버를 쓰려면 배포.zip에 있는 초기 설정을 해줘야 합니다. 둘 다 받으세요.
 
 - 최상위 폴더
   - FastAPI 설치.bat
@@ -36,7 +35,7 @@
     - build
     - img
     - mail
-    - 서버 시작하기.bat
+    - (구 서버 시작하기는 폐기)
 
 ### output 폴더 사진
 ![](https://github.com/twinstae/izone-pm-viewer/raw/main/%EC%98%88%EC%8B%9C.png)
@@ -50,7 +49,7 @@
 > - Mac이나 리눅스 쓰시는 분은 .bat 파일을 메모장으로 열어서, 명령어를 똑같이 쳐주세요. 단 python은 python3 로 바꿔야 합니다.
 > - Mac 자동화 스크립트 (sh파일)도 추가 예정 
 
-3. 이제 서버 시작하기.bat 파일을 실행하면 뷰어가 열릴 겁니다. 아마도...
+3. 이제 신형 서버 시작하기.bat 파일을 실행하면 뷰어가 열릴 겁니다. 아마도...
 
 > 아직 테스트 중 입니다.
 > 에러 나면 알려주세요. F12 누르면 뜨는 개발자 창에서 Console 부분과, 검은 서버 cmd 창 스크린샷 찍어서 보여주시면 됩니다.
@@ -68,12 +67,12 @@ output 폴더에 새 폴더가 생기지 않았는지 확인합니다. 모든 �
 서버가 정상적으로 실행 중이면 다음과 같이 떠야 합니다.
 ![](https://github.com/twinstae/izone-pm-viewer/raw/main/%EC%A0%95%EC%83%81%20%EC%9E%91%EB%8F%99%20%EC%A4%91%EC%9D%B8%20%EC%84%9C%EB%B2%84.png)
 
-#### 다음과 같이 Python만 덩그러니 뜨는 것도 에러입니다.
+### 2. Python만 덩그러니 떠요.
 ![](https://github.com/twinstae/izone-pm-viewer/raw/main/%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%97%90%EB%9F%AC.png)
 파이썬이 설치되어 있지 않거나, 환경변수가 설정되어 있지 않아서 생기는 에러입니다. 컴퓨터가 파이썬을 찾아야 실행할 수 있습니다.
 인터넷에 파이썬 환경 변수 설정을 검색해봅시다.
 
-### 2. 무지개빛 화면만 보여요.
+### 3. 하얀 화면만 보여요.
 
 F12를 누르면 개발자 도구 창이 뜹니다. Console 탭을 찾아서 클릭하고 에러가 뜨는 게 없는지 확인합니다.
 
@@ -84,6 +83,8 @@ F12를 누르면 개발자 도구 창이 뜹니다. Console 탭을 찾아서 클
 0번 확인합니다.
 
 output 폴더에 pm_list.json이 잘 있는지 확인합니다. 서버 시작하기.bat과 같은 폴더에 있어야 합니다.
+
+그 외에는 초기 설정 단계에서 에러가 났을 수 있습니다. 상담소로 문의해주세요.
 
 ###  SyntaxError: Unexpected token ( in JSON at position 0
 유니코드 인코딩에서 나는 에러입니다. 대부분 해결되었지만... 혹시라도 에러가 난다면 
