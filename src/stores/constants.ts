@@ -1,5 +1,5 @@
 import { writable, derived } from "svelte/store";
-
+import { SERVER_ROOT } from '../api';
 export const member_color_dict = {
     0:"#d9598c",
     1:"#f1d2e7",
@@ -20,7 +20,7 @@ export const member_color_to_dark_dict = {
     "#d9598c":"#d02f6f",
     "#f1d2e7":"#c33c98",
     "#f3aa51":"#ee8b11",
-    "#fcf695":"#dfd407",
+    "#fcf695":"#efe407",
     "#567ace":"#345ab2",
     "#b7d3e9":"#3c89c3",
     "#bbb0dc":"#674eb1",
@@ -62,5 +62,5 @@ export const member_name_dict = {
 
 export const base_tag_set = new Set(["💖", "장원영", "미야와키 사쿠라", "조유리", "최예나", "안유진", "야부키 나코", "권은비", "강혜원", "혼다 히토미", "김채원", "김민주", "이채연", "운영팀", "생일"]);
 
-export const image_root = "./img/";
-export const mail_root = "./mail/";
+export const image_root = SERVER_ROOT + "/img/";
+export const mail_root = SERVER_ROOT + "/mail/";

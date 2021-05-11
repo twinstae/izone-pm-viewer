@@ -109,6 +109,13 @@ params.subscribe(p=>{
 </script>
 
 <style global>
+  @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+  @import url(//fonts.googleapis.com/earlyaccess/notosansjp.css);
+
+  body{
+    font-family: "Noto Sans KR", "Noto Sans JP", sans-serif;
+  }
+
   #MailDetailCardContent div p {
     margin-top: 8px;
   }
@@ -126,9 +133,11 @@ params.subscribe(p=>{
     position: absolute;
     z-index: 1;
   }
-
-  .tooltip:hover .tooltiptext {
-    display: initial;
+  
+  @media all and (min-width:700px) {
+    .tooltip:hover .tooltiptext {
+      display: initial;
+    }
   }
 
   .blur-off {

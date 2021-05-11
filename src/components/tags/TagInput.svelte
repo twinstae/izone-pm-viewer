@@ -22,7 +22,6 @@ const addTag = async ()=>{
 
     if ($all_tag_dict.has($tag_input)){
         the_tag = $all_tag_dict.get($tag_input);
-        console.log(the_tag);
     } else {
         $all_tag_dict.set($tag_input, new_tag)
         $all_tag_dict=$all_tag_dict;
@@ -47,11 +46,11 @@ const addTag = async ()=>{
     $tag_input ="";
     $color_n = ($color_n+1) % 12;
 
-    console.log(the_tag);
     await api.MailTagDict.addTag($now_pm.id, the_tag.value);
 
     document.activeElement.blur();
 }
+
 function onKeyPress(e:KeyboardEvent){
   if(e.code==="Enter") addTag();
 }

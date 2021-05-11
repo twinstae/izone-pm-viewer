@@ -50,7 +50,7 @@ const iconDict = new Map([
     ["유튜브", faYoutube],
 ]);
 
-$: padding = tag.color=="#fff" ? "border-gray-300 border-2 p-0.5" : "p-1";
+$: padding = tag.color=="#fff" ? "border-gray-300 border-2 p-0.5 pt-0 pb-0" : "p-1 pt-0.5 pb-0.5";
 
 $: backgroud_color = tag.value=="타임캡슐" ? "#555" : tag.color;
 $: dark_bg_color = member_color_to_dark_dict[backgroud_color];
@@ -69,7 +69,7 @@ $: get_dark_text_color = ()=>{
     if(text_color() != "black"){
         return text_color();
     }
-    if (tag.value == "김민주" || tag.value == "최예나"){
+    if (tag.color == "#fff" || tag.color == "#fcf695"){
         return "#333";
     }
     return "white"
@@ -96,7 +96,7 @@ $: style = tag.color=="rainbow"
 
 <span
   style={style}
-  class="{padding} rounded p-1 m-0.5 text-{size}">
+  class="{padding} rounded m-0.5 text-{size} cursor-pointer">
   <span
   on:pointerdown={onTouchDown}
   on:pointerup={onTouchUp}

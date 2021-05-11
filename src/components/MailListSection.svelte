@@ -16,17 +16,21 @@ import { dynamic_dark_bg } from '../stores/preferences';
 import DarkModeButton from './buttons/DarkModeButton.svelte';
 import SyncModal from './modals/SyncModal.svelte';
 import { getContext } from 'svelte';
-import PinkButton from './buttons/PinkButton.svelte';
 
 let section_width: number;
 let section_height: number;
 $: mail_per_width =  Math.floor((section_width - 32) / 292)
 $: mail_per_height = Math.floor((section_height - 200) / 164);
+
+$: mail_in_list = Math.floor((section_height - 200) / 62);
+
 $: mail_per_page = $isMobile
-    ? 5
-    : isListView
-        ? Math.floor((section_height - 200) / 62)
-        : mail_per_width * mail_per_height;
+    ? (isListView
+        ? 5
+        : 4)
+    : (isListView
+        ? mail_in_list
+        : mail_per_width * mail_per_height);
 
 $: maxPage = Math.ceil($filtered_list.length/mail_per_page) || 1;
 $: isTyping = section_height < 512;
@@ -135,6 +139,8 @@ relative p-4">
         <MailCardView mail_list={mail_list} />
     {/if}
     <BottomPagenation maxPage={maxPage} parent_width={section_width} mail_per_page={mail_per_page}/>
-    {#if section_width < 600}<br>{/if}
+    {#if section_width < 600}
+        <br>
+    {/if}
     <Search search_length={$filtered_list.length} />
 </section>

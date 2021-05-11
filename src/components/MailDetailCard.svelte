@@ -15,6 +15,8 @@ import { dynamic_dark_bg, wizoneNick, replaceWizone } from '../stores/preference
 import { afterUpdate, getContext } from 'svelte';
 import NickModal from './modals/NickModal.svelte';
 import PinkButton from './buttons/PinkButton.svelte';
+import ImageModal from './modals/ImageModal.svelte';
+import { SERVER_ROOT } from '../api';
 
 export let show: boolean;
 
@@ -49,7 +51,7 @@ $: html_with_images = $now_pm.images
     .reduce((body, img)=>
         body.replace(
         "{이미지}",
-        `<img src="../${img}" style="max-width:100%;display:block;margin-left:auto;margin-right:auto; margin-top:8px;">`
+        `<img src="${SERVER_ROOT}/${img}" class="MailImage" style="max-width:100%;display:block;margin-left:auto;margin-right:auto; margin-top:8px;">`
     ), $now_pm.body)
     .replace(/\n\n/g, "<br/>").replace(/\n/g, "<br/>");
 
@@ -58,7 +60,7 @@ $: html_with_images_and_videos = $now_pm.videos
     .reduce((body, video)=>
       body.replace(
         "{비디오}",
-        `<video controls><source src="http://127.0.0.1:8000/${video}" type="video/mp4"> </video>`
+        `<video controls><source src="${SERVER_ROOT}/${video}" type="video/mp4"> </video>`
       )
     , html_with_images)
   : html_with_images;
@@ -71,8 +73,10 @@ $: html_body = $wizoneNick
     : html_with_images_and_videos;
 
 now_pm.subscribe((_)=>{
-    const div: HTMLElement = document.getElementById("MailDetailCardContent");
-    if(div) div.scrollTo({top: 0, behavior: 'smooth'});
+    setTimeout(()=>{
+      const div: HTMLElement = document.getElementById("MailDetailCardContent");
+      if(div) div.scrollTo({top: 0, behavior: 'smooth'});
+    }, 100);
 })
 
 function returnToList(_: Event){
@@ -89,7 +93,17 @@ afterUpdate(() => {
     element.addEventListener('click', ()=>{
       open(NickModal);
     })
-  })
+  });
+
+  if ($isDesktop){
+    const image_elements = document.getElementsByClassName("MailImage");
+
+    [...image_elements].forEach((element: HTMLImageElement)=>{
+      element.addEventListener('click', ()=>{
+        open(ImageModal, {src: element.src}, {large: true});
+      })
+    });
+  }
 });
 
 function readMail(){
@@ -144,12 +158,11 @@ flex flex-col">
         </div>
       {/if}
     </div>
-    <div class="text-center w-full tooltip">
+    <div class="text-center w-full">
       {#if $isMobile}
         <PinkButton id="ReturnToListButton" onClick={returnToList} strong={true}>
           목록으로 돌아가기📄
         </PinkButton>
-        <span class="tooltiptext">Backspace ← 뒤로가기</span>
       {/if}
     </div>
 </div>

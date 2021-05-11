@@ -13,7 +13,5 @@ const remove_selected_tag = ()=>{
 
 </script>
 <Tag
-tag={$all_tag_dict.get($selected_tag_value)}
-canDelete={true}
-onRemove={remove_selected_tag}
-size="sm"/>
+  tag={$all_tag_dict.get($selected_tag_value)} size="base"
+  canDelete={true} onRemove={remove_selected_tag}/>

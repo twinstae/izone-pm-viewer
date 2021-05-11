@@ -3,10 +3,9 @@ import asyncio
 import json
 
 import aiofiles
-from services.AllTagDict import UNREAD_TAG
 from typing import Dict, List, Set
 
-from fastapi import APIRouter, BackgroundTasks, Depends
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 from pydantic import BaseModel
 import schedule
 
@@ -16,6 +15,7 @@ from routers.AllTagDictRouter import router as all_tag_router
 from routers.MailTagRouter import router as mail_tag_router
 from services.MailLoadService import MailLoadService
 from services.TagToMailDict import tag_to_mail_dict
+from services.AllTagDict import UNREAD_TAG, FAVORITE_TAG
 from services import AllTagDict
 from notifypy.notify import Notify
 
@@ -100,6 +100,8 @@ async def load_favorite_list(
         req: MailBackupRequest,
         service: MailLoadService = Depends(MailLoadService)
 ):
+    if not AllTagDict.has(FAVORITE_TAG.value):
+        raise HTTPException(status_code=404, detail="서버에 💖★ 태그가 없습니다. 태그 올리기로 태그를 저장해주세요.")
     service.set_id_and_token(user_id=req.user_id, access_token=req.token)
     favorite_list = await service.download_favorite_list()
     for mail_id in favorite_list:
@@ -113,7 +115,8 @@ async def load_unread_list(
         req: MailBackupRequest,
         service: MailLoadService = Depends(MailLoadService)
 ):
-    assert AllTagDict.has(UNREAD_TAG.value)
+    if not AllTagDict.has(UNREAD_TAG.value):
+        raise HTTPException(status_code=404, detail="서버에 읽지 않음 태그가 없습니다. 태그 올리기로 태그를 저장해주세요.")
     service.set_id_and_token(user_id=req.user_id, access_token=req.token)
     unread_list = await service.download_unread_list()
     for mail_id in unread_list:

@@ -4,7 +4,7 @@ import json
 import aiofiles
 from collections import namedtuple
 from typing import Coroutine, Any, List, Optional
-from fastapi import Depends
+from fastapi import Depends, HTTPException
 from httpx import Response
 from models.mail import Mail, BodyDictDto
 from services.ClientUtil import ClientUtil
@@ -62,6 +62,18 @@ class MailLoadService:
         response = await self.pm_get(url)
         return json.loads(response.text)
 
+    @staticmethod
+    def check_error(data):
+        if 'error' in data:
+            error_data = data['error']['data']
+            error_code = error_data['code']
+            error_name = error_data['name']
+            message = error_name
+            if error_name == 'AccessTokenError':
+                message = "토큰이 잘못되었거나, 만료되었습니다."
+
+            raise HTTPException(status_code=error_code, detail=message)
+
     async def download_latest_pm(self):
         if self.PM_ACCESS_TOKEN == "":
             raise NoTokenException()
@@ -81,6 +93,9 @@ class MailLoadService:
 
         while flag:
             whole_data = await self.pm_get_json(target % page)
+
+            self.check_error(whole_data)
+
             new_page = [Mail(data) for data in whole_data["mails"]]
             for pm in new_page:
                 if pm.id in mail_to_body_dict:
@@ -214,6 +229,8 @@ class MailLoadService:
 
         while flag:
             whole_data = await self.pm_get_json(target % page)
+            self.check_error(whole_data)
+
             new_page = [raw_pm["id"] for raw_pm in whole_data["mails"]]
 
             print(new_page)
@@ -241,8 +258,9 @@ class MailLoadService:
 
         while flag:
             whole_data = await self.pm_get_json(target % page)
-            new_page = [raw_pm["id"] for raw_pm in whole_data["mails"]]
+            self.check_error(whole_data)
 
+            new_page = [raw_pm["id"] for raw_pm in whole_data["mails"]]
             print(new_page)
             unread_list += new_page
 

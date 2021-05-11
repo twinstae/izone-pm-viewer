@@ -2,8 +2,9 @@ import { favorite_tag, member_tags, unread_tag } from "./stores/all_tag_dict";
 import {mail_to_tag_dict_to_json } from "./stores/mail_to_tag_dict";
 import {tag_to_mail_dict_to_entries } from "./stores/tag_to_mail_dict";
 
+export const SERVER_ROOT = "http://" + window.location.hostname + ":8000";
 
-const API_ROOT = "http://" + window.location.hostname + ":8000" +"/api";
+const API_ROOT = SERVER_ROOT +"/api";
 
 async function get(url: string){
     return await fetch(url);
@@ -143,16 +144,20 @@ async function load_favorite(user_id: string, token: string): Promise<string[]>{
   const response = await post(API_ROOT+"/private-mail/favorite", {
         user_id: user_id,
         token: token
-    })
-  return await response.json();
+    });
+
+  const result = await response.json();
+  return result;
 }
 
 async function load_unread(user_id: string, token: string): Promise<string[]>{
   const response = await post(API_ROOT+"/private-mail/unread", {
         user_id: user_id,
         token: token
-    })
-  return await response.json();
+    });
+
+  const result = await response.json();
+  return result;
 }
 
 async function add_profile_theme(theme: string, name: string){

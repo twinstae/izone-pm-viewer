@@ -29,7 +29,7 @@ function onKeydown(event: KeyboardEvent){
 }
 </script>
 
-<div class="tooltip">
+<span class="tooltip">
   <span id="MailCounter"
   class="m-1 rounded p-1 {$dynamic_dark_bg('bg-red-100')}">
       {search_length}건
@@ -41,5 +41,5 @@ function onKeydown(event: KeyboardEvent){
   type="text" bind:value={now_input} placeholder="검색어 입력"/>
 
   <span class="tooltiptext">/ (나오려면 Esc)</span>
-</div>
+</span>
 

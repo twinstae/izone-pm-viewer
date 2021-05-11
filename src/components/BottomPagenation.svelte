@@ -58,6 +58,12 @@ function goToNextPage(){
     }
 }
 
+function onPageInputKeyDown(e: KeyboardEvent){
+  if(e.key == "Enter"){
+    $goto("./", {...$params, nowPage: $now_page});
+  }
+}
+
 function goToPreviousPage(){
     if($now_page>1) {
         $now_page-=1
@@ -83,9 +89,11 @@ $: isMaxPage = maxPage<=$now_page;
 
 function onKeydown(e: KeyboardEvent){
   console.log(e.key, e.code);
-  if (e.key == "Escape" || e.key == "q") return document.activeElement.blur();
   if(document.activeElement.className.includes("calendar-button")) return null;
-  if(document.activeElement.tagName == "INPUT") return null;
+  if(document.activeElement.tagName == "INPUT") {
+    if (e.key == "Escape") return document.activeElement.blur();
+    return null;
+  }
   if (e.key == "ArrowRight" || e.key == "l") return goToNextMail();
   if (e.key == "ArrowLeft" || e.key == "h") return goToPreviousMail();
   if (e.key == "ArrowDown" || e.key == "j") return scrollUpDown(200);
@@ -223,6 +231,8 @@ function onDateSelected(e: CustomEvent){
       $goto("./", {...$params, dateString: newDateString, nowPage: maxPage});
   }
 }
+
+
 </script>
 
 <svelte:body on:keydown={onKeydown} />
@@ -246,6 +256,7 @@ class:border-red-700={isMaxPage}>
         ? ($dark ? 'text-gray-300 bg-red-600 ' : 'bg-red-300 ') + 'border-red-700'
         : $dynamic_dark_bg('bg-white')}"
     bind:value={$now_page}
+    on:keydown={onPageInputKeyDown}
     min={1} max={maxPage}>
     <span>/ {maxPage}</span>
 </span>

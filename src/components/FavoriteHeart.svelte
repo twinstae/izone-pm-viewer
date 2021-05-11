@@ -20,10 +20,10 @@ function onFavorite(){
 
 
 <label
-style="color: {favorited ? "#ffb40d" : "#999"};"
+style="color: {favorited ? '#ffb40d' : '#999'};"
 on:click={onFavorite}
 for="favorite">
-    <Icon class="float-{float} text-xl"
+    <Icon class="float-{float} text-xl cursor-pointer"
     icon={favorited ? faStar : emptyStar}></Icon>
 </label>
 <input type="checkbox"

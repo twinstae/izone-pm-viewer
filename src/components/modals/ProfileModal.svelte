@@ -2,7 +2,7 @@
     import { image_root, member_name_dict } from "../../stores/constants";
     import { profile, dark, dynamic_dark_border } from "../../stores/preferences";
     import Dropzone from 'svelte-dropzone';
-    import api from "../../api";
+    import api, { SERVER_ROOT } from "../../api";
 
     const base = [
         {"path": "la-vie-en-rose", "name":"라비앙 로즈"},
@@ -19,7 +19,7 @@
     let choices = [];
 
     if (choices.length == 0){
-      fetch("./프로필_사진_목록.json", {cache: "no-cache"})
+      fetch(SERVER_ROOT+"/프로필_사진_목록.json", {cache: "no-cache"})
         .then(res=>res.json())
         .then(profile_list=>{
             choices = profile_list;
@@ -48,19 +48,29 @@
 
     $: member_n_list = shuffle([...Array(12).keys()]).slice(0,max_n);
 
+    let theme: string;
+    let new_name: string;
+
+    $: is_mp4 = theme && theme.includes("-mp4");
+    $: ending = is_mp4 ? '.mp4' : '.jpg';
+    $: acceptedFiles = is_mp4 ? 'video/mp4' : 'image/jpeg';
+
     let new_file_dict: Map<string, boolean> = [
       "권은비", "미야와키 사쿠라", "최예나", "강혜원",
       "이채연", "김채원", "김민주", "야부키 나코",
       "혼다 히토미", "조유리", "안유진", "장원영"
     ].reduce((acc, member)=>{
-      acc.set(member + ".jpg", false)
+      acc.set(member, false)
       return acc;
-    }, new Map())
+    }, new Map());
 
+    
     const addedfile = (file: File) => {
       setTimeout(()=>{
-        if (new_file_dict.has(file.name)){
-          new_file_dict.set(file.name, true)
+        const member_name = file.name.replace(ending, "")
+
+        if (new_file_dict.has(member_name)){
+          new_file_dict.set(member_name, true)
           new_file_dict = new_file_dict;
         }
 
@@ -79,9 +89,6 @@
     };
 
     const drop = (e) => console.log(e.target);
-
-    let theme: string;
-    let new_name: string;
 
     const theme_input_rule = new RegExp("^[a-zA-Z0-9\-]+$");
 
@@ -130,31 +137,37 @@ input#ThemeInput:invalid {
     {#if is_valid}
       <Dropzone
         options={{
-          url: "http://127.0.0.1:8000/upload/profile/" + theme +"/",
-          acceptedFiles: 'image/jpeg'
-
+          url: SERVER_ROOT + "/upload/profile/" + theme +"/",
+          acceptedFiles: acceptedFiles
         }}
         dropzoneClass="border-4 border-dashed 
                        {$dark ? 'bg-gray-500 border-gray-600' : 'bg-gray-200 border-gray-300'}
                       rounded-lg text-center p-5 m-1"
         dropzoneEvents={{addedfile, drop}}>
-        여기에 사진을 드래그
+        여기에 사진을 드래그 {ending}
       </Dropzone>
       <ul class="flex flex-wrap">
-        {#each [...new_file_dict.entries()] as [file_name, uploaded], i}
+        {#each [...new_file_dict.entries()] as [member_name, uploaded]}
           <li>
             <figure>
               {#if uploaded}
-              <img class="w-12 h-12 rounded-full m-1"
-                src="http://127.0.0.1:8000/img/profile/{theme}/{file_name}"
-                alt="{file_name}">
+                {#if is_mp4}
+                  <video class="w-12 h-12 rounded-full m-1" autoplay loop>
+                    <source src="{image_root}profile/{theme}/{member_name}{ending}" type="video/mp4">
+                    <track kind="captions">
+                  </video>
+                {:else}
+                  <img class="w-12 h-12 rounded-full m-1"
+                       src="{SERVER_ROOT}/img/profile/{theme}/{member_name}{ending}"
+                       alt="{member_name}">
+                {/if}
               {:else}
                 <div class="p-3 w-12 h-12 rounded-full m-1 bg-gray-300 text-center border-2 {$dynamic_dark_border}">
                 ?
                 </div>
               {/if}
               <figcaption class="text-xs w-14 text-center" style="word-break: keep-all;">
-                {file_name.replace(".jpg", "")}
+                {member_name}
               </figcaption>
             </figure>
           </li>
@@ -171,13 +184,20 @@ input#ThemeInput:invalid {
               <input type="radio" bind:group={$profile} value={choice.path}>
               {choice.name}
               <br/>
-              <div class="h-9">
-                  {#each member_n_list as n}
+              <div class="h-9 flex flex-row">
+                {#each member_n_list as n}
+                  {#if choice.path.includes('-mp4')}
+                    <video class="w-9 h-9 rounded-full border-gray-{$dark ? '700' : '100'}  border-2" autoplay loop>
+                      <source src="{image_root}profile/{choice.path}/{member_name_dict[n]}.mp4" type="video/mp4">
+                      <track kind="captions">
+                    </video>
+                  {:else}
                     <img
-                    src="{image_root}/profile/{choice.path}/{member_name_dict[n]}.jpg"
-                    class="w-9 h-9 rounded-full border-gray-{$dark ? '700' : '100'}  border-2
-                    float-left" alt=""/>
-                  {/each}
+                        src="{image_root}profile/{choice.path}/{member_name_dict[n]}.jpg"
+                      class="w-9 h-9 rounded-full border-gray-{$dark ? '700' : '100'}  border-2
+                      float-left" alt=""/>
+                  {/if}
+                {/each}
               </div>
           </label>
       {/each}

@@ -182,10 +182,19 @@
       margin: 2rem;
       max-height: 100%;
     }
+
+    .basic {
+      width: 32rem;
+    }
+
+    .large {
+      width: 64rem;
+      background-color: transparent;
+      padding: 2rem;
+    }
   
     .window {
       position: relative;
-      width: 32rem;
       max-width: 100%;
       max-height: 100%;
       margin: 2rem auto;
@@ -196,7 +205,7 @@
     .content {
       position: relative;
       padding: 1rem;
-      max-height: calc(100vh - 4rem);
+      max-height: calc(100vh - 8rem);
       overflow: auto;
     }
   
@@ -284,7 +293,7 @@
     >
       <div class="window-wrap" bind:this={wrap} style={cssWindowWrap}>
         <div
-          class="window {$dynamic_dark_bg("bg-white")}"
+          class="window {$dynamic_dark_bg('bg-white')} {state.large ? 'large' : 'basic'}"
           role="dialog"
           aria-modal="true"
           bind:this={modalWindow}

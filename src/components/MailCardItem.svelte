@@ -12,6 +12,7 @@ import { goto, params } from "@roxi/routify";
 import { fade } from "svelte/transition";
 import { all_tag_dict } from "../stores/all_tag_dict";
 import { dark, dynamic_dark_bg, replaceWizone } from "../stores/preferences";
+import { SERVER_ROOT } from "../api";
 
 export let pm: MailT;
 export let index: number;
@@ -92,7 +93,7 @@ $: onMailSelected = ()=>{
                 <svg class="w-16 h-16 m-1 float-left rounded">
                     <image width="100%" height="100%"
                     preserveAspectRatio="xMidYMid slice"
-                    xlink:href="./{pm.images[0]}"/>
+                    xlink:href="{SERVER_ROOT}/{pm.images[0]}"/>
                 </svg>
             {/if}
             {$replaceWizone(pm.preview.slice(0, 45))}
@@ -115,7 +116,7 @@ $: onMailSelected = ()=>{
     <div in:fade={{ duration: 500 }} class="leading-relaxed">
     {#if pm.member}
         {#if pm.images.length > 0}
-            <img src="./{pm.images[0]}" alt=""
+          <img src="{SERVER_ROOT}/{pm.images[0]}" alt=""
             class="w-14 m-1 float-left rounded">
         {/if}
         <FavoriteHeart pm_id={pm.id}/>
