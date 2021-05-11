@@ -109,9 +109,6 @@ params.subscribe(p=>{
 </script>
 
 <style global>
-  @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
-  @import url(//fonts.googleapis.com/earlyaccess/notosansjp.css);
-
   body{
     font-family: "Noto Sans KR", "Noto Sans JP", sans-serif;
   }
