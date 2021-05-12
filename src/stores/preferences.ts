@@ -33,9 +33,14 @@ let replaceJosa = derived(
   ([$oldNick, $wizoneNick])=>function(josa: string){
     if ($wizoneNick == "") return (a: string)=>a;
 
-    if (josa == "") return (a:string) => a.replace(new RegExp($oldNick, "g"), $wizoneNick);
+    if (josa == ""){
+      return (a:string) => a.replace(new RegExp($oldNick, "g"), $wizoneNick);
+    }
 
-    const wizJosa = Josa.c($wizoneNick, josa);
+    let wizJosa = Josa.c($wizoneNick, josa);
+    if ($wizoneNick.endsWith("one") || $wizoneNick.endsWith("ONE")){
+      wizJosa = Josa.c("원", josa);
+    }
 
     const [oldJosa1, oldJosa2] = josa.split("/");
     return (a: string) => a.replace(new RegExp($oldNick + oldJosa1, "g"), $wizoneNick + wizJosa)

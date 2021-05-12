@@ -8,13 +8,14 @@ $: mail_text = $now_pm.body
     .replace(/<[^>]+>/g, "");
 </script>
 
-<div class="w-16 p-1 shadow rounded mr-1 {$dynamic_dark_bg("bg-red-100")}">
+<div class="w-16 p-1 shadow rounded mr-1 {$dynamic_dark_bg('bg-red-100')}">
   <a
     id="PapagoLink" 
     class="tooltip"
     href={"https://papago.naver.com/?sk=ja&tk=ko&hn=1&st="+mail_text}
     target="_blank">
-    번역<img class="w-5 h-5 mt-0.5 float-right" src="./img/papago.png" alt="파파고 번역하기"/>
+      번역
+    <img class="w-5 h-5 mt-0.5 float-right" src="./img/papago.png" alt="파파고 번역하기"/>
     <span class="tooltiptext" style="top:3rem;">p ('P'apago)</span>
   </a>
 </div>

@@ -67,7 +67,7 @@ $: html_with_images_and_videos = $now_pm.videos
 
 $: html_body = $wizoneNick
     ? $replaceWizone(html_with_images_and_videos).replace(
-        new RegExp($wizoneNick, "g"),
+        new RegExp($wizoneNick.replace(/[*]/g, '\\$&'), "g"),
         `<span class="wizone rounded p-0.5" style="${rainbow} color: black;">${$wizoneNick}</span>`
       )
     : html_with_images_and_videos;
@@ -150,7 +150,7 @@ flex flex-col">
       {/key}
       {#if $is_unread($now_pm.id)}
         <br>
-        <div class="tooltip">
+        <div class="tooltip relative">
           <PinkButton id="ReadButton" onClick={readMail} strong={true}>
             ✔️ 읽었어요!
           </PinkButton>

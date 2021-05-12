@@ -44,5 +44,6 @@
     type="text"
     id="NickUpdateInput"
     class="wizone rounded m-3 pl-1 pr-1.5 w-20"
-    bind:value={$wizoneNick}>으로 바꿉니다.
+    bind:value={$wizoneNick}
+    >으로 바꿉니다.
 </div> 
