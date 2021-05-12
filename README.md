@@ -21,8 +21,10 @@
 
 ## 사용방법
 
+0. 최신 버전으로 업데이트하고 싶은 분은 [업데이트용.zip](https://github.com/twinstae/izone-pm-viewer/raw/main/%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8%EC%9A%A9.zip)을 다운 받아서 output 폴더에 덮어쓰기 해주세요. index.html, __app.html, build 폴더를 최신화 해주면 됩니다.
+
 1. [IZ-PM-Viewer-배포.zip 다운 받기](https://github.com/twinstae/izone-pm-viewer/raw/main/IZ-PM-Viewer-%EB%B0%B0%ED%8F%AC.zip)
-압축 파일을 받아서 img와 mail이 있는 output 폴더에 풀어줍니다. 신형 서버도 받아서 output 폴더의 **위쪽** 폴더에 풀어줍니다. [여기](https://github.com/twinstae/izone-pm-viewer/raw/main/%EC%84%9C%EB%B2%84-%EB%B0%B0%ED%8F%AC%EC%9A%A9.zip)
+압축 파일을 받아서 img와 mail이 있는 output 폴더에 풀어줍니다. 신형 서버도 받아서 output 폴더의 **위쪽** 폴더에 풀어줍니다. [신 서버 다운로드](https://github.com/twinstae/izone-pm-viewer/raw/main/%EC%84%9C%EB%B2%84-%EB%B0%B0%ED%8F%AC%EC%9A%A9.zip)
 > - 구 서버는 이제 없습니다. 신형 서버 시작하기를 이용하세요.
 > - 신 서버는 절대 output 폴더에 풀면 안 되고. 그 상위 폴더에 풀어줘야합니다.
 > - 신 서버를 쓰려면 배포.zip에 있는 초기 설정을 해줘야 합니다. 둘 다 받으세요.
