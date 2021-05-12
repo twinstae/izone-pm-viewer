@@ -17,6 +17,7 @@ import NickModal from './modals/NickModal.svelte';
 import PinkButton from './buttons/PinkButton.svelte';
 import ImageModal from './modals/ImageModal.svelte';
 import { SERVER_ROOT } from '../api';
+import { search_input } from '../stores/search';
 
 export let show: boolean;
 
@@ -47,30 +48,49 @@ const rainbow = `background-image: linear-gradient(
     #a7e0e1, #b7d3e9, #bbb0dc, #7592d7);
     `;
 
-$: html_with_images = $now_pm.images
+function replaceImages(html: string){
+  return $now_pm.images
     .reduce((body, img)=>
         body.replace(
         "{이미지}",
         `<img src="${SERVER_ROOT}/${img}" class="MailImage" style="max-width:100%;display:block;margin-left:auto;margin-right:auto; margin-top:8px;">`
-    ), $now_pm.body)
+    ), html)
     .replace(/\n\n/g, "<br/>").replace(/\n/g, "<br/>");
 
-$: html_with_images_and_videos = $now_pm.videos
-  ? $now_pm.videos
-    .reduce((body, video)=>
-      body.replace(
-        "{비디오}",
-        `<video controls><source src="${SERVER_ROOT}/${video}" type="video/mp4"> </video>`
-      )
-    , html_with_images)
-  : html_with_images;
+}
 
-$: html_body = $wizoneNick
-    ? $replaceWizone(html_with_images_and_videos).replace(
+function replaceVideos(html: string){
+  return $now_pm.videos
+    ? $now_pm.videos
+      .reduce((body, video)=>
+        body.replace(
+          "{비디오}",
+          `<video controls><source src="${SERVER_ROOT}/${video}" type="video/mp4"> </video>`
+        )
+      , html)
+    : html;
+}
+
+$: replaceWizoneTag = (html: string) => $wizoneNick
+    ? $replaceWizone(html).replace(
         new RegExp($wizoneNick.replace(/[*]/g, '\\$&'), "g"),
         `<span class="wizone rounded p-0.5" style="${rainbow} color: black;">${$wizoneNick}</span>`
       )
-    : html_with_images_and_videos;
+    : html;
+
+$: replaceMark = (html: string) => $search_input
+    ? html.replace(
+        new RegExp($search_input, 'g'),
+        `<mark>${$search_input}</mark>`
+      )
+    : html;
+
+$: html_with_images = replaceImages($now_pm.body);
+$: html_with_images_and_videos = replaceVideos(html_with_images);
+$: html_with_wizone = replaceWizoneTag(html_with_images_and_videos);
+$: html_body = replaceMark(html_with_wizone);
+
+$: marked_subject = replaceMark($now_pm.subject);
 
 now_pm.subscribe((_)=>{
     setTimeout(()=>{
@@ -111,15 +131,13 @@ function readMail(){
 }
 
 </script>
-<style>
 
-</style>
 <div
 id="MailDetailCard"
-   style="max-height: {$isDesktop && show ? "70%" : "90%"}; min-height:300px;"
+   style="max-height: {$isDesktop && show ? '70%' : '90%'}; min-height:300px;"
 class="
 shadow-2xl rounded-md blur
-{$dynamic_dark_bg("bg-white")}
+{$dynamic_dark_bg('bg-white')}
 w-full m-1 p-2
 flex flex-col">
     <div
@@ -127,7 +145,7 @@ flex flex-col">
     class="relative w-full leading-loose">
         <FavoriteHeart pm_id={$now_pm.id}/>
         <MemberProfileImg member={$now_pm.member}/>
-        <h4 class="text-xl w-4/5">{$now_pm.subject}</h4>
+        <h4 class="text-xl w-4/5" bind:innerHTML="{marked_subject}" contenteditable="false">{$now_pm.subject}</h4>
         <MemberTag member_name={$now_pm.member}  size="sm"/>
         <TimeStampTag time={$now_pm.time} size="sm"/>
         <br/>

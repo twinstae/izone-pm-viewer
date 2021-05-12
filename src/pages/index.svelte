@@ -113,6 +113,12 @@ params.subscribe(p=>{
     font-family: "Noto Sans KR", "Noto Sans JP", sans-serif;
   }
 
+  mark {
+    background-color: #ffcded;
+    border-radius: 0.3rem;
+    padding: 0.1rem;
+  }
+
   #MailDetailCardContent div p {
     margin-top: 8px;
   }

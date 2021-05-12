@@ -34,7 +34,8 @@ $: onMailSelected = ()=>{
     }
 }
 
-$: processed_preview = $replaceWizone(pm.preview.slice(0, 45).replace('&gt;','>').replace('&lt;', '<'));
+$: sliced_preview = pm.preview.replace('&gt;','>').replace('&lt;', '<').slice(0, 45);
+$: processed_preview = $replaceWizone(sliced_preview);
 
 </script>
 <style>

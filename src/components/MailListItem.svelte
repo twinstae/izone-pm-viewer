@@ -37,8 +37,8 @@ $: getTags = (pm: MailT) => {
 };
 
 $: processed_preview = $replaceWizone(pm.preview)
-    .slice(0, 45)
-    .replace('&gt;', '>').replace('&lt;', '<');
+    .replace('&gt;', '>').replace('&lt;', '<')
+    .slice(0, 45);
 </script>
 
 <style>
