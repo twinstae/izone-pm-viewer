@@ -34,6 +34,8 @@ $: onMailSelected = ()=>{
     }
 }
 
+$: processed_preview = $replaceWizone(pm.preview.slice(0, 45).replace('&gt;','>').replace('&lt;', '<'));
+
 </script>
 <style>
   div.EmptyCard {
@@ -97,7 +99,7 @@ $: onMailSelected = ()=>{
                     xlink:href="{SERVER_ROOT}/{pm.images[0]}"/>
                 </svg>
             {/if}
-            {$replaceWizone(pm.preview.slice(0, 45))}
+            {processed_preview}
         </p>
     {/if}
     </div>
@@ -129,7 +131,7 @@ $: onMailSelected = ()=>{
         {/each}
     
         <p class="text-xs mt-1" on:click={onMailSelected}>
-            {pm.preview.slice(0, 45)}
+        {processed_preview}
         </p>
     {/if}
     </div>

@@ -9,7 +9,7 @@ import MemberProfileImg from './MemberProfileImg.svelte';
 import { goto, params } from '@roxi/routify';
 import { fade } from 'svelte/transition';
 import { all_tag_dict } from '../stores/all_tag_dict';
-import { dark, dynamic_dark_border, oldNick, wizoneNick } from '../stores/preferences';
+import { dark, dynamic_dark_border, replaceWizone } from '../stores/preferences';
 import { is_unread } from '../stores/tag_to_mail_dict';
 import { image_root } from '../stores/constants';
 
@@ -35,6 +35,10 @@ $: getTags = (pm: MailT) => {
     }
     return [];
 };
+
+$: processed_preview = $replaceWizone(pm.preview)
+    .slice(0, 45)
+    .replace('&gt;', '>').replace('&lt;', '<');
 </script>
 
 <style>
@@ -71,7 +75,7 @@ $: getTags = (pm: MailT) => {
             {pm.subject}
         </p>
         <p class="ml-1 mt-1 text-sm truncate">
-        {pm.preview.replace(new RegExp($oldNick, "g"), $wizoneNick) || "..."}
+        {processed_preview || "..."}
         </p>
       {:else}
         <img class="{$isDesktop ? 'h-14' : 'h-20'} ml-auto mr-auto block"
