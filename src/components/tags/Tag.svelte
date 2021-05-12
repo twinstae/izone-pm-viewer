@@ -21,7 +21,9 @@ export let onRemove = null;
 
 
 const onSelectTag = (tag: TagT)=>
-()=>{
+(event: MouseEvent)=>{
+    event.stopPropagation();
+
     $selected_tag_value = tag.value;
     $goto("./", {...$params, tag: tag.value, nowPage:1})
 }

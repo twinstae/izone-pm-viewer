@@ -66,8 +66,8 @@ $: onMailSelected = ()=>{
 
 {#if $isDesktop}
 <div
-     id="MailCard-{index}"
-     style="{!pm.member ? `background-image: url(${image_root}izone-logo-card.png);`:''}"
+  id="MailCard-{index}"
+  style="{!pm.member ? `background-image: url(${image_root}izone-logo-card.png);`:''}"
   class:EmptyCard={!pm.member}
   class:Unread={$is_unread(pm.id)}
   class="MailCard
@@ -75,20 +75,21 @@ $: onMailSelected = ()=>{
          relative overflow-y-auto
          {$dynamic_dark_bg('bg-white')}
          {pm.id == $now_pm.id ? 'selected border-2 ' + ($dark ? 'border-gray-500' : 'border-red-200') : ''}
-         shadow-md rounded-md">
+         shadow-md rounded-md"
+  on:click={onMailSelected}>
     {#key pm.id}
     <div in:fade={{ duration: 500 }} class="leading-relaxed blur">
     {#if pm.member}
         <FavoriteHeart pm_id={pm.id}/>
         <MemberProfileImg member={pm.member}/>
-        <h4 class="text-lg" on:click={onMailSelected}>{pm.subject}</h4>
+        <h4 class="text-lg"> {pm.subject}</h4>
         <MemberTag member_name={pm.member}/>
         <TimeStampTag time={pm.time} />
         {#each getTags(pm) as tag_item}
             <Tag tag={tag_item} />
         {/each}
     
-        <p on:click={onMailSelected} class="text-sm">
+        <p class="text-sm">
             {#if pm.images.length > 0}
                 <svg class="w-16 h-16 m-1 float-left rounded">
                     <image width="100%" height="100%"
@@ -110,7 +111,7 @@ $: onMailSelected = ()=>{
   class:Unread={$is_unread(pm.id)}
   class="m-1 p-1 w-full relative overflow-y-auto blur
           {pm.id == $now_pm.id ? 'border-2 ' + ($dark ? 'border-gray-500' : 'border-red-200') : ''}
-          {$dynamic_dark_bg("bg-white")}
+          {$dynamic_dark_bg('bg-white')}
           shadow-md rounded-md">
     {#key pm.id}
     <div in:fade={{ duration: 500 }} class="leading-relaxed">
@@ -127,7 +128,7 @@ $: onMailSelected = ()=>{
             <Tag tag={tag_item} />
         {/each}
     
-        <p on:click={onMailSelected} class="text-xs mt-1">
+        <p class="text-xs mt-1" on:click={onMailSelected}>
             {pm.preview.slice(0, 45)}
         </p>
     {/if}

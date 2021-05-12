@@ -55,22 +55,22 @@ $: getTags = (pm: MailT) => {
   class="rounded p-1 w-full leading-relaxed blur
          {pm.id == $now_pm.id
            ? 'border-2 ' + ($dark ? 'border-gray-500' : 'border-red-200')
-           : 'border-b-2 ' + $dynamic_dark_border}">
+           : 'border-b-2 ' + $dynamic_dark_border}"
+  on:click={onMailSelected} >
 
     {#key pm.id}
     <div in:fade={{ duration: 500 }}>
       {#if pm.member}
-
         <MemberProfileImg member={pm.member}/>
         <FavoriteHeart pm_id={pm.id} float="left mt-0.5"/>
-        <p class="truncate" on:click={onMailSelected} >
+        <p class="truncate">
             <MemberTag member_name={pm.member}/>
             <TimeStampTag time={pm.time}/>
             {#if $isMobile }<br/>{/if}
             {#each getTags(pm) as tag} <Tag tag={tag}/> {/each}
             {pm.subject}
         </p>
-        <p on:click={onMailSelected} class="ml-1 mt-1 text-sm truncate">
+        <p class="ml-1 mt-1 text-sm truncate">
         {pm.preview.replace(new RegExp($oldNick, "g"), $wizoneNick) || "..."}
         </p>
       {:else}
