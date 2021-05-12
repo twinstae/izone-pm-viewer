@@ -51,7 +51,7 @@ afterUpdate(() => {
     }
 
     const first_mail = $filtered_list[0];
-    // 메일이 없으면 0 페이지로 간다.
+    // 메일이 없으면 1 페이지로 간다.
     if (!first_mail){
       if ($now_page > 1){
         now_page.set(1);
@@ -77,12 +77,14 @@ afterUpdate(() => {
       anchor_mail_index = first_mail_index;
     }
 
-    if ($selected_tag_value == "") return null; // 태그 선택 중이고
-    if (mail_list.length == 0) return null; // 리스트에 메일이 있고
+    console.log($selected_tag_value);
+    if (!$selected_tag_value) return null; // 태그 선택 중이고
+    if (mail_list[0].id == "") return null; // 리스트에 메일이 있고
     const page_head = mail_list[0];   
     if (time_to_dateStr(page_head.time) == $dateString) return null;
     // 페이지가 바뀌면 첫 메일의 날짜로 이동한다.
     dateString.set(time_to_dateStr(page_head.time));
+    console.log(page_head)
 });
 
 let isListView = false;

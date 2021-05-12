@@ -1,9 +1,9 @@
-import { favorite_tag, member_tags, unread_tag } from "./stores/all_tag_dict";
+import { favorite_tag, member_tags } from "./stores/all_tag_dict";
 import {mail_to_tag_dict_to_json } from "./stores/mail_to_tag_dict";
 import {tag_to_mail_dict_to_entries } from "./stores/tag_to_mail_dict";
 
-export const SERVER_ROOT = "http://" + window.location.hostname + ":8000";
-
+export const SERVER_ROOT = "./";
+// "http://" + window.location.hostname + ":8000";
 const API_ROOT = SERVER_ROOT +"/api";
 
 async function get(url: string){

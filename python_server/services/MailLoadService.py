@@ -193,7 +193,7 @@ class MailLoadService:
                 await self.fetch_birthday_image(image_url, image_path)
 
                 # html 에서 src 를 새 로컬 파일 주소로 바꿔준다
-                new_html = new_html.replace(image_url, image_path)
+                new_html = new_html.replace(image_url, "../"+image_path)
                 write_html(pm.id, new_html)
 
                 body, images = remove_tag(new_html)
