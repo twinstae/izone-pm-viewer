@@ -21,7 +21,11 @@
 
 ## 사용방법
 
-0. 최신 버전으로 업데이트하고 싶은 분은 [업데이트용.zip](https://github.com/twinstae/izone-pm-viewer/raw/main/%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8%EC%9A%A9.zip)을 다운 받아서 output 폴더에 덮어쓰기 해주세요. index.html, __app.html, build 폴더를 최신화 해주면 됩니다.
+> 최신 버전으로 업데이트하고 싶은 분은 [업데이트용.zip](https://github.com/twinstae/izone-pm-viewer/raw/main/%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8%EC%9A%A9.zip)을 다운 받아서 output 폴더에 덮어쓰기 해주세요. index.html, __app.html, build 폴더를 최신화 해주면 됩니다.
+
+0. Python을 설치하지 않았다면, 설치해주세요. 윈도우7은 파이썬 3.8을 설치하면 됩니다.
+> 환경 변수 추가에 꼭꼭꼭꼭꼭 체크해주세요. 체크를 안 해주면 python 을 실행하지 못합니다.
+![](https://datatofish.com/wp-content/uploads/2018/10/0001_add_Python_to_Path.png)
 
 1. [IZ-PM-Viewer-배포.zip 다운 받기](https://github.com/twinstae/izone-pm-viewer/raw/main/IZ-PM-Viewer-%EB%B0%B0%ED%8F%AC.zip)
 압축 파일을 받아서 img와 mail이 있는 output 폴더에 풀어줍니다. 신형 서버도 받아서 output 폴더의 **위쪽** 폴더에 풀어줍니다. [신 서버 다운로드](https://github.com/twinstae/izone-pm-viewer/raw/main/%EC%84%9C%EB%B2%84-%EB%B0%B0%ED%8F%AC%EC%9A%A9.zip)
