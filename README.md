@@ -31,12 +31,21 @@
 
 - 최상위 폴더
   - FastAPI 설치.bat
-  - 서버 파일들
+  - routers
+  - services
+  - models
+  - notifypy
+  - fastApiServer.py
+  - constants.py
   - 신형 서버 시작하기.bat
+  - IZ-ONE Private Mail Viewer 바로가기
   - output
     - build
     - img
     - mail
+	- 초기 설정하기.bat
+	- index.html
+	- ... 기타 등등
     - (구 서버 시작하기는 폐기)
 
 ### output 폴더 사진
