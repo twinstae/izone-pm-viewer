@@ -4,6 +4,8 @@
 
 기술 스택 : FastAPI, httpx, pytest, Svelte, Tailwind CSS, Fuse(검색), cypress
 
+![](https://raw.githubusercontent.com/twinstae/izone-pm-viewer/main/%EA%B2%80%EC%83%89.png)
+
 ## 구현된 기능목록
 - 날짜로 찾기
 - 날짜별 메일 개수 표시
@@ -71,8 +73,6 @@
 
 > 에러 나면 알려주세요. F12 누르면 뜨는 개발자 창에서 Console 부분과, 검은 서버 cmd 창 스크린샷 찍어서 보여주시면 됩니다.
 > 이번에 다시 설치하는 분은 Ctrl + F5 로 캐시를 초기화하고 새로고침 해주세요.
-
-![](https://raw.githubusercontent.com/twinstae/izone-pm-viewer/main/%EA%B2%80%EC%83%89.png)
 
 ## FAQ
 ### 0. FileNotFoundError: No such file or directory: 'pm.js'
