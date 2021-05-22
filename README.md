@@ -23,46 +23,11 @@
 
 ## 사용방법
 
-> 최신 버전으로 업데이트하고 싶은 분은 [업데이트용.zip](https://github.com/twinstae/izone-pm-viewer/raw/main/%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8%EC%9A%A9.zip)을 다운 받아서 output 폴더에 덮어쓰기 해주세요. index.html, __app.html, build 폴더를 최신화 해주면 됩니다.
-
 0. Python을 설치하지 않았다면, 설치해주세요. 윈도우7은 파이썬 3.8을 설치하면 됩니다.
 > 환경 변수 추가에 꼭꼭꼭꼭꼭 체크해주세요. 체크를 안 해주면 python 을 실행하지 못합니다.
 ![](https://datatofish.com/wp-content/uploads/2018/10/0001_add_Python_to_Path.png)
 
-1. [IZ-PM-Viewer-배포.zip 다운 받기](https://github.com/twinstae/izone-pm-viewer/raw/main/IZ-PM-Viewer-%EB%B0%B0%ED%8F%AC.zip)
-압축 파일을 받아서 img와 mail이 있는 output 폴더에 풀어줍니다. 신형 서버도 받아서 output 폴더의 **위쪽** 폴더에 풀어줍니다. [신 서버 다운로드](https://github.com/twinstae/izone-pm-viewer/raw/main/%EC%84%9C%EB%B2%84-%EB%B0%B0%ED%8F%AC%EC%9A%A9.zip)
-> - 구 서버는 이제 없습니다. 신형 서버 시작하기를 이용하세요.
-> - 신 서버는 절대 output 폴더에 풀면 안 되고. 그 상위 폴더에 풀어줘야합니다.
-> - 신 서버를 쓰려면 배포.zip에 있는 초기 설정을 해줘야 합니다. 둘 다 받으세요.
-
-- 최상위 폴더
-  - FastAPI 설치.bat
-  - routers
-  - services
-  - models
-  - notifypy
-  - fastApiServer.py
-  - constants.py
-  - 신형 서버 시작하기.bat
-  - IZ-ONE Private Mail Viewer 바로가기
-  - output
-    - build
-    - img
-    - mail
-	- 초기 설정하기.bat
-	- index.html
-	- ... 기타 등등
-    - (구 서버 시작하기는 폐기)
-
-### 최상위 폴더 사진
-![](https://github.com/twinstae/izone-pm-viewer/raw/main/%EC%84%9C%EB%B2%84%20%ED%8F%B4%EB%8D%94.png)
-
-### output 폴더 사진
-![](https://github.com/twinstae/izone-pm-viewer/raw/main/%EC%98%88%EC%8B%9C.png)
-
-> 이때 새 폴더가 만들어지면 안 됩니다.
-> IZ-PM-Viewer-배포 폴더가 새로 생겼다면,
-> 폴더에 있는 파일을 모두 output으로 옮겨주세요.
+1. 바탕화면 등에 폴더를 만들고 그 안에 [뷰어-서버-통합-배포.zip](https://github.com/twinstae/izone-pm-viewer/raw/main/%EB%B7%B0%EC%96%B4-%EC%84%9C%EB%B2%84-%ED%86%B5%ED%95%A9-%EB%B0%B0%ED%8F%AC.zip) 을 받아서 압축을 풀어주세요. 
 
 2. 초기 설정하기.bat 파일을 실행하면 필요한 pm_list.json과 member_name.json을 알아서 생성해줍니다. 신 서버에 필요한 FastAPI 관련 라이브러리도 모두 설치해줍니다.
 > - Mac이나 리눅스는 초기 설정하기.sh.command 파일을 실행해주면 됩니다.
