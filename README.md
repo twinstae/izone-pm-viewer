@@ -4,6 +4,12 @@
 
 기술 스택 : FastAPI, httpx, pytest, Svelte, Tailwind CSS, Fuse(검색), cypress
 
+[뷰어 통합본본 다운로드](https://github.com/twinstae/izone-pm-viewer/raw/main/%EB%B7%B0%EC%96%B4-%EC%84%9C%EB%B2%84-%ED%86%B5%ED%95%A9-%EB%B0%B0%ED%8F%AC.zip)
+
+## 사용방법
+
+[프메 백업, 뷰어 풀 가이드 노션](https://vo.la/프메백업)
+
 ![](https://raw.githubusercontent.com/twinstae/izone-pm-viewer/main/%EA%B2%80%EC%83%89.png)
 
 ## 구현된 기능목록
@@ -20,7 +26,3 @@
 - 단축키
 - 프로필 사진 수정
 - 자동 업데이트 (예정)
-
-## 사용방법
-
-[프메 백업, 뷰어 풀 가이드 노션](https://vo.la/프메백업)
