@@ -105,6 +105,4 @@ output 폴더에 원래 백업한 폴더의 img폴더, mail폴더, pm.js를 복�
 *IZ-ONE Private Mail Viewer 바로가기* 아이콘을 클릭하시면 뷰어가 열립니다.
 이제 웨일, 크롬, 사파리 등의 웹 브라우저로 주소창에 http://127.0.0.1:8000 을 치셔서 서버에 직접 접속하실 수도 있습니다.
 
-[프메 백업, 뷰어 풀 가이드 노션](https://vo.la/프메백업)
-
 ![](https://raw.githubusercontent.com/twinstae/izone-pm-viewer/main/%EA%B2%80%EC%83%89.png)
