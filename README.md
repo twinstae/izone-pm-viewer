@@ -82,13 +82,11 @@ output 폴더에 원래 백업한 폴더의 img폴더, mail폴더, pm.js를 복�
 
 > 권한 문제로 실행이 안 되시는 경우 [프메 백업 뷰어 상담소 카카오톡](https://open.kakao.com/o/gPbArZ4c)을 방문해주세요.
 
-
-### 3. 서버를 시작하고 뷰어를 실행합니다.
-
-
 > 다운로드와 초기 설정에 1~5 분 정도 시간이 걸립니다.
 
 ![](https://github.com/twinstae/izone-pm-viewer/raw/main/%EC%A0%95%EC%83%81%EC%A0%81%EC%9C%BC%EB%A1%9C%20%EC%B4%88%EA%B8%B0%20%EC%84%A4%EC%A0%95%EC%97%90%20%EC%84%B1%EA%B3%B5%ED%95%9C%20%EA%B2%BD%EC%9A%B0.png)
+
+### 3. 서버를 시작하고 뷰어를 실행합니다.
 
 신형 서버 시작하기 스크립트를 실행하면 서버가 시작됩니다.
 정상적으로 서버가 실행 중이면 Uvicorn running on 과 같은 메세지가 뜹니다.
