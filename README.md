@@ -90,13 +90,15 @@ output 폴더에 원래 백업한 폴더의 img폴더, mail폴더, pm.js를 복�
 
 ![](https://github.com/twinstae/izone-pm-viewer/raw/main/%EC%A0%95%EC%83%81%EC%A0%81%EC%9C%BC%EB%A1%9C%20%EC%B4%88%EA%B8%B0%20%EC%84%A4%EC%A0%95%EC%97%90%20%EC%84%B1%EA%B3%B5%ED%95%9C%20%EA%B2%BD%EC%9A%B0.png)
 
-![](https://github.com/twinstae/izone-pm-viewer/blob/main/%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%97%90%EB%9F%AC.png?raw=true)
-
 신형 서버 시작하기 스크립트를 실행하면 서버가 시작됩니다.
 정상적으로 서버가 실행 중이면 Uvicorn running on 과 같은 메세지가 뜹니다.
 ![](https://github.com/twinstae/izone-pm-viewer/raw/main/%EC%A0%95%EC%83%81%20%EC%9E%91%EB%8F%99%20%EC%A4%91%EC%9D%B8%20%EC%84%9C%EB%B2%84.png)
 
-혹시 이런 식으로 Python만 덩그러니 뜬다면 환경 변수 설정이 안 된 겁니다. 파이썬을 재설치하면서 환경변수 설정을 해주시거나. 인터넷에 파이썬 환경 변수 설정을 검색해보세요.
+
+혹시 Python만 덩그러니 뜬다면 환경 변수 설정이 안 된 겁니다. 파이썬을 재설치하면서 환경변수 설정을 해주시거나. 인터넷에 파이썬 환경 변수 설정을 검색해보세요.
+
+![](https://github.com/twinstae/izone-pm-viewer/blob/main/%ED%8C%8C%EC%9D%B4%EC%8D%AC%20%EC%97%90%EB%9F%AC.png?raw=true)
+
 
 > 해결이 안 된다면 [프메 백업 뷰어 상담소 카카오톡](https://open.kakao.com/o/gPbArZ4c)을 방문해주세요.
 
