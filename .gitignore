@@ -6,6 +6,8 @@ src/tmp/
 .netlify
 assets/
 assets/pm_list.json
+assets/mail_body_dict.json
+assets/image_list.json
 .vercel
 src/pages/example
 python_server/.idea

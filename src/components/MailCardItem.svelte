@@ -1,5 +1,4 @@
 <script lang="ts">
-import {image_root} from "../stores/constants";
 import Tag from './tags/Tag.svelte';
 import TimeStampTag from './tags/TimeStampTag.svelte';
 import FavoriteHeart from './FavoriteHeart.svelte';
@@ -11,7 +10,7 @@ import MemberProfileImg from "./MemberProfileImg.svelte";
 import { goto, params } from "@roxi/routify";
 import { fade } from "svelte/transition";
 import { all_tag_dict } from "../stores/all_tag_dict";
-import { dark, dynamic_dark_bg, replaceWizone } from "../stores/preferences";
+import { dark, replaceWizone } from "../stores/preferences";
 import { SERVER_ROOT } from "../api";
 
 export let pm: MailT;
@@ -27,23 +26,95 @@ $: getTags = (pm: MailT) => {
 }
 
 $: onMailSelected = ()=>{
-    if(pm){
+    if(pm && pm.member){
         $now_pm=pm;
         $show_list = false;
         $goto("./", { ...$params, showList: $show_list, now_pm: $now_pm.id});
     }
 }
 
-$: sliced_preview = pm.preview.replace('&gt;','>').replace('&lt;', '<').slice(0, 45);
-$: processed_preview = $replaceWizone(sliced_preview);
+$: processed_preview = $replaceWizone(pm.body || "")
+    .replace(/<\/p>/g, ' ')
+    .replace(/<br>/g, ' ')
+    .replace(/<[^>]+>/g, '')
+    .replace('&lt;', '<').replace('&lt', '<')
+    .replace('&gt;','>').replace('&gt','>')
+    .replace(/&nbsp;/g, "")
+    .replace(/&amp;/g, "&")
+    .replace(/\{이미지\}/g, '')
+    .slice(0, 70)
+
+$: sliced_preview = [...processed_preview].slice(0, 50).join("")
+
 
 </script>
+
+<div
+  id="MailCard-{index}"
+  class:EmptyCard={!pm.member}
+  class:Unread={$is_unread(pm.id)}
+  class:dark={$dark}
+  class:selected={pm.id == $now_pm.id}
+  class="MailCard relative overflow-y-auto blur shadow-md rounded-md"
+  on:click={onMailSelected}>
+    <FavoriteHeart pm_id={pm.id}/>
+    {#key pm.id}
+    <div in:fade={{ duration: 500 }} class="leading-relaxed blur">
+    {#if pm.member}
+      {#if $isDesktop}
+          <MemberProfileImg member={pm.member}/>
+          <h4 class="font-semibold truncate"> {pm.subject}</h4>
+          <MemberTag member_name={pm.member}/>
+          <TimeStampTag time={pm.time} />
+          {#each getTags(pm) as tag_item}
+             <Tag tag={tag_item} /> 
+          {/each}
+          <p class="text-sm">
+            {#if pm.images.length > 0}
+                <svg class="w-16 h-16 m-1 float-left rounded">
+                    <image width="100%" height="100%"
+                    preserveAspectRatio="xMidYMid slice"
+                    xlink:href="{SERVER_ROOT}/{pm.images[0].split('.')[0]}_tmb.jpg"/>
+                </svg>
+            {/if}
+            {sliced_preview}
+          </p>
+      {:else}
+        {#if pm.images.length > 0}
+          <svg class="w-16 h-16 m-1 float-left rounded">
+              <image width="100%" height="100%"
+              preserveAspectRatio="xMidYMid slice"
+              xlink:href="{SERVER_ROOT}/{pm.images[0].split('.')[0]}_tmb.jpg"/>
+          </svg>
+        {:else}
+          <MemberProfileImg member={pm.member} />
+        {/if}
+        <h4 class="font-semibold">{pm.subject}</h4>
+        <MemberTag member_name={pm.member}/>
+        <TimeStampTag time={pm.time} />
+        {#each getTags(pm) as tag_item}
+          <Tag tag={tag_item} />
+        {/each}
+        <p class="text-xs mt-1 truncate">
+          {sliced_preview}
+        </p>
+      {/if}
+    {/if}
+    </div>
+    {/key}
+</div>
+
+
+
+
 <style>
   div.EmptyCard {
+    background-image: url(../img/izone-logo-card.png);
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
   }
+
   div.Unread::before {
     content: "●";
     color: #f06d9c;
@@ -51,9 +122,27 @@ $: processed_preview = $replaceWizone(sliced_preview);
     top: -1px;
     text-shadow: 1px 1px 5px gray;
   }
+
   div.MailCard {
-    width: 276px;
-    height:156px;
+    margin: 0.25rem;
+    padding: 0.25rem;
+    height: 85px;
+    width: 100%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 0.5rem;
+    background-color: white;
+  }
+
+  @media (min-width:700px) {
+    div.MailCard {
+      width: 290px;
+      height:140px;
+    }
+  }
+
+  div.MailCard.dark {
+    color: rgb(209, 213, 219);
+    background-color: #202932;
   }
   
   @keyframes blink {
@@ -61,81 +150,13 @@ $: processed_preview = $replaceWizone(sliced_preview);
     100% {transform: scale(0.99, 0.99);}
   }
 
-  .selected {
+  .MailCard.selected {
     animation: blink 1s linear infinite alternate;
+    border: 2px solid pink
   }
+
+  .MailCard.selected.dark {
+    border: 2px solid gray
+  }
+
 </style>
-
-
-{#if $isDesktop}
-<div
-  id="MailCard-{index}"
-  style="{!pm.member ? `background-image: url(${image_root}izone-logo-card.png);`:''}"
-  class:EmptyCard={!pm.member}
-  class:Unread={$is_unread(pm.id)}
-  class="MailCard
-         m-2 p-1
-         relative overflow-y-auto
-         {$dynamic_dark_bg('bg-white')}
-         {pm.id == $now_pm.id ? 'selected border-2 ' + ($dark ? 'border-gray-500' : 'border-red-200') : ''}
-         shadow-md rounded-md"
-  on:click={onMailSelected}>
-    {#key pm.id}
-    <div in:fade={{ duration: 500 }} class="leading-relaxed blur">
-    {#if pm.member}
-        <FavoriteHeart pm_id={pm.id}/>
-        <MemberProfileImg member={pm.member}/>
-        <h4 class="text-lg"> {pm.subject}</h4>
-        <MemberTag member_name={pm.member}/>
-        <TimeStampTag time={pm.time} />
-        {#each getTags(pm) as tag_item}
-            <Tag tag={tag_item} />
-        {/each}
-    
-        <p class="text-sm">
-            {#if pm.images.length > 0}
-                <svg class="w-16 h-16 m-1 float-left rounded">
-                    <image width="100%" height="100%"
-                    preserveAspectRatio="xMidYMid slice"
-                    xlink:href="{SERVER_ROOT}/{pm.images[0]}"/>
-                </svg>
-            {/if}
-            {processed_preview}
-        </p>
-    {/if}
-    </div>
-    {/key}
-</div>
-{:else}
-<div
-  id="MailCard-{index}"
-  style="height:100px;"
-  class:EmptyCard={!pm.member}
-  class:Unread={$is_unread(pm.id)}
-  class="m-1 p-1 w-full relative overflow-y-auto blur
-          {pm.id == $now_pm.id ? 'border-2 ' + ($dark ? 'border-gray-500' : 'border-red-200') : ''}
-          {$dynamic_dark_bg('bg-white')}
-          shadow-md rounded-md">
-    {#key pm.id}
-    <div in:fade={{ duration: 500 }} class="leading-relaxed">
-    {#if pm.member}
-        {#if pm.images.length > 0}
-          <img src="{SERVER_ROOT}/{pm.images[0]}" alt=""
-            class="w-14 m-1 float-left rounded">
-        {/if}
-        <FavoriteHeart pm_id={pm.id}/>
-        <h4 on:click={onMailSelected}>{pm.subject}</h4>
-        <MemberTag member_name={pm.member}/>
-        <TimeStampTag time={pm.time} />
-        {#each getTags(pm) as tag_item}
-            <Tag tag={tag_item} />
-        {/each}
-    
-        <p class="text-xs mt-1" on:click={onMailSelected}>
-        {processed_preview}
-        </p>
-    {/if}
-    </div>
-    {/key}
-</div>
-{/if}

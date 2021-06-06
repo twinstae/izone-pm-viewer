@@ -1,27 +1,29 @@
 <script lang="ts">
 import { goto, params } from "@roxi/routify";
 import { dateString, date_to_str, str_to_date, time_to_dateStr } from "../stores/date";
-import { isMobile, now_page, now_pm, pm_list, show_list } from "../stores/now";
-import { dark, dynamic_dark_bg, dynamic_dark_border } from "../stores/preferences";
-import { selected_tag_value } from "../stores/tag";
+import { isMobile, now_page, now_pm, show_album, show_list } from "../stores/now";
+import { dark, dynamic_dark_bg, dynamic_dark_border, reverse } from "../stores/preferences";
+import { favorite, selected_tag_value } from "../stores/tag";
 import PinkButton from "./buttons/PinkButton.svelte";
 import Datepicker from "./datepicker/Datepicker.svelte";
 import Icon from 'fa-svelte';
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons/faArrowRight";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons/faArrowLeft";
-import { filtered_list } from "../stores/search";
-import { favorite, is_unread } from "../stores/tag_to_mail_dict";
+import { faRandom } from "@fortawesome/free-solid-svg-icons/faRandom";
+import { filtered_list, pm_list_after_search } from "../stores/search";
+import { is_unread } from "../stores/tag_to_mail_dict";
+import { _ } from 'svelte-i18n';
+import t from '../locales';
 
 export let maxPage: number;
 export let parent_width: number;
 export let mail_per_page: number;
 
-$: overflow = parent_width < 450;
+$: overflow = parent_width < 520;
 
 function toYesterday(){
     if ($selected_tag_value){
-        if($now_page<maxPage)$now_page+=1;
-        return null;
+        return $reverse ? goToPreviousPage() : goToNextPage();
     }
     const [year, month, day] = $dateString.split("-").map(s=>parseInt(s))
     const yesterday = new Date(year, month -1, day-1); 
@@ -33,9 +35,9 @@ function toYesterday(){
 
 function toTomorrow(){
     if ($selected_tag_value){
-        if($now_page>1)$now_page-=1;
-        return null;
+        return $reverse ? goToNextPage() : goToPreviousPage();
     }
+
     const [year, month, day] = $dateString.split("-").map(s=>parseInt(s))
     const tomorrow = new Date(year, month -1, day+1); 
     if (tomorrow > new Date()){
@@ -73,6 +75,22 @@ function goToPreviousPage(){
     }
 }
 
+function onPageChange(e){
+  if (e.target.value == 0) return null;
+
+  setTimeout(()=>{
+    if ($now_page != parseInt($params.nowPage)){
+      $goto("./", {...$params, nowPage: $now_page});
+    }
+  }, 100)
+}
+
+show_album.subscribe(v=>{
+  if (!v){
+    goToNewDate(str_to_date($dateString))
+  }
+})
+
 params.subscribe(p=>{
     const new_page = parseInt(p.nowPage);
     if($now_page != new_page){
@@ -88,12 +106,13 @@ $: isMaxPage = maxPage<=$now_page;
 
 
 function onKeydown(e: KeyboardEvent){
-  console.log(e.key, e.code);
   if(document.activeElement.className.includes("calendar-button")) return null;
+  if(document.activeElement.id == 'EditBody') return null;
   if(document.activeElement.tagName == "INPUT") {
     if (e.key == "Escape") return document.activeElement.blur();
     return null;
   }
+  console.log(e.key, e.code);
   if (e.key == "ArrowRight" || e.key == "l") return goToNextMail();
   if (e.key == "ArrowLeft" || e.key == "h") return goToPreviousMail();
   if (e.key == "ArrowDown" || e.key == "j") return scrollUpDown(200);
@@ -150,31 +169,24 @@ function focusById(element_id: string){
 }
 
 function goToNextMail(){
-  const now_index = getNowMailIndex();
-  if(now_index + 1 >= $filtered_list.length) return alert("마지막 메일입니다.");
+  const now_index = getNowMailIndex() + 1;
+  if(!$selected_tag_value && now_index >= $filtered_list.length) return goToNextPage();
 
-  $now_pm = $filtered_list[now_index + 1];
-
-  if ($now_page + 1 <= maxPage && now_index + 1 >= mail_per_page * $now_page){
-    $now_page+=1
-    $goto("./", {...$params, now_pm: $now_pm.id, nowPage: $now_page});
-  } else {
-    $goto("./", { ...$params, now_pm: $now_pm.id });
-  }
+  now_pm.set($filtered_list[now_index]);
+  goToNowMailPage();
 }
 
 function goToPreviousMail(){
-  const now_index = getNowMailIndex();
-  if(now_index - 1 < 0) return alert("첫 번째 메일입니다.");
+  const raw_index = getNowMailIndex();
+  if(!$selected_tag_value && raw_index == 0) return goToPreviousPage();
 
-  $now_pm = $filtered_list[now_index - 1];
+  const now_index = raw_index == -1
+    ? $filtered_list.length - 1
+    : raw_index - 1;
 
-  if ($now_page - 1 > 0 && now_index <= mail_per_page * ($now_page-1)){
-    $now_page-=1
-    $goto("./", {...$params, now_pm: $now_pm.id, nowPage: $now_page});
-  } else {
-    $goto("./", { ...$params, now_pm: $now_pm.id });
-  }
+  $now_pm = $filtered_list[now_index];
+
+  goToNowMailPage();
 }
 
 function getNowMailIndex(){
@@ -183,24 +195,29 @@ function getNowMailIndex(){
 
 function goToRandomMail(){
   const random_pm = getRandomMail();
+  dateString.set(time_to_dateStr(random_pm.time));
   now_pm.set(random_pm);
+  
   show_list.set(false);
-  $goto("./", {
-    ...$params,
-    now_pm: random_pm.id,
-    dateString: time_to_dateStr(random_pm.time),
-    nowPage:1,
-    showList: false
-  });
+  goToNowMailPage();
 }
 
 function getRandomMail(): MailT{
-  const result = $pm_list[Math.floor(Math.random() * $pm_list.length)];
-  return result.member != "운영팀" ? result : getRandomMail();
+  if ($selected_tag_value){
+    const i = Math.floor(Math.random() * $filtered_list.length)
+    return $filtered_list[i];
+  } else {
+    const result = $pm_list_after_search[Math.floor(Math.random() * $pm_list_after_search.length)];
+    return result.member != "운영팀" ? result : getRandomMail();
+  }
 }
 
 function onDateSelected(e: CustomEvent){
   const new_date = e.detail.date;
+  goToNewDate(new_date)
+}
+
+function goToNewDate(new_date){
   if ($selected_tag_value == null || $selected_tag_value == ""){
     now_page.set(1);
     $goto("./", {...$params, dateString: date_to_str(new_date), nowPage: 1});
@@ -213,7 +230,7 @@ function onDateSelected(e: CustomEvent){
 
       const mail_date_str = time_to_dateStr(mail.time);
       const mail_date = str_to_date(mail_date_str);
-      if (mail_date <= new_date){
+      if ($reverse ? new_date <= mail_date : mail_date <= new_date){
           const new_page = Math.ceil((i+1) / mail_per_page)
           now_page.set(new_page);
           dateString.set(mail_date_str);
@@ -232,6 +249,28 @@ function onDateSelected(e: CustomEvent){
   }
 }
 
+function onReverseButtonClick(_){
+  reverse.update(v=> !v);
+
+  goToNowMailPage();
+}
+
+function goToNowMailPage(){
+  const now_index = $filtered_list.map(pm=>pm.id).indexOf($now_pm.id);
+  if (now_index == -1){
+    $now_page = 1
+    $goto("./", {...$params, nowPage: $now_page, now_pm: $now_pm});
+  } else {
+    const expected_page = Math.floor((now_index) / mail_per_page) + 1
+    $now_page = expected_page
+    $goto("./", {...$params,
+      nowPage: $now_page,
+      now_pm: $now_pm.id,
+      dateString: time_to_dateStr($now_pm.time),
+      showList: $show_list
+    });
+  }
+}
 
 </script>
 
@@ -251,12 +290,13 @@ class:border-red-700={isMaxPage}>
     <input
     id="NowPageInput"
     type="number"
-    class="w-9 
+    class="w-12
     {isMaxPage
         ? ($dark ? 'text-gray-300 bg-red-600 ' : 'bg-red-300 ') + 'border-red-700'
         : $dynamic_dark_bg('bg-white')}"
     bind:value={$now_page}
     on:keydown={onPageInputKeyDown}
+    on:change={onPageChange}
     min={1} max={maxPage}>
     <span>/ {maxPage}</span>
 </span>
@@ -266,7 +306,7 @@ class:border-red-700={isMaxPage}>
 </PinkButton>
 
 <PinkButton id="RandomMailButton" onClick={goToRandomMail} tooltip="r ('R'andom)">
-  <span>🔀</span>
+  <Icon icon={faRandom} />
 </PinkButton>
 
 {#if overflow}<br/>{/if}
@@ -281,7 +321,7 @@ class:border-red-700={isMaxPage}>
   selected={str_to_date($dateString)}
   bind:formattedSelected={$dateString}
   format={"#{Y}-#{m}-#{d}"}
-  start={new Date(2019 , 1 -1, 18)} end={new Date()}
+  start={new Date(2018 , 8 -1, 31)} end={new Date()}
   buttonTextColor={$dark ? "#ddd" : "black"}
   dayTextColor={$dark ? "#ddd" : "white"}
   buttonBorderColor={$dark ? "rgb(55, 65, 81)" : "rgb(243, 244, 246)"}
@@ -294,4 +334,8 @@ class:border-red-700={isMaxPage}>
 
 <PinkButton id="toTomorrowButton" onClick={toTomorrow} tooltip="t ('T'omorrow)">
     <Icon icon={faArrowRight} />
+</PinkButton>
+
+<PinkButton id="ReverseButton" onClick={onReverseButtonClick}>
+  {$reverse ? $_(t["오래된 순"]) : $_(t["최신순"]) }
 </PinkButton>

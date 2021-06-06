@@ -60,7 +60,19 @@ export const member_name_dict = {
     12:"운영팀"
 }
 
-export const base_tag_set = new Set(["💖", "장원영", "미야와키 사쿠라", "조유리", "최예나", "안유진", "야부키 나코", "권은비", "강혜원", "혼다 히토미", "김채원", "김민주", "이채연", "운영팀", "생일"]);
+export const base_tag_set = new Set(["💖", "장원영", "미야와키 사쿠라", "조유리", "최예나", "안유진", "야부키 나코", "권은비", "강혜원", "혼다 히토미", "김채원", "김민주", "이채연", "운영팀", "생일", "읽지 않음", "전체"]);
 
 export const image_root = SERVER_ROOT + "/img/";
 export const mail_root = SERVER_ROOT + "/mail/";
+
+export const EMPTY_MAIL: MailT = {
+    id: "",
+    member: "",
+    nick: "",
+    time: "",
+    subject: "",
+    preview: "",
+    body: "",
+    images: [],
+    videos: []
+}

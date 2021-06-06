@@ -7,6 +7,8 @@ import { tag_to_mail_dict } from "../../stores/tag_to_mail_dict";
 import { mail_to_tag_dict } from "../../stores/mail_to_tag_dict";
 import api from "../../api";
 import { dynamic_dark_bg, dynamic_dark_border} from "../../stores/preferences";
+import { _ } from "svelte-i18n";
+import { t } from "../../locales";
 
 $: new_tag = {
     value: $tag_input,
@@ -58,7 +60,7 @@ function onKeyPress(e:KeyboardEvent){
 <span class="tooltip">
   <input type="text" id="TagInput"
   class="border-2 p-1 rounded w-16 text-xs {$dynamic_dark_bg("bg-white")} {$dynamic_dark_border}"
-  placeholder="새 태그"
+  placeholder="{$_(t.새태그)}"
   bind:value={$tag_input}
   on:keypress={onKeyPress}>
   <span class="tooltiptext">a ("A"dd tag)</span>
@@ -67,5 +69,5 @@ function onKeyPress(e:KeyboardEvent){
 <button id="AddTagButton"
 on:click={addTag}
 class="text-xs text-black shadow rounded bg-red-400 p-1 m-1">
-    추가
+  {$_(t.추가)}
 </button>

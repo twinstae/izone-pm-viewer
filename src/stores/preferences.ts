@@ -10,6 +10,8 @@ function initStrPref(key: string, default_value: string){
     return default_value;
 }
 
+export let reverse: Writable<boolean> = writable(false);
+
 export let profile: Writable<string> = writable(initStrPref(PROFILE_KEY, "latest"));
 
 profile.subscribe((value: string)=>{

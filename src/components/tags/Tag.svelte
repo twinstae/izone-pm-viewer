@@ -1,5 +1,5 @@
 <script lang="ts">
-import { onDeleteTag } from "../../stores/tag_to_mail_dict";
+import { onDeleteTag } from "../../stores/tag";
 import { selected_tag_value } from "../../stores/tag";
 import { goto, params } from "@roxi/routify";
 import { getContext } from "svelte";
@@ -13,6 +13,8 @@ import { faInstagram } from '@fortawesome/free-brands-svg-icons/faInstagram';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons/faYoutube';
 import {faStar} from '@fortawesome/free-solid-svg-icons/faStar';
 import { dark } from "../../stores/preferences";
+import t from "../../locales";
+import { _ } from "svelte-i18n";
 
 export let tag: TagT;
 export let canDelete = false;
@@ -38,9 +40,9 @@ $: onTouchDown = ()=>{
     }
 
     if(base_tag_set.has(tag.value)){
-        timeout = setTimeout(()=>{console.log("기본 태그는 아직 수정할 수 없습니다.")}, 300)
+        timeout = setTimeout(()=>{console.log("기본 태그는 아직 수정할 수 없습니다.")}, 800)
     } else {
-        timeout = setTimeout(()=>{open(TagModal, { tag: tag})}, 300);
+        timeout = setTimeout(()=>{open(TagModal, { tag: tag})}, 800);
     }
 };
 $: onTouchUp = (_: Event) =>{ clearTimeout(timeout); }
@@ -52,7 +54,7 @@ const iconDict = new Map([
     ["유튜브", faYoutube],
 ]);
 
-$: padding = tag.color=="#fff" ? "border-gray-300 border-2 p-0.5 pt-0 pb-0" : "p-1 pt-0.5 pb-0.5";
+$: padding = tag.color=="#fff" ? "border-gray-300 border-2 pl-0.5" : "pl-1 p-0.5";
 
 $: backgroud_color = tag.value=="타임캡슐" ? "#555" : tag.color;
 $: dark_bg_color = member_color_to_dark_dict[backgroud_color];
@@ -103,19 +105,20 @@ $: style = tag.color=="rainbow"
   on:pointerdown={onTouchDown}
   on:pointerup={onTouchUp}
   on:click={onSelectTag(tag)}
-  class="Tag-{tag.value.replace(' ', '-')} text-{size}">
+  class="Tag-{tag.value.replace(' ', '-')}">
       {#if tag.value=="💖"}
           <Icon icon={faStar} />
       {:else}
-          {#if iconDict.has(tag.value)}
-          <Icon
-          class="mb-1 text-white"
-          icon={icon} />
-          {/if}
-      {tag.value}
+        {#if iconDict.has(tag.value)}
+            <Icon
+            class="mb-1 text-white"
+            icon={icon} />
+            {t.hasOwnProperty(tag.value) ? $_(t[tag.value]) : tag.value}
+        {:else}
+          {t.hasOwnProperty(tag.value) ? $_(t[tag.value]) : tag.value}
+        {/if}
       {/if}
   </span>
-
   {#if onRemove || (canDelete && tag.value!="생일")}
     <span
       on:click={onRemove ? onRemove : () => $onDeleteTag(tag)}
@@ -123,5 +126,4 @@ $: style = tag.color=="rainbow"
     X
     </span>
   {/if}
-
 </span>

@@ -6,20 +6,21 @@ import FavoriteHeart from './FavoriteHeart.svelte';
 import MemberTag from './tags/MemberTag.svelte';
 import { now_pm, isDesktop, show_list, isMobile, pm_list } from '../stores/now';
 import { mail_to_tag_dict } from "../stores/mail_to_tag_dict";
-import { is_unread, onDeleteTag } from "../stores/tag_to_mail_dict";
+import { is_unread } from "../stores/tag_to_mail_dict";
+import { onDeleteTag } from "../stores/tag";
 import MemberProfileImg from './MemberProfileImg.svelte';
 import { fade } from 'svelte/transition';
 import { goto, params } from '@roxi/routify';
 import { all_tag_dict, unread_tag } from '../stores/all_tag_dict';
-import { dynamic_dark_bg, wizoneNick, replaceWizone } from '../stores/preferences';
+import { dynamic_dark_bg, wizoneNick, replaceWizone, dark } from '../stores/preferences';
 import { afterUpdate, getContext } from 'svelte';
 import NickModal from './modals/NickModal.svelte';
 import PinkButton from './buttons/PinkButton.svelte';
 import ImageModal from './modals/ImageModal.svelte';
 import { SERVER_ROOT } from '../api';
 import { search_input } from '../stores/search';
-
-export let show: boolean;
+import { _ } from 'svelte-i18n';
+import t from '../locales';
 
 params.subscribe(p=>{
     if ($now_pm.id != p.now_pm){
@@ -41,40 +42,23 @@ $: getTags = (pm: MailT) => {
 
 $: now_tags = getTags($now_pm);
 
-const rainbow = `background-image: linear-gradient(
-    to right,
-    #f1d2e7,#f1c3aa,#e382a9, #e18784,
-    #f3aa51, #fcf695, #fff,#cee5d5,
-    #a7e0e1, #b7d3e9, #bbb0dc, #7592d7);
-    `;
-
 function replaceImages(html: string){
   return $now_pm.images
     .reduce((body, img)=>
         body.replace(
         "{이미지}",
-        `<img src="${SERVER_ROOT}/${img}" class="MailImage" style="max-width:100%;display:block;margin-left:auto;margin-right:auto; margin-top:8px;">`
+        `<img src="${SERVER_ROOT}/${img}" class="MailImage rounded" style="max-width:100%;display:block;margin-left:auto;margin-right:auto; margin-top:8px;">`
     ), html)
     .replace(/\n\n/g, "<br/>").replace(/\n/g, "<br/>");
 
 }
 
-function replaceVideos(html: string){
-  return $now_pm.videos
-    ? $now_pm.videos
-      .reduce((body, video)=>
-        body.replace(
-          "{비디오}",
-          `<video controls><source src="${SERVER_ROOT}/${video}" type="video/mp4"> </video>`
-        )
-      , html)
-    : html;
-}
-
 $: replaceWizoneTag = (html: string) => $wizoneNick
     ? $replaceWizone(html).replace(
         new RegExp($wizoneNick.replace(/[*]/g, '\\$&'), "g"),
-        `<span class="wizone rounded p-0.5" style="${rainbow} color: black;">${$wizoneNick}</span>`
+        `<span class="wizone rounded-lg ${$dark ? 'bg-gray-800 text-gray-200' : 'bg-white text-black'}">
+          ${$wizoneNick}
+         </span>`
       )
     : html;
 
@@ -86,8 +70,7 @@ $: replaceMark = (html: string) => $search_input
     : html;
 
 $: html_with_images = replaceImages($now_pm.body);
-$: html_with_images_and_videos = replaceVideos(html_with_images);
-$: html_with_wizone = replaceWizoneTag(html_with_images_and_videos);
+$: html_with_wizone = replaceWizoneTag(html_with_images);
 $: html_body = replaceMark(html_with_wizone);
 
 $: marked_subject = replaceMark($now_pm.subject);
@@ -95,7 +78,7 @@ $: marked_subject = replaceMark($now_pm.subject);
 now_pm.subscribe((_)=>{
     setTimeout(()=>{
       const div: HTMLElement = document.getElementById("MailDetailCardContent");
-      if(div) div.scrollTo({top: 0, behavior: 'smooth'});
+      if(div) div.scrollTo({top: 0});
     }, 100);
 })
 
@@ -130,22 +113,25 @@ function readMail(){
   $onDeleteTag(unread_tag);
 }
 
+ $: html_list = html_body.split('{비디오}');
+
 </script>
 
 <div
 id="MailDetailCard"
-   style="max-height: {$isDesktop && show ? '70%' : '90%'}; min-height:300px;"
 class="
 shadow-2xl rounded-md blur
 {$dynamic_dark_bg('bg-white')}
-w-full m-1 p-2
+w-full m-1 p-2 relative
 flex flex-col">
     <div
     id="MailDetailCardHeader"
     class="relative w-full leading-loose">
         <FavoriteHeart pm_id={$now_pm.id}/>
         <MemberProfileImg member={$now_pm.member}/>
-        <h4 class="text-xl w-4/5" bind:innerHTML="{marked_subject}" contenteditable="false">{$now_pm.subject}</h4>
+        <h4 class="w-full text-xl font-semibold" bind:innerHTML="{marked_subject}" contenteditable="false">
+          {$now_pm.subject}
+        </h4>
         <MemberTag member_name={$now_pm.member}  size="sm"/>
         <TimeStampTag time={$now_pm.time} size="sm"/>
         <br/>
@@ -156,21 +142,23 @@ flex flex-col">
     </div>
     <div
       id="MailDetailCardContent"
-      class="h-5/6 overflow-y-auto p-1">
+      class="overflow-y-auto">
       {#key $now_pm}
-      <div
-        class="leading-relaxed"
-        in:fade={{ duration: 300 }}
-        contenteditable=false
-        bind:innerHTML={html_body}>
-        <p>로딩 중</p>
-      </div>
+      {#each html_list as html, i}
+       <div class="leading-relaxed pt-2" in:fade={{ duration: 300 }} contenteditable=false bind:innerHTML={html}>
+       </div> 
+       {#if i < $now_pm.videos.length }
+          <video controls>
+            <source src="{SERVER_ROOT}/{$now_pm.videos[i]}" type="video/mp4">
+          </video>
+        {/if}
+      {/each}
       {/key}
       {#if $is_unread($now_pm.id)}
         <br>
         <div class="tooltip relative">
           <PinkButton id="ReadButton" onClick={readMail} strong={true}>
-            ✔️ 읽었어요!
+            ✔️ {$_(t.읽었어요)}!
           </PinkButton>
           <span class="tooltiptext">Space</span>
         </div>
@@ -179,8 +167,22 @@ flex flex-col">
     <div class="text-center w-full">
       {#if $isMobile}
         <PinkButton id="ReturnToListButton" onClick={returnToList} strong={true}>
-          목록으로 돌아가기📄
+          {$_(t.돌아가기)}📄
         </PinkButton>
       {/if}
     </div>
 </div>
+
+<style>
+  #MailDetailCard {
+    max-height: calc(100% - 3rem);
+    min-height: 300px;
+  }
+
+  @media all and (min-width:700px) {
+    #MailDetailCard {
+      max-height: calc(100% - 15rem);
+    }
+  }
+
+</style>

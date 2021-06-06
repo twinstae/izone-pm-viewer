@@ -1,3 +1,4 @@
+
 <!-- v0.9.0 -->
 
 <script context="module">
@@ -18,8 +19,8 @@
     import * as svelte from 'svelte';
     import { fade } from 'svelte/transition';
     import { createEventDispatcher } from "svelte";
-    import { dynamic_dark_bg } from '../../stores/preferences';
-  
+    import { dark, dynamic_dark_bg } from '../../stores/preferences';
+
     const dispatch = createEventDispatcher();
   
     const baseSetContext = svelte.setContext;
@@ -179,7 +180,6 @@
   
     .window-wrap {
       position: relative;
-      margin: 2rem;
       max-height: 100%;
     }
 
@@ -188,16 +188,16 @@
     }
 
     .large {
-      width: 64rem;
+      width: 40rem;
       background-color: transparent;
-      padding: 2rem;
+      padding: auto;
     }
   
     .window {
       position: relative;
       max-width: 100%;
       max-height: 100%;
-      margin: 2rem auto;
+      margin: 1rem auto;
       color: black;
       border-radius: 0.5rem;
     }
@@ -205,8 +205,12 @@
     .content {
       position: relative;
       padding: 1rem;
-      max-height: calc(100vh - 8rem);
+      max-height: calc(100vh - 2rem);
       overflow: auto;
+    }
+
+    .content.dark {
+      color: lightgray
     }
   
     .close {
@@ -228,6 +232,11 @@
       transition: transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1),
                   background 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
       -webkit-appearance: none;
+    }
+
+    .close.large {
+      top: 2rem;
+      right: 2rem;
     }
   
     .close:before, .close:after {
@@ -293,7 +302,7 @@
     >
       <div class="window-wrap" bind:this={wrap} style={cssWindowWrap}>
         <div
-          class="window {$dynamic_dark_bg('bg-white')} {state.large ? 'large' : 'basic'}"
+          class="window {$dynamic_dark_bg('bg-white')} {state.large ? 'large flex justify-center' : 'basic'}"
           role="dialog"
           aria-modal="true"
           bind:this={modalWindow}
@@ -302,6 +311,11 @@
           on:outrostart={onClose}
           on:introend={onOpened}
           on:outroend={onClosed}
+          on:click={()=>{
+            if(state.large){
+              close();
+            }
+          }}
           style={cssWindow}
         >
           {#if state.closeButton}
@@ -311,7 +325,7 @@
               <button on:click={close} class="close" style={cssCloseButton} />
             {/if}
           {/if}
-          <div class="content" style={cssContent}>
+          <div class="content" class:dark={$dark} style={cssContent}>
             <svelte:component this={Component} />
           </div>
         </div>

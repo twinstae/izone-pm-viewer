@@ -4,10 +4,10 @@ interface MailT {
     time: string;
     subject: string;
     preview: string;
-    body?: string;
-    images?: string[];
+    body: string;
+    images: string[];
     nick?: string;
-    videos?: string[];
+    videos: string[];
 };
 
 interface TagT {
@@ -18,4 +18,12 @@ interface TagT {
 interface ProfileT {
     path: string;
     name: string;
+}
+
+
+interface ImageT {
+    id: number;
+    date: string;
+    path: string;
+    pm_id: string;
 }

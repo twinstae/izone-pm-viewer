@@ -1,11 +1,16 @@
 <script lang="ts">
+import { _ } from "svelte-i18n";
+
 import api from "../../api";
+import t from "../../locales";
 import { all_tag_dict, EMPTY_TAG, favorite_tag, member_tags } from "../../stores/all_tag_dict";
 import { mail_to_tag_dict } from "../../stores/mail_to_tag_dict";
 import { selected_tag_value } from "../../stores/tag";
 import { tag_to_mail_dict } from "../../stores/tag_to_mail_dict";
 import PinkButton from "./PinkButton.svelte";
-
+import Icon from 'fa-svelte';
+import { faDownload } from "@fortawesome/free-solid-svg-icons/faDownload";
+import { faUpload } from "@fortawesome/free-solid-svg-icons/faUpload";
 
 const upload_tags = ()=>{
     api.AllTagDict.save($all_tag_dict);
@@ -83,6 +88,10 @@ const download_tags = () => {
     });
 };
 </script>
-<span>태그 동기화 : </span>
-<PinkButton id="DownloadTagsButton" onClick={download_tags} strong={true}>가져오기⬇️</PinkButton>
-<PinkButton id="UploadTagsButton"   onClick={upload_tags}   strong={true}>올리기⬆️  </PinkButton>
+<span>{$_(t.태그동기화)} : </span>
+<PinkButton id="DownloadTagsButton" onClick={download_tags} strong={true}>
+  {$_(t.가져오기)} <Icon icon={faDownload}/>
+</PinkButton>
+<PinkButton id="UploadTagsButton"   onClick={upload_tags}   strong={true}>
+  {$_(t.올리기)} <Icon icon={faUpload} />
+</PinkButton>

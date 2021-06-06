@@ -1,12 +1,18 @@
 <script lang="ts">
+import { _ } from "svelte-i18n";
+import t from "../../locales";
 import { show_tag_list } from "../../stores/now";
-import { dynamic_dark_bg } from "../../stores/preferences";
+
+import PinkButton from "../buttons/PinkButton.svelte";
+import Icon from 'fa-svelte';
+import {faBars} from '@fortawesome/free-solid-svg-icons/faBars';
+
+function onClick(){
+  show_tag_list.update(v=>!v)
+}
 
 </script>
 
-<label class="p-1 mr-1 rounded {$dynamic_dark_bg("bg-red-100")}" for="showTagListInput">
-    태그 목록
-    <input id="showTagListInput"
-    type=checkbox
-    bind:checked={$show_tag_list}>
-</label>
+<PinkButton id="showTagListInput" onClick={onClick}>
+  <Icon icon={faBars} />
+</PinkButton>

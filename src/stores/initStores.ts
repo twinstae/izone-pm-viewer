@@ -56,7 +56,7 @@ async function get_data(path: string){
         }
         if (e instanceof SyntaxError) {
             console.log("json 읽기 실패. 재시도합니다.");
-            return process(text.slice(2), 2);
+            return process(text, 1);
         }
         console.error(e);
     }
@@ -78,7 +78,9 @@ export async function initStores(): Promise<MailT[]>{
         const member_to_n_dict = values[1];
 
         const mail_to_num_dict: Map<string, number> = new Map(Object.entries(values[2]));
-        const mail_body_dict: Map<string, {body: string, images: string[], videos?: string[]}> = values[3];
+
+        type MailBody = {body: string, images: string[], videos?: string[]};
+        const mail_body_dict: Map<string, MailBody> = new Map(Object.entries(values[3]));
 
         const new_list: MailT[] = mail_list_data.map((pm: MailT, i: number)=>{
             if (i==0){now_pm.set(pm);} // 메일 초기화
@@ -98,7 +100,10 @@ export async function initStores(): Promise<MailT[]>{
                 console.log(pm.nick, pm.member);
             }
             if (mail_body_dict){
-                const {body, images, videos} = mail_body_dict[pm.id];
+                if(!mail_body_dict.has(pm.id)){
+                  alert(pm.id + "메일이 누락됐습니다.\n html 파일이 있는지 mail 폴더를 확인해주세요.\n 상담소 링크 : https://open.kakao.com/o/gPbArZ4c ");
+                }
+                const {body, images, videos} = mail_body_dict.get(pm.id);
                 pm.body = body;
                 pm.images = images || [];
                 pm.videos = videos || [];
@@ -129,7 +134,7 @@ export async function initStores(): Promise<MailT[]>{
             if(pm.id.slice(0,1) == "b"){
                 addTag(birthday_tag, pm);
             }
-        });
+        });        
 
         return new_list;
     });

@@ -1,20 +1,16 @@
 <script lang="ts">
-import { getContext } from "svelte";
-
+  import { getContext } from "svelte";
+  const {close} = getContext('simple-modal');
+  function onClick(){ close(); }
 
   export let src: string
-
-  const {close} = getContext('simple-modal');
-  function onClick(){
-    close();
-  }
 </script>
 <style>
   img {
     margin-left: auto;
     margin-right: auto;
     max-height: calc(100vh - 10rem);
-    border-radius: 1rem;
+    border-radius: 0.5rem;
   }
 </style>
 

@@ -1,6 +1,8 @@
 <script lang="ts">
 import { getContext } from "svelte";
+import { _ } from "svelte-i18n";
 import api from "../../api";
+import t from "../../locales";
 
 import { all_tag_dict } from "../../stores/all_tag_dict";
 import { member_color_to_dark_dict } from "../../stores/constants";
@@ -22,9 +24,9 @@ let choices = [
     {"value":"옌로우","color":"#fcf695"},
     {"value":"챈메랄드","color":"#a7e0e1"},
     {"value":"챔무","color":"#cee5d5"},
+    {"value":"백설민주","color":"#fff"},
     {"value":"나부키하늘","color":"#b7d3e9"},
     {"value":"토미베이지","color":"#f1c3aa"},
-    {"value":"백설민주","color":"#fff"},
     {"value":"율렌지","color":"#f3aa51"},
     {"value":"블루지니","color":"#567ace"},
     {"value":"캔디핑크","color":"#d9598c"},
@@ -52,6 +54,18 @@ $: onClick = ()=>{
    
     close();
 }
+
+
+const get_dark_text_color = (text_color)=>{
+  switch (text_color) {
+    case "#fff":
+      return "#333"
+    case "#fcf695":
+      return "#333"
+    default:
+      return "white"
+  }
+};
 </script>
 
 <style>
@@ -62,28 +76,31 @@ h3 {
 </style>
 
 <div style="text-align: center;">
-    <h3 class="{$dark ? 'text-gray-300': 'text-black'}">태그 수정</h3>
+  <h3 class="{$dark ? 'text-gray-300': 'text-black'}">
+    {$_(t.태그수정)}
+  </h3>
     <input type="text"
     id="TagUpdateInput"
     style="text-align: center;
-    background-color:{ $dark ? member_color_to_dark_dict[color] : color};"
-    class="{color=="#fff" ? "p-0 border-2 border-gray" : "p-0.5"}
+           background-color:{ $dark ? member_color_to_dark_dict[color] : color};
+           color: { $dark ? get_dark_text_color(color) : 'black'}"
+    class="{color=='#fff' ? 'p-0 border-2 border-gray' : 'p-0.5'}
     rounded m-3 pl-1 pr-1.5 w-20"
     bind:value={value}>
 </div>
 <div class="flex flex-wrap p-1">
     {#each choices as choice}
     <label
-    style="background-color:{ $dark ? member_color_to_dark_dict[choice.color] : choice.color}"
-    class="{choice.color=="#fff" ? "p-0 border-2 border-gray" : "p-0.5"}
-    rounded m-0.5 pl-1 pr-1.5">
+      style="background-color:{ $dark ? member_color_to_dark_dict[choice.color] : choice.color};
+             color: { $dark ? get_dark_text_color(choice.color) : 'black'}"
+      class="{choice.color=='#fff' ? 'p-0 border-2 border-gray' : 'p-0.5'} rounded m-0.5 pl-1 pr-1.5">
         <input
         id="TagUpdateColorRadio-{choice.value}"
         type="radio" bind:group={color} value={choice.color}>
-        {choice.value}
+        {$_(t[choice.value])}
     </label>
     {/each}
 </div>
 <PinkButton id="TagUpdateButton" onClick={onClick} strong={true}>
-    결정했어요!
+  {$_(t.결정했어요)}!
 </PinkButton>

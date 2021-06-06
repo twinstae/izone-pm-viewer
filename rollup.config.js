@@ -28,7 +28,7 @@ const serve = () => ({
         const options = {
             assetsDir: [assetsDir, distDir],
             entrypoint: `${assetsDir}/__app.html`,
-            script: `${buildDir}/main.js`
+            script: `${buildDir}/main.js`,
         }
         spassr({ ...options, port: 5000 })
         spassr({ ...options, ssr: true, port: 5005, ssrOptions: { inlineDynamicImports: true, dev: true } })
@@ -83,7 +83,7 @@ export default {
         production && terser(),
         !production && !isNollup && serve(),
         !production && !isNollup && livereload(distDir), // refresh entire window when code is updated
-        !production && isNollup && Hmr({ inMemory: true, public: assetsDir, }), // refresh only updated code
+        !production && isNollup && Hmr({ host: "0.0.0.0", inMemory: true, public: assetsDir }), // refresh only updated code
         {
             // provide node environment on the client
             transform: code => ({

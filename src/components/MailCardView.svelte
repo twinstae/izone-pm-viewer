@@ -1,6 +1,6 @@
 <script lang="ts">
 import MailCardItem from "./MailCardItem.svelte";
-export let mail_list: Mail[];
+export let mail_list: MailT[];
 
 </script>
 <div

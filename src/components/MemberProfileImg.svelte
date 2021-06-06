@@ -26,12 +26,14 @@ function onUp(_: Event){
 
 </script>
 {#if is_mp4 && !is_staff}
+  {#key member}
   <video autoplay loop 
          on:pointerdown={onDown} on:pointerup={onUp}
          class="w-12 h-12 rounded-full border-2 float-left {$dark ? 'border-gray-700' : 'border-gray-100'}">
     <source src="{image_root}{src}" type="video/mp4">
     <track kind="captions">
   </video>
+  {/key}
 {:else}
 <img src="{image_root}{src}"
      on:pointerdown={onDown} on:pointerup={onUp}

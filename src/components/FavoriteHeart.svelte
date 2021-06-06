@@ -1,6 +1,7 @@
 <script lang="ts">
 import {all_tag_dict} from "../stores/all_tag_dict";
-import {favorite, tag_to_mail_dict} from "../stores/tag_to_mail_dict";
+import { tag_to_mail_dict} from "../stores/tag_to_mail_dict";
+import { favorite } from "../stores/tag";
 import Icon from 'fa-svelte';
 import {faStar} from '@fortawesome/free-solid-svg-icons/faStar';
 import { faStar as emptyStar} from '@fortawesome/free-regular-svg-icons/faStar';
@@ -30,4 +31,4 @@ function onFavorite(){
 </label>
 <input type="checkbox"
 class="hidden"
-id="favorite"/>
+id="favorite-{pm_id}"/>

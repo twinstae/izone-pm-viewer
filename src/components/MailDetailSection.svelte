@@ -1,13 +1,10 @@
 <script lang="ts">
 import MailDetailCard from './MailDetailCard.svelte';
 import AllTagList from './tags/AllTagList.svelte';
-import { isDesktop, isMobile, show_list, show_tag_list } from '../stores/now';
+import { isDesktop, isMobile, show_album, show_list, show_tag_list } from '../stores/now';
 import PapagoLink from './buttons/PapagoLink.svelte';
-import ShowTagListInput from './tags/ShowTagListInput.svelte';
 import DarkModeButton from './buttons/DarkModeButton.svelte';
 
-let height;
-$: over = 650 < height;
 </script>
 <style>
     #MailDetailSection {
@@ -18,16 +15,12 @@ $: over = 650 < height;
 
 <section
 id="MailDetailSection"
-class:hidden={$isMobile && $show_list}
-class="h-full p-3 {$isDesktop ? "w-1/2 lg:w-1/3 xl:w-1/4" :"w-full"} flex flex-col"
-bind:clientHeight={height}>
-    <div class="flex flex-row m-1">
-        <PapagoLink />
-        <DarkModeButton />
-        {#if !over && $isDesktop} 
-            <ShowTagListInput />
-        {/if}
-    </div>
-    <AllTagList hidden={!((over || $show_tag_list) && $isDesktop)}/>
-    <MailDetailCard show={over || $show_tag_list}/>
+class:hidden={($isMobile && $show_list) || $show_album}
+class="h-full p-3 {$isDesktop ? 'w-1/2 lg:w-1/3 xl:w-1/4' :'w-full'} flex flex-col">
+  <div class="flex flex-row m-1" style="z-index:1;">
+    <PapagoLink />
+    <DarkModeButton />
+  </div>
+  <AllTagList hidden={$isMobile}/>
+  <MailDetailCard />
 </section>

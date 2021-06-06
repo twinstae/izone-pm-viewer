@@ -18,7 +18,7 @@ export let hidden: boolean;
 export let index: number;
 
 $: onMailSelected = ()=>{
-    if(pm){
+    if(pm && pm.member){
         $now_pm=pm
         $show_list = false;
         $goto("./", { ...$params, showList: $show_list, now_pm: $now_pm.id});
@@ -36,9 +36,18 @@ $: getTags = (pm: MailT) => {
     return [];
 };
 
-$: processed_preview = $replaceWizone(pm.preview)
-    .replace('&gt;', '>').replace('&lt;', '<')
-    .slice(0, 45);
+
+$: processed_preview = $replaceWizone(pm.body || "")
+    .replace(/<\/p>/g, ' ')
+    .replace(/<br>/g, ' ')
+    .replace(/<[^>]+>/g, '')
+    .replace('&lt;', '<').replace('&lt', '<')
+    .replace('&gt;','>').replace('&gt','>')
+    .replace(/&nbsp;/g, "")
+    .replace(/&amp;/g, "&")
+    .replace(/\{이미지\}/g, '')
+    .slice(0, 50)
+
 </script>
 
 <style>
@@ -53,7 +62,7 @@ $: processed_preview = $replaceWizone(pm.preview)
 
 <li
   id="MailItem-{index}"
-  style="height: {$isDesktop ? '62px' : '84px'};"
+  style="height: 62px;"
   class:hidden={hidden}
   class:Unread={$is_unread(pm.id)}
   class="rounded p-1 w-full leading-relaxed blur
@@ -70,26 +79,22 @@ $: processed_preview = $replaceWizone(pm.preview)
         <p class="truncate">
             <MemberTag member_name={pm.member}/>
             <TimeStampTag time={pm.time}/>
-            {#if $isMobile }<br/>{/if}
             {#each getTags(pm) as tag} <Tag tag={tag}/> {/each}
-            {pm.subject}
-        </p>
-        <p class="ml-1 mt-1 text-sm truncate">
-        {processed_preview || "..."}
+            <br/>
+            <span class="font-semibold">{pm.subject}</span>
+            <span class="text-sm text-gray-400">{processed_preview || "..."}</span>
         </p>
       {:else}
-        <img class="{$isDesktop ? 'h-14' : 'h-20'} ml-auto mr-auto block"
+        <img class="h-14 ml-auto mr-auto block"
           src="{image_root}/izone-logo-card.png" alt="empty">
       {/if}
-
     </div>
     {/key}
-
 </li>
 
 {#if hidden}
 {#key pm}
-<li class="{$dynamic_dark_border} border-b-2 rounded w-full text-gray-300 truncate "
+<li class="{$dynamic_dark_border} border-b-2 rounded w-full text-gray-300 truncate p-0.5"
     style="font-size:10px; height: 20px;"
     in:fade={{ duration: 300}}>
     {#if pm.member}
