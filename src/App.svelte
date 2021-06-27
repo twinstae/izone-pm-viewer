@@ -138,8 +138,8 @@ class="flex w-screen h-screen relative">
   span.wizone::after {
     background: linear-gradient(
       to right bottom,
-      #f1d2e7,#f1c3aa,#e382a9, #e18784,
-      #f3aa51, #fcf695, #fff,#cee5d5,
+      #f1d2e7, #f1c3aa, #e382a9, #e18784,
+      #f3aa51, #fcf695, #fff,    #cee5d5,
       #a7e0e1, #b7d3e9, #bbb0dc, #7592d7
     );
     position: absolute;

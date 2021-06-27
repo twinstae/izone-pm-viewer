@@ -112,7 +112,6 @@ function onKeydown(e: KeyboardEvent){
     if (e.key == "Escape") return document.activeElement.blur();
     return null;
   }
-  console.log(e.key, e.code);
   if (e.key == "ArrowRight" || e.key == "l") return goToNextMail();
   if (e.key == "ArrowLeft" || e.key == "h") return goToPreviousMail();
   if (e.key == "ArrowDown" || e.key == "j") return scrollUpDown(200);

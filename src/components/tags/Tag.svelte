@@ -24,8 +24,6 @@ export let onRemove = null;
 
 const onSelectTag = (tag: TagT)=>
 (event: MouseEvent)=>{
-    event.stopPropagation();
-
     $selected_tag_value = tag.value;
     $goto("./", {...$params, tag: tag.value, nowPage:1})
 }
@@ -104,7 +102,7 @@ $: style = tag.color=="rainbow"
   <span
   on:pointerdown={onTouchDown}
   on:pointerup={onTouchUp}
-  on:click={onSelectTag(tag)}
+  on:click|stopPropagation={onSelectTag(tag)}
   class="Tag-{tag.value.replace(' ', '-')}">
       {#if tag.value=="💖"}
           <Icon icon={faStar} />
@@ -121,7 +119,7 @@ $: style = tag.color=="rainbow"
   </span>
   {#if onRemove || (canDelete && tag.value!="생일")}
     <span
-      on:click={onRemove ? onRemove : () => $onDeleteTag(tag)}
+      on:click|stopPropagation={onRemove ? onRemove : () => $onDeleteTag(tag)}
       class="{onRemove ? 'Remove' : 'Delete'}Tag-{tag.value.replace(' ', '-')}">
     X
     </span>

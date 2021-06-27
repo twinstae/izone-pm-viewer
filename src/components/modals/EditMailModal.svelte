@@ -24,8 +24,6 @@ function onPaste(event: ClipboardEvent){
 }
 
 function onDrop(e: DragEvent){
-  e.stopPropagation();
-  e.preventDefault();
   const x = e.clientX;
   const y = e.clientY;
   const file = e.dataTransfer.files[0];
@@ -91,7 +89,7 @@ document.execCommand('defaultParagraphSeparator', false, 'p');
      bind:this={bodyEditor}
      bind:innerHTML={editorHTML}
      on:paste={onPaste}
-     on:drop={onDrop}>
+     on:drop|preventDefault|stopPropagation={onDrop}>
 </div>
 {#if images.length > 0}<h4>이미지</h4>{/if}
 <ul>

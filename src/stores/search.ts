@@ -11,6 +11,7 @@ import {EMPTY_MAIL} from './constants';
 const options = {
     useExtendedSearch: true,
     keys: [
+        "id",
         "subject",
         "preview",
         "body"
@@ -21,7 +22,7 @@ let fuse = derived(
     pm_list,
     $pm_list=>new Fuse($pm_list.map(pm=>({
       ...pm,
-      body: pm.body.replace(/&nbsp;/g, '') // .replace(/<[^>]+>/g, "")
+      body: pm.body.replace(/&nbsp;/g, '').replace(/<[^>]+>/g, "")
     })), options)
 );
 

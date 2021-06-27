@@ -1,10 +1,13 @@
 <script lang="ts">
 import { goto, params } from '@roxi/routify'
+import { getContext } from 'svelte';
 import { _ } from 'svelte-i18n';
 import t from '../locales';
 import { now_page, show_list } from "../stores/now";
 import { dynamic_dark_bg, dynamic_dark_border } from '../stores/preferences';
 import { search_input } from "../stores/search";
+import PinkButton from './buttons/PinkButton.svelte';
+import ImageSearchModal from './modals/ImageSearchModal.svelte';
 
 export let search_length: number;
 
@@ -29,6 +32,8 @@ function onKeydown(event: KeyboardEvent){
   if (event.key == "Enter") return search();
   timeout = setTimeout(search, 500);
 }
+
+const {open} = getContext("simple-modal");
 </script>
 
 <span class="tooltip">
@@ -44,4 +49,6 @@ function onKeydown(event: KeyboardEvent){
 
   <span class="tooltiptext">/ (나오려면 Esc)</span>
 </span>
-
+<PinkButton id="ImageSearchButton" onClick={()=>{open(ImageSearchModal)}}>
+  🖼️
+</PinkButton>

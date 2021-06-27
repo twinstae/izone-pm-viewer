@@ -9,13 +9,11 @@ import { _ } from 'svelte-i18n';
 import t from '../locales';
 
 function goToGallery(e: MouseEvent){
-  e.preventDefault();
   show_album.set(true);
   $goto("/", {...$params, show_album: true })
 }
 
 function goToList(e: MouseEvent){
-  e.preventDefault();
   show_album.set(false)
   $goto('/', {...$params, show_album: false });
 }
@@ -27,7 +25,7 @@ function goToList(e: MouseEvent){
   <nav
     class="absolute bottom-0 w-full flex justify-between rounded-lg">
     <a
-      on:click={goToList}
+      on:click|preventDefault={goToList}
       href="./"
       class:active={!$show_album}
       class="NavButton w-1/2 md:w-48 {$dynamic_dark_bg('bg-white')}">
@@ -35,7 +33,7 @@ function goToList(e: MouseEvent){
       {$_(t.메일)}
     </a>
     <a
-      on:click={goToGallery}
+      on:click|preventDefault={goToGallery}
       href="./"
       class:active={$show_album}
       class="NavButton w-1/2 md:w-48 {$dynamic_dark_bg('bg-white')}">

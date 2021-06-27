@@ -17,6 +17,7 @@ const assetsDir = 'assets'
 const buildDir = `dist/build`
 const isNollup = !!process.env.NOLLUP
 const production = !process.env.ROLLUP_WATCH;
+import analyze from 'rollup-plugin-analyzer';
 
 // clear previous builds
 removeSync(buildDir)
@@ -100,6 +101,7 @@ export default {
             mode: 'production'
         }),
         production && copyToDist(),
+      analyze(),
     ],
     watch: {
         clearScreen: false,
